@@ -1,0 +1,30 @@
+@import '../variables.css';
+
+
+.root {
+}
+
+
+.leftMenu {
+	position: absolute;
+    top: 0;
+    bottom: 0;
+    width: var(--fixed-menu-width);
+}
+.rightMenu {
+	margin-left: var(--fixed-menu-width);
+}
+
+.fixedButton {
+	margin-left: 14px;
+	margin-top: 6px;
+	margin-bottom: 12px;
+}
+.logo {
+	margin-left: 10px;
+	margin-top: 10px;
+}
+.bottomSection {
+	position: absolute;
+	bottom: 2px;
+}
