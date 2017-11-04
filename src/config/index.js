@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
 
-var config = {};
+let config = {};
 if (process.env.BROWSER) {
   // for client side code, only load shared config
   config = require('./enviroment/shared');

@@ -31,7 +31,7 @@ class Header extends React.Component {
   render() {
     return (
       <MuiThemeProvider>
-        <AppBar title="App Name" style={styles.header} onLeftIconButtonTouchTap={this.handleToggleButtonTouchTap.bind(this)}/>
+        <AppBar title="App Name" style={styles.header} onLeftIconButtonTouchTap={this.handleToggleButtonTouchTap.bind(this)}>  </AppBar>
       </MuiThemeProvider>
     );
   }

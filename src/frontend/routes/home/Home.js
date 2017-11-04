@@ -13,6 +13,7 @@ import { graphql, compose } from 'react-apollo';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import s from './Home.css';
 
+
 class Home extends React.Component {
   render() {
     return (

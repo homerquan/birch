@@ -5,8 +5,8 @@ import s from './Login.css';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import {bindActionCreators} from 'redux';  
-import {connect} from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import * as sessionActions from '../../actions/session';
 
 class Login extends React.Component {
@@ -16,7 +16,7 @@ class Login extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {credentials: {email: '', password: ''}}
+    this.state = { credentials: { email: '', password: '' } };
     this.onChange = this.onChange.bind(this);
     this.onSave = this.onSave.bind(this);
   }
@@ -25,7 +25,7 @@ class Login extends React.Component {
     const field = event.target.name;
     const credentials = this.state.credentials;
     credentials[field] = event.target.value;
-    return this.setState({credentials: credentials});
+    return this.setState({ credentials });
   }
 
   onSave(event) {
@@ -36,35 +36,44 @@ class Login extends React.Component {
   render() {
     return (
       <MuiThemeProvider>
-      <div className={s.root}>
-        <div className={s.container}>
-          <h1>{this.props.title}</h1>
-          <p className={s.lead}>to continue to convospot</p>
-          <form>
-            <div className={s.formGroup}>
-              <TextField hintText="Username or email" type="text" name="email" autoFocus value={this.state.credentials.email}
-            onChange={this.onChange}/> 
-            </div>
-            <div className={s.formGroup}>
-              <TextField hintText="Password"
-                type="password"
-                name="password" value={this.state.credentials.password}
-            onChange={this.onChange}/> 
-            </div>
-            <div className={s.formGroup}>
-               <RaisedButton label="Login" primary={true} type="submit" onClick={this.onSave}/>
-            </div> 
-          </form>
+        <div className={s.root}>
+          <div className={s.container}>
+            <h1>{this.props.title}</h1>
+            <p className={s.lead}>to continue to convospot</p>
+            <form>
+              <div className={s.formGroup}>
+                <TextField
+                  hintText="Username or email"
+                  type="text"
+                  name="email"
+                  autoFocus
+                  value={this.state.credentials.email}
+                  onChange={this.onChange}
+                />
+              </div>
+              <div className={s.formGroup}>
+                <TextField
+                  hintText="Password"
+                  type="password"
+                  name="password"
+                  value={this.state.credentials.password}
+                  onChange={this.onChange}
+                />
+              </div>
+              <div className={s.formGroup}>
+                <RaisedButton label="Login" primary type="submit" onClick={this.onSave} />
+              </div>
+            </form>
+          </div>
         </div>
-      </div>
       </MuiThemeProvider>
     );
   }
 }
 
-function mapDispatchToProps(dispatch) {  
+function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(sessionActions, dispatch)
+    actions: bindActionCreators(sessionActions, dispatch),
   };
 }
 

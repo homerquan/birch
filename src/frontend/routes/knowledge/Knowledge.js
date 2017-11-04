@@ -21,9 +21,9 @@ class Knowledge extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {knowledge: ''};
-    KnowledgeApi.get().then(resp=>{
-      this.setState({knowledge:resp.text});
+    this.state = { knowledge: '' };
+    KnowledgeApi.get().then(resp => {
+      this.setState({ knowledge: resp.text });
       document.getElementById("demoKB").value = resp.text;
     });
     this.onSave = this.onSave.bind(this);
@@ -31,9 +31,9 @@ class Knowledge extends React.Component {
   }
 
 
-   onChange(event) {
-    const text  = event.target.value;
-    return this.setState({knowledge:text});
+  onChange(event) {
+    const text = event.target.value;
+    return this.setState({ knowledge: text });
   }
 
   onSave(event) {

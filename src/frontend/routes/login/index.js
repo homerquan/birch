@@ -11,6 +11,7 @@ import React from 'react';
 import Layout from '../../components/Layout';
 import Login from '../../views/login/Login';
 
+
 const title = 'Log In';
 
 export default {
