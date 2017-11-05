@@ -32,8 +32,7 @@ const config = {
   },
 
   module: {
-    rules: [
-      {
+    rules: [{
         test: /\.jsx?$/,
         loader: 'babel-loader',
         include: [
@@ -82,8 +81,7 @@ const config = {
         include: [
           path.resolve(__dirname, '../src'),
         ],
-        use: [
-          {
+        use: [{
             loader: 'isomorphic-style-loader',
           },
           {
@@ -116,8 +114,7 @@ const config = {
         exclude: [
           path.resolve(__dirname, '../src'),
         ],
-        use: [
-          {
+        use: [{
             loader: 'isomorphic-style-loader',
           },
           {
@@ -162,8 +159,7 @@ const config = {
       },
 
       // Exclude dev modules from production build
-      ...isDebug ? [] : [
-        {
+      ...isDebug ? [] : [{
           test: path.resolve(__dirname, '../node_modules/redbox-react/lib/index.js'),
           use: 'null-loader',
         },
