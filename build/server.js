@@ -388,14 +388,14 @@ class Layout extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
         __self: this
       }),
       this.props.children,
-      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__Feedback__["a" /* default */], {
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_8__Footer__["a" /* default */], {
         __source: {
           fileName: _jsxFileName,
           lineNumber: 49
         },
         __self: this
       }),
-      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_8__Footer__["a" /* default */], {
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__Feedback__["a" /* default */], {
         __source: {
           fileName: _jsxFileName,
           lineNumber: 50
@@ -5773,11 +5773,11 @@ ErrorPage.propTypes = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_apollo___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_react_apollo__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_isomorphic_style_loader_lib_withStyles__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_isomorphic_style_loader_lib_withStyles___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_isomorphic_style_loader_lib_withStyles__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_Layout_GridOneOne__ = __webpack_require__(86);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_react_page_layout__ = __webpack_require__(49);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_react_page_layout___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_react_page_layout__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__Home_css__ = __webpack_require__(158);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__Home_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__Home_css__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_react_page_layout__ = __webpack_require__(49);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_react_page_layout___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_react_page_layout__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__Home_css__ = __webpack_require__(158);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__Home_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__Home_css__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_Layout_grids__ = __webpack_require__(232);
 var _jsxFileName = '/Users/homer/Projects/convospot-console/src/frontend/routes/home/Home.js';
 /**
  * React Starter Kit (https://www.reactstarterkit.com/)
@@ -5796,31 +5796,47 @@ var _jsxFileName = '/Users/homer/Projects/convospot-console/src/frontend/routes/
 
 
 
-const layouts = {
-  'grid-one-one': __WEBPACK_IMPORTED_MODULE_4__components_Layout_GridOneOne__["a" /* default */]
-};
-
 class Home extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
   render() {
     return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-      __WEBPACK_IMPORTED_MODULE_5_react_page_layout__["LayoutProvider"],
-      { layouts: layouts, __source: {
+      __WEBPACK_IMPORTED_MODULE_4_react_page_layout__["LayoutProvider"],
+      { layouts: __WEBPACK_IMPORTED_MODULE_6__components_Layout_grids__["a" /* default */], __source: {
           fileName: _jsxFileName,
-          lineNumber: 25
+          lineNumber: 22
         },
         __self: this
       },
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-        __WEBPACK_IMPORTED_MODULE_5_react_page_layout__["Page"],
-        { layout: 'grid-one-one', __source: {
+        __WEBPACK_IMPORTED_MODULE_4_react_page_layout__["Page"],
+        { layout: 'grid-one-two', __source: {
             fileName: _jsxFileName,
-            lineNumber: 26
+            lineNumber: 23
           },
           __self: this
         },
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          __WEBPACK_IMPORTED_MODULE_5_react_page_layout__["Section"],
+          __WEBPACK_IMPORTED_MODULE_4_react_page_layout__["Section"],
           { slot: 'top', __source: {
+              fileName: _jsxFileName,
+              lineNumber: 24
+            },
+            __self: this
+          },
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'h1',
+            {
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 25
+              },
+              __self: this
+            },
+            ' THIS IS THE PAGE TITLE '
+          )
+        ),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          __WEBPACK_IMPORTED_MODULE_4_react_page_layout__["Section"],
+          { slot: 'main', __source: {
               fileName: _jsxFileName,
               lineNumber: 27
             },
@@ -5835,12 +5851,12 @@ class Home extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
               },
               __self: this
             },
-            ' THIS IS THE PAGE TITLE '
+            ' THIS IS THE PAGE CONTENT '
           )
         ),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          __WEBPACK_IMPORTED_MODULE_5_react_page_layout__["Section"],
-          { slot: 'main', __source: {
+          __WEBPACK_IMPORTED_MODULE_4_react_page_layout__["Section"],
+          { slot: 'right', __source: {
               fileName: _jsxFileName,
               lineNumber: 30
             },
@@ -5855,7 +5871,7 @@ class Home extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
               },
               __self: this
             },
-            ' THIS IS THE PAGE CONTENT '
+            ' THIS IS THE RIGHT CONTENT '
           )
         )
       )
@@ -5863,7 +5879,7 @@ class Home extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
   }
 }
 
-/* harmony default export */ __webpack_exports__["a"] = (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_react_apollo__["compose"])(__WEBPACK_IMPORTED_MODULE_3_isomorphic_style_loader_lib_withStyles___default()(__WEBPACK_IMPORTED_MODULE_6__Home_css___default.a))(Home));
+/* harmony default export */ __webpack_exports__["a"] = (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_react_apollo__["compose"])(__WEBPACK_IMPORTED_MODULE_3_isomorphic_style_loader_lib_withStyles___default()(__WEBPACK_IMPORTED_MODULE_5__Home_css___default.a))(Home));
 
 /***/ }),
 /* 117 */
@@ -8065,6 +8081,202 @@ module.exports = require("winston");
 __webpack_require__(51);
 module.exports = __webpack_require__(50);
 
+
+/***/ }),
+/* 231 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_apollo__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_apollo___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_apollo__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_isomorphic_style_loader_lib_withStyles__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_isomorphic_style_loader_lib_withStyles___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_isomorphic_style_loader_lib_withStyles__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_react_styled_flexboxgrid__ = __webpack_require__(217);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_react_styled_flexboxgrid___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_react_styled_flexboxgrid__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_react_page_layout__ = __webpack_require__(49);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_react_page_layout___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_react_page_layout__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__GridOneTwo_css__ = __webpack_require__(234);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__GridOneTwo_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__GridOneTwo_css__);
+var _jsxFileName = '/Users/homer/Projects/convospot-console/src/frontend/components/Layout/GridOneTwo.js';
+/*
+ * Copyright (C) Reflen Inc.
+ *
+ * This file is part of convospot-console. The codes can not be copied and/or distributed without permission
+ *
+ * @Author: homer
+ * @Email: homer@convospot.io
+ * @Date:   2017-11-04 19:48:49
+ * @Last Modified by:   homer
+ * @Last Modified time: 2017-11-05 13:47:50
+ */
+
+
+
+
+
+
+
+
+class GridOneTwo extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
+  render() {
+    return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      __WEBPACK_IMPORTED_MODULE_3_react_styled_flexboxgrid__["Grid"],
+      { fluid: true, __source: {
+          fileName: _jsxFileName,
+          lineNumber: 23
+        },
+        __self: this
+      },
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        __WEBPACK_IMPORTED_MODULE_3_react_styled_flexboxgrid__["Row"],
+        {
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 24
+          },
+          __self: this
+        },
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          __WEBPACK_IMPORTED_MODULE_3_react_styled_flexboxgrid__["Col"],
+          { xs: 12, md: 12, __source: {
+              fileName: _jsxFileName,
+              lineNumber: 25
+            },
+            __self: this
+          },
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4_react_page_layout__["Slot"], { name: 'top', __source: {
+              fileName: _jsxFileName,
+              lineNumber: 26
+            },
+            __self: this
+          })
+        )
+      ),
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        __WEBPACK_IMPORTED_MODULE_3_react_styled_flexboxgrid__["Row"],
+        {
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 29
+          },
+          __self: this
+        },
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          __WEBPACK_IMPORTED_MODULE_3_react_styled_flexboxgrid__["Col"],
+          { xs: 12, md: 8, __source: {
+              fileName: _jsxFileName,
+              lineNumber: 30
+            },
+            __self: this
+          },
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4_react_page_layout__["Slot"], { name: 'main', __source: {
+              fileName: _jsxFileName,
+              lineNumber: 31
+            },
+            __self: this
+          })
+        ),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          __WEBPACK_IMPORTED_MODULE_3_react_styled_flexboxgrid__["Col"],
+          { xs: 12, md: 4, __source: {
+              fileName: _jsxFileName,
+              lineNumber: 33
+            },
+            __self: this
+          },
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4_react_page_layout__["Slot"], { name: 'right', __source: {
+              fileName: _jsxFileName,
+              lineNumber: 34
+            },
+            __self: this
+          })
+        )
+      )
+    );
+  }
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_react_apollo__["compose"])(__WEBPACK_IMPORTED_MODULE_2_isomorphic_style_loader_lib_withStyles___default()(__WEBPACK_IMPORTED_MODULE_5__GridOneTwo_css___default.a))(GridOneTwo));
+
+/***/ }),
+/* 232 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_Layout_GridOneOne__ = __webpack_require__(86);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_Layout_GridOneTwo__ = __webpack_require__(231);
+/*
+ * Copyright (C) Reflen Inc.
+ *
+ * This file is part of convospot-console. The codes can not be copied and/or distributed without permission
+ *
+ * @Author: homer
+ * @Email: homer@convospot.io
+ * @Date:   2017-11-05 13:49:02
+ * @Last Modified by:   homer
+ * @Last Modified time: 2017-11-05 14:01:45
+ */
+
+
+
+
+const grids = {
+  'grid-one-one': __WEBPACK_IMPORTED_MODULE_0__components_Layout_GridOneOne__["a" /* default */],
+  'grid-one-two': __WEBPACK_IMPORTED_MODULE_1__components_Layout_GridOneTwo__["a" /* default */]
+};
+
+/* harmony default export */ __webpack_exports__["a"] = (grids);
+
+/***/ }),
+/* 233 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(1)(true);
+// imports
+
+
+// module
+exports.push([module.i, "/*\n* @Author: homer\n* @Date:   2017-11-05 13:46:52\n* @Last Modified by:   homer\n* @Last Modified time: 2017-11-05 13:46:52\n*/\n", "", {"version":3,"sources":["/Users/homer/Projects/convospot-console/src/frontend/components/Layout/GridOneTwo.css"],"names":[],"mappings":"AAAA;;;;;EAKE","file":"GridOneTwo.css","sourcesContent":["/*\n* @Author: homer\n* @Date:   2017-11-05 13:46:52\n* @Last Modified by:   homer\n* @Last Modified time: 2017-11-05 13:46:52\n*/\n"],"sourceRoot":""}]);
+
+// exports
+
+
+/***/ }),
+/* 234 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+    var content = __webpack_require__(233);
+    var insertCss = __webpack_require__(2);
+
+    if (typeof content === 'string') {
+      content = [[module.i, content, '']];
+    }
+
+    module.exports = content.locals || {};
+    module.exports._getContent = function() { return content; };
+    module.exports._getCss = function() { return content.toString(); };
+    module.exports._insertCss = function(options) { return insertCss(content, options) };
+    
+    // Hot Module Replacement
+    // https://webpack.github.io/docs/hot-module-replacement
+    // Only activated in browser context
+    if (false) {
+      var removeCss = function() {};
+      module.hot.accept("!!../../../../node_modules/css-loader/index.js??ref--1-1!../../../../node_modules/postcss-loader/lib/index.js??ref--1-2!./GridOneTwo.css", function() {
+        content = require("!!../../../../node_modules/css-loader/index.js??ref--1-1!../../../../node_modules/postcss-loader/lib/index.js??ref--1-2!./GridOneTwo.css");
+
+        if (typeof content === 'string') {
+          content = [[module.id, content, '']];
+        }
+
+        removeCss = insertCss(content, { replace: true });
+      });
+      module.hot.dispose(function() { removeCss(); });
+    }
+  
 
 /***/ })
 /******/ ]);

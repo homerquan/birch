@@ -46,8 +46,8 @@ class Layout extends React.Component {
         <Header onToggleChange={this.toggleSidebar} onToggleChange={this.toggleSidebar}/>
         <Sidebar open={this.state.sideBarOpen} onClose={this.closeSidebar}/>
         {this.props.children}
-        <Feedback />
         <Footer />
+        <Feedback />
       </div>
     );
   }
