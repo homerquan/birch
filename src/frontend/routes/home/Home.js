@@ -14,7 +14,9 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import { Page, Section, LayoutProvider } from 'react-page-layout';
 import s from './Home.css';
 import grids from '../../components/Layout/grids';
-
+import Title from '../../components/Title/Title';
+import Dashboard from '../../components/Dashboard/Dashboard';
+import Timeline from '../../components/Timeline/Timeline';
 
 class Home extends React.Component {
   render() {
@@ -22,13 +24,13 @@ class Home extends React.Component {
       <LayoutProvider layouts={grids}>
 				<Page layout="grid-one-two">
 				    <Section slot="top">
-						<h1> THIS IS THE PAGE TITLE </h1>
+						<Title/>
 					</Section>
 					<Section slot="main">
-						<h1> THIS IS THE PAGE CONTENT </h1>
+						<Dashboard/>
 					</Section>
 					<Section slot="right">
-						<h1> THIS IS THE RIGHT CONTENT </h1>
+						<Timeline/>
 					</Section>
 				</Page>
 	 </LayoutProvider>

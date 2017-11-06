@@ -109,8 +109,8 @@ class Sidebar extends React.Component {
             </List>
             <Divider />
             <List>
-              <ListItem leftIcon={<HelpIcon />} button component={Link} to='/conversations'>Conversations</ListItem> 
-              <ListItem leftIcon={<HelpIcon />} button component={Link} to='/knowledge'>Knowledge</ListItem>
+              <ListItem leftIcon={<HelpIcon />} button ><a href="/conversations">Conversations</a></ListItem> 
+              <ListItem leftIcon={<HelpIcon />} button ><a href="/knowldge">Knowledge</a></ListItem>
             </List>
           </div>
       </Drawer>

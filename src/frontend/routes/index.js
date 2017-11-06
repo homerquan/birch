@@ -18,6 +18,7 @@ export default {
   children: [
     require('./home').default,
     require('./conversations').default,
+    require('./conversation').default,
     require('./knowledge').default,
     require('./contact').default,
     require('./login').default,
