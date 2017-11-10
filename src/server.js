@@ -20,7 +20,7 @@ import ReactDOM from 'react-dom/server';
 import { getDataFromTree } from 'react-apollo';
 import PrettyError from 'pretty-error';
 import config from './config';
-import backendServer from './backend';
+// import backendServer from './backend';
 import frontendServer from './frontend';
 
 const app = express();
@@ -59,7 +59,7 @@ const socketio = require('socket.io')(server, {
 
 // Load backend (api, auth, socketio, graphQL)
 // -----------------------------------------------------------------------------
-backendServer(app, socketio);
+// backendServer(app, socketio);
 
 // Load frontend (react)
 // -----------------------------------------------------------------------------
