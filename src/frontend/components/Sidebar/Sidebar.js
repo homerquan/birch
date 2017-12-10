@@ -19,7 +19,7 @@ import theme from '../theme';
 import {spacing, typography, zIndex} from 'material-ui/styles';
 import logoUrl from './logo.png';
 import logoMinUrl from './logo-min.png';
-import {deepPurple500} from 'material-ui/styles/colors';
+import {deepPurple500,white} from 'material-ui/styles/colors';
 import IconButton from 'material-ui/IconButton';
 import HelpIcon from 'react-material-icons/icons/action/help-outline';
 import AccountIcon from 'react-material-icons/icons/action/account-circle';
@@ -27,6 +27,9 @@ import AddIcon from 'react-material-icons/icons/content/add';
 import CloseIcon from 'react-material-icons/icons/navigation/chevron-left';
 import ListIcon from 'react-material-icons/icons/action/list';
 import OverviewIcon from 'react-material-icons/icons/action/event-seat';
+import ConversationIcon from 'react-material-icons/icons/communication/chat';
+import ConversationsIcon from 'react-material-icons/icons/communication/forum';
+import KnowledgeIcon from 'react-material-icons/icons/social/school';
 import Link from 'react-router-dom/Link';
 
 const styles = {
@@ -35,6 +38,10 @@ const styles = {
     paddingLeft: spacing.desktopGutter,
     marginTop: 24,
     marginBottom: 8,
+  },
+  link: {
+    textDecoration: 'none',
+    color: white,
   },
   fixedMenu: {
     backgroundColor: deepPurple500,
@@ -109,8 +116,9 @@ class Sidebar extends React.Component {
             </List>
             <Divider />
             <List>
-              <ListItem leftIcon={<HelpIcon />} button ><a href="/conversations">Conversations</a></ListItem> 
-              <ListItem leftIcon={<HelpIcon />} button ><a href="/knowldge">Knowledge</a></ListItem>
+              <ListItem leftIcon={<ConversationIcon />} button ><a style={styles.link} href="/conversations">Conversations</a></ListItem> 
+               <ListItem leftIcon={<ConversationsIcon />} button ><a style={styles.link} href="/conversation">Conversation</a></ListItem>
+              <ListItem leftIcon={<KnowledgeIcon />} button ><a style={styles.link} href="/knowledge">Knowledge</a></ListItem>
             </List>
           </div>
       </Drawer>

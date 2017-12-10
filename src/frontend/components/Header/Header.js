@@ -7,31 +7,78 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
-import React from 'react';
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import s from './Header.css';
-import Link from '../Link';
-import AppBar from 'material-ui/AppBar';
-import MenuItem from 'material-ui/MenuItem';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import {deepPurple500} from 'material-ui/styles/colors';
+import React from "react";
+import withStyles from "isomorphic-style-loader/lib/withStyles";
+import s from "./Header.css";
+import Link from "../Link";
+import AppBar from "material-ui/AppBar";
+import MenuItem from "material-ui/MenuItem";
+import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
+import { white } from "material-ui/styles/colors";
+import getMuiTheme from "material-ui/styles/getMuiTheme";
+import theme from "../theme";
+import Loader from "../Loader";
+import GlobalNotice from "../GlobalNotice";
+import Sticky from "react-stickynode";
 
 const styles = {
   header: {
-    backgroundColor: deepPurple500,
+    backgroundColor: white,
+    boxShadow: 'none'
   },
+  stickyHeader: {
+    backgroundColor: white
+  }
+};
+
+function LoadingIndicator(props) {
+  const loading = props.loading;
+  if (loading) {
+    return (<Loader />);
+  }
+  return null;
 };
 
 class Header extends React.Component {
-  
-  handleToggleButtonTouchTap = (event) => {
-     this.props.onToggleChange();
+  state = {
+    loading: true
+  };
+
+  handleToggleButtonTouchTap = e => {
+    this.props.onToggleChange();
+  };
+
+  handleStickyChange = e => {
+    if (e.status === Sticky.STATUS_FIXED) {
+      this.setState({ sticky: true });
+    } else {
+      this.setState({ sticky: false });
+    }
+  };
+
+  componentDidMount() {
+    setTimeout(() => this.setState({ loading: false }), 1500); // simulates loading of data
   }
 
   render() {
     return (
-      <MuiThemeProvider>
-        <AppBar title="Sample App" style={styles.header} onLeftIconButtonTouchTap={this.handleToggleButtonTouchTap.bind(this)}>  </AppBar>
+      <MuiThemeProvider muiTheme={getMuiTheme(theme)}>
+     
+        <div>
+          <LoadingIndicator loading={this.state.loading} />
+          <GlobalNotice />
+          <Sticky onStateChange={this.handleStickyChange}>
+          <AppBar
+            title=""
+            className={this.state.headerClass}
+            style={this.state.sticky ? styles.stickyHeader : styles.header}
+            onLeftIconButtonTouchTap={this.handleToggleButtonTouchTap.bind(
+              this
+            )}
+          >
+          </AppBar>
+          </Sticky>  
+        </div>
       </MuiThemeProvider>
     );
   }

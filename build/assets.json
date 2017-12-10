@@ -5,6 +5,9 @@
   "privacy": {
     "js": "/assets/privacy.chunk.js"
   },
+  "debug": {
+    "js": "/assets/debug.chunk.js"
+  },
   "about": {
     "js": "/assets/about.chunk.js"
   },

@@ -16,7 +16,6 @@ import normalizeCss from 'normalize.css';
 import s from './Layout.css';
 import Sidebar from '../Sidebar';
 import Header from '../Header';
-import Feedback from '../Feedback';
 import Footer from '../Footer';
 
 class Fullscreen extends React.Component {
@@ -46,7 +45,6 @@ class Fullscreen extends React.Component {
         <Header onToggleChange={this.toggleSidebar} onToggleChange={this.toggleSidebar}/>
         <Sidebar open={this.state.sideBarOpen} onClose={this.closeSidebar}/>
         {this.props.children}
-        <Feedback />
         <Footer />
       </div>
     );

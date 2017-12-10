@@ -16,7 +16,6 @@ import normalizeCss from 'normalize.css';
 import s from './Layout.css';
 import Sidebar from '../Sidebar';
 import Header from '../Header';
-import Feedback from '../Feedback';
 import Footer from '../Footer';
 
 class Layout extends React.Component {
@@ -25,7 +24,7 @@ class Layout extends React.Component {
   };
 
   state = {
-    sideBarOpen: false,
+    sideBarOpen: false
   };
 
   toggleSidebar = () => {
@@ -47,7 +46,6 @@ class Layout extends React.Component {
         <Sidebar open={this.state.sideBarOpen} onClose={this.closeSidebar}/>
         {this.props.children}
         <Footer />
-        <Feedback />
       </div>
     );
   }

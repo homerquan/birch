@@ -1,0 +1,16 @@
+@import '../variables.css';
+
+.globalNotice {
+	height: 40px;
+	background: #1e80e5;
+	color: white;
+	text-align: center;
+	.content {
+		display: inline-block;
+		margin-top: 8px;
+	}
+}
+
+.noticeButton {
+	float: right;
+}

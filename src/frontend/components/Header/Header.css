@@ -52,3 +52,11 @@
   font-size: 1.25em;
   margin: 0;
 }
+
+.header {
+  position: fixed;
+}
+
+.top-true {
+  background: black;
+}
