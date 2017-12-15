@@ -5,90 +5,91 @@
  *
  */
 
-import path from 'path';
-import Promise from 'bluebird';
-import React from 'react';
-import ReactDOM from 'react-dom/server';
-import { getDataFromTree } from 'react-apollo';
-import PrettyError from 'pretty-error';
-import createApolloClient from './core/createApolloClient';
-import App from './components/App';
-import Html from './components/Html';
-import { ErrorPageWithoutStyle } from './routes/error/ErrorPage';
-import errorPageStyle from './routes/error/ErrorPage.css';
-import createFetch from './createFetch';
-import router from './router';
-import schema from './data/schema';
-import assets from './assets.json'; // eslint-disable-line import/no-unresolved
-import configureStore from './store/configureStore';
-import { setRuntimeVariable } from './actions/runtime';
-import config from './config';
-
+import path from "path";
+import Promise from "bluebird";
+import React from "react";
+import ReactDOM from "react-dom/server";
+import { getDataFromTree } from "react-apollo";
+import PrettyError from "pretty-error";
+import createApolloClient from "./core/createApolloClient";
+import App from "./components/App";
+import Html from "./components/Html";
+import { ErrorPageWithoutStyle } from "./routes/error/ErrorPage";
+import errorPageStyle from "./routes/error/ErrorPage.css";
+import createFetch from "./createFetch";
+import router from "./router";
+import schema from "./data/schema";
+import assets from "./assets.json"; // eslint-disable-line import/no-unresolved
+import configureStore from "./store/configureStore";
+import { setRuntimeVariable } from "./actions/runtime";
+import config from "./config";
 
 //
 // Tell any CSS tooling (such as Material UI) to use all vendor prefixes if the
 // user agent is not known.
 // -----------------------------------------------------------------------------
 global.navigator = global.navigator || {};
-global.navigator.userAgent = global.navigator.userAgent || 'all';
+global.navigator.userAgent = global.navigator.userAgent || "all";
 
-const frontend = (app) => {
-//
-// Register server-side rendering middleware
-// -----------------------------------------------------------------------------
-  app.get('*', async (req, res, next) => {
+const frontend = app => {
+  //
+  // Register server-side rendering middleware
+  // -----------------------------------------------------------------------------
+  app.get("*", async (req, res, next) => {
     try {
       const css = new Set();
 
       const apolloClient = createApolloClient({
         schema,
-        rootValue: { request: req },
+        rootValue: { request: req }
       });
 
       const fetch = createFetch({
         baseUrl: config.api.serverUrl,
         cookie: req.headers.cookie,
-        apolloClient,
+        apolloClient
       });
 
       const initialState = {
-        user: req.user || null,
+        user: req.user || null
       };
 
       const store = configureStore(initialState, {
         cookie: req.headers.cookie,
         apolloClient,
         fetch,
-      // I should not use `history` on server.. but how I do redirection? follow universal-router
-        history: null,
+        // I should not use `history` on server.. but how I do redirection? follow universal-router
+        history: null
       });
 
-      store.dispatch(setRuntimeVariable({
-        name: 'initialNow',
-        value: Date.now(),
-      }));
+      store.dispatch(
+        setRuntimeVariable({
+          name: "initialNow",
+          value: Date.now()
+        })
+      );
 
-    // Global (context) variables that can be easily accessed from any React component
-    // https://facebook.github.io/react/docs/context.html
+      // Global (context) variables that can be easily accessed from any React component
+      // https://facebook.github.io/react/docs/context.html
       const context = {
-      // Enables critical path CSS rendering
-      // https://github.com/kriasoft/isomorphic-style-loader
+        // Enables critical path CSS rendering
+        // https://github.com/kriasoft/isomorphic-style-loader
         insertCss: (...styles) => {
-        // eslint-disable-next-line no-underscore-dangle
+          // eslint-disable-next-line no-underscore-dangle
           styles.forEach(style => css.add(style._getCss()));
         },
         fetch,
-      // You can access redux through react-redux connect
+        // You can access redux through react-redux connect
         store,
         storeSubscription: null,
-      // Apollo Client for use with react-apollo
-        client: apolloClient,
+        // Apollo Client for use with react-apollo
+        client: apolloClient
       };
 
       const route = await router.resolve({
         ...context,
         path: req.path,
-        query: req.query,
+        query: req.query
       });
 
       if (route.redirect) {
@@ -102,31 +103,26 @@ const frontend = (app) => {
         <App context={context} store={store}>
           {route.component}
         </App>
-    );
+      );
       await getDataFromTree(rootComponent);
-    // this is here because of Apollo redux APOLLO_QUERY_STOP action
+      // this is here because of Apollo redux APOLLO_QUERY_STOP action
       await Promise.delay(0);
       data.children = await ReactDOM.renderToString(rootComponent);
-      data.styles = [
-      { id: 'css', cssText: [...css].join('') },
-      ];
-      data.scripts = [
-        assets.vendor.js,
-        assets.client.js,
-      ];
+      data.styles = [{ id: "css", cssText: [...css].join("") }];
+      data.scripts = [assets.vendor.js, assets.client.js];
 
       if (assets[route.chunk]) {
         data.scripts.push(assets[route.chunk].js);
       }
 
-    // Furthermore invoked actions will be ignored, client will not receive them!
+      // Furthermore invoked actions will be ignored, client will not receive them!
       if (__DEV__) {
-      // eslint-disable-next-line no-console
-        console.log('Serializing store...');
+        // eslint-disable-next-line no-console
+        console.log("Serializing store...");
       }
       data.app = {
         apiUrl: config.api.clientUrl,
-        state: context.store.getState(),
+        state: context.store.getState()
       };
 
       const html = ReactDOM.renderToStaticMarkup(<Html {...data} />);
@@ -137,27 +133,28 @@ const frontend = (app) => {
     }
   });
 
-//
-// Error handling
-// -----------------------------------------------------------------------------
+  //
+  // Error handling
+  // -----------------------------------------------------------------------------
   const pe = new PrettyError();
   pe.skipNodeFiles();
-  pe.skipPackage('express');
+  pe.skipPackage("express");
 
-  app.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
+  app.use((err, req, res, next) => {
+    // eslint-disable-line no-unused-vars
     console.error(pe.render(err));
     const html = ReactDOM.renderToStaticMarkup(
       <Html
         title="Internal Server Error"
         description={err.message}
-        styles={[{ id: 'css', cssText: errorPageStyle._getCss() }]}
+        styles={[{ id: "css", cssText: errorPageStyle._getCss() }]}
       >
         {ReactDOM.renderToString(<ErrorPageWithoutStyle error={err} />)}
-      </Html>,
-  );
+      </Html>
+    );
     res.status(err.status || 500);
     res.send(`<!doctype html>${html}`);
   });
 };
 
-export default frontend
+export default frontend;
