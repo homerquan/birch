@@ -30,7 +30,7 @@ import OverviewIcon from 'react-material-icons/icons/action/event-seat';
 import ConversationIcon from 'react-material-icons/icons/communication/chat';
 import ConversationsIcon from 'react-material-icons/icons/communication/forum';
 import KnowledgeIcon from 'react-material-icons/icons/social/school';
-import Link from 'react-router-dom/Link';
+import FaBeer from 'react-icons/lib/fa/beer';
 
 const styles = {
   logo: {
@@ -116,9 +116,9 @@ class Sidebar extends React.Component {
             </List>
             <Divider />
             <List>
-              <ListItem leftIcon={<ConversationIcon />} button ><a style={styles.link} href="/conversations">Conversations</a></ListItem> 
-               <ListItem leftIcon={<ConversationsIcon />} button ><a style={styles.link} href="/conversation">Conversation</a></ListItem>
-              <ListItem leftIcon={<KnowledgeIcon />} button ><a style={styles.link} href="/knowledge">Knowledge</a></ListItem>
+              <ListItem leftIcon={<FaBeer />} button > </ListItem> 
+               <ListItem leftIcon={<ConversationsIcon />} button > </ListItem>
+              <ListItem leftIcon={<KnowledgeIcon />} button ></ListItem>
             </List>
           </div>
       </Drawer>

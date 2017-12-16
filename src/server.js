@@ -13,14 +13,13 @@ import express from 'express';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 import expressJwt, { UnauthorizedError as Jwt401Error } from 'express-jwt';
-import expressGraphQL from 'express-graphql';
 import jwt from 'jsonwebtoken';
 import React from 'react';
 import ReactDOM from 'react-dom/server';
 import { getDataFromTree } from 'react-apollo';
 import PrettyError from 'pretty-error';
 import config from './config';
-// import backendServer from './backend';
+import backendServer from './backend';
 import frontendServer from './frontend';
 
 const app = express();
@@ -39,27 +38,15 @@ if (__DEV__) {
   app.enable('trust proxy');
 }
 
-//
-// Register API middleware
-// -----------------------------------------------------------------------------
-const graphqlMiddleware = expressGraphQL(req => ({
-  schema,
-  graphiql: __DEV__,
-  rootValue: { request: req },
-  pretty: __DEV__,
-}));
-
-app.use('/graphql', graphqlMiddleware);
-
 // socketio server
-const socketio = require('socket.io')(server, {
-    serveClient: config.env !== 'production',
-    path: '/socket.io-client'
-  });
+// const socketio = require('socket.io')(server, {
+//     serveClient: config.env !== 'production',
+//     path: '/socket.io-client'
+//   });
 
 // Load backend (api, auth, socketio, graphQL)
 // -----------------------------------------------------------------------------
-// backendServer(app, socketio);
+backendServer(app, server);
 
 // Load frontend (react)
 // -----------------------------------------------------------------------------

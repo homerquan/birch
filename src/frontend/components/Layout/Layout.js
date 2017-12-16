@@ -7,45 +7,54 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
-import React from 'react';
-import PropTypes from 'prop-types';
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import React from "react";
+import PropTypes from "prop-types";
+import withStyles from "isomorphic-style-loader/lib/withStyles";
 
 // external-global styles must be imported in your JS.
-import normalizeCss from 'normalize.css';
-import s from './Layout.css';
-import Sidebar from '../Sidebar';
-import Header from '../Header';
-import Footer from '../Footer';
+import normalizeCss from "normalize.css";
+import s from "./Layout.css";
+import Sidebar from "../Sidebar";
+import Header from "../Header";
+import Footer from "../Footer";
 
 class Layout extends React.Component {
   static propTypes = {
-    children: PropTypes.node.isRequired,
+    children: PropTypes.node.isRequired
   };
 
   state = {
-    sideBarOpen: false
+    sideBarOpen: false,
+    loading: true
   };
 
   toggleSidebar = () => {
     this.setState({
-      sideBarOpen: !this.state.sideBarOpen,
+      sideBarOpen: !this.state.sideBarOpen
     });
   };
 
+  componentDidMount() {
+    setTimeout(() => this.setState({ loading: false }), 1500); // simulates loading of data
+  }
+
   closeSidebar = () => {
     this.setState({
-      sideBarOpen: false,
+      sideBarOpen: false
     });
   };
 
   render() {
+    const loading = this.state.loading;
     return (
       <div>
-        <Header onToggleChange={this.toggleSidebar} onToggleChange={this.toggleSidebar}/>
-        <Sidebar open={this.state.sideBarOpen} onClose={this.closeSidebar}/>
-        {this.props.children}
-        <Footer />
+        <Header
+          onToggleChange={this.toggleSidebar}
+          onToggleChange={this.toggleSidebar}
+        />
+        <Sidebar open={this.state.sideBarOpen} onClose={this.closeSidebar} />
+        {loading ? <div className={s.loader}> <img src="/images/loader.gif"></img></div> : <div>{this.props.children}</div>}
+        {loading ? null :  <Footer />}     
       </div>
     );
   }
