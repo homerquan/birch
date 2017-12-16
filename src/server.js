@@ -38,12 +38,6 @@ if (__DEV__) {
   app.enable('trust proxy');
 }
 
-// socketio server
-// const socketio = require('socket.io')(server, {
-//     serveClient: config.env !== 'production',
-//     path: '/socket.io-client'
-//   });
-
 // Load backend (api, auth, socketio, graphQL)
 // -----------------------------------------------------------------------------
 backendServer(app, server);
