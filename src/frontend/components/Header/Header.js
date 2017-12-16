@@ -69,7 +69,7 @@ class Header extends React.Component {
           <GlobalNotice />
           <Sticky onStateChange={this.handleStickyChange}>
           <AppBar
-            title=""
+            title=''
             className={this.state.headerClass}
             style={this.state.sticky ? styles.stickyHeader : styles.header}
             onLeftIconButtonTouchTap={this.handleToggleButtonTouchTap.bind(
