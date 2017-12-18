@@ -11,8 +11,8 @@
  */
 
 import React from 'react';
-import { compose } from 'react-apollo';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import { graphql, compose } from "react-apollo";
 import {Grid, Col, Row} from 'react-styled-flexboxgrid'
 import { Slot } from 'react-page-layout';
 import {ThemeProvider} from 'styled-components'

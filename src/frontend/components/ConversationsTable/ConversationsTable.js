@@ -11,7 +11,9 @@ import Paper from "material-ui/Paper";
 import DataTables from 'material-ui-datatables';
 import withStyles from "isomorphic-style-loader/lib/withStyles";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
+import ConversationDrawer from "../ConversationDrawer";
 import s from "./ConversationsTable.css";
+import gql from 'graphql-tag';
 
 const TABLE_COLUMNS = [
   {
@@ -40,7 +42,8 @@ const TABLE_DATA = [
 class ConversationsTable extends React.Component {
   render() {
     return (
-      <MuiThemeProvider>	
+      <MuiThemeProvider>
+      <div>
       <DataTables
         height={'auto'}
         selectable={false}
@@ -51,6 +54,8 @@ class ConversationsTable extends React.Component {
         page={1}
         count={100}
       />
+      <ConversationDrawer/>
+      </div>
       </MuiThemeProvider>
     );
   }

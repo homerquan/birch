@@ -64,7 +64,7 @@
     "query-string": "^4.3.4",
     "rc": "^1.2.1",
     "react": "^15.5.4",
-    "react-apollo": "^1.0.1",
+    "react-apollo": "1",
     "react-avatar": "^2.3.0",
     "react-dom": "^15.6.2",
     "react-event-timeline": "^1.4.0",

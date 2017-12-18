@@ -1,5 +1,5 @@
 import React from 'react';
-import { graphql, compose } from 'react-apollo';
+import { graphql, compose } from "react-apollo";
 import s from './Title.css';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 

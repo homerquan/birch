@@ -6940,7 +6940,7 @@ react-addons-transition-group@^15.4.0:
   dependencies:
     react-transition-group "^1.2.0"
 
-react-apollo@^1.0.1:
+react-apollo@1:
   version "1.4.16"
   resolved "https://registry.yarnpkg.com/react-apollo/-/react-apollo-1.4.16.tgz#62a623458b67a174ff8ef25f64e7b42531518e19"
   dependencies:
