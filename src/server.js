@@ -19,7 +19,6 @@ import ReactDOM from 'react-dom/server';
 import { getDataFromTree } from 'react-apollo';
 import PrettyError from 'pretty-error';
 import config from './config';
-import backendServer from './backend';
 import frontendServer from './frontend';
 
 const app = express();
@@ -37,10 +36,6 @@ app.use(bodyParser.json());
 if (__DEV__) {
   app.enable('trust proxy');
 }
-
-// Load backend (api, auth, socketio, graphQL)
-// -----------------------------------------------------------------------------
-backendServer(app, server);
 
 // Load frontend (react)
 // -----------------------------------------------------------------------------

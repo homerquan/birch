@@ -1,14 +1,19 @@
 import React from 'react';
 import { graphql, compose } from 'react-apollo';
+import s from './Title.css';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 
 
 class Title extends React.Component {
   render() {
     return (
-     <h2>{this.props.children}</h2>
+     <div>	
+     <h3 className={s.breadcrumb}>Home | <span className={s.title}>{this.props.children}</span></h3> 	
+     </div>
     );
   }
 }
 
-export default compose()(Title);
+export default compose(
+  withStyles(s),
+)(Title);

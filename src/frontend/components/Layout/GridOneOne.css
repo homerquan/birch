@@ -1,6 +1,12 @@
 /*
 * @Author: homer
 * @Date:   2017-11-05 10:52:06
-* @Last Modified by:   homer
-* @Last Modified time: 2017-11-05 10:52:06
+* @Last Modified by:   Homer
+* @Last Modified time: 2017-12-17 23:55:10
 */
+
+@import '../variables.css';
+
+.mainSlot {
+	background-color: var(--color-content-background);
+}

@@ -1,0 +1,20 @@
+/*
+* @Author: Homer
+* @Date:   2017-12-17 23:23:04
+* @Last Modified by:   Homer
+* @Last Modified time: 2017-12-17 23:39:38
+*/
+
+@import '../variables.css';
+
+.breadcrumb {
+	color: var(--color-text-dark);
+	font-size: 14px;
+    font-weight: 400;
+    line-height: 18px;
+}
+
+.title {
+	color: var(--color-text-light);
+	opacity: 0.3;
+}

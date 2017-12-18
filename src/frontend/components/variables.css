@@ -34,4 +34,10 @@
    * ======================================================================== */
    --fixed-menu-width: 80px;
 
+   --color-text-dark: #666666;
+
+   --color-text-light: #c4c4c4;
+
+   --color-content-background: #fafafa;
+
 }

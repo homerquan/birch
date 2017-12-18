@@ -1,0 +1,6 @@
+{
+  "name": "ConversationsTable",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./ConversationsTable.js"
+}
