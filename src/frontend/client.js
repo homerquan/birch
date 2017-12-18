@@ -7,26 +7,26 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
-import React from 'react';
-import ReactDOM from 'react-dom';
-import ErrorReporter from 'redbox-react';
-import deepForceUpdate from 'react-deep-force-update';
-import FastClick from 'fastclick';
-import queryString from 'query-string';
-import { createPath } from 'history/PathUtils';
-import App from './components/App';
-import createFetch from './createFetch';
-import configureStore from './store/configureStore';
-import { updateMeta } from './DOMUtils';
-import history from './history';
-import createApolloClient from './core/createApolloClient';
+import React from "react";
+import ReactDOM from "react-dom";
+import ErrorReporter from "redbox-react";
+import deepForceUpdate from "react-deep-force-update";
+import FastClick from "fastclick";
+import queryString from "query-string";
+import { createPath } from "history/PathUtils";
+import App from "./components/App";
+import createFetch from "./createFetch";
+import configureStore from "./store/configureStore";
+import { updateMeta } from "./DOMUtils";
+import history from "./history";
+import createApolloClient from "./core/createApolloClient";
 
 const apolloClient = createApolloClient();
 
 /* eslint-disable global-require */
 
 const fetch = createFetch({
-  baseUrl: window.App.apiUrl,
+  baseUrl: window.App.apiUrl
 });
 
 // Global (context) variables that can be easily accessed from any React component
@@ -37,7 +37,9 @@ const context = {
   insertCss: (...styles) => {
     // eslint-disable-next-line no-underscore-dangle
     const removeCss = styles.map(x => x._insertCss());
-    return () => { removeCss.forEach(f => f()); };
+    return () => {
+      removeCss.forEach(f => f());
+    };
   },
   // For react-apollo
   client: apolloClient,
@@ -46,23 +48,23 @@ const context = {
   store: configureStore(window.App.state, { apolloClient, fetch, history }),
   // Universal HTTP client
   fetch,
-  storeSubscription: null,
+  storeSubscription: null
 };
 
 // Switch off the native scroll restoration behavior and handle it manually
 // https://developers.google.com/web/updates/2015/09/history-api-scroll-restoration
 const scrollPositionsHistory = {};
-if (window.history && 'scrollRestoration' in window.history) {
-  window.history.scrollRestoration = 'manual';
+if (window.history && "scrollRestoration" in window.history) {
+  window.history.scrollRestoration = "manual";
 }
 
 let onRenderComplete = function initialRenderComplete() {
-  const elem = document.getElementById('css');
+  const elem = document.getElementById("css");
   if (elem) elem.parentNode.removeChild(elem);
   onRenderComplete = function renderComplete(route, location) {
     document.title = route.title;
 
-    updateMeta('description', route.description);
+    updateMeta("description", route.description);
     // Update necessary tags in <head> at runtime here, ie:
     // updateMeta('keywords', route.keywords);
     // updateCustomMeta('og:url', route.canonicalUrl);
@@ -94,7 +96,7 @@ let onRenderComplete = function initialRenderComplete() {
     // Google Analytics tracking. Don't send 'pageview' event after
     // the initial rendering, as it was already sent
     if (window.ga) {
-      window.ga('send', 'pageview', createPath(location));
+      window.ga("send", "pageview", createPath(location));
     }
   };
 };
@@ -102,20 +104,20 @@ let onRenderComplete = function initialRenderComplete() {
 // Make taps on links and buttons work fast on mobiles
 FastClick.attach(document.body);
 
-const container = document.getElementById('app');
+const container = document.getElementById("app");
 let appInstance;
 let currentLocation = history.location;
-let router = require('./router').default;
+let router = require("./router").default;
 
 // Re-render the app when window.location changes
 async function onLocationChange(location, action) {
   // Remember the latest scroll position for the previous location
   scrollPositionsHistory[currentLocation.key] = {
     scrollX: window.pageXOffset,
-    scrollY: window.pageYOffset,
+    scrollY: window.pageYOffset
   };
   // Delete stored scroll position for next page if any
-  if (action === 'PUSH') {
+  if (action === "PUSH") {
     delete scrollPositionsHistory[location.key];
   }
   currentLocation = location;
@@ -127,7 +129,7 @@ async function onLocationChange(location, action) {
     const route = await router.resolve({
       ...context,
       path: location.pathname,
-      query: queryString.parse(location.search),
+      query: queryString.parse(location.search)
     });
 
     // Prevent multiple page renders during the routing process
@@ -143,7 +145,7 @@ async function onLocationChange(location, action) {
     appInstance = ReactDOM.render(
       <App context={context}>{route.component}</App>,
       container,
-      () => onRenderComplete(route, location),
+      () => onRenderComplete(route, location)
     );
   } catch (error) {
     // Display the error in full-screen for development mode
@@ -171,7 +173,7 @@ onLocationChange(currentLocation);
 // Handle errors that might happen after rendering
 // Display the error in full-screen for development mode
 if (__DEV__) {
-  window.addEventListener('error', (event) => {
+  window.addEventListener("error", event => {
     appInstance = null;
     document.title = `Runtime Error: ${event.error.message}`;
     ReactDOM.render(<ErrorReporter error={event.error} />, container);
@@ -180,8 +182,8 @@ if (__DEV__) {
 
 // Enable Hot Module Replacement (HMR)
 if (module.hot) {
-  module.hot.accept('./router', () => {
-    router = require('./router').default;
+  module.hot.accept("./router", () => {
+    router = require("./router").default;
 
     if (appInstance) {
       try {

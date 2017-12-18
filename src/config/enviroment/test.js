@@ -11,10 +11,6 @@ module.exports = {
 		uri: 'mongodb://localhost/convospot-console-api',
 	},
 
-	apiHost: 'localhost',
-
-	apiPort: '8001',
-
 	logLvl: 'debug',
 
 	hashSalt: 'ilikeconvospot',
