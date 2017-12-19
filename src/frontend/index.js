@@ -18,11 +18,11 @@ import { ErrorPageWithoutStyle } from "./routes/error/ErrorPage";
 import errorPageStyle from "./routes/error/ErrorPage.css";
 import createFetch from "./createFetch";
 import router from "./router";
-import schema from "./data/schema";
 import assets from "./assets.json"; // eslint-disable-line import/no-unresolved
 import configureStore from "./store/configureStore";
 import { setRuntimeVariable } from "./actions/runtime";
 import config from "./config";
+import apolloClient from "./core/apolloClient";
 
 //
 // Tell any CSS tooling (such as Material UI) to use all vendor prefixes if the
@@ -38,11 +38,6 @@ const frontend = app => {
   app.get("*", async (req, res, next) => {
     try {
       const css = new Set();
-
-      const apolloClient = createApolloClient({
-        schema,
-        rootValue: { request: req }
-      });
 
       const fetch = createFetch({
         baseUrl: config.api.serverUrl,
