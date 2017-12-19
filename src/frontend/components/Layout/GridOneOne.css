@@ -7,6 +7,6 @@
 
 @import '../variables.css';
 
-.mainSlot {
+.grid {
 	background-color: var(--color-content-background);
 }

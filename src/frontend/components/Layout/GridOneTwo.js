@@ -23,7 +23,7 @@ class GridOneTwo extends React.Component {
   render() {
     return (
      <ThemeProvider theme={standard}>   
-      <Grid fluid>
+      <Grid className={s.grid}  fluid>
         <Row>
           <Col xs={12} md={12}>
             <Slot name="top" />
@@ -31,7 +31,7 @@ class GridOneTwo extends React.Component {
         </Row>
         <Row>
           <Col xs={12} md={8}>
-            <Slot className={s.mainSlot} name="main" />
+            <Slot name="main" />
           </Col>
            <Col xs={12} md={4}>
             <Slot name="right" />

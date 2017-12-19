@@ -4,3 +4,9 @@
 * @Last Modified by:   homer
 * @Last Modified time: 2017-11-05 13:46:52
 */
+
+@import '../variables.css';
+
+.grid {
+	background-color: var(--color-content-background);
+}

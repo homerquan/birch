@@ -13,7 +13,6 @@ import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import s from "./ConversationDrawer.css";
 import gql from "graphql-tag";
 
-
 const allConversations = gql`
   query {
     conversations {
@@ -24,7 +23,7 @@ const allConversations = gql`
       updatedAt
     }
   }
-`
+`;
 
 function TodoApp({ data: { conversations, refetch } }) {
   if (conversations && conversations.length) {
@@ -47,23 +46,28 @@ function TodoApp({ data: { conversations, refetch } }) {
 
 const DemoWithData = graphql(allConversations)(TodoApp);
 
-const messagesSubscription =gql`
-    subscription onConversationUpdated {
-        conversationUpdated {
-            id
-        }
-}`;
-
+const conversationSubscription = gql`
+  subscription onConversationAdded($userId: String){
+    conversationAdded(userId: $userId){
+      id
+    }
+  }
+`;
 
 class ConversationDrawer extends React.Component {
   async componentDidMount() {
-    this.subscription = this.props.allConversationsQuery.subscribeToMore({
-      document: messagesSubscription,
-      updateQuery: (previousResult, { subscriptionData }) => {
-        const test = subscriptionData.data.conversationUpdated;
-        return test;
-      }
-    });
+    this.subscription = this.props.allConversationsQuery
+      .subscribe({
+        query: conversationSubscription
+      })
+      .subscribe({
+        next(data) {
+          console.log(data);
+        },
+        error(err) {
+          console.error("err", err);
+        }
+      });
   }
 
   render() {
@@ -72,5 +76,5 @@ class ConversationDrawer extends React.Component {
 }
 
 export default compose(
-  graphql(allConversations, {name: 'allConversationsQuery'}),
+  graphql(allConversations, { name: "allConversationsQuery" })
 )(withStyles(s)(ConversationDrawer));
