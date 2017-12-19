@@ -22,13 +22,13 @@ function TodoApp({ data: { conversations, refetch } }) {
            Refresh
          </button>
          {conversations.map(function(listValue){
-               return <li>{listValue.id}</li>;
+            return <li>{listValue.id}</li>;
          })}
        </div>
       )
   }
   return (
-    <div>empty so far</div>
+    <div>empty</div>
   )
 }
 
@@ -46,6 +46,10 @@ const DemoWithData = graphql(gql`
 
  
 class ConversationDrawer extends React.Component {
+
+  async componentDidMount() {
+  }
+
   render() {
     return (
       <DemoWithData/>
