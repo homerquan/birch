@@ -3,7 +3,7 @@ import config from '../config';
 
 class Knowledge {  
   static get() {
-    const request = new Request('/rest-api/knowledge', {
+    const request = new Request(config.api.clientUrl+'/api/knowledge', {
       method: 'GET',
       headers: new Headers({
         'Content-Type': 'application/json'

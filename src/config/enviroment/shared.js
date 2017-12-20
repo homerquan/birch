@@ -3,9 +3,6 @@
 //shared setting for FE and BE
 module.exports = {
 	userRoles: ['guest', 'user', 'admin'],
-	socketServer: '',
-	apiPath: 'api',
-	gapiPath: 'gapi',
-	apiPrefix: 'v1',
-	socketNamespace: '/convospot-console'
+	apiUrl: 'http://localhost:3003',
+	apiPrefix: '/api'
 };

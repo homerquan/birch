@@ -4,13 +4,6 @@
 // ==================================
 module.exports = {
 
-	// Seed database on startup
-	seedDB: true,
-
-	mongo: {
-		uri: 'mongodb://localhost/convospot-console-api',
-	},
-
 	logLvl: 'debug',
 
 	hashSalt: 'ilikeconvospot',
