@@ -23,7 +23,6 @@ import configureStore from "./store/configureStore";
 import { setRuntimeVariable } from "./actions/runtime";
 import config from "./config";
 import apolloClient from "./core/apolloClient";
-import { StaticRouter } from 'react-router';
 
 //
 // Tell any CSS tooling (such as Material UI) to use all vendor prefixes if the
