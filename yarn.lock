@@ -7352,6 +7352,14 @@ redux-mock-store@^1.2.3:
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/redux-mock-store/-/redux-mock-store-1.3.0.tgz#6edfef0d2332f20576381069d6d889a6d0a4451c"
 
+redux-persist@^5.4.0:
+  version "5.4.0"
+  resolved "https://registry.yarnpkg.com/redux-persist/-/redux-persist-5.4.0.tgz#a1062313546a9d4ca6f9271464d18f736e8ca394"
+
+redux-session@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/redux-session/-/redux-session-1.0.4.tgz#c0eb202249f49f905c0d54e95f0cda8868a31b1c"
+
 redux-sessionstorage@^0.4.0:
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/redux-sessionstorage/-/redux-sessionstorage-0.4.0.tgz#06a8fd646c703ad610ffcff1fcdffcf1e99a1fcd"

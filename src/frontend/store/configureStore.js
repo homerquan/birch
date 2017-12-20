@@ -5,6 +5,7 @@ import thunk from "redux-thunk";
 import createRootReducer from "../reducers";
 import createHelpers from "./createHelpers";
 import createLogger from "./logger";
+import appConfig from "../config";
 
 export default function configureStore(initialState, config) {
   const helpers = createHelpers(config);
