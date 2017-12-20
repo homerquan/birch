@@ -6,7 +6,7 @@
 */
 
 import React from "react";
-import { graphql, compose } from "react-apollo";
+import { graphql, compose, withApollo} from "react-apollo";
 import Paper from "material-ui/Paper";
 import withStyles from "isomorphic-style-loader/lib/withStyles";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
@@ -22,6 +22,12 @@ const allConversations = gql`
       mode
       updatedAt
     }
+  }
+`;
+
+const conversationSubscription = gql`
+  subscription {
+    now
   }
 `;
 
@@ -46,35 +52,32 @@ function TodoApp({ data: { conversations, refetch } }) {
 
 const DemoWithData = graphql(allConversations)(TodoApp);
 
-const conversationSubscription = gql`
-  subscription onConversationAdded($userId: String){
-    conversationAdded(userId: $userId){
-      id
-    }
-  }
-`;
-
 class ConversationDrawer extends React.Component {
+  state = {
+    test: ''
+  };
   async componentDidMount() {
-    this.subscription = this.props.allConversationsQuery
-      .subscribe({
-        query: conversationSubscription
-      })
-      .subscribe({
-        next(data) {
-          console.log(data);
-        },
-        error(err) {
-          console.error("err", err);
-        }
-      });
+    let that = this;
+    this.subscription = this.props.client.subscribe({
+      query: conversationSubscription,
+      variables: {}
+    }).subscribe({
+      next(data) {
+      that.setState({test:data.now});
+      console.log(data);
+      },
+      error(err) {
+        console.error("err", err);
+      }
+    });
   }
 
   render() {
-    return <DemoWithData />;
+    return <div>
+    <div data-homer="test">{this.state.test}</div>
+    <DemoWithData />
+    </div>;
   }
 }
 
-export default compose(
-  graphql(allConversations, { name: "allConversationsQuery" })
-)(withStyles(s)(ConversationDrawer));
+export default compose()(withStyles(s)(withApollo(ConversationDrawer)));
