@@ -72,6 +72,10 @@ class ConversationDrawer extends React.Component {
     });
   }
 
+  async componentWillUnmount() {
+    this.subscription.unsubscribe();
+  }
+
   render() {
     return <div>
     <div data-homer="test">{this.state.test}</div>
