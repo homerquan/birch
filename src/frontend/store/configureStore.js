@@ -1,8 +1,10 @@
-import { createStore, applyMiddleware, compose } from 'redux';
-import thunk from 'redux-thunk';
-import createRootReducer from '../reducers';
-import createHelpers from './createHelpers';
-import createLogger from './logger';
+import { createStore, applyMiddleware, compose } from "redux";
+import { routerMiddleware } from "react-router-redux";
+import { browserHistory } from "react-router";
+import thunk from "redux-thunk";
+import createRootReducer from "../reducers";
+import createHelpers from "./createHelpers";
+import createLogger from "./logger";
 
 export default function configureStore(initialState, config) {
   const helpers = createHelpers(config);
@@ -11,6 +13,7 @@ export default function configureStore(initialState, config) {
   const middleware = [
     thunk.withExtraArgument(helpers),
     apolloClient.middleware(),
+    routerMiddleware(browserHistory),
   ];
 
   let enhancer;
@@ -24,16 +27,13 @@ export default function configureStore(initialState, config) {
       devToolsExtension = window.devToolsExtension();
     }
 
-    enhancer = compose(
-      applyMiddleware(...middleware),
-      devToolsExtension,
-    );
+    enhancer = compose(applyMiddleware(...middleware), devToolsExtension);
   } else {
     enhancer = applyMiddleware(...middleware);
   }
 
   const rootReducer = createRootReducer({
-    apolloClient,
+    apolloClient
   });
 
   // See https://github.com/rackt/redux/releases/tag/v3.1.0
@@ -41,9 +41,9 @@ export default function configureStore(initialState, config) {
 
   // Hot reload reducers (requires Webpack or Browserify HMR to be enabled)
   if (__DEV__ && module.hot) {
-    module.hot.accept('../reducers', () =>
+    module.hot.accept("../reducers", () =>
       // eslint-disable-next-line global-require
-      store.replaceReducer(require('../reducers').default),
+      store.replaceReducer(require("../reducers").default)
     );
   }
 

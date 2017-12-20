@@ -40,6 +40,7 @@ class Login extends React.Component {
           <div className={s.container}>
             <h1>{this.props.title}</h1>
             <p className={s.lead}>to continue to convospot</p>
+            <p>{this.props.session.statusText}</p>
             <form>
               <div className={s.formGroup}>
                 <TextField
@@ -71,10 +72,16 @@ class Login extends React.Component {
   }
 }
 
+function selectProps(state) {
+  return {
+    session: state.session
+  };
+}
+
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators(sessionActions, dispatch),
   };
 }
 
-export default withStyles(s)(connect(null, mapDispatchToProps)(Login));
+export default withStyles(s)(connect(selectProps, mapDispatchToProps)(Login));

@@ -1,77 +1,73 @@
-import {
-  checkHttpStatus,
-  parseJSON,
-} from '../utils';
-import {
-  ACTION_TYPES,
-} from '../constants';
-import {
-  push,
-} from 'react-router-redux';
-import jwtDecode from 'jwt-decode';
-import fetch from 'isomorphic-fetch';
-import SessionApi from '../api/Session';
+import { ACTION_TYPES } from "../constants";
+import { push } from "react-router-redux";
+import jwtDecode from "jwt-decode";
+import fetch from "isomorphic-fetch";
+import SessionApi from "../api/Session";
+import { checkHttpStatus, parseJSON } from "../utils";
 
 export function loginUserSuccess(token) {
-  sessionStorage.setItem('token', token);
+  sessionStorage.setItem("token", token);
   return {
     type: ACTION_TYPES.LOGIN_USER_SUCCESS,
     payload: {
-      token,
-    },
+      token
+    }
   };
 }
 
 export function loginUserFailure(error) {
-  sessionStorage.removeItem('token');
+  sessionStorage.removeItem("token");
   return {
     type: ACTION_TYPES.LOGIN_USER_FAILURE,
     payload: {
       status: error.response.status,
-      statusText: error.response.statusText,
-    },
+      statusText: error.response.statusText
+    }
   };
 }
 
 export function loginUserRequest() {
   return {
-    type: ACTION_TYPES.LOGIN_USER_REQUEST,
+    type: ACTION_TYPES.LOGIN_USER_REQUEST
   };
 }
 
 export function logout() {
-  sessionStorage.removeItem('token');
+  sessionStorage.removeItem("token");
   return {
-    type: ACTION_TYPES.LOGOUT_USER,
+    type: ACTION_TYPES.LOGOUT_USER
   };
 }
 
 export function logoutAndRedirect() {
   return (dispatch, state) => {
     dispatch(logout());
-    dispatch(push('/login'));
+    //dispatch(push("/login"));
   };
 }
 
-export function loginUser(credentials, redirect = '/') {
-  return function (dispatch) {
+export function loginUser(credentials, redirect = "/") {
+  return function(dispatch) {
     dispatch(loginUserRequest());
     return SessionApi.login(credentials)
-      .then((response) => {
+      .then(response => {
         try {
           const decoded = jwtDecode(response.token);
           dispatch(loginUserSuccess(response.token));
-          dispatch(push(redirect));
+          window.location.replace("/conversations"); //for mvp only
+          //dispatch(push(redirect));
         } catch (e) {
-          dispatch(loginUserFailure({
-            response: {
-              status: 403,
-              statusText: 'Invalid token',
-            },
-          }));
+          dispatch(
+            loginUserFailure({
+              response: {
+                status: 403,
+                statusText: "Invalid token"
+              }
+            })
+          );
         }
       })
-      .catch((error) => {
+      .catch(error => {
         dispatch(loginUserFailure(error));
       });
   };
@@ -81,14 +77,14 @@ export function receiveProtectedData(data) {
   return {
     type: ACTION_TYPES.RECEIVE_PROTECTED_DATA,
     payload: {
-      data,
-    },
+      data
+    }
   };
 }
 
 export function fetchProtectedDataRequest() {
   return {
-    type: ACTION_TYPES.FETCH_PROTECTED_DATA_REQUEST,
+    type: ACTION_TYPES.FETCH_PROTECTED_DATA_REQUEST
   };
 }
 
