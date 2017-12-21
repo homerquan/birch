@@ -20,6 +20,9 @@ import theme from "../theme";
 import Loader from "../Loader";
 import GlobalNotice from "../GlobalNotice";
 import Sticky from "react-stickynode";
+import * as sessionActions from "../../actions/session";
+import { bindActionCreators } from 'redux';
+import { connect } from "react-redux";
 
 const styles = {
   header: {
@@ -56,7 +59,12 @@ class Header extends React.Component {
     }
   };
 
+  // after each refresh relogin using refresh token
   componentDidMount() {
+    const refreshToken = sessionStorage.getItem('convospot-refresh-token');
+    if(refreshToken) {
+      this.props.actions.refreshLogin(refreshToken);
+    }
     setTimeout(() => this.setState({ loading: false }), 1500); // simulates loading of data
   }
 
@@ -84,4 +92,10 @@ class Header extends React.Component {
   }
 }
 
-export default withStyles(s)(Header);
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(sessionActions, dispatch)
+  };
+}
+
+export default withStyles(s)(connect(null, mapDispatchToProps)(Header));

@@ -1,6 +1,4 @@
 import { createStore, applyMiddleware, compose } from "redux";
-import { routerMiddleware } from "react-router-redux";
-import { browserHistory } from "react-router";
 import thunk from "redux-thunk";
 import createRootReducer from "../reducers";
 import createHelpers from "./createHelpers";
@@ -13,8 +11,7 @@ export default function configureStore(initialState, config) {
 
   const middleware = [
     thunk.withExtraArgument(helpers),
-    apolloClient.middleware(),
-    routerMiddleware(browserHistory),
+    apolloClient.middleware()
   ];
 
   let enhancer;

@@ -17,6 +17,21 @@ class Session {
       return response.json();
     });
   } 
+
+  static refresh(refreshToken) {
+    const request = new Request(config.apiUrl+'/auth/local_refresh', {
+      method: 'POST',
+      headers: new Headers({
+        'Content-Type': 'application/json'
+      }), 
+      body: JSON.stringify({refreshToken})
+    });
+
+
+    return fetch(request).then(response => {
+      return response.json();
+    });
+  } 
 }
 
 export default Session;

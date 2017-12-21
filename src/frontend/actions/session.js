@@ -1,22 +1,26 @@
 import { ACTION_TYPES } from "../constants";
-import { push } from "react-router-redux";
 import jwtDecode from "jwt-decode";
 import fetch from "isomorphic-fetch";
 import SessionApi from "../api/Session";
 import { checkHttpStatus, parseJSON } from "../utils";
 
-export function loginUserSuccess(token) {
-  sessionStorage.setItem("token", token);
+export function loginUserSuccess(token,refreshToken, userId, userRole) {
+  sessionStorage.setItem("convospot-token", token);
+  sessionStorage.setItem('convospot-refresh-token', refreshToken);
   return {
     type: ACTION_TYPES.LOGIN_USER_SUCCESS,
     payload: {
-      token
+      token,
+      refreshToken,
+      userId,
+      userRole,
     }
   };
 }
 
 export function loginUserFailure(error) {
-  sessionStorage.removeItem("token");
+  sessionStorage.removeItem("convospot-token");
+  sessionStorage.removeItem("convospot-refresh-token");
   return {
     type: ACTION_TYPES.LOGIN_USER_FAILURE,
     payload: {
@@ -33,7 +37,8 @@ export function loginUserRequest() {
 }
 
 export function logout() {
-  sessionStorage.removeItem("token");
+  sessionStorage.removeItem("convospot-token");
+  sessionStorage.removeItem("convospot-refresh-token");
   return {
     type: ACTION_TYPES.LOGOUT_USER
   };
@@ -42,7 +47,7 @@ export function logout() {
 export function logoutAndRedirect() {
   return (dispatch, state) => {
     dispatch(logout());
-    //dispatch(push("/login"));
+    window.location.replace("/login"); 
   };
 }
 
@@ -53,9 +58,33 @@ export function loginUser(credentials, redirect = "/") {
       .then(response => {
         try {
           const decoded = jwtDecode(response.token);
-          dispatch(loginUserSuccess(response.token));
-          window.location.replace("/conversations"); //for mvp only
-          //dispatch(push(redirect));
+          dispatch(loginUserSuccess(response.token, response.refreshToken));
+          window.location.replace(redirect); 
+        } catch (e) {
+          dispatch(
+            loginUserFailure({
+              response: {
+                status: 403,
+                statusText: "Invalid token"
+              }
+            })
+          );
+        }
+      })
+      .catch(error => {
+        dispatch(loginUserFailure(error));
+      });
+  };
+}
+
+export function refreshLogin(refreshToken) {
+  return function(dispatch) {
+    dispatch(loginUserRequest());
+    return SessionApi.refresh(refreshToken)
+      .then(response => {
+        try {
+          const decoded = jwtDecode(response.token);
+          dispatch(loginUserSuccess(response.token, response.refreshToken, decoded._id, decoded.role));
         } catch (e) {
           dispatch(
             loginUserFailure({

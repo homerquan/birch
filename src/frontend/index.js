@@ -53,7 +53,6 @@ const frontend = app => {
         cookie: req.headers.cookie,
         apolloClient,
         fetch,
-        // I should not use `history` on server.. but how I do redirection? follow universal-router
         history: null
       });
 
