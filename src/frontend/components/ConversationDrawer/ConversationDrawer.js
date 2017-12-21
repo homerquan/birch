@@ -8,6 +8,7 @@
 import React from "react";
 import { graphql, compose, withApollo} from "react-apollo";
 import Paper from "material-ui/Paper";
+import { connect } from 'react-redux';
 import withStyles from "isomorphic-style-loader/lib/withStyles";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import s from "./ConversationDrawer.css";
@@ -84,4 +85,10 @@ class ConversationDrawer extends React.Component {
   }
 }
 
-export default compose()(withStyles(s)(withApollo(ConversationDrawer)));
+function selectProps(state) {
+  return {
+    session: state.session
+  };
+}
+
+export default  withStyles(s)(withApollo(connect(selectProps, null)(ConversationDrawer)));
