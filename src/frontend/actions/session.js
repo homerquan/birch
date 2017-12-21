@@ -3,10 +3,11 @@ import jwtDecode from "jwt-decode";
 import fetch from "isomorphic-fetch";
 import SessionApi from "../api/Session";
 import { checkHttpStatus, parseJSON } from "../utils";
+import config from '../config';
 
 export function loginUserSuccess(token,refreshToken, userId, userRole) {
-  sessionStorage.setItem("convospot-token", token);
-  sessionStorage.setItem('convospot-refresh-token', refreshToken);
+  sessionStorage.setItem(config.tokenName, token);
+  sessionStorage.setItem(config.refreshTokenName, refreshToken);
   return {
     type: ACTION_TYPES.LOGIN_USER_SUCCESS,
     payload: {
@@ -19,8 +20,8 @@ export function loginUserSuccess(token,refreshToken, userId, userRole) {
 }
 
 export function loginUserFailure(error) {
-  sessionStorage.removeItem("convospot-token");
-  sessionStorage.removeItem("convospot-refresh-token");
+  sessionStorage.removeItem(config.tokenName);
+  sessionStorage.removeItem(config.refreshTokenName);
   return {
     type: ACTION_TYPES.LOGIN_USER_FAILURE,
     payload: {
@@ -37,8 +38,8 @@ export function loginUserRequest() {
 }
 
 export function logout() {
-  sessionStorage.removeItem("convospot-token");
-  sessionStorage.removeItem("convospot-refresh-token");
+  sessionStorage.removeItem(config.tokenName);
+  sessionStorage.removeItem(config.refreshTokenName);
   return {
     type: ACTION_TYPES.LOGOUT_USER
   };
