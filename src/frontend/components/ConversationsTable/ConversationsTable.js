@@ -2,7 +2,7 @@
 * @Author: Homer
 * @Date:   2017-12-17 23:50:40
 * @Last Modified by:   Homer
-* @Last Modified time: 2017-12-22 02:19:09
+* @Last Modified time: 2017-12-22 17:51:07
 */
 
 import React from "react";
@@ -51,7 +51,7 @@ const conversationsQuery = gql`
   }
 `;
 
-const TABLE_COLUMNS = [
+const tableColumns = [
   {
     key: "id",
     style: {
@@ -134,7 +134,7 @@ const TABLE_COLUMNS = [
 class ConversationsTable extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { openDrawer: false };
+    this.state = { openDrawer: false, selectedConversation: null };
   }
 
   closeDrawer = () => {
@@ -143,9 +143,11 @@ class ConversationsTable extends React.Component {
     });
   };
 
-  openDrawer = () => {
+  openDrawer = index => {
+    const selected = this.props.data.conversations[index];
     this.setState({
-      openDrawer: true
+      openDrawer: true,
+      selectedConversation: selected
     });
   };
 
@@ -158,10 +160,9 @@ class ConversationsTable extends React.Component {
       <MuiThemeProvider>
         <div>
           <Toolbar>
-            <ToolbarGroup firstChild={true}>
-            </ToolbarGroup>
+            <ToolbarGroup firstChild={true} />
             <ToolbarGroup>
-              <RaisedButton label="Reload" onTouchTap={() => refetch()}/>
+              <RaisedButton label="Reload" onTouchTap={() => refetch()} />
             </ToolbarGroup>
           </Toolbar>
 
@@ -170,12 +171,12 @@ class ConversationsTable extends React.Component {
               height={"auto"}
               selectable={false}
               showRowHover={true}
-              columns={TABLE_COLUMNS}
+              columns={tableColumns}
               data={conversations}
               showCheckboxes={false}
+              onCellClick={this.openDrawer}
               page={1}
               count={100}
-              onCellClick={this.openDrawer}
             />
           ) : (
             <div>
@@ -187,6 +188,7 @@ class ConversationsTable extends React.Component {
             </div>
           )}
           <ConversationDrawer
+            conversation={this.state.selectedConversation}
             open={this.state.openDrawer}
             onClose={this.closeDrawer}
           />

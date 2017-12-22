@@ -2,6 +2,36 @@
 * @Author: Homer
 * @Date:   2017-12-22 02:20:17
 * @Last Modified by:   Homer
-* @Last Modified time: 2017-12-22 02:20:23
+* @Last Modified time: 2017-12-22 18:35:54
 */
 @import "../variables.css";
+
+.flexContainer {
+	width: 100%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+   
+    justify-content: flex-start; /* align items in Main Axis */
+    align-items: stretch; /* align items in Cross Axis */
+    align-content: stretch; /* Extra space in Cross Axis */
+}
+.topbar {
+	background: var(--color-content-background);
+}
+.conversation {
+	background: var(--color-content-background);
+	display: flex;
+    flex: 1; /* same as flex: 1 1 auto; */
+    flex-direction: row;
+    
+    justify-content: flex-start; /* align items in Main Axis */
+    align-items: stretch; /* align items in Cross Axis */
+    align-content: stretch; /* Extra space in Cross Axis */
+
+}
+.inputs {
+	background: white;
+	height: 80px;
+}
