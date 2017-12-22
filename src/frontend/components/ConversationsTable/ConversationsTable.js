@@ -2,7 +2,7 @@
 * @Author: Homer
 * @Date:   2017-12-17 23:50:40
 * @Last Modified by:   Homer
-* @Last Modified time: 2017-12-22 00:55:54
+* @Last Modified time: 2017-12-22 01:55:48
 */
 
 import React from "react";
@@ -15,7 +15,7 @@ import withStyles from "isomorphic-style-loader/lib/withStyles";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import ConversationDrawer from "../ConversationDrawer";
 import IconButton from "material-ui/IconButton";
-import OnlineIcon from "react-material-icons/icons/notification/sync";
+import OnlineIcon from "react-material-icons/icons/action/swap-horiz";
 import OffIcon from "react-material-icons/icons/notification/sync-disabled";
 import ActiveActionIcon from "react-material-icons/icons/action/history";
 import CircularProgress from "material-ui/CircularProgress";
@@ -23,6 +23,14 @@ import MoreIcon from "react-material-icons/icons/navigation/more-vert";
 import s from "./ConversationsTable.css";
 import gql from "graphql-tag";
 import Blockies from "react-blockies";
+
+import RaisedButton from "material-ui/RaisedButton";
+import {
+  Toolbar,
+  ToolbarGroup,
+  ToolbarSeparator,
+  ToolbarTitle
+} from "material-ui/Toolbar";
 
 const styles = {
   chip: {
@@ -102,7 +110,8 @@ const TABLE_COLUMNS = [
           <Avatar size={32}>L</Avatar>Thinking <img src="/images/loader.gif" />
         </Chip>
         <Chip style={styles.chip}>
-          <Avatar size={32}>K</Avatar>Preparing Answer <img src="/images/loader.gif" />
+          <Avatar size={32}>K</Avatar>Preparing Answer{" "}
+          <img src="/images/loader.gif" />
         </Chip>
       </div>
     )
@@ -113,43 +122,14 @@ const TABLE_COLUMNS = [
       width: 30
     },
     render: (id, all) => (
-      <div> 
-       <IconButton tooltip="Close" onTouchTap={this.handleCloseButtonTouchTap}>
+      <div>
+        <IconButton tooltip="More">
           <MoreIcon />
         </IconButton>
       </div>
     )
   }
 ];
-
-function Grids({ data: { conversations, refetch } }) {
-  if (conversations && conversations.length) {
-    return (
-      <div>
-        <button onClick={() => refetch()}>Refresh</button>
-        <DataTables
-          height={"auto"}
-          selectable={false}
-          showRowHover={true}
-          columns={TABLE_COLUMNS}
-          data={conversations}
-          showCheckboxes={false}
-          page={1}
-          count={100}
-          onCellClick={this.openDrawer}
-        />
-      </div>
-    );
-  }
-  return (
-    <div>
-      <button onClick={() => refetch()}>Refresh</button>
-      <div>Enjoy peace</div>
-    </div>
-  );
-}
-
-const GridsWithData = graphql(conversationsQuery)(Grids);
 
 class ConversationsTable extends React.Component {
   constructor(props) {
@@ -170,10 +150,38 @@ class ConversationsTable extends React.Component {
   };
 
   render() {
+    const { conversations, loading, refetch } = this.props.data;
+
+    if (loading) return <h1>Loading</h1>;
+
     return (
       <MuiThemeProvider>
         <div>
-          <GridsWithData onOpenDrawer={this.openDrawer} />
+          <Toolbar>
+            <ToolbarGroup firstChild={true}>
+            </ToolbarGroup>
+            <ToolbarGroup>
+              <RaisedButton label="Reload" onTouchTap={() => refetch()}/>
+            </ToolbarGroup>
+          </Toolbar>
+
+          {conversations && conversations.length ? (
+            <DataTables
+              height={"auto"}
+              selectable={false}
+              showRowHover={true}
+              columns={TABLE_COLUMNS}
+              data={conversations}
+              showCheckboxes={false}
+              page={1}
+              count={100}
+              onCellClick={this.openDrawer}
+            />
+          ) : (
+            <div>
+              <div>Enjoy peace</div>
+            </div>
+          )}
           <ConversationDrawer
             open={this.state.openDrawer}
             onClose={this.closeDrawer}
@@ -184,6 +192,6 @@ class ConversationsTable extends React.Component {
   }
 }
 
-export default withStyles(s)(compose(
-  graphql(conversationsQuery)
-)(ConversationsTable));
+export default withStyles(s)(
+  compose(graphql(conversationsQuery))(ConversationsTable)
+);

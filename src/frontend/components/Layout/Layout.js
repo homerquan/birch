@@ -56,7 +56,7 @@ class Layout extends React.Component {
         {loading ? (
           <div className={s.loader}>
             {" "}
-            <img src="/images/loader.gif" />
+            <img src="/images/loader.svg" />
           </div>
         ) : (
           <div>{this.props.children}</div>
