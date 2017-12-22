@@ -2,7 +2,7 @@
 * @Author: Homer
 * @Date:   2017-12-17 23:50:53
 * @Last Modified by:   Homer
-* @Last Modified time: 2017-12-21 22:57:12
+* @Last Modified time: 2017-12-21 23:49:33
 */
 @import '../variables.css';
 
@@ -11,5 +11,15 @@
 }
 
 .visitorId {
+	font-size: 9px;
 	color: var(--color-text-light);
+}
+
+.intentionChip {
+	display: inline-block;
+	padding: 2px;
+}
+
+.chipProgress {
+	position: absolute;
 }

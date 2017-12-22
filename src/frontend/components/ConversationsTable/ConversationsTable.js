@@ -2,21 +2,34 @@
 * @Author: Homer
 * @Date:   2017-12-17 23:50:40
 * @Last Modified by:   Homer
-* @Last Modified time: 2017-12-21 23:10:53
+* @Last Modified time: 2017-12-22 00:16:29
 */
 
 import React from "react";
 import { graphql, compose } from "react-apollo";
 import Paper from "material-ui/Paper";
 import DataTables from "material-ui-datatables";
+import Avatar from "material-ui/Avatar";
+import Chip from "material-ui/Chip";
 import withStyles from "isomorphic-style-loader/lib/withStyles";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import ConversationDrawer from "../ConversationDrawer";
-import OnlineIcon from 'react-material-icons/icons/notification/sync';
-import OffIcon from 'react-material-icons/icons/notification/sync-disabled';
+import IconButton from "material-ui/IconButton";
+import OnlineIcon from "react-material-icons/icons/notification/sync";
+import OffIcon from "react-material-icons/icons/notification/sync-disabled";
+import ActiveActionIcon from "react-material-icons/icons/action/history";
+import CircularProgress from "material-ui/CircularProgress";
+import MoreIcon from "react-material-icons/icons/navigation/more-vert";
 import s from "./ConversationsTable.css";
 import gql from "graphql-tag";
 import Blockies from "react-blockies";
+
+const styles = {
+  chip: {
+    margin: 2,
+    display: "inline-block"
+  }
+};
 
 const conversationsQuery = gql`
   query {
@@ -34,7 +47,7 @@ const TABLE_COLUMNS = [
   {
     key: "id",
     style: {
-      width: 20,
+      width: 10
     },
     render: (id, all) => (
       <div>
@@ -53,7 +66,7 @@ const TABLE_COLUMNS = [
     key: "id",
     label: "Visitor",
     style: {
-      width: 40,
+      width: 160
     },
     render: (id, all) => (
       <div>
@@ -66,29 +79,47 @@ const TABLE_COLUMNS = [
     key: "status",
     label: "Status",
     style: {
-      width: 20,
+      width: 40
     },
-    render: (id, all) => (
-      <OnlineIcon/>
-    )
+    render: (id, all) => <OnlineIcon />
   },
   {
     key: "intention",
     label: "Intention",
-    render: (id, all) => (
-      <OnlineIcon/>
+    render: (intention, all) => (
+      <div>
+        <Chip style={styles.chip}>view product</Chip>
+        <Chip style={styles.chip}>buy product</Chip>
+      </div>
     )
   },
   {
     key: "action",
     label: "Action",
+    render: (action, all) => (
+      <div>
+        <Chip style={styles.chip}>
+          <Avatar size={32}>L</Avatar>Thinking <img src="/images/loader.gif" />
+        </Chip>
+        <Chip style={styles.chip}>
+          <Avatar size={32}>K</Avatar>Preparing Answer <img src="/images/loader.gif" />
+        </Chip>
+      </div>
+    )
+  },
+  {
+    key: "id",
     style: {
-      width: 100,
+      width: 30
     },
     render: (id, all) => (
-      <OnlineIcon/>
+      <div> 
+       <IconButton tooltip="Close" onTouchTap={this.handleCloseButtonTouchTap}>
+          <MoreIcon />
+        </IconButton>
+      </div>
     )
-  }    
+  }
 ];
 
 function Grids({ data: { conversations, refetch } }) {
