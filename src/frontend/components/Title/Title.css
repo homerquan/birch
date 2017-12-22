@@ -16,5 +16,8 @@
 
 .title {
 	color: var(--color-text-light);
-	opacity: 0.3;
+}
+
+.titleContainer {
+	min-height: 60px;
 }

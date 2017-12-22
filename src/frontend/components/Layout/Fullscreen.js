@@ -42,10 +42,9 @@ class Fullscreen extends React.Component {
   render() {
     return (
       <div>
-        <Header onToggleChange={this.toggleSidebar} onToggleChange={this.toggleSidebar}/>
-        <Sidebar open={this.state.sideBarOpen} onClose={this.closeSidebar}/>
+        
         {this.props.children}
-        <Footer />
+       
       </div>
     );
   }

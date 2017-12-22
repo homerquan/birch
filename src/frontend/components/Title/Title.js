@@ -7,7 +7,7 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles';
 class Title extends React.Component {
   render() {
     return (
-     <div>	
+     <div className={s.titleContainer}>	
      <h3 className={s.breadcrumb}>Home | <span className={s.title}>{this.props.children}</span></h3> 	
      </div>
     );
