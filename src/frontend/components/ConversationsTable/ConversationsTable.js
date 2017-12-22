@@ -2,7 +2,7 @@
 * @Author: Homer
 * @Date:   2017-12-17 23:50:40
 * @Last Modified by:   Homer
-* @Last Modified time: 2017-12-22 00:16:29
+* @Last Modified time: 2017-12-22 00:55:54
 */
 
 import React from "react";
@@ -173,7 +173,7 @@ class ConversationsTable extends React.Component {
     return (
       <MuiThemeProvider>
         <div>
-          <GridsWithData />
+          <GridsWithData onOpenDrawer={this.openDrawer} />
           <ConversationDrawer
             open={this.state.openDrawer}
             onClose={this.closeDrawer}
@@ -184,4 +184,6 @@ class ConversationsTable extends React.Component {
   }
 }
 
-export default withStyles(s)(ConversationsTable);
+export default withStyles(s)(compose(
+  graphql(conversationsQuery)
+)(ConversationsTable));
