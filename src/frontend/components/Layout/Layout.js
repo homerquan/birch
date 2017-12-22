@@ -23,14 +23,17 @@ class Layout extends React.Component {
     children: PropTypes.node.isRequired
   };
 
-  state = {
-    sideBarOpen: false,
-    loading: true
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      openSidebar: false,
+      loading: true
+    };
+  }
 
   toggleSidebar = () => {
     this.setState({
-      sideBarOpen: !this.state.sideBarOpen
+      openSidebar: !this.state.openSidebar
     });
   };
 
@@ -40,7 +43,7 @@ class Layout extends React.Component {
 
   closeSidebar = () => {
     this.setState({
-      sideBarOpen: false
+      openSidebar: false
     });
   };
 
@@ -48,13 +51,17 @@ class Layout extends React.Component {
     const loading = this.state.loading;
     return (
       <div>
-        <Header
-          onToggleChange={this.toggleSidebar}
-          onToggleChange={this.toggleSidebar}
-        />
-        <Sidebar open={this.state.sideBarOpen} onClose={this.closeSidebar} />
-        {loading ? <div className={s.loader}> <img src="/images/loader.gif"></img></div> : <div>{this.props.children}</div>}
-        {loading ? null :  <Footer />}     
+        <Header onToggleChange={this.toggleSidebar} />
+        <Sidebar open={this.state.openSidebar} onClose={this.closeSidebar} />
+        {loading ? (
+          <div className={s.loader}>
+            {" "}
+            <img src="/images/loader.gif" />
+          </div>
+        ) : (
+          <div>{this.props.children}</div>
+        )}
+        {loading ? null : <Footer />}
       </div>
     );
   }

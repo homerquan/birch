@@ -7,7 +7,7 @@
  * @Email: homer@convospot.io
  * @Date:   2017-11-04 19:48:49
  * @Last Modified by:   Homer
- * @Last Modified time: 2017-12-17 23:54:13
+ * @Last Modified time: 2017-12-21 21:48:42
  */
 
 import React from 'react';
@@ -31,7 +31,7 @@ class GridOneOne extends React.Component {
         </Row>
         <Row>
           <Col xs={12} md={12}>
-            <Slot name="main" />
+            <Slot name="main" className={s.mainSlot} />
           </Col>
         </Row>
       </Grid>

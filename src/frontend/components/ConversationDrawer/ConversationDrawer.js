@@ -2,7 +2,7 @@
 * @Author: Homer
 * @Date:   2017-12-17 23:50:40
 * @Last Modified by:   Homer
-* @Last Modified time: 2017-12-19 00:20:14
+* @Last Modified time: 2017-12-21 21:47:35
 */
 
 import React from "react";
@@ -20,14 +20,17 @@ class ConversationDrawer extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {open: true};
   }
 
+  handleCloseButtonTouchTap = () => {
+    this.props.onClose();
+  };
+  
   render() {
     return (
-      <Drawer width={600} openSecondary={true} open={this.state.open} >
+      <Drawer width={600} openSecondary={true} open={this.props.open} >
            <div>
-           <IconButton tooltip="Add a app">
+           <IconButton tooltip="Close" onTouchTap={this.handleCloseButtonTouchTap}>
                   <CloseIcon/>
             </IconButton>
            </div> 
