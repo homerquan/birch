@@ -28,7 +28,7 @@ class ConversationDrawer extends React.Component {
   
   render() {
     return (
-      <Drawer width={600} openSecondary={true} open={this.props.open} >
+      <Drawer containerClassName={s.drawer} width={window.innerWidth>650?600:'100%'} openSecondary={true} open={this.props.open} >
            <div>
            <IconButton tooltip="Close" onTouchTap={this.handleCloseButtonTouchTap}>
                   <CloseIcon/>
