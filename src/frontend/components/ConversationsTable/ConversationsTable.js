@@ -2,7 +2,7 @@
 * @Author: Homer
 * @Date:   2017-12-17 23:50:40
 * @Last Modified by:   Homer
-* @Last Modified time: 2017-12-22 01:55:48
+* @Last Modified time: 2017-12-22 02:19:09
 */
 
 import React from "react";
@@ -179,7 +179,11 @@ class ConversationsTable extends React.Component {
             />
           ) : (
             <div>
-              <div>Enjoy peace</div>
+              <div className={s.nothing}>
+                <div className={s.fun}>
+                  <img src="/images/nothing.png" />
+                </div>
+              </div>
             </div>
           )}
           <ConversationDrawer

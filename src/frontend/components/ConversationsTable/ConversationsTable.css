@@ -2,7 +2,7 @@
 * @Author: Homer
 * @Date:   2017-12-17 23:50:53
 * @Last Modified by:   Homer
-* @Last Modified time: 2017-12-21 23:49:33
+* @Last Modified time: 2017-12-22 02:20:58
 */
 @import '../variables.css';
 
@@ -22,4 +22,18 @@
 
 .chipProgress {
 	position: absolute;
+}
+
+.nothing {
+	height: 400px;
+	background-color: white;
+	text-align: center;
+	position: relative;
+}
+
+.fun {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }

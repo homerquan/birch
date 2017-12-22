@@ -55,7 +55,6 @@ class Layout extends React.Component {
         <Sidebar open={this.state.openSidebar} onClose={this.closeSidebar} />
         {loading ? (
           <div className={s.loader}>
-            {" "}
             <img src="/images/loader.svg" />
           </div>
         ) : (
