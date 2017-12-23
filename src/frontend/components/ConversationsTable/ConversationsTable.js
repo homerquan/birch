@@ -2,7 +2,7 @@
 * @Author: Homer
 * @Date:   2017-12-17 23:50:40
 * @Last Modified by:   Homer
-* @Last Modified time: 2017-12-22 23:16:34
+* @Last Modified time: 2017-12-22 23:22:08
 */
 
 import React from "react";
@@ -18,6 +18,7 @@ import IconButton from "material-ui/IconButton";
 import OnlineIcon from "react-material-icons/icons/action/swap-horiz";
 import OffIcon from "react-material-icons/icons/notification/sync-disabled";
 import ActiveActionIcon from "react-material-icons/icons/action/history";
+import ReloadIcon from "react-material-icons/icons/action/cached";
 import CircularProgress from "material-ui/CircularProgress";
 import MoreIcon from "react-material-icons/icons/navigation/more-vert";
 import s from "./ConversationsTable.css";
@@ -162,7 +163,9 @@ class ConversationsTable extends React.Component {
           <Toolbar>
             <ToolbarGroup firstChild={true} />
             <ToolbarGroup>
-              <RaisedButton label="Reload" onTouchTap={() => refetch()} />
+              <IconButton tooltip="Reload" onTouchTap={() => refetch()}>
+                <ReloadIcon />
+              </IconButton>
             </ToolbarGroup>
           </Toolbar>
 
