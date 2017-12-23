@@ -9,6 +9,7 @@ class Title extends React.Component {
     return (
      <div className={s.titleContainer}>	
      <h3 className={s.breadcrumb}>Home | <span className={s.title}>{this.props.children}</span></h3> 	
+     <h2>{this.props.children}</h2>
      </div>
     );
   }

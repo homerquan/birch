@@ -2,7 +2,7 @@
 * @Author: Homer
 * @Date:   2017-12-17 23:50:40
 * @Last Modified by:   Homer
-* @Last Modified time: 2017-12-22 18:34:08
+* @Last Modified time: 2017-12-22 23:17:21
 */
 
 import React from "react";
@@ -12,41 +12,86 @@ import { connect } from "react-redux";
 import withStyles from "isomorphic-style-loader/lib/withStyles";
 import Drawer from "material-ui/Drawer";
 import IconButton from "material-ui/IconButton";
+import TextField from 'material-ui/TextField';
+import RaisedButton from 'material-ui/RaisedButton';
 import CloseIcon from "react-material-icons/icons/content/clear";
+import OpenTextIcon from "react-material-icons/icons/hardware/keyboard";
+import CloseTextIcon from "react-material-icons/icons/hardware/keyboard-hide";
 import s from "./ConversationDrawer.css";
 import gql from "graphql-tag";
 
 class ConversationDrawer extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      isShowInput: false
+    };
   }
 
   handleCloseButtonTouchTap = () => {
     this.props.onClose();
   };
 
+  showInputBox = () => {
+    this.setState({
+      isShowInput: true
+    });
+  };
+
+  hideInputBox = () => {
+    this.setState({
+      isShowInput: false
+    });
+  };
+
   render() {
     const conversation = this.props.conversation;
-    return (      
+    const isShowInput = this.state.isShowInput;
+    return (
       <Drawer
         width={window.innerWidth > 650 ? 600 : "100%"}
         openSecondary={true}
         open={this.props.open}
       >
-      <div className={s.flexContainer}>
-        <div className={s.topbar}>
-          <IconButton
-            tooltip="Close"
-            onTouchTap={this.handleCloseButtonTouchTap}
-          >
-            <CloseIcon />
-          </IconButton>
+        <div className={s.flexContainer}>
+          <div className={s.topbar}>
+            <IconButton
+              tooltip="Close"
+              onTouchTap={this.handleCloseButtonTouchTap}
+            >
+              <CloseIcon />
+            </IconButton>
+          </div>
+          <div className={s.conversation} />
+          <div className={s.inputs}>
+            {isShowInput ? (
+              <div className={s.inputBox}>
+                <div className={s.inputControl}>
+                  <IconButton tooltip="Close" onTouchTap={this.hideInputBox}>
+                    <CloseTextIcon />
+                  </IconButton>
+                </div>
+                <div className={s.inputField}>
+                  <TextField
+                    hintText="Input message here"
+                    floatingLabelText="Typing message (alt+enter to send)"
+                    multiLine={true}
+                    rows={2}
+                  />
+                  <RaisedButton label="Send" disabled={true} />
+                </div>
+              </div>
+            ) : (
+              <div className={s.optionBox}>
+                <div>
+                  <IconButton tooltip="Type in" onTouchTap={this.showInputBox}>
+                    <OpenTextIcon />
+                  </IconButton>
+                </div>
+              </div>
+            )}
+          </div>
         </div>
-        <div className={s.conversation}></div>
-        <div className={s.inputs}>
-            send your message here
-        </div>
-      </div>  
       </Drawer>
     );
   }
