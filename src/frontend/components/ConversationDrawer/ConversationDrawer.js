@@ -2,7 +2,7 @@
 * @Author: Homer
 * @Date:   2017-12-17 23:50:40
 * @Last Modified by:   Homer
-* @Last Modified time: 2017-12-23 13:28:12
+* @Last Modified time: 2017-12-23 13:35:54
 */
 
 import React from "react";
@@ -19,6 +19,9 @@ import OpenTextIcon from "react-material-icons/icons/hardware/keyboard";
 import CloseTextIcon from "react-material-icons/icons/hardware/keyboard-hide";
 import s from "./ConversationDrawer.css";
 import gql from "graphql-tag";
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import theme from '../theme';
 
 class ConversationDrawer extends React.Component {
   constructor(props) {
@@ -53,6 +56,7 @@ class ConversationDrawer extends React.Component {
     const conversation = this.props.conversation;
     const isShowInput = this.state.isShowInput;
     return (
+      <MuiThemeProvider muiTheme={getMuiTheme(theme)}>
       <Drawer
         width={window.innerWidth > 650 ? 600 : "100%"}
         openSecondary={true}
@@ -103,6 +107,7 @@ class ConversationDrawer extends React.Component {
           </div>
         </div>
       </Drawer>
+      </MuiThemeProvider>
     );
   }
 }

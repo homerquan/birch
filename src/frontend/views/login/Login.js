@@ -5,6 +5,8 @@ import s from './Login.css';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import theme from '../../components/theme';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as sessionActions from '../../actions/session';
@@ -35,7 +37,7 @@ class Login extends React.Component {
 
   render() {
     return (
-      <MuiThemeProvider>
+      <MuiThemeProvider muiTheme={getMuiTheme(theme)}>
         <div className={s.root}>
           <div className={s.container}>
             <h1>{this.props.title}</h1>

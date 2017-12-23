@@ -15,7 +15,7 @@ import Divider from 'material-ui/Divider';
 import ActionInfo from 'material-ui/svg-icons/action/info';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import theme from '../theme';
+import themeDark from '../themeDark';
 import {spacing, typography, zIndex} from 'material-ui/styles';
 import logoUrl from './logo.png';
 import logoMinUrl from './logo-min.png';
@@ -76,7 +76,7 @@ class Sidebar extends React.Component {
   
   render() {
     return (
-      <MuiThemeProvider muiTheme={getMuiTheme(theme)}>
+      <MuiThemeProvider muiTheme={getMuiTheme(themeDark)}>
       <Drawer docked={false} open={this.props.open} width={styles.drawer.width} onRequestChange={this.handleCloseButtonTouchTap}>
           <div className={s.leftMenu} style={styles.fixedMenu}>
               <div className={s.logo}>

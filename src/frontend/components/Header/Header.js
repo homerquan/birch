@@ -16,7 +16,7 @@ import MenuItem from "material-ui/MenuItem";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import { white } from "material-ui/styles/colors";
 import getMuiTheme from "material-ui/styles/getMuiTheme";
-import theme from "../theme";
+import themeDark from "../themeDark";
 import Loader from "../Loader";
 import GlobalNotice from "../GlobalNotice";
 import Sticky from "react-stickynode";
@@ -70,7 +70,7 @@ class Header extends React.Component {
 
   render() {
     return (
-      <MuiThemeProvider muiTheme={getMuiTheme(theme)}>
+      <MuiThemeProvider muiTheme={getMuiTheme(themeDark)}>
      
         <div>
           <LoadingIndicator loading={this.state.loading} />
