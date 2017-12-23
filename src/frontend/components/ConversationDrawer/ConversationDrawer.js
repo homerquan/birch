@@ -2,7 +2,7 @@
 * @Author: Homer
 * @Date:   2017-12-17 23:50:40
 * @Last Modified by:   Homer
-* @Last Modified time: 2017-12-22 23:17:21
+* @Last Modified time: 2017-12-23 12:56:45
 */
 
 import React from "react";
@@ -75,10 +75,13 @@ class ConversationDrawer extends React.Component {
                   <TextField
                     hintText="Input message here"
                     floatingLabelText="Typing message (alt+enter to send)"
+                    fullWidth={true}
                     multiLine={true}
                     rows={2}
                   />
-                  <RaisedButton label="Send" disabled={true} />
+                </div>
+                <div className={s.sendButton}>
+                   <RaisedButton label="Send" disabled={true} />
                 </div>
               </div>
             ) : (
