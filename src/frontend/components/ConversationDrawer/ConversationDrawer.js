@@ -2,7 +2,7 @@
 * @Author: Homer
 * @Date:   2017-12-17 23:50:40
 * @Last Modified by:   Homer
-* @Last Modified time: 2017-12-23 12:56:45
+* @Last Modified time: 2017-12-23 13:28:12
 */
 
 import React from "react";
@@ -24,7 +24,8 @@ class ConversationDrawer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isShowInput: false
+      isShowInput: false,
+      inputMessage: ''
     };
   }
 
@@ -43,6 +44,10 @@ class ConversationDrawer extends React.Component {
       isShowInput: false
     });
   };
+
+  handleChange(event) {
+    this.setState({inputMessage: event.target.value});
+  }
 
   render() {
     const conversation = this.props.conversation;
@@ -78,10 +83,12 @@ class ConversationDrawer extends React.Component {
                     fullWidth={true}
                     multiLine={true}
                     rows={2}
+                    value={this.state.inputMessage} 
+                    onChange={this.handleChange.bind(this)}
                   />
                 </div>
                 <div className={s.sendButton}>
-                   <RaisedButton label="Send" disabled={true} />
+                   <RaisedButton label="Send" primary={true} disabled={this.state.inputMessage?false:true} />
                 </div>
               </div>
             ) : (
