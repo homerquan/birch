@@ -2,7 +2,7 @@
 * @Author: Homer
 * @Date:   2017-12-17 23:50:40
 * @Last Modified by:   Homer
-* @Last Modified time: 2017-12-22 23:22:08
+* @Last Modified time: 2017-12-24 18:43:36
 */
 
 import React from "react";
@@ -24,7 +24,6 @@ import MoreIcon from "react-material-icons/icons/navigation/more-vert";
 import s from "./ConversationsTable.css";
 import gql from "graphql-tag";
 import Blockies from "react-blockies";
-
 import RaisedButton from "material-ui/RaisedButton";
 import {
   Toolbar,
@@ -41,8 +40,8 @@ const styles = {
 };
 
 const conversationsQuery = gql`
-  query {
-    conversations {
+  query ConversationsQuery($clientId : String!){
+    conversations(clientId : $clientId) {
       id
       visitor
       client
@@ -202,5 +201,11 @@ class ConversationsTable extends React.Component {
 }
 
 export default withStyles(s)(
-  compose(graphql(conversationsQuery))(ConversationsTable)
+  compose(
+    graphql(conversationsQuery, {
+      options: props => ({
+        variables: { clientId: "ddcd39c9-dcbc-4a26-bcf7-525d77c12d54" }
+      })
+    })
+  )(ConversationsTable)
 );

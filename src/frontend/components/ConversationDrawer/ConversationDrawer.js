@@ -2,7 +2,7 @@
 * @Author: Homer
 * @Date:   2017-12-17 23:50:40
 * @Last Modified by:   Homer
-* @Last Modified time: 2017-12-23 13:35:54
+* @Last Modified time: 2017-12-23 14:05:52
 */
 
 import React from "react";
@@ -22,6 +22,15 @@ import gql from "graphql-tag";
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import theme from '../theme';
+
+const conversationsQuery = gql`
+  query MessagesQuery($clientId : String) {
+    messages(client: $channelId) {
+      id
+      text
+    }
+  }
+`;
 
 class ConversationDrawer extends React.Component {
   constructor(props) {
