@@ -2,7 +2,7 @@
 * @Author: Homer
 * @Date:   2017-12-17 23:50:40
 * @Last Modified by:   Homer
-* @Last Modified time: 2017-12-24 21:56:54
+* @Last Modified time: 2017-12-25 17:48:32
 */
 
 import React from "react";
@@ -15,6 +15,7 @@ import IconButton from "material-ui/IconButton";
 import TextField from "material-ui/TextField";
 import RaisedButton from "material-ui/RaisedButton";
 import CloseIcon from "react-material-icons/icons/content/clear";
+import ReloadIcon from "react-material-icons/icons/action/cached";
 import OpenTextIcon from "react-material-icons/icons/hardware/keyboard";
 import CloseTextIcon from "react-material-icons/icons/hardware/keyboard-hide";
 import s from "./ConversationDrawer.css";
@@ -26,6 +27,16 @@ import theme from "../theme";
 const messagesQuery = gql`
   query MessagesQuery($clientId: String, $conversationId: String) {
     messages(clientId: $clientId, conversationId: $conversationId) {
+      id
+      source
+      text
+    }
+  }
+`;
+
+const addMessageQuery = gql`
+  mutation AddMessageQuery($conversationId:String!, $text:String!) {
+    addMessage(conversationId:$conversationId,text:$text) {
       id
       text
     }
@@ -57,6 +68,21 @@ class ConversationDrawer extends React.Component {
     });
   };
 
+  sendMessage =() => {
+    const {mutate,conversation} = this.props;
+    mutate({
+        variables: {
+          "conversationId": conversation ? conversation.id : "", 
+          "text": this.state.inputMessage
+        },
+        update: (store, { data: { addMessage } }) => {
+          console.log('test');
+        },
+      });
+
+    console.log(this);
+  };
+
   handleChange(event) {
     this.setState({ inputMessage: event.target.value });
   }
@@ -80,15 +106,22 @@ class ConversationDrawer extends React.Component {
               >
                 <CloseIcon />
               </IconButton>
+              <IconButton tooltip="Reload" onTouchTap={() => refetch()}>
+                <ReloadIcon />
+              </IconButton>
             </div>
             <div className={s.conversation}>
-            {messages && messages.length ? (
-              messages.map(message => (
-                <div> {message.id} {message.text} </div>
-              ))
-            ) : (
-              <div> no message here </div>
-            )}  
+              {messages && messages.length ? (
+                messages.map(message => (
+                  <div data-convospot-message-id="{message.id}">
+                  <Paper className={message.source === 'visitor'? s.messageBulk + " " + s.visitorBulk : s.messageBulk } zDepth={1}>
+                    {message.text}
+                  </Paper>  
+                  </div>
+                ))
+              ) : (
+                <div> no message here </div>
+              )}
             </div>
             <div className={s.inputs}>
               {isShowInput ? (
@@ -114,6 +147,7 @@ class ConversationDrawer extends React.Component {
                       label="Send"
                       primary={true}
                       disabled={this.state.inputMessage ? false : true}
+                      onTouchTap={this.sendMessage}
                     />
                   </div>
                 </div>
@@ -149,9 +183,13 @@ export default withStyles(s)(
       compose(
         graphql(messagesQuery, {
           options: props => ({
-            variables: { clientId: "ddcd39c9-dcbc-4a26-bcf7-525d77c12d54", conversationId: "5b23830d-b168-4ae6-93e2-c0e1ffafdc80" }
+            variables: {
+              clientId: props.clientId,
+              conversationId: props.conversation ? props.conversation.id : ""
+            }
           })
-        })
+        }),
+        graphql(addMessageQuery)
       )(ConversationDrawer)
     )
   )

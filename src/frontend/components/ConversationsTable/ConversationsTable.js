@@ -2,7 +2,7 @@
 * @Author: Homer
 * @Date:   2017-12-17 23:50:40
 * @Last Modified by:   Homer
-* @Last Modified time: 2017-12-24 22:49:50
+* @Last Modified time: 2017-12-25 13:15:57
 */
 
 import React from "react";
@@ -162,7 +162,6 @@ class ConversationsTable extends React.Component {
           <Toolbar>
             <ToolbarGroup firstChild={true} />
             <ToolbarGroup>
-              {this.props.client}
               <IconButton tooltip="Reload" onTouchTap={() => refetch()}>
                 <ReloadIcon />
               </IconButton>
@@ -192,6 +191,7 @@ class ConversationsTable extends React.Component {
           )}
           <ConversationDrawer
             conversation={this.state.selectedConversation}
+            clientId={this.props.clientId}
             open={this.state.openDrawer}
             onClose={this.closeDrawer}
           />
@@ -205,7 +205,7 @@ export default withStyles(s)(
   compose(
     graphql(conversationsQuery, {
       options: props => ({
-        variables: { clientId: "ddcd39c9-dcbc-4a26-bcf7-525d77c12d54" }
+        variables: { clientId: props.clientId }
       })
     })
   )(ConversationsTable)

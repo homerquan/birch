@@ -2,7 +2,7 @@
 * @Author: Homer
 * @Date:   2017-12-22 02:20:17
 * @Last Modified by:   Homer
-* @Last Modified time: 2017-12-23 13:00:55
+* @Last Modified time: 2017-12-25 15:50:37
 */
 @import "../variables.css";
 
@@ -24,12 +24,7 @@
 	background: var(--color-content-background);
 	display: flex;
     flex: 1; /* same as flex: 1 1 auto; */
-    flex-direction: row;
-    
-    justify-content: flex-start; /* align items in Main Axis */
-    align-items: stretch; /* align items in Cross Axis */
-    align-content: stretch; /* Extra space in Cross Axis */
-
+    flex-direction: column;
 }
 .inputs {
 	background: white;
@@ -53,5 +48,17 @@
     position: absolute;
     top: 10px;
     right: 10px;
+}
+
+.messageBulk {
+    display: block;
+    padding: 5px;
+    margin: 2.5px 5px;
+    max-width: 50%;
+}
+
+.visitorBulk {
+    float: right;
+    min-width: 50%;
 }
 
