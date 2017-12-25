@@ -2,7 +2,7 @@
 * @Author: Homer
 * @Date:   2017-12-17 23:50:40
 * @Last Modified by:   Homer
-* @Last Modified time: 2017-12-23 14:05:52
+* @Last Modified time: 2017-12-24 21:56:54
 */
 
 import React from "react";
@@ -12,20 +12,20 @@ import { connect } from "react-redux";
 import withStyles from "isomorphic-style-loader/lib/withStyles";
 import Drawer from "material-ui/Drawer";
 import IconButton from "material-ui/IconButton";
-import TextField from 'material-ui/TextField';
-import RaisedButton from 'material-ui/RaisedButton';
+import TextField from "material-ui/TextField";
+import RaisedButton from "material-ui/RaisedButton";
 import CloseIcon from "react-material-icons/icons/content/clear";
 import OpenTextIcon from "react-material-icons/icons/hardware/keyboard";
 import CloseTextIcon from "react-material-icons/icons/hardware/keyboard-hide";
 import s from "./ConversationDrawer.css";
 import gql from "graphql-tag";
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import theme from '../theme';
+import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
+import getMuiTheme from "material-ui/styles/getMuiTheme";
+import theme from "../theme";
 
-const conversationsQuery = gql`
-  query MessagesQuery($clientId : String) {
-    messages(client: $channelId) {
+const messagesQuery = gql`
+  query MessagesQuery($clientId: String, $conversationId: String) {
+    messages(clientId: $clientId, conversationId: $conversationId) {
       id
       text
     }
@@ -37,7 +37,7 @@ class ConversationDrawer extends React.Component {
     super(props);
     this.state = {
       isShowInput: false,
-      inputMessage: ''
+      inputMessage: ""
     };
   }
 
@@ -58,64 +58,80 @@ class ConversationDrawer extends React.Component {
   };
 
   handleChange(event) {
-    this.setState({inputMessage: event.target.value});
+    this.setState({ inputMessage: event.target.value });
   }
 
   render() {
     const conversation = this.props.conversation;
+    const { messages, loading, refetch } = this.props.data;
     const isShowInput = this.state.isShowInput;
     return (
       <MuiThemeProvider muiTheme={getMuiTheme(theme)}>
-      <Drawer
-        width={window.innerWidth > 650 ? 600 : "100%"}
-        openSecondary={true}
-        open={this.props.open}
-      >
-        <div className={s.flexContainer}>
-          <div className={s.topbar}>
-            <IconButton
-              tooltip="Close"
-              onTouchTap={this.handleCloseButtonTouchTap}
-            >
-              <CloseIcon />
-            </IconButton>
-          </div>
-          <div className={s.conversation} />
-          <div className={s.inputs}>
-            {isShowInput ? (
-              <div className={s.inputBox}>
-                <div className={s.inputControl}>
-                  <IconButton tooltip="Close" onTouchTap={this.hideInputBox}>
-                    <CloseTextIcon />
-                  </IconButton>
-                </div>
-                <div className={s.inputField}>
-                  <TextField
-                    hintText="Input message here"
-                    floatingLabelText="Typing message (alt+enter to send)"
-                    fullWidth={true}
-                    multiLine={true}
-                    rows={2}
-                    value={this.state.inputMessage} 
-                    onChange={this.handleChange.bind(this)}
-                  />
-                </div>
-                <div className={s.sendButton}>
-                   <RaisedButton label="Send" primary={true} disabled={this.state.inputMessage?false:true} />
-                </div>
-              </div>
+        <Drawer
+          width={window.innerWidth > 650 ? 600 : "100%"}
+          openSecondary={true}
+          open={this.props.open}
+        >
+          <div className={s.flexContainer}>
+            <div className={s.topbar}>
+              <IconButton
+                tooltip="Close"
+                onTouchTap={this.handleCloseButtonTouchTap}
+              >
+                <CloseIcon />
+              </IconButton>
+            </div>
+            <div className={s.conversation}>
+            {messages && messages.length ? (
+              messages.map(message => (
+                <div> {message.id} {message.text} </div>
+              ))
             ) : (
-              <div className={s.optionBox}>
-                <div>
-                  <IconButton tooltip="Type in" onTouchTap={this.showInputBox}>
-                    <OpenTextIcon />
-                  </IconButton>
+              <div> no message here </div>
+            )}  
+            </div>
+            <div className={s.inputs}>
+              {isShowInput ? (
+                <div className={s.inputBox}>
+                  <div className={s.inputControl}>
+                    <IconButton tooltip="Close" onTouchTap={this.hideInputBox}>
+                      <CloseTextIcon />
+                    </IconButton>
+                  </div>
+                  <div className={s.inputField}>
+                    <TextField
+                      hintText="Input message here"
+                      floatingLabelText="Typing message (alt+enter to send)"
+                      fullWidth={true}
+                      multiLine={true}
+                      rows={2}
+                      value={this.state.inputMessage}
+                      onChange={this.handleChange.bind(this)}
+                    />
+                  </div>
+                  <div className={s.sendButton}>
+                    <RaisedButton
+                      label="Send"
+                      primary={true}
+                      disabled={this.state.inputMessage ? false : true}
+                    />
+                  </div>
                 </div>
-              </div>
-            )}
+              ) : (
+                <div className={s.optionBox}>
+                  <div>
+                    <IconButton
+                      tooltip="Type in"
+                      onTouchTap={this.showInputBox}
+                    >
+                      <OpenTextIcon />
+                    </IconButton>
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
-        </div>
-      </Drawer>
+        </Drawer>
       </MuiThemeProvider>
     );
   }
@@ -128,5 +144,15 @@ function selectProps(state) {
 }
 
 export default withStyles(s)(
-  withApollo(connect(selectProps, null)(ConversationDrawer))
+  withApollo(
+    connect(selectProps, null)(
+      compose(
+        graphql(messagesQuery, {
+          options: props => ({
+            variables: { clientId: "ddcd39c9-dcbc-4a26-bcf7-525d77c12d54", conversationId: "5b23830d-b168-4ae6-93e2-c0e1ffafdc80" }
+          })
+        })
+      )(ConversationDrawer)
+    )
+  )
 );

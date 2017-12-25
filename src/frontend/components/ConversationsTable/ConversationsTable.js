@@ -2,7 +2,7 @@
 * @Author: Homer
 * @Date:   2017-12-17 23:50:40
 * @Last Modified by:   Homer
-* @Last Modified time: 2017-12-24 18:43:36
+* @Last Modified time: 2017-12-24 22:49:50
 */
 
 import React from "react";
@@ -162,6 +162,7 @@ class ConversationsTable extends React.Component {
           <Toolbar>
             <ToolbarGroup firstChild={true} />
             <ToolbarGroup>
+              {this.props.client}
               <IconButton tooltip="Reload" onTouchTap={() => refetch()}>
                 <ReloadIcon />
               </IconButton>
