@@ -1,6 +1,6 @@
 {
-  "name": "ConversationsTable",
+  "name": "BotsView",
   "version": "0.0.0",
   "private": true,
-  "main": "./ConversationsTable.js"
+  "main": "./BotsView.js"
 }
