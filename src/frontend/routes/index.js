@@ -7,18 +7,11 @@ export default {
 
   path: '/',
 
-  async action({ next }) {
-    console.log('middleware: start');
-    const child = await next();
-    console.log('middleware: end');
-    return child;
-  },
-
   // Keep in mind, routes are evaluated in order
   children: [
     require('./home').default,
     require('./conversations').default,
-    require('./conversation').default,
+    require('./bots').default,
     require('./knowledge').default,
     require('./contact').default,
     require('./login').default,

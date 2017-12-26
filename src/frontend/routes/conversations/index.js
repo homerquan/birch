@@ -4,15 +4,20 @@ import Layout from "../../components/Layout";
 import {isLogin} from "../../utils";
 
 export default {
-	path: "/conversations",
+	path: "/:id/conversations",
 
-	action({ store }) {
+	action({store, params, query}) {
 		let login = isLogin(store.getState());
+
+		if (!login) {
+    		return { redirect: '/login' };
+  		}
+
 		return {
 			title: "Live conversations",
 			component: (
 				<Layout>
-					<Conversations />
+					<Conversations bot={params.id} />
 				</Layout>
 			)
 		};

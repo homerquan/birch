@@ -38,7 +38,7 @@ const styles = {
 export default {
 	path: "/login",
 
-	action() {
+	action({store, params, query, path}) {
 		return {
 			title,
 			component: (
@@ -46,7 +46,7 @@ export default {
 					<MuiThemeProvider>
 						<div style={styles.loginScreen}>
 							<Paper style={styles.loginPaper} zDepth={2}>
-								<Login title={title} />
+								<Login title={title} redirect={query.redirect}/>
 							</Paper>
 						</div>
 					</MuiThemeProvider>

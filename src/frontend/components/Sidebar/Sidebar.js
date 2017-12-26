@@ -85,23 +85,23 @@ class Sidebar extends React.Component {
                 </IconButton>
               </div>  
               <div className={s.fixedButton}>
-                <IconButton tooltip="All apps">
+                <IconButton tooltip="All apps" href="/apps">
                   <ListIcon/>
                 </IconButton>
               </div>
-              <div className={s.fixedButton}>
+              <div className={s.fixedButton} href="/new-app">
                 <IconButton tooltip="Add a app">
                   <AddIcon/>
                 </IconButton>
               </div>
               <div className={s.bottomSection}>
                 <div className={s.fixedButton}>
-                  <IconButton tooltip="Help" tooltipPosition="top-center">
+                  <IconButton tooltip="Help" tooltipPosition="top-center" href="/help">
                     <HelpIcon/>
                   </IconButton>
                 </div>
                 <div className={s.fixedButton}>
-                  <IconButton tooltip="Profile" tooltipPosition="top-center">
+                  <IconButton tooltip="Profile" tooltipPosition="top-center" href="/profile">
                     <AccountIcon/>
                   </IconButton>
                 </div>

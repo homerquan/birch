@@ -20,7 +20,7 @@ class Login extends React.Component {
     super(props);
     this.state = { credentials: { email: '', password: '' } };
     this.onChange = this.onChange.bind(this);
-    this.onSave = this.onSave.bind(this);
+    this.loginHandler = this.loginHandler.bind(this);
   }
 
   onChange(event) {
@@ -30,9 +30,9 @@ class Login extends React.Component {
     return this.setState({ credentials });
   }
 
-  onSave(event) {
+  loginHandler(event) {
     event.preventDefault();
-    this.props.actions.loginUser(this.state.credentials);
+    this.props.actions.loginUser(this.state.credentials,this.props.redirect);
   }
 
   render() {
@@ -64,7 +64,7 @@ class Login extends React.Component {
                 />
               </div>
               <div className={s.formGroup}>
-                <RaisedButton label="Login" primary type="submit" onClick={this.onSave} />
+                <RaisedButton label="Login" primary type="submit" onClick={this.loginHandler} />
               </div>
             </form>
           </div>
