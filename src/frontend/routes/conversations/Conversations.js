@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import { Page, Section, LayoutProvider } from "react-page-layout";
 import s from "./Conversations.css";
 import grids from "../../components/Layout/grids";
-import ConversationsTable from "../../components/ConversationsTable";
+import ConversationsView from "../../components/ConversationsView";
 import withStyles from "isomorphic-style-loader/lib/withStyles";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 
@@ -19,7 +19,7 @@ class Conversations extends React.Component {
 						<Title>{this.props.title}</Title>
 					</Section>
 					<Section slot="main">
-						<ConversationsTable
+						<ConversationsView
 							clientId={this.props.session.userId}
 						/>
 					</Section>

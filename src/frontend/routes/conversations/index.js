@@ -3,6 +3,9 @@ import Conversations from "./Conversations";
 import Layout from "../../components/Layout";
 import {isLogin} from "../../utils";
 
+
+const title = "Live Conversations";
+
 export default {
 	path: "/:id/conversations",
 
@@ -10,14 +13,14 @@ export default {
 		let login = isLogin(store.getState());
 
 		if (!login) {
-    		return { redirect: '/login' };
+    		return { redirect: "/login?redirect="+path };
   		}
 
 		return {
-			title: "Live conversations",
+			title,
 			component: (
 				<Layout>
-					<Conversations bot={params.id} />
+					<Conversations title={title} bot={params.id} />
 				</Layout>
 			)
 		};

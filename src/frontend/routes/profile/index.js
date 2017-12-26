@@ -21,7 +21,7 @@ export default {
 		let login = isLogin(store.getState());
 
 		if (!login) {
-			return { redirect: "/login" };
+			return { redirect: "/login?redirect="+path };
 		}
 		
 		return {

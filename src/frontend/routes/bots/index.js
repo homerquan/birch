@@ -7,15 +7,17 @@
  * @Email: homer@convospot.io
  * @Date:   2017-11-05 19:36:24
  * @Last Modified by:   Homer
- * @Last Modified time: 2017-12-26 00:43:09
+ * @Last Modified time: 2017-12-26 12:56:11
  */
 import React from "react";
 import Bots from "./Bots";
 import Layout from "../../components/Layout";
 import { isLogin } from "../../utils";
 
+const title = "Properties & Apps";
+
 export default {
-	path: "/bots",
+	path: "/apps",
 
 	action({store, params, query, path}) {
 		let login = isLogin(store.getState());
@@ -25,10 +27,10 @@ export default {
 		}
 		
 		return {
-			title: "Accounts",
+			title,
 			component: (
 				<Layout>
-					<Bots />
+					<Bots title={title} />
 				</Layout>
 			)
 		};
