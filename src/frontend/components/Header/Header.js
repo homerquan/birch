@@ -61,10 +61,10 @@ class Header extends React.Component {
 
   // after each refresh relogin using refresh token
   componentDidMount() {
-    const refreshToken = sessionStorage.getItem('convospot-refresh-token');
-    if(refreshToken) {
-      this.props.actions.refreshLogin(refreshToken);
-    }
+    // const refreshToken = sessionStorage.getItem('convospot-refresh-token');
+    // if(refreshToken) {
+    //   this.props.actions.refreshLogin(refreshToken);
+    // }
     setTimeout(() => this.setState({ loading: false }), 1500); // simulates loading of data
   }
 

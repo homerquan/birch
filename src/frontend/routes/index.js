@@ -1,5 +1,3 @@
-
-
 /* eslint-disable global-require */
 
 // The top-level (parent) route
@@ -25,8 +23,8 @@ export default {
     require('./notFound').default,
   ],
 
-  async action({ next }) {
-    // Execute each child route until one of them return the result
+  async action({next}) {
+    
     const route = await next();
 
     // Provide default values for title, description etc.

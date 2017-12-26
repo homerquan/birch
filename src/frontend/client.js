@@ -109,6 +109,7 @@ FastClick.attach(document.body);
 const container = document.getElementById("app");
 let appInstance;
 let currentLocation = history.location;
+
 let router = require("./router").default;
 
 // Re-render the app when window.location changes
