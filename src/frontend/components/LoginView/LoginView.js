@@ -1,17 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import s from './Login.css';
+import s from './LoginView.css';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import theme from '../../components/theme';
+import theme from '../theme';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as sessionActions from '../../actions/session';
 
-class Login extends React.Component {
+class LoginView extends React.Component {
   static propTypes = {
     title: PropTypes.string.isRequired,
   };
@@ -86,4 +86,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default withStyles(s)(connect(selectProps, mapDispatchToProps)(Login));
+export default withStyles(s)(connect(selectProps, mapDispatchToProps)(LoginView));

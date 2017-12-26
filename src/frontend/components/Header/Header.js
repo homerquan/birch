@@ -20,9 +20,7 @@ import themeDark from "../themeDark";
 import Loader from "../Loader";
 import GlobalNotice from "../GlobalNotice";
 import Sticky from "react-stickynode";
-import * as sessionActions from "../../actions/session";
-import { bindActionCreators } from 'redux';
-import { connect } from "react-redux";
+
 
 const styles = {
   header: {
@@ -88,10 +86,4 @@ class Header extends React.Component {
   }
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    actions: bindActionCreators(sessionActions, dispatch)
-  };
-}
-
-export default withStyles(s)(connect(null, mapDispatchToProps)(Header));
+export default withStyles(s)(Header);

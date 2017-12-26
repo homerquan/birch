@@ -16,7 +16,7 @@ class Conversations extends React.Component {
 			<LayoutProvider layouts={grids}>
 				<Page layout="grid-one-one">
 					<Section slot="top">
-						<Title>Conversations</Title>
+						<Title>{this.props.title}</Title>
 					</Section>
 					<Section slot="main">
 						<ConversationsTable

@@ -9,11 +9,14 @@
 
 import React from "react";
 import FullScreen from "../../components/Layout/Fullscreen";
-import Login from "../../views/login/Login";
+import LoginView from "../../components/loginView";
 import Paper from "material-ui/Paper";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import { deepPurple500, white } from "material-ui/styles/colors";
 import Background from "./bg.svg";
+import { isLogin } from "../../utils";
+
+
 const title = "Log In";
 
 const styles = {
@@ -39,6 +42,13 @@ export default {
 	path: "/login",
 
 	action({store, params, query, path}) {
+
+		let login = isLogin(store.getState());
+
+		if (login) {
+			return { redirect: "/profile" };
+		}
+
 		return {
 			title,
 			component: (
@@ -46,7 +56,7 @@ export default {
 					<MuiThemeProvider>
 						<div style={styles.loginScreen}>
 							<Paper style={styles.loginPaper} zDepth={2}>
-								<Login title={title} redirect={query.redirect}/>
+								<LoginView title={title} redirect={query.redirect}/>
 							</Paper>
 						</div>
 					</MuiThemeProvider>
