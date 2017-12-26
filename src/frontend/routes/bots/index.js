@@ -7,7 +7,7 @@
  * @Email: homer@convospot.io
  * @Date:   2017-11-05 19:36:24
  * @Last Modified by:   Homer
- * @Last Modified time: 2017-12-25 21:15:30
+ * @Last Modified time: 2017-12-26 00:43:09
  */
 import React from "react";
 import Bots from "./Bots";
@@ -20,9 +20,10 @@ export default {
 	action({store, params, query, path}) {
 		let login = isLogin(store.getState());
 
-		// if (!login) {
-		// 	return { redirect: "/login?redirect="+path };
-		// }
+		if (!login) {
+			return { redirect: "/login?redirect="+path };
+		}
+		
 		return {
 			title: "Accounts",
 			component: (

@@ -1,6 +1,10 @@
 import {createReducer} from '../utils';
 import {ACTION_TYPES} from '../constants';
 import jwtDecode from 'jwt-decode';
+import { Cookies } from 'react-cookie';
+import config from '../config';
+
+const cookies = new Cookies();
 
 const initialState = {
     userId: null,
@@ -20,7 +24,7 @@ export default function session(state = initialState, action) {
             'statusText': null
         });
     case ACTION_TYPES.LOGIN_USER_SUCCESS:
-      return Object.assign({}, state, {
+      const newState =  {
             'isAuthenticating': false,
             'isAuthenticated': true,
             'token': action.payload.token,
@@ -28,7 +32,9 @@ export default function session(state = initialState, action) {
             'userId': action.payload.userId,
             'userRole': action.payload.userRole,
             'statusText': null
-       });
+      };
+      cookies.set(config.cookieName, JSON.stringify(newState), { path: '/' });
+      return Object.assign({}, state, newState);
     case ACTION_TYPES.LOGIN_USER_FAILURE:
       return Object.assign({}, state, {
             'isAuthenticating': false,
@@ -40,6 +46,7 @@ export default function session(state = initialState, action) {
             'statusText': `Authentication Error: ${action.payload.status} ${action.payload.statusText}`
         });
     case ACTION_TYPES.LOGOUT_USER:
+      ookies.remove(config.cookieName);
       return Object.assign({}, state, {
             'isAuthenticated': false,
             'token': null,

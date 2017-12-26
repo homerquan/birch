@@ -59,7 +59,7 @@ export function loginUser(credentials, redirect = "/") {
       .then(response => {
         try {
           const decoded = jwtDecode(response.token);
-          dispatch(loginUserSuccess(response.token, response.refreshToken));
+          dispatch(loginUserSuccess(response.token, response.refreshToken, decoded._id, decoded.role));
           window.location.replace(redirect); 
         } catch (e) {
           dispatch(

@@ -45,8 +45,12 @@ const frontend = app => {
         apolloClient
       });
 
+      //get states from cookie
+      const clientStete = req.cookies[config.cookieName];
+      
+
       const initialState = {
-        user: req.user || null
+        session: clientStete ? JSON.parse(clientStete) : {}  || null
       };
 
       const store = configureStore(initialState, {
