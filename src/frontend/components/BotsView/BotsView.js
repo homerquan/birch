@@ -2,7 +2,7 @@
 * @Author: Homer
 * @Date:   2017-12-17 23:50:40
 * @Last Modified by:   Homer
-* @Last Modified time: 2017-12-26 20:07:02
+* @Last Modified time: 2017-12-27 00:21:09
 */
 
 import React from "react";
@@ -18,6 +18,7 @@ import OnlineIcon from "react-material-icons/icons/action/swap-horiz";
 import OffIcon from "react-material-icons/icons/notification/sync-disabled";
 import ActiveActionIcon from "react-material-icons/icons/action/history";
 import ReloadIcon from "react-material-icons/icons/action/cached";
+import AddIcon from "react-material-icons/icons/content/add";
 import CircularProgress from "material-ui/CircularProgress";
 import MoreIcon from "react-material-icons/icons/navigation/more-vert";
 import s from "./BotsView.css";
@@ -88,6 +89,9 @@ class BotsView extends React.Component {
           <Toolbar>
             <ToolbarGroup firstChild={true} />
             <ToolbarGroup>
+              <IconButton tooltip="Add" onTouchTap={() => refetch()}>
+                <AddIcon />
+              </IconButton>
               <IconButton tooltip="Reload" onTouchTap={() => refetch()}>
                 <ReloadIcon />
               </IconButton>
