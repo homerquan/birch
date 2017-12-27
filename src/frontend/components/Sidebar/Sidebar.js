@@ -5,67 +5,67 @@
  *
  */
 
-import React from 'react';
-import cx from 'classnames';
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import s from './Sidebar.css';
-import Drawer from 'material-ui/Drawer'; 
-import {List, ListItem} from 'material-ui/List';
-import Divider from 'material-ui/Divider';
-import ActionInfo from 'material-ui/svg-icons/action/info';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import themeDark from '../themeDark';
-import {spacing, typography, zIndex} from 'material-ui/styles';
-import logoUrl from './logo.png';
-import logoMinUrl from './logo-min.png';
-import {deepPurple500,white} from 'material-ui/styles/colors';
-import IconButton from 'material-ui/IconButton';
-import HelpIcon from 'react-material-icons/icons/action/help-outline';
-import AccountIcon from 'react-material-icons/icons/action/account-circle';
-import AddIcon from 'react-material-icons/icons/content/add';
-import CloseIcon from 'react-material-icons/icons/navigation/chevron-left';
-import ListIcon from 'react-material-icons/icons/action/list';
-import OverviewIcon from 'react-material-icons/icons/action/event-seat';
-import ConversationIcon from 'react-material-icons/icons/communication/chat';
-import ConversationsIcon from 'react-material-icons/icons/communication/forum';
-import KnowledgeIcon from 'react-material-icons/icons/social/school';
-import FaBeer from 'react-icons/lib/fa/beer';
+import React from "react";
+import cx from "classnames";
+import withStyles from "isomorphic-style-loader/lib/withStyles";
+import s from "./Sidebar.css";
+import Drawer from "material-ui/Drawer";
+import { List, ListItem } from "material-ui/List";
+import Divider from "material-ui/Divider";
+import ActionInfo from "material-ui/svg-icons/action/info";
+import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
+import getMuiTheme from "material-ui/styles/getMuiTheme";
+import themeDark from "../themeDark";
+import { spacing, typography, zIndex } from "material-ui/styles";
+import logoUrl from "./logo.png";
+import logoMinUrl from "./logo-min.png";
+import { deepPurple500, white } from "material-ui/styles/colors";
+import IconButton from "material-ui/IconButton";
+import HelpIcon from "react-material-icons/icons/action/help-outline";
+import AccountIcon from "react-material-icons/icons/action/account-circle";
+import AddIcon from "react-material-icons/icons/content/add";
+import AppsIcon from "react-material-icons/icons/action/list";
+import CloseIcon from "react-material-icons/icons/navigation/chevron-left";
+import ListIcon from "react-material-icons/icons/action/list";
+import OverviewIcon from "react-material-icons/icons/action/event-seat";
+import ConversationIcon from "react-material-icons/icons/communication/chat";
+import ConversationsIcon from "react-material-icons/icons/communication/forum";
+import KnowledgeIcon from "react-material-icons/icons/social/school";
+import { connect } from "react-redux";
 
 const styles = {
   logo: {
-    cursor: 'pointer',
+    cursor: "pointer",
     paddingLeft: spacing.desktopGutter,
     marginTop: 24,
-    marginBottom: 8,
-  },
-  link: {
-    textDecoration: 'none',
-    color: white,
+    marginBottom: 8
   },
   fixedMenu: {
-    backgroundColor: deepPurple500,
+    backgroundColor: deepPurple500
   },
   drawer: {
-    width: 320,
+    width: 320
   },
   version: {
     paddingLeft: spacing.desktopGutterLess,
-    fontSize: 16,
+    fontSize: 16
   },
   large: {
     width: 60,
     height: 60,
-    padding: 0,
+    padding: 0
   },
   largeIcon: {
     width: 48,
-    height: 48,
+    height: 48
   },
+  darkLink: {
+    color: "#757575",
+    fontWeight: "400"
+  }
 };
 
 class Sidebar extends React.Component {
-
   constructor(props) {
     super(props);
   }
@@ -73,58 +73,105 @@ class Sidebar extends React.Component {
   handleCloseButtonTouchTap = () => {
     this.props.onClose(false);
   };
-  
+
   render() {
+    const selectedApp =
+      this.props.runtime && this.props.runtime.selectedApp ? this.props.runtime.selectedApp : null;
     return (
       <MuiThemeProvider muiTheme={getMuiTheme(themeDark)}>
-      <Drawer docked={false} open={this.props.open} width={styles.drawer.width} onRequestChange={this.handleCloseButtonTouchTap}>
+        <Drawer
+          docked={false}
+          open={this.props.open}
+          width={styles.drawer.width}
+          onRequestChange={this.handleCloseButtonTouchTap}
+        >
           <div className={s.leftMenu} style={styles.fixedMenu}>
-              <div className={s.logo}>
-                <IconButton iconStyle={styles.largeIcon} style={styles.large} onTouchTap={this.handleCloseButtonTouchTap}>
-                   <img src={logoMinUrl} alt="logo" />
-                </IconButton>
-              </div>  
+            <div className={s.logo}>
+              <IconButton
+                iconStyle={styles.largeIcon}
+                style={styles.large}
+                onTouchTap={this.handleCloseButtonTouchTap}
+              >
+                <img src={logoMinUrl} alt="logo" />
+              </IconButton>
+            </div>
+            <div className={s.fixedButton}>
+              <IconButton tooltip="All apps" href="/apps">
+                <ListIcon />
+              </IconButton>
+            </div>
+            <div className={s.fixedButton} href="/new-app">
+              <IconButton tooltip="Add a app">
+                <AddIcon />
+              </IconButton>
+            </div>
+            <div className={s.bottomSection}>
               <div className={s.fixedButton}>
-                <IconButton tooltip="All apps" href="/apps">
-                  <ListIcon/>
+                <IconButton
+                  tooltip="Help"
+                  tooltipPosition="top-center"
+                  href="/help"
+                >
+                  <HelpIcon />
                 </IconButton>
               </div>
-              <div className={s.fixedButton} href="/new-app">
-                <IconButton tooltip="Add a app">
-                  <AddIcon/>
+              <div className={s.fixedButton}>
+                <IconButton
+                  tooltip="Profile"
+                  tooltipPosition="top-center"
+                  href="/profile"
+                >
+                  <AccountIcon />
                 </IconButton>
               </div>
-              <div className={s.bottomSection}>
-                <div className={s.fixedButton}>
-                  <IconButton tooltip="Help" tooltipPosition="top-center" href="/help">
-                    <HelpIcon/>
-                  </IconButton>
-                </div>
-                <div className={s.fixedButton}>
-                  <IconButton tooltip="Profile" tooltipPosition="top-center" href="/profile">
-                    <AccountIcon/>
-                  </IconButton>
-                </div>
-              </div>      
+            </div>
           </div>
           <div className={s.rightMenu}>
-            <div style={styles.logo} onTouchTap={this.handleCloseButtonTouchTap}>
-               <img src={logoUrl} alt="convospot" />
+            <div
+              style={styles.logo}
+              onTouchTap={this.handleCloseButtonTouchTap}
+            >
+              <img src={logoUrl} alt="convospot" />
             </div>
-            <List>
-              <ListItem primaryText="Overview" leftIcon={<OverviewIcon />} />
-            </List>
-            <Divider />
-            <List>
-              <ListItem leftIcon={<FaBeer />} button > </ListItem> 
-               <ListItem leftIcon={<ConversationsIcon />} button > </ListItem>
-              <ListItem leftIcon={<KnowledgeIcon />} button ></ListItem>
-            </List>
+            {selectedApp ? (
+              <div>
+                <List>
+                  <ListItem
+                    primaryText={this.props.runtime.selectedApp.name}
+                    style = {styles.darkLink}
+                    leftIcon={<OverviewIcon />}
+                  />
+                </List>
+                <Divider />
+                <List>
+                  <ListItem leftIcon={<ConversationsIcon color={white} />} button>
+                    <a className={s.link} href={`/${selectedApp.id}/conversations`}>Conversations</a>
+                  </ListItem>
+                  <ListItem leftIcon={<KnowledgeIcon color={white} />} button>
+                     <a className={s.link} href={`/${selectedApp.id}/knowledge`}>Knowledge</a>
+                  </ListItem>
+                </List>
+              </div>
+            ) : (
+              <div>
+                <List>
+                  <ListItem leftIcon={<AppsIcon color={white} />} button>
+                    <a className={s.link} href={`/apps`}>Properties & Apps</a>
+                  </ListItem>
+                </List>
+              </div>
+            )}
           </div>
-      </Drawer>
+        </Drawer>
       </MuiThemeProvider>
     );
   }
 }
 
-export default withStyles(s)(Sidebar);
+function selectProps(state) {
+  return {
+    runtime: state.runtime
+  };
+}
+
+export default withStyles(s)(connect(selectProps, null)(Sidebar));

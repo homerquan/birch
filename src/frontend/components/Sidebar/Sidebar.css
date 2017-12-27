@@ -1,15 +1,19 @@
-@import '../variables.css';
-
+@import "../variables.css";
 
 .root {
 }
 
+.link {
+	color: white;
+	text-decoration: none;
+	font-weight: 400;
+}
 
 .leftMenu {
 	position: absolute;
-    top: 0;
-    bottom: 0;
-    width: var(--fixed-menu-width);
+	top: 0;
+	bottom: 0;
+	width: var(--fixed-menu-width);
 }
 .rightMenu {
 	margin-left: var(--fixed-menu-width);

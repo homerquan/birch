@@ -2,7 +2,7 @@
 * @Author: Homer
 * @Date:   2017-12-16 05:33:50
 * @Last Modified by:   Homer
-* @Last Modified time: 2017-12-16 05:40:43
+* @Last Modified time: 2017-12-26 21:36:14
 */
 
 export const standard = {
@@ -10,7 +10,7 @@ export const standard = {
     // Defaults
     gridSize: 12, // rem
     gutterWidth: 1, // rem
-    outerMargin: 3, // rem
+    outerMargin: 4, // rem
     mediaQuery: 'only screen',
     container: {
       sm: 46, // rem
