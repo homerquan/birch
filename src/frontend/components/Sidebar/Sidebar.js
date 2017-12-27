@@ -62,6 +62,9 @@ const styles = {
   darkLink: {
     color: "#757575",
     fontWeight: "400"
+  },
+  iconItem: {
+    left: 20
   }
 };
 
@@ -144,10 +147,10 @@ class Sidebar extends React.Component {
                 </List>
                 <Divider />
                 <List>
-                  <ListItem leftIcon={<ConversationsIcon color={white} />} button>
+                  <ListItem leftIcon={<ConversationsIcon color={white} style={styles.iconItem} />} button>
                     <a className={s.link} href={`/${selectedApp.id}/conversations`}>Conversations</a>
                   </ListItem>
-                  <ListItem leftIcon={<KnowledgeIcon color={white} />} button>
+                  <ListItem leftIcon={<KnowledgeIcon color={white} style={styles.iconItem} />} button>
                      <a className={s.link} href={`/${selectedApp.id}/knowledge`}>Knowledge</a>
                   </ListItem>
                 </List>
@@ -155,7 +158,7 @@ class Sidebar extends React.Component {
             ) : (
               <div>
                 <List>
-                  <ListItem leftIcon={<AppsIcon color={white} />} button>
+                  <ListItem leftIcon={<AppsIcon color={white} style={styles.iconItem} />} button>
                     <a className={s.link} href={`/apps`}>Properties & Apps</a>
                   </ListItem>
                 </List>
