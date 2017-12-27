@@ -33,7 +33,7 @@ export default function session(state = initialState, action) {
             'userRole': action.payload.userRole,
             'statusText': null
       };
-      cookies.set(config.cookieName, JSON.stringify(newState), { path: '/', expires: 0 });
+      cookies.set(config.sessionCookieName, JSON.stringify(newState), { path: '/', expires: 0 });
       return Object.assign({}, state, newState);
     case ACTION_TYPES.LOGIN_USER_FAILURE:
       return Object.assign({}, state, {
@@ -46,7 +46,7 @@ export default function session(state = initialState, action) {
             'statusText': `Authentication Error: ${action.payload.status} ${action.payload.statusText}`
         });
     case ACTION_TYPES.LOGOUT_USER:
-      cookies.remove(config.cookieName);
+      cookies.remove(config.sessionCookieName);
       return Object.assign({}, state, {
             'isAuthenticated': false,
             'token': null,

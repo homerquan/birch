@@ -2,7 +2,7 @@
 * @Author: Homer
 * @Date:   2017-12-17 23:50:40
 * @Last Modified by:   Homer
-* @Last Modified time: 2017-12-26 18:37:17
+* @Last Modified time: 2017-12-26 20:07:02
 */
 
 import React from "react";
@@ -74,6 +74,7 @@ class BotsView extends React.Component {
       name: 'selectedApp',
       value: selected
     });
+    window.location.replace("/"+selected.id+"/conversations"); 
   };
 
   render() {

@@ -20,6 +20,7 @@ import themeDark from "../themeDark";
 import Loader from "../Loader";
 import GlobalNotice from "../GlobalNotice";
 import Sticky from "react-stickynode";
+import { connect } from 'react-redux';
 
 
 const styles = {
@@ -63,6 +64,7 @@ class Header extends React.Component {
   }
 
   render() {
+    const selectedAppName = this.props.runtime && this.props.runtime.selectedApp? this.props.runtime.selectedApp.name : '';
     return (
       <MuiThemeProvider muiTheme={getMuiTheme(themeDark)}>
      
@@ -71,7 +73,7 @@ class Header extends React.Component {
           <GlobalNotice />
           <Sticky onStateChange={this.handleStickyChange}>
           <AppBar
-            title=''
+            title={selectedAppName}
             className={this.state.headerClass}
             style={this.state.sticky ? styles.stickyHeader : styles.header}
             onLeftIconButtonTouchTap={this.handleToggleButtonTouchTap.bind(
@@ -86,4 +88,10 @@ class Header extends React.Component {
   }
 }
 
-export default withStyles(s)(Header);
+function selectProps(state) {
+  return {
+    runtime: state.runtime
+  };
+}
+
+export default withStyles(s)(connect(selectProps, null)(Header));

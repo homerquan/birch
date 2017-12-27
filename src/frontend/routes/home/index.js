@@ -16,10 +16,14 @@ export default {
   path: '/',
 
   action() {
-    return {
-      title: 'convospot dashboard',
-      component: <Layout><Home /></Layout>,
-    };
+
+  	// TODO: for MVP, add home overview later
+  	return { redirect: "/apps" };
+
+    // return {
+    //   title: 'convospot dashboard',
+    //   component: <Layout><Home /></Layout>,
+    // };
   },
 
 };

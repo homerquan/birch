@@ -46,11 +46,13 @@ const frontend = app => {
       });
 
       //get states from cookie
-      const clientStete = req.cookies[config.cookieName];
+      const clientSession = req.cookies[config.sessionCookieName];
+      const clientRuntime = req.cookies[config.runtimeCookieName];
       
 
       const initialState = {
-        session: clientStete ? JSON.parse(clientStete) : {}  || null
+        session: clientSession ? JSON.parse(clientSession) : {}  || null,
+        runtime: clientRuntime ? JSON.parse(clientRuntime) : {}  || null
       };
 
       const store = configureStore(initialState, {

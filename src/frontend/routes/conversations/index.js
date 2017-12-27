@@ -9,7 +9,7 @@ const title = "Live Conversations";
 export default {
 	path: "/:id/conversations",
 
-	action({store, params, query}) {
+	action({store, params, query, path}) {
 		let login = isLogin(store.getState());
 
 		if (!login) {
@@ -20,7 +20,7 @@ export default {
 			title,
 			component: (
 				<Layout>
-					<Conversations title={title} bot={params.id} />
+					<Conversations title={title} botId={params.id} />
 				</Layout>
 			)
 		};

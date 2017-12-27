@@ -4,7 +4,8 @@
 module.exports = {
 	appName: 'convospot-console',
 	tokenName: 'convospot-token',
-	cookieName: 'convopsot-state-cookie',
+	sessionCookieName: 'convopsot-session-cookie',
+	runtimeCookieName: 'convopsot-runtime-cookie',
 	refreshTokenName: 'convospot-refresh-token',
 	userRoles: ['guest', 'user', 'admin'],
 	apiUrl: 'http://localhost:3003',

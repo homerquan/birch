@@ -2,7 +2,7 @@
 * @Author: Homer
 * @Date:   2017-12-17 23:50:40
 * @Last Modified by:   Homer
-* @Last Modified time: 2017-12-26 13:07:44
+* @Last Modified time: 2017-12-26 20:17:44
 */
 
 import React from "react";
@@ -40,8 +40,8 @@ const styles = {
 };
 
 const conversationsQuery = gql`
-  query ConversationsQuery($clientId : String!){
-    conversations(clientId : $clientId) {
+  query ConversationsQuery($clientId : String!, $botId: String){
+    conversations(clientId : $clientId, botId: $botId) {
       id
       visitor
       client
@@ -205,7 +205,7 @@ export default withStyles(s)(
   compose(
     graphql(conversationsQuery, {
       options: props => ({
-        variables: { clientId: props.clientId }
+        variables: { clientId: props.clientId, botId: props.botId }
       })
     })
   )(ConversationsTable)
