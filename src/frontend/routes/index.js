@@ -10,6 +10,7 @@ export default {
     require('./home').default,
     require('./conversations').default,
     require('./bots').default,
+    require('./bot').default,
     require('./knowledge').default,
     require('./profile').default,
     require('./login').default,
