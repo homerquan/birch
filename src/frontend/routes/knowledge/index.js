@@ -1,26 +1,28 @@
-/**
- * React Starter Kit (https://www.reactstarterkit.com/)
- *
- * Copyright © 2014-present Kriasoft, LLC. All rights reserved.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE.txt file in the root directory of this source tree.
- */
+import React from "react";
+import Knowledge from "./Knowledge";
+import Layout from "../../components/Layout";
+import {isLogin} from "../../utils";
 
 
-import React from 'react';
-import Knowledge from './Knowledge';
-import Layout from '../../components/Layout';
+const title = "Knowledge";
 
 export default {
+	path: "/:id/Knowledge",
 
-  path: '/knowledge',
+	action({store, params, query, path}) {
+		let login = isLogin(store.getState());
 
-  action() {
-    return {
-      title: 'Knowledge',
-      component: <Layout><Knowledge /></Layout>,
-    };
-  },
+		if (!login) {
+    		return { redirect: "/login?redirect="+path };
+  		}
 
+		return {
+			title,
+			component: (
+				<Layout>
+					<Knowledge title={title} botId={params.id} />
+				</Layout>
+			)
+		};
+	}
 };
