@@ -2,11 +2,12 @@
 * @Author: Homer
 * @Date:   2017-12-17 23:50:40
 * @Last Modified by:   Homer
-* @Last Modified time: 2017-12-26 20:17:44
+* @Last Modified time: 2017-12-27 21:03:23
 */
 
 import React from "react";
 import { graphql, compose } from "react-apollo";
+import config from '../../config';
 import Paper from "material-ui/Paper";
 import DataTables from "material-ui-datatables";
 import Avatar from "material-ui/Avatar";
@@ -45,9 +46,27 @@ const conversationsQuery = gql`
       id
       visitor
       client
+      intentions {
+        name
+        score
+      }
+      actions {
+        source
+        name
+        status
+      }
       mode
       updatedAt
     }
+  }
+`;
+
+const subscriptionConversationQuery = gql`
+  subscription onUpdateConversation($clientId:String) {
+    updateConversation(clientId:$clientId) {
+      id
+      status
+    } 
   }
 `;
 
@@ -92,27 +111,34 @@ const tableColumns = [
     render: (id, all) => <OnlineIcon />
   },
   {
-    key: "intention",
-    label: "Intention",
-    render: (intention, all) => (
-      <div>
-        <Chip style={styles.chip}>view product</Chip>
-        <Chip style={styles.chip}>buy product</Chip>
+    key: "intentions",
+    label: "Intentions",
+    render: (intentions, all) => (
+      <div> 
+        {intentions && intentions.length ? (
+          intentions.map((intention) =>
+            <Chip style={styles.chip}>{intention.name}</Chip>
+          )
+        ) : (
+          <span>waiting data</span>
+        )}  
       </div>
     )
   },
   {
-    key: "action",
-    label: "Action",
-    render: (action, all) => (
+    key: "actions",
+    label: "Actions",
+    render: (actions, all) => (
       <div>
-        <Chip style={styles.chip}>
-          <Avatar size={32}>L</Avatar>Thinking <img src="/images/loader.gif" />
-        </Chip>
-        <Chip style={styles.chip}>
-          <Avatar size={32}>K</Avatar>Preparing Answer{" "}
-          <img src="/images/loader.gif" />
-        </Chip>
+       {actions && actions.length ? (
+          actions.map((action) =>
+            <Chip style={styles.chip}>
+              <Avatar size={32}>{action.source.charAt(0)}</Avatar> {action.name} { action.status === 'in-progress' && <img src="/images/loader.gif" /> }
+            </Chip>
+          )
+        ) : (
+          <span>waiting actions</span>
+        )}  
       </div>
     )
   },
@@ -205,7 +231,8 @@ export default withStyles(s)(
   compose(
     graphql(conversationsQuery, {
       options: props => ({
-        variables: { clientId: props.clientId, botId: props.botId }
+        variables: { clientId: props.clientId, botId: props.botId },
+        pollInterval: config.pollInterval
       })
     })
   )(ConversationsTable)

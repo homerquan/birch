@@ -7,6 +7,7 @@ module.exports = {
 	sessionCookieName: 'convopsot-session-cookie',
 	runtimeCookieName: 'convopsot-runtime-cookie',
 	refreshTokenName: 'convospot-refresh-token',
+	pollInterval: 3000,
 	userRoles: ['guest', 'user', 'admin'],
 	apiUrl: 'http://localhost:3003',
 	apiPrefix: '/api'
