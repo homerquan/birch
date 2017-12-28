@@ -2,7 +2,7 @@
 * @Author: Homer
 * @Date:   2017-12-17 23:50:53
 * @Last Modified by:   Homer
-* @Last Modified time: 2017-12-22 02:20:58
+* @Last Modified time: 2017-12-28 11:17:40
 */
 @import '../variables.css';
 
@@ -36,4 +36,9 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+.knowledge {
+	width: 100%;
+	min-height: 400px;
 }

@@ -11,6 +11,7 @@ import withStyles from "isomorphic-style-loader/lib/withStyles";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 
 class Knowledge extends React.Component {
+
 	render() {
 		return (
 			<LayoutProvider layouts={grids}>
@@ -31,11 +32,9 @@ class Knowledge extends React.Component {
 }
 
 function selectProps(state) {
-  return {
-    session: state.session
-  };
+	return {
+		session: state.session
+	};
 }
 
-export default compose(withStyles(s))(
-	 connect(selectProps, null)(Knowledge)
-);
+export default compose(withStyles(s))(connect(selectProps, null)(Knowledge));
