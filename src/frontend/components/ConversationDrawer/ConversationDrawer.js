@@ -2,7 +2,7 @@
 * @Author: Homer
 * @Date:   2017-12-17 23:50:40
 * @Last Modified by:   Homer
-* @Last Modified time: 2017-12-25 17:48:32
+* @Last Modified time: 2017-12-28 08:41:20
 */
 
 import React from "react";
@@ -23,6 +23,7 @@ import gql from "graphql-tag";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import getMuiTheme from "material-ui/styles/getMuiTheme";
 import theme from "../theme";
+import config from '../../config';
 
 const messagesQuery = gql`
   query MessagesQuery($clientId: String, $conversationId: String) {
@@ -34,9 +35,9 @@ const messagesQuery = gql`
   }
 `;
 
-const addMessageQuery = gql`
-  mutation AddMessageQuery($conversationId:String!, $text:String!) {
-    addMessage(conversationId:$conversationId,text:$text) {
+const createMessageQuery = gql`
+  mutation createMessageQuery($conversationId:String!, $text:String!) {
+    createMessage(conversationId:$conversationId,text:$text) {
       id
       text
     }
@@ -79,8 +80,6 @@ class ConversationDrawer extends React.Component {
           console.log('test');
         },
       });
-
-    console.log(this);
   };
 
   handleChange(event) {
@@ -182,14 +181,19 @@ export default withStyles(s)(
     connect(selectProps, null)(
       compose(
         graphql(messagesQuery, {
-          options: props => ({
+          options: (props,state) => ({
             variables: {
               clientId: props.clientId,
               conversationId: props.conversation ? props.conversation.id : ""
-            }
+            },
+            pollInterval: config.pollInterval
           })
         }),
-        graphql(addMessageQuery)
+        graphql(createMessageQuery,{
+          options: (props,state) => ({
+            variables: {}
+          })
+        })
       )(ConversationDrawer)
     )
   )

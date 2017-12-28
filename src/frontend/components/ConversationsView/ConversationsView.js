@@ -2,12 +2,11 @@
 * @Author: Homer
 * @Date:   2017-12-17 23:50:40
 * @Last Modified by:   Homer
-* @Last Modified time: 2017-12-27 21:03:23
+* @Last Modified time: 2017-12-28 08:26:05
 */
 
 import React from "react";
 import { graphql, compose } from "react-apollo";
-import config from '../../config';
 import Paper from "material-ui/Paper";
 import DataTables from "material-ui-datatables";
 import Avatar from "material-ui/Avatar";
@@ -32,6 +31,7 @@ import {
   ToolbarSeparator,
   ToolbarTitle
 } from "material-ui/Toolbar";
+import config from '../../config';
 
 const styles = {
   chip: {
