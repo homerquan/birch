@@ -8,20 +8,6 @@ module.exports = {
 	// Root path of server
   root: path.normalize(`${__dirname}/../../..`),
 
-	// Server port
-  port: process.env.PORT || 3000,
-
-	// Server IP
-  ip: process.env.IP || '0.0.0.0',
-
-  // API Gateway
-  api: {
-    // API URL to be used in the client-side code
-    clientUrl: process.env.API_CLIENT_URL || `http://localhost:${process.env.PORT || 3003}`,
-    // API URL to be used in the server-side code
-    serverUrl: process.env.API_SERVER_URL || `http://localhost:${process.env.PORT || 3003}`,
-  },
-
   // Secret for session, you will want to change this and make it an environment variable
   secrets: {
     session: process.env.JWT_SECRETS || '08f1af67cddd127b6f2122ce7a05cf5ef171c199a350687d3c8d8ed62b03642c',

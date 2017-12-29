@@ -1,3 +1,9 @@
+/*
+ * @Author: Homer
+ * @Date:   2017-12-29 17:47:30
+ * @Last Modified by:   Homer
+ * @Last Modified time: 2017-12-29 17:52:03
+ */
 'use strict';
 
 // Development specific configuration
@@ -11,7 +17,7 @@ module.exports = {
 	amqpConn: 'amqp://guest:guest@localhost:5672/seneca',
 
 	// Server port
-	port: process.env.PORT || 8002,
+	port: process.env.PORT || 8102,
 
 	// Server IP
 	ip: process.env.IP || '0.0.0.0',
@@ -19,9 +25,9 @@ module.exports = {
 	// API Gateway
 	api: {
 		// API URL to be used in the client-side code
-		clientUrl: process.env.API_CLIENT_URL || `http://localhost:${process.env.PORT || 8003}`,
+		clientUrl: process.env.API_CLIENT_URL || `http://localhost:${process.env.PORT || 8103}`,
 		// API URL to be used in the server-side code
-		serverUrl: process.env.API_SERVER_URL || `http://localhost:${process.env.PORT || 8003}`,
+		serverUrl: process.env.API_SERVER_URL || `http://localhost:${process.env.PORT || 8103}`,
 	},
 
 };
