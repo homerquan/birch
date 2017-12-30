@@ -4,7 +4,7 @@ const config = require('../config');
 
 class Session {  
   static login(credentials) {
-    const request = new Request(config.api.clientUrl+'/auth/local', {
+    const request = new Request(config.apiUrl+'/auth/local', {
       method: 'POST',
       headers: new Headers({
         'Content-Type': 'application/json'
@@ -15,6 +15,8 @@ class Session {
 
     return fetch(request).then(response => {
       return response.json();
+    }).catch(e => {
+      console.error(e);
     });
   } 
 
