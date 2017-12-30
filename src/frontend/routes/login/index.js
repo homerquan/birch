@@ -9,7 +9,7 @@
 
 import React from "react";
 import FullScreen from "../../components/Layout/Fullscreen";
-import LoginView from "../../components/loginView";
+import LoginView from "../../components/LoginView";
 import Paper from "material-ui/Paper";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import { deepPurple500, white } from "material-ui/styles/colors";
