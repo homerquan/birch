@@ -1,10 +1,9 @@
 import fetch from 'isomorphic-fetch';
-
-const config = require('../config');
+import config from '../config';
 
 class Session {  
   static login(credentials) {
-    const request = new Request(config.apiUrl+'/auth/local', {
+    const request = new Request(config.clientUrl+'/auth/local', {
       method: 'POST',
       headers: new Headers({
         'Content-Type': 'application/json'
@@ -21,7 +20,7 @@ class Session {
   } 
 
   static refresh(refreshToken) {
-    const request = new Request(config.apiUrl+'/auth/local_refresh', {
+    const request = new Request(config.clientUrl+'/auth/local_refresh', {
       method: 'POST',
       headers: new Headers({
         'Content-Type': 'application/json'

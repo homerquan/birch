@@ -7,6 +7,11 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
+const sharedConfig = require('./shared.config');
+
+// White shared.js in config for sharing variables with client
+sharedConfig();
+
 export function format(time) {
   return time.toTimeString().replace(/.*(\d{2}:\d{2}:\d{2}).*/, '$1');
 }

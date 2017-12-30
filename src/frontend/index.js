@@ -40,7 +40,7 @@ const frontend = app => {
       const css = new Set();
 
       const fetch = createFetch({
-        baseUrl: config.api.serverUrl,
+        baseUrl: config.serverUrl,
         cookie: req.headers.cookie,
         apolloClient
       });
@@ -121,7 +121,7 @@ const frontend = app => {
         console.log("Serializing store...");
       }
       data.app = {
-        apiUrl: config.api.clientUrl,
+        apiUrl: config.clientUrl,
         state: context.store.getState()
       };
 

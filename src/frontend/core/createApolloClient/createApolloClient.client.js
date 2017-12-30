@@ -5,8 +5,8 @@ import {
 import ApolloClient, { createNetworkInterface } from "apollo-client";
 import config from '../../config';
 
-const httpUri = "http://localhost:3003/graphql";
-const wsUri = "ws://localhost:3003/graphql-subscriptions";
+const httpUri = config.clientUrl+"/graphql";
+const wsUri = config.clientSubscriptionUrl + "/graphql-subscriptions";
 const token = sessionStorage.getItem(config.tokenName) || '';
 
 
