@@ -328,7 +328,6 @@ const serverConfig = {
     // Define free variables
     // https://webpack.github.io/docs/list-of-plugins.html#defineplugin
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': isDebug ? '"development"' : '"stage"',
       'process.env.BROWSER': false,
       __DEV__: isDebug,
     }),
