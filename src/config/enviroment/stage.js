@@ -2,7 +2,7 @@
  * @Author: Homer
  * @Date:   2017-12-29 17:47:30
  * @Last Modified by:   Homer
- * @Last Modified time: 2017-12-29 17:52:03
+ * @Last Modified time: 2017-12-29 20:17:54
  */
 'use strict';
 
@@ -25,9 +25,9 @@ module.exports = {
 	// API Gateway
 	api: {
 		// API URL to be used in the client-side code
-		clientUrl: process.env.API_CLIENT_URL || `http://localhost:${process.env.PORT || 8103}`,
+		clientUrl: process.env.API_CLIENT_URL || `http://api.stage.reflen.com}`,
 		// API URL to be used in the server-side code
-		serverUrl: process.env.API_SERVER_URL || `http://localhost:${process.env.PORT || 8103}`,
+		serverUrl: process.env.API_SERVER_URL || `http://api.stage.reflen.com}`,
 	},
 
 };
