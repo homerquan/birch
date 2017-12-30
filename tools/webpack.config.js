@@ -213,7 +213,8 @@ const clientConfig = {
     // Define free variables
     // https://webpack.github.io/docs/list-of-plugins.html#defineplugin
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': isDebug ? '"development"' : '"production"',
+      //  add stage
+      // 'process.env.NODE_ENV': isDebug ? '"development"' : '"production"',
       'process.env.BROWSER': true,
       __DEV__: isDebug,
     }),
