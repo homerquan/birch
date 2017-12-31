@@ -26,6 +26,7 @@ export default {
 		
 		return {
 			title,
+			chunk: 'profile',
 			component: (
 				<Layout>
 					<Profile title={title} />

@@ -19,6 +19,7 @@ export default {
 	action() {
 		return {
 			title,
+			chunk: 'notFound',
 			component: (
 				<FullScreen>
 					<NotFound title={title} />

@@ -22,6 +22,7 @@ export default {
 
     // return {
     //   title: 'convospot dashboard',
+    //   chunk: 'home',
     //   component: <Layout><Home /></Layout>,
     // };
   },

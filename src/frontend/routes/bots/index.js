@@ -7,7 +7,7 @@
  * @Email: homer@convospot.io
  * @Date:   2017-11-05 19:36:24
  * @Last Modified by:   Homer
- * @Last Modified time: 2017-12-30 22:46:29
+ * @Last Modified time: 2017-12-30 22:56:16
  */
 import React from "react";
 import Bots from "./Bots";
@@ -28,6 +28,7 @@ export default {
 		
 		return {
 			title,
+			chunk: 'bots',
 			component: (
 				<Layout>
 					<Bots title={title} />

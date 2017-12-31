@@ -18,6 +18,7 @@ export default {
 
 		return {
 			title,
+			chunk: 'conversations',
 			component: (
 				<Layout>
 					<Conversations title={title} botId={params.id} />

@@ -15,11 +15,13 @@ export default {
 
   path: '/privacy',
   chunk: 'privacy',
+
   async action() {
     const data = await require.ensure([], require => require('./privacy.md'), 'privacy');
 
     return {
       title: data.title,
+      chunk: 'privacy',
       chunk: 'privacy',
       component: <Layout><Page {...data} /></Layout>,
     };

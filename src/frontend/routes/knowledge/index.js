@@ -18,6 +18,7 @@ export default {
 
 		return {
 			title,
+			chunk: 'knowledge',
 			component: (
 				<Layout>
 					<Knowledge title={title} botId={params.id} />

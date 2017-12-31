@@ -16,7 +16,7 @@ const isAdmin = false;
 export default {
 
   path: '/admin',
-
+  chunk: 'admin',
   async action() {
     if (!isAdmin) {
       return { redirect: '/login' };

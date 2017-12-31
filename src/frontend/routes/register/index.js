@@ -20,6 +20,7 @@ export default {
   action() {
     return {
       title,
+      chunk: 'register',
       component: <Layout><Register title={title} /></Layout>,
     };
   },
