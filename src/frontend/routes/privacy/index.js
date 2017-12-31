@@ -14,7 +14,7 @@ import Page from '../../components/Page';
 export default {
 
   path: '/privacy',
-
+  chunk: 'privacy',
   async action() {
     const data = await require.ensure([], require => require('./privacy.md'), 'privacy');
 

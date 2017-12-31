@@ -8,7 +8,7 @@ const title = "Knowledge";
 
 export default {
 	path: "/:id/Knowledge",
-
+	chunk: 'knowledge',
 	action({store, params, query, path}) {
 		let login = isLogin(store.getState());
 

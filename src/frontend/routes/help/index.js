@@ -14,7 +14,7 @@ import Page from '../../components/Page';
 export default {
 
   path: '/help',
-
+  chunk: 'help',
   async action() {
     const data = await require.ensure([], require => require('./help.md'), 'help');
 

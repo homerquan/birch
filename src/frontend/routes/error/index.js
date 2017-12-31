@@ -13,7 +13,7 @@ import ErrorPage from './ErrorPage';
 export default {
 
   path: '/error',
-
+  chunk: 'error',
   action({ error }) {
     return {
       title: error.name,

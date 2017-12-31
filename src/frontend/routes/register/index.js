@@ -16,7 +16,7 @@ const title = 'New User Registration';
 export default {
 
   path: '/register',
-
+  chunk: 'register',
   action() {
     return {
       title,

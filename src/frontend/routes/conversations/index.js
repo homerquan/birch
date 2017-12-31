@@ -8,7 +8,7 @@ const title = "Live Conversations";
 
 export default {
 	path: "/:id/conversations",
-
+	chunk: 'conversations',
 	action({store, params, query, path}) {
 		let login = isLogin(store.getState());
 

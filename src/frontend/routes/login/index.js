@@ -40,7 +40,7 @@ const styles = {
 
 export default {
 	path: "/login",
-
+	chunk: 'login',
 	action({store, params, query, path}) {
 
 		let login = isLogin(store.getState());

@@ -14,7 +14,7 @@ import Page from '../../components/Page';
 export default {
 
   path: '/debug',
-
+  chunk: 'debug',
   async action() {
     const data = await require.ensure([], require => require('./debug.md'), 'debug');
 

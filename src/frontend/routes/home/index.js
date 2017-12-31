@@ -14,7 +14,7 @@ import Layout from '../../components/Layout';
 export default {
 
   path: '/',
-
+  chunk: 'home',
   action() {
 
   	// TODO: for MVP, add home overview later

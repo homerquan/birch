@@ -16,7 +16,7 @@ const title = "Profile";
 
 export default {
 	path: "/profile",
-
+	chunk: 'profile',
 	action({ store, params, query }) {
 		let login = isLogin(store.getState());
 
