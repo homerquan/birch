@@ -245,7 +245,7 @@
     "deploy": "babel-node tools/run deploy",
     "render": "babel-node tools/run render",
     "serve": "babel-node tools/run runServer",
-    "start": "babel-node tools/run start",
+    "start": "cd build;npm start",
     "dev": "BABEL_DISABLE_CACHE=1 babel-node tools/run start",
     "debug": "babel-node --inspect --debug-brk tools/run start"
   }
