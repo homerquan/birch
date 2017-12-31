@@ -11,6 +11,7 @@ export default {
     require('./conversations').default,
     require('./bots').default,
     require('./bot').default,
+    require('./newBot').default,
     require('./knowledge').default,
     require('./profile').default,
     require('./login').default,
