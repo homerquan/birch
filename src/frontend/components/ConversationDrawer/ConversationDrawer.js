@@ -2,7 +2,7 @@
 * @Author: Homer
 * @Date:   2017-12-17 23:50:40
 * @Last Modified by:   Homer
-* @Last Modified time: 2017-12-28 08:41:20
+* @Last Modified time: 2017-12-31 23:49:05
 */
 
 import React from "react";
@@ -76,7 +76,7 @@ class ConversationDrawer extends React.Component {
           "conversationId": conversation ? conversation.id : "", 
           "text": this.state.inputMessage
         },
-        update: (store, { data: { addMessage } }) => {
+        update: (store, { data: { createMessage } }) => {
           console.log('test');
         },
       });

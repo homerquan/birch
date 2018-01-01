@@ -11,5 +11,6 @@ module.exports = {
 	userRoles: ['guest', 'user', 'admin'],
 	clientUrl: '__clientUrl',
 	clientSubscriptionUrl: '__clientSubscriptionUrl',
+	widgetUrl: '__widgetUrl',
 	apiPrefix: '/api'
 };

@@ -2,121 +2,61 @@
 * @Author: Homer
 * @Date:   2017-12-31 16:47:27
 * @Last Modified by:   Homer
-* @Last Modified time: 2017-12-31 18:50:41
+* @Last Modified time: 2018-01-01 00:38:16
 */
 
 import React from "react";
 import { Field, reduxForm } from "redux-form";
 import withStyles from "isomorphic-style-loader/lib/withStyles";
 import s from "./NewBotView.css";
+import { graphql, compose, withApollo } from "react-apollo";
+import gql from "graphql-tag";
+import NewBotForm from "./NewBotForm";
+
+const createBotQuery = gql`
+	mutation createBotQuery($clientId: String!, $name: String!, $url: String!) {
+		createBot(clientId: $clientId, name: $name, url: $url) {
+			id
+		}
+	}
+`;
 
 class NewBotView extends React.Component {
 
+	showResults = values => {
+		const {mutate,clientId} = this.props;
+		new Promise(resolve => {
+			setTimeout(() => {
+				// simulate server latency
+				 mutate({
+                   variables: {
+                     "clientId": clientId, 
+                     "name": values.name,
+                     "url": values.url
+                   },
+                   update: (store, { data: { createBot } }) => {
+                      window.location.replace("/apps"); 
+                   },
+                 });
+				resolve();
+			}, 500);
+		});
+	}
+		
 	render() {
-		const { handleSubmit, pristine, reset, submitting } = this.props;
-		return (
-			<form onSubmit={handleSubmit}>
-				<div>
-					<label>First Name</label>
-					<div>
-						<Field
-							name="firstName"
-							component="input"
-							type="text"
-							placeholder="First Name"
-						/>
-					</div>
-				</div>
-				<div>
-					<label>Last Name</label>
-					<div>
-						<Field
-							name="lastName"
-							component="input"
-							type="text"
-							placeholder="Last Name"
-						/>
-					</div>
-				</div>
-				<div>
-					<label>Email</label>
-					<div>
-						<Field
-							name="email"
-							component="input"
-							type="email"
-							placeholder="Email"
-						/>
-					</div>
-				</div>
-				<div>
-					<label>Sex</label>
-					<div>
-						<label>
-							<Field
-								name="sex"
-								component="input"
-								type="radio"
-								value="male"
-							/>{" "}
-							Male
-						</label>
-						<label>
-							<Field
-								name="sex"
-								component="input"
-								type="radio"
-								value="female"
-							/>{" "}
-							Female
-						</label>
-					</div>
-				</div>
-				<div>
-					<label>Favorite Color</label>
-					<div>
-						<Field name="favoriteColor" component="select">
-							<option />
-							<option value="ff0000">Red</option>
-							<option value="00ff00">Green</option>
-							<option value="0000ff">Blue</option>
-						</Field>
-					</div>
-				</div>
-				<div>
-					<label htmlFor="employed">Employed</label>
-					<div>
-						<Field
-							name="employed"
-							id="employed"
-							component="input"
-							type="checkbox"
-						/>
-					</div>
-				</div>
-				<div>
-					<label>Notes</label>
-					<div>
-						<Field name="notes" component="textarea" />
-					</div>
-				</div>
-				<div>
-					<button type="submit" disabled={pristine || submitting}>
-						Submit
-					</button>
-					<button
-						type="button"
-						disabled={pristine || submitting}
-						onClick={reset}
-					>
-						Clear Values
-					</button>
-				</div>
-			</form>
-		);
+		const { pristine, reset, submitting } = this.props;
+		return <NewBotForm onSubmit={this.showResults.bind(this)} />;
 	}
 }
 
-export default reduxForm({
-	form: "NewBot"
-})(withStyles(s)(NewBotView));
+export default compose(
+	reduxForm({
+		form: "NewBot"
+	}),
+	withStyles(s),
+	graphql(createBotQuery, {
+		options: (props, state) => ({
+			variables: {}
+		})
+	})
+)(NewBotView);

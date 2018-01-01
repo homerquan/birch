@@ -2,7 +2,7 @@
 * @Author: Homer
 * @Date:   2017-12-17 23:50:40
 * @Last Modified by:   Homer
-* @Last Modified time: 2017-12-31 18:38:35
+* @Last Modified time: 2018-01-01 00:34:13
 */
 
 import React from "react";
@@ -28,6 +28,8 @@ import RaisedButton from "material-ui/RaisedButton"
 import * as runtimeActions from "../../actions/runtime"
 import { connect } from 'react-redux'
 import { bindActionCreators } from "redux"
+import config from '../../config';
+
 
 import {
   Toolbar,
@@ -42,6 +44,7 @@ const botsQuery = gql`
       id
       name
       host
+      token
     }
   }
 `;
@@ -58,8 +61,19 @@ const tableColumns = [
     key: "host",
     label: "Host",
     style: {
-      width: 40
+      width: 60
     }
+  },
+  {
+    key: "token",
+    label: "Embed code",
+    render: (token, all) => (
+      <div> 
+        <code className={s.smallCode}>
+           &lt;script src="{config.widgetUrl}" bid="{all.id}" token="{token}" async&gt;&lt;/script&gt;
+        </code>
+      </div>
+    )
   }
 ];
 
@@ -89,7 +103,7 @@ class BotsView extends React.Component {
           <Toolbar>
             <ToolbarGroup firstChild={true} />
             <ToolbarGroup>
-              <IconButton tooltip="Add" onTouchTap={() => refetch()}>
+              <IconButton tooltip="Add" href="/new_app">
                 <AddIcon />
               </IconButton>
               <IconButton tooltip="Reload" onTouchTap={() => refetch()}>

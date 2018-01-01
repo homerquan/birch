@@ -22,6 +22,9 @@ module.exports = {
 	clientUrl: process.env.API_CLIENT_URL || `http://localhost:${process.env.PORT || 8003}`,
 	// API URL for graphql subscription ws
 	clientSubscriptionUrl: process.env.API_SUBSCRIPTION_URL || `ws://localhost:${process.env.PORT || 8003}`,
+
+	widgetUrl: 'http://localhost:8005/convospot.js',
+	
 	// API URL to be used in the server-side code
 	serverUrl: process.env.API_SERVER_URL || `http://localhost:${process.env.PORT || 8003}`,
 
