@@ -27,10 +27,10 @@ import AddIcon from "react-material-icons/icons/content/add";
 import AppsIcon from "react-material-icons/icons/action/list";
 import CloseIcon from "react-material-icons/icons/navigation/chevron-left";
 import ListIcon from "react-material-icons/icons/action/list";
-import OverviewIcon from "react-material-icons/icons/action/event-seat";
+import MoreIcon from "react-icons/lib/md/more-vert";
 import ConversationIcon from "react-material-icons/icons/communication/chat";
-import ConversationsIcon from "react-material-icons/icons/communication/forum";
-import KnowledgeIcon from "react-material-icons/icons/social/school";
+import ConversationsIcon from "react-icons/lib/md/chat";
+import KnowledgeIcon from "react-icons/lib/md/grain";
 import { connect } from "react-redux";
 
 const styles = {
@@ -61,10 +61,11 @@ const styles = {
   },
   darkLink: {
     color: "#757575",
-    fontWeight: "400"
+    fontWeight: "600",
+    paddingLeft: 10
   },
   iconItem: {
-    left: 20
+    paddingLeft: 10
   }
 };
 
@@ -142,7 +143,7 @@ class Sidebar extends React.Component {
                   <ListItem
                     primaryText={this.props.runtime.selectedApp.name}
                     style = {styles.darkLink}
-                    leftIcon={<OverviewIcon />}
+                    rightIcon={<MoreIcon />}
                   />
                 </List>
                 <Divider />

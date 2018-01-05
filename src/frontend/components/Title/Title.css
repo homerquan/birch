@@ -2,7 +2,7 @@
 * @Author: Homer
 * @Date:   2017-12-17 23:23:04
 * @Last Modified by:   Homer
-* @Last Modified time: 2017-12-17 23:39:38
+* @Last Modified time: 2018-01-04 20:39:20
 */
 
 @import '../variables.css';
@@ -10,14 +10,22 @@
 .breadcrumb {
 	color: var(--color-text-dark);
 	font-size: 14px;
-    font-weight: 400;
+    font-weight: 600;
     line-height: 18px;
 }
 
-.title {
+.light {
 	color: var(--color-text-light);
 }
 
+.title {
+	color: var(--color-text-dark);
+}
+
+.separator {
+	margin: 0 5px;
+}
+
 .titleContainer {
-	min-height: 60px;
+	margin: 30px 0;
 }
