@@ -8,19 +8,18 @@
  */
 @import '../variables.css';
 
+.title {
+  color: var(--color-text-dark);
+}
+
 .root {
-  padding-left: 20px;
-  padding-right: 20px;
+  padding: 0 40px;
 }
 
 .container {
   margin: 0 auto;
   padding: 20px 0;
   max-width: 460px;
-}
-
-.lead {
-  font-size: 1.25em;
 }
 
 .formGroup {

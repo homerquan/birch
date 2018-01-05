@@ -29,8 +29,9 @@ const styles = {
 		backgroundSize: "cover"
 	},
 	loginPaper: {
-		height: 600,
-		width: 600,
+		minHehgit: 200,
+		minWidth: 450,
+		maxWidth: "100%",
 		position: "fixed",
 		top: "50%",
 		left: "50%",
