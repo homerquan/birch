@@ -2,7 +2,7 @@
 * @Author: Homer
 * @Date:   2017-12-17 23:50:40
 * @Last Modified by:   Homer
-* @Last Modified time: 2017-12-28 11:46:33
+* @Last Modified time: 2018-01-05 23:39:55
 */
 
 import React from "react";
@@ -24,15 +24,31 @@ import {
 } from "material-ui/Toolbar";
 
 const knowledgeQuery = gql`
-  query knowledgeQuery($clientId : String!, $botId: String){
-    knowledge(clientId : $clientId, botId: $botId)
+  query knowledgeQuery($clientId: String!, $botId: String!) {
+    knowledge(clientId: $clientId, botId: $botId) {
+      id
+      raw
+      text
+      bot
+      client
+    }
   }
 `;
 
 //TODO for mvp only one knowledge
 const updateKnowledgeQuery = gql`
-  mutation updateKnowledgeQuery($text:String!) {
-    updateKnowledge(text:$text)
+  mutation updateKnowledgeQuery(
+    $text: String!
+    $clientId: String!
+    $botId: String!
+  ) {
+    updateKnowledge(text: $text, clientId: $clientId, botId: $botId) {
+      id
+      raw
+      text
+      bot
+      client
+    }
   }
 `;
 
@@ -48,6 +64,8 @@ class KnowledgeView extends React.Component {
     const { mutate } = this.props;
     mutate({
       variables: {
+        clientId: this.props.clientId,
+        botId: this.props.botId,
         text: this.state.knowledgeText
       }
     });
@@ -71,12 +89,20 @@ class KnowledgeView extends React.Component {
               <IconButton tooltip="Reload" onTouchTap={() => refetch()}>
                 <ReloadIcon />
               </IconButton>
-              <IconButton tooltip="Send" onTouchTap={this.sendKnowledge.bind(this)}>
+              <IconButton
+                tooltip="Send"
+                onTouchTap={this.sendKnowledge.bind(this)}
+              >
                 <SendIcon />
               </IconButton>
             </ToolbarGroup>
           </Toolbar>
-          <textarea id="demoKB" className={s.knowledge} defaultValue={knowledge} onChange={this.handleChange.bind(this)}/>
+          <textarea
+            id="demoKB"
+            className={s.knowledge}
+            defaultValue={knowledge.raw}
+            onChange={this.handleChange.bind(this)}
+          />
         </div>
       </MuiThemeProvider>
     );
@@ -90,10 +116,10 @@ export default withStyles(s)(
         variables: { clientId: props.clientId, botId: props.botId }
       })
     }),
-    graphql(updateKnowledgeQuery,{
-          options: (props,state) => ({
-            variables: {}
-          })
+    graphql(updateKnowledgeQuery, {
+      options: (props, state) => ({
+        variables: {}
+      })
     })
   )(KnowledgeView)
 );
