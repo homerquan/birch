@@ -2,7 +2,7 @@
 * @Author: Homer
 * @Date:   2017-12-17 23:50:40
 * @Last Modified by:   Homer
-* @Last Modified time: 2018-01-06 11:53:14
+* @Last Modified time: 2018-01-06 17:57:04
 */
 
 import React from "react";
@@ -11,7 +11,7 @@ import Paper from "material-ui/Paper";
 import { connect } from "react-redux";
 import withStyles from "isomorphic-style-loader/lib/withStyles";
 import Drawer from "material-ui/Drawer";
-import Avatar from 'material-ui/Avatar';
+import Avatar from "material-ui/Avatar";
 import IconButton from "material-ui/IconButton";
 import TextField from "material-ui/TextField";
 import RaisedButton from "material-ui/RaisedButton";
@@ -22,6 +22,8 @@ import CloseTextIcon from "react-material-icons/icons/hardware/keyboard-hide";
 import AiAvatarIcon from "react-icons/lib/fa/circle-o";
 import VisitorAvatarIcon from "react-icons/lib/ti/user-outline";
 import HelperAvatarIcon from "react-icons/lib/fa/user";
+import FlatButton from "material-ui/FlatButton";
+import Badge from "material-ui/Badge";
 import s from "./ConversationDrawer.css";
 import gql from "graphql-tag";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
@@ -116,7 +118,10 @@ class ConversationDrawer extends React.Component {
             <div className={s.conversation}>
               {messages && messages.length ? (
                 messages.map(message => (
-                  <div data-convospot-message-id="{message.id}">
+                  <div
+                    className={s.messageCard}
+                    data-convospot-message-id="{message.id}"
+                  >
                     <Paper
                       className={
                         message.source === "visitor"
@@ -127,21 +132,30 @@ class ConversationDrawer extends React.Component {
                     >
                       {message.source == "ai" && (
                         <div className={s.avatar}>
-                          <img className={s.avatarIcon} src="/images/avatar-ai.png" />
+                          <img
+                            className={s.avatarIcon}
+                            src="/images/avatar-ai.png"
+                          />
                           <span className={s.sourceName}>A.I.</span>
                         </div>
                       )}
 
                       {message.source == "visitor" && (
                         <div className={s.avatar}>
-                          <img className={s.avatarIcon} src="/images/avatar-visitor.png" />
+                          <img
+                            className={s.avatarIcon}
+                            src="/images/avatar-visitor.png"
+                          />
                           <span className={s.sourceName}>Visitor</span>
                         </div>
                       )}
 
                       {message.source == "helper" && (
                         <div className={s.avatar}>
-                          <img className={s.avatarIcon} src="/images/avatar-helper.png" />
+                          <img
+                            className={s.avatarIcon}
+                            src="/images/avatar-helper.png"
+                          />
                           <span className={s.sourceName}>Yourself</span>
                         </div>
                       )}
@@ -153,6 +167,17 @@ class ConversationDrawer extends React.Component {
               ) : (
                 <div> no message here </div>
               )}
+
+              <div className={s.actionCard}>
+                <div className={s.actionTitle}>Suggested response</div>
+                <div className={s.actionText}>You can find it in section 2</div>
+                <div className={s.actionOption}>
+                  <Badge badgeContent={4} primary={true} badgeStyle={{top: 20, right: 15}}>
+                    <FlatButton primary={true} label="Accept" />
+                  </Badge>
+                  <FlatButton secondary={true} label="Ignore" />
+                </div>
+              </div>
             </div>
             <div className={s.inputs}>
               {isShowInput ? (
