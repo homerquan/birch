@@ -2,7 +2,7 @@
 * @Author: Homer
 * @Date:   2017-12-22 02:20:17
 * @Last Modified by:   Homer
-* @Last Modified time: 2018-01-06 18:22:39
+* @Last Modified time: 2018-01-06 18:27:29
 */
 @import "../variables.css";
 
@@ -56,7 +56,7 @@
     padding: 10px 10px;
     margin: 2.5px 5px;
     width: calc(80%-10px);
-    border-radius: 10px !important;
+    border-radius: 5px !important;
 }
 
 .visitorBulk {
