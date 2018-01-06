@@ -146,7 +146,7 @@ class ConversationDrawer extends React.Component {
                         </div>
                       )}
 
-                      <div> {message.text} </div>
+                      <div className={s.messageText}> {message.text} </div>
                     </Paper>
                   </div>
                 ))
