@@ -11,6 +11,7 @@ import Paper from "material-ui/Paper";
 import { connect } from "react-redux";
 import withStyles from "isomorphic-style-loader/lib/withStyles";
 import Drawer from "material-ui/Drawer";
+import Avatar from 'material-ui/Avatar';
 import IconButton from "material-ui/IconButton";
 import TextField from "material-ui/TextField";
 import RaisedButton from "material-ui/RaisedButton";
@@ -18,12 +19,15 @@ import CloseIcon from "react-material-icons/icons/content/clear";
 import ReloadIcon from "react-material-icons/icons/action/cached";
 import OpenTextIcon from "react-material-icons/icons/hardware/keyboard";
 import CloseTextIcon from "react-material-icons/icons/hardware/keyboard-hide";
+import AiAvatarIcon from "react-icons/lib/fa/circle-o";
+import VisitorAvatarIcon from "react-icons/lib/ti/user-outline";
+import HelperAvatarIcon from "react-icons/lib/fa/user";
 import s from "./ConversationDrawer.css";
 import gql from "graphql-tag";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import getMuiTheme from "material-ui/styles/getMuiTheme";
 import theme from "../theme";
-import config from '../../config';
+import config from "../../config";
 
 const messagesQuery = gql`
   query MessagesQuery($clientId: String, $conversationId: String) {
@@ -36,8 +40,8 @@ const messagesQuery = gql`
 `;
 
 const createMessageQuery = gql`
-  mutation createMessageQuery($conversationId:String!, $text:String!) {
-    createMessage(conversationId:$conversationId,text:$text) {
+  mutation createMessageQuery($conversationId: String!, $text: String!) {
+    createMessage(conversationId: $conversationId, text: $text) {
       id
       text
     }
@@ -69,17 +73,17 @@ class ConversationDrawer extends React.Component {
     });
   };
 
-  sendMessage =() => {
-    const {mutate,conversation} = this.props;
+  sendMessage = () => {
+    const { mutate, conversation } = this.props;
     mutate({
-        variables: {
-          "conversationId": conversation ? conversation.id : "", 
-          "text": this.state.inputMessage
-        },
-        update: (store, { data: { createMessage } }) => {
-          console.log('test');
-        },
-      });
+      variables: {
+        conversationId: conversation ? conversation.id : "",
+        text: this.state.inputMessage
+      },
+      update: (store, { data: { createMessage } }) => {
+        console.log("test");
+      }
+    });
   };
 
   handleChange(event) {
@@ -113,9 +117,37 @@ class ConversationDrawer extends React.Component {
               {messages && messages.length ? (
                 messages.map(message => (
                   <div data-convospot-message-id="{message.id}">
-                  <Paper className={message.source === 'visitor'? s.messageBulk + " " + s.visitorBulk : s.messageBulk } zDepth={1}>
-                    {message.text}
-                  </Paper>  
+                    <Paper
+                      className={
+                        message.source === "visitor"
+                          ? s.messageBulk + " " + s.visitorBulk
+                          : s.messageBulk
+                      }
+                      zDepth={1}
+                    >
+                      {message.source == "AI" && (
+                        <div className={s.avatar}>
+                          <img className={s.avatarIcon} src="/images/avatar-ai.png" />
+                          <span className={s.sourceName}>A.I.</span>
+                        </div>
+                      )}
+
+                      {message.source == "visitor" && (
+                        <div className={s.avatar}>
+                          <img className={s.avatarIcon} src="/images/avatar-visitor.png" />
+                          <span className={s.sourceName}>Visitor</span>
+                        </div>
+                      )}
+
+                      {message.source == "helper" && (
+                        <div className={s.avatar}>
+                          <img className={s.avatarIcon} src="/images/avatar-helper.png" />
+                          <span className={s.sourceName}>Yourself</span>
+                        </div>
+                      )}
+
+                      <div> {message.text} </div>
+                    </Paper>
                   </div>
                 ))
               ) : (
@@ -181,7 +213,7 @@ export default withStyles(s)(
     connect(selectProps, null)(
       compose(
         graphql(messagesQuery, {
-          options: (props,state) => ({
+          options: (props, state) => ({
             variables: {
               clientId: props.clientId,
               conversationId: props.conversation ? props.conversation.id : ""
@@ -189,8 +221,8 @@ export default withStyles(s)(
             pollInterval: config.pollInterval
           })
         }),
-        graphql(createMessageQuery,{
-          options: (props,state) => ({
+        graphql(createMessageQuery, {
+          options: (props, state) => ({
             variables: {}
           })
         })

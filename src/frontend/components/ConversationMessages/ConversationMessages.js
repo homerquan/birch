@@ -5,21 +5,25 @@
 * @Last Modified time: 2017-12-25 12:34:41
 */
 
+import React from "react";
 
 class ConversationDrawer extends React.Component {
 
 	render() {
-		const conversation = this.props.conversation;
-		const { messages, loading, refetch } = this.props.data;
+		const { conversation, messages } = this.props;
 		return (
 			<div>
 			{messages && messages.length ? (
-              messages.map(message => (
-                <div> {message.id} {message.text} </div>
-              ))
-            ) : (
-              <div> no message here </div>
-            )}
+                messages.map(message => (
+                  <div data-convospot-message-id="{message.id}">
+                  <Paper className={message.source === 'visitor'? s.messageBulk + " " + s.visitorBulk : s.messageBulk } zDepth={1}>
+                    {message.text}
+                  </Paper>  
+                  </div>
+                ))
+              ) : (
+                <div> no message here </div>
+              )}
             </div>
 		)
 	}

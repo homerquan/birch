@@ -53,13 +53,24 @@
 
 .messageBulk {
     display: block;
-    padding: 5px;
+    padding: 10px 10px;
     margin: 2.5px 5px;
-    max-width: 50%;
+    width: calc(80%-10px);
 }
 
 .visitorBulk {
     float: right;
-    min-width: 50%;
 }
 
+.avatarIcon {
+    height: 30px;
+    width: 30px;
+}
+
+.sourceName {
+    background-color: #C3C3E5;
+    padding: 2px 5px;
+    border-radius: 5px;
+    font-weight: 600;
+    color: white;
+}
