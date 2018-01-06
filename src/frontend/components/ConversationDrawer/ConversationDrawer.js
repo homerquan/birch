@@ -2,7 +2,7 @@
 * @Author: Homer
 * @Date:   2017-12-17 23:50:40
 * @Last Modified by:   Homer
-* @Last Modified time: 2017-12-31 23:49:05
+* @Last Modified time: 2018-01-06 11:53:14
 */
 
 import React from "react";
@@ -125,7 +125,7 @@ class ConversationDrawer extends React.Component {
                       }
                       zDepth={1}
                     >
-                      {message.source == "AI" && (
+                      {message.source == "ai" && (
                         <div className={s.avatar}>
                           <img className={s.avatarIcon} src="/images/avatar-ai.png" />
                           <span className={s.sourceName}>A.I.</span>
