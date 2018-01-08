@@ -2,7 +2,7 @@
 * @Author: Homer
 * @Date:   2017-12-17 23:50:40
 * @Last Modified by:   Homer
-* @Last Modified time: 2017-12-19 00:20:14
+* @Last Modified time: 2018-01-07 21:35:03
 */
 
 import React from "react";
@@ -57,6 +57,7 @@ class Debug extends React.Component {
   state = {
     test: ''
   };
+
   async componentDidMount() {
     let that = this;
     this.subscription = this.props.client.subscribe({

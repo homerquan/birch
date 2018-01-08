@@ -2,7 +2,7 @@
 * @Author: Homer
 * @Date:   2017-12-17 23:50:40
 * @Last Modified by:   Homer
-* @Last Modified time: 2018-01-06 17:57:04
+* @Last Modified time: 2018-01-07 22:45:45
 */
 
 import React from "react";
@@ -50,12 +50,24 @@ const createMessageQuery = gql`
   }
 `;
 
+const createSuggestionQuery = gql`
+  subscription onCreateSuggestion($conversationId: String) {
+    createSuggestion(conversationId: $conversationId) {
+      id
+      text
+      delay
+    }
+  }
+`;
+
 class ConversationDrawer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       isShowInput: false,
-      inputMessage: ""
+      inputMessage: "",
+      suggestion: null,
+      countDown: 0
     };
   }
 
@@ -90,6 +102,49 @@ class ConversationDrawer extends React.Component {
 
   handleChange(event) {
     this.setState({ inputMessage: event.target.value });
+  }
+
+  async componentWillUpdate() {
+    if (this.props.conversation) {
+      if (this.subscription) this.subscription.unsubscribe();
+      let that = this;
+      this.subscription = this.props.client
+        .subscribe({
+          query: createSuggestionQuery,
+          variables: {
+            conversationId: that.props.conversation
+              ? that.props.conversation.id
+              : ""
+          }
+        })
+        .subscribe({
+          next(data) {
+            that.setState({
+              suggestion: data.createSuggestion,
+              countDown: data.createSuggestion.delay
+            });
+            setTimeout(function() {
+              that.setState({
+                suggestion: null
+              });
+            }, data.createSuggestion.delay * 1000);
+            setInterval(function() {
+              if (that.state.countDown >= 0) {
+                that.setState({
+                  countDown: that.state.countDown - 1
+                });
+              }
+            }, 1000);
+          },
+          error(err) {
+            console.error("err", err);
+          }
+        });
+    }
+  }
+
+  async componentWillUnmount() {
+    if (this.subscription) this.subscription.unsubscribe();
   }
 
   render() {
@@ -168,16 +223,24 @@ class ConversationDrawer extends React.Component {
                 <div> no message here </div>
               )}
 
-              <div className={s.actionCard}>
-                <div className={s.actionTitle}>Suggested response</div>
-                <div className={s.actionText}>You can find it in section 2</div>
-                <div className={s.actionOption}>
-                  <Badge badgeContent={4} primary={true} badgeStyle={{top: 20, right: 15}}>
-                    <FlatButton primary={true} label="Accept" />
-                  </Badge>
-                  <FlatButton secondary={true} label="Ignore" />
+              {this.state.suggestion && (
+                <div className={s.actionCard}>
+                  <div className={s.actionTitle}>Suggested response</div>
+                  <div className={s.actionText}>
+                    {this.state.suggestion.text}
+                  </div>
+                  <div className={s.actionOption}>
+                    <Badge
+                      badgeContent={this.state.countDown}
+                      primary={true}
+                      badgeStyle={{ top: 20, right: 15 }}
+                    >
+                      <FlatButton primary={true} label="Accept" />
+                    </Badge>
+                    <FlatButton label="Ignore" />
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
             <div className={s.inputs}>
               {isShowInput ? (
