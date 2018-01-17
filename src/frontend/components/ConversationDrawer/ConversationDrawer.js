@@ -2,7 +2,7 @@
 * @Author: Homer
 * @Date:   2017-12-17 23:50:40
 * @Last Modified by:   Homer
-* @Last Modified time: 2018-01-07 22:45:45
+* @Last Modified time: 2018-01-16 19:16:24
 */
 
 import React from "react";
@@ -211,7 +211,7 @@ class ConversationDrawer extends React.Component {
                             className={s.avatarIcon}
                             src="/images/avatar-helper.png"
                           />
-                          <span className={s.sourceName}>Yourself</span>
+                          <span className={s.sourceName}>You</span>
                         </div>
                       )}
 
