@@ -54,7 +54,7 @@ class BotsList extends Component {
         <Paper zDepth={2} className={s.paper}>
           <List style={{ padding: 0 }}>
             {this.state.data.map(application => (
-              <div>
+              <div key={application.id}>
                 <ListItem
                   leftAvatar={<Avatar backgroundColor={deepPurple500} icon={<CodeIcon />} />}
                   primaryText={<PrimaryText text={application.title} number={application.number} />}

@@ -1,0 +1,19 @@
+/*
+* @Author: Michael
+* @Date:   2017-4-18
+* @Last Modified by:   Michael
+* @Last Modified time: 2017-4-18
+*/
+.primaryText {
+    margin: 0;
+    font-size: 14px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.primaryTextMessage {
+    font-weight: bold;
+    margin-left: 5px;
+    color: green;
+}
