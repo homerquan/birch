@@ -1,89 +1,79 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Paper from 'material-ui/Paper';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import { List, ListItem } from 'material-ui/List';
 import Divider from 'material-ui/Divider';
 import Avatar from 'material-ui/Avatar';
 import CodeIcon from 'material-ui/svg-icons/action/code';
 import { deepPurple500 } from 'material-ui/styles/colors';
-import Link from '../Link/Link';
 import RaisedButton from 'material-ui/RaisedButton';
 
+import s from './BotsList.css';
+import PrimaryText from './PrimaryText';
+import Link from '../Link/Link';
+import Loader from '../Loader/Loader';
+import fakeData from './fakeData.json';
+
 // Styles
-const paperStyle = {
-  padding: '15px',
-};
-
-const pStyle = {
-  margin: 0,
-  fontWeight: 'bold',
-};
-
-const noteStyle = {
-  fontSize: '12px',
-  backgroundColor: 'lightgray',
-  border: '1px solid gray',
-  marginLeft: '6px',
-  padding: '1px 2px',
-  borderRadius: '2px',
-  fontWeight: 'normal',
-};
-
-const linkStyle = {
+// TODO: Need to explore ways to include
+// material-ui styles in external css files.
+const footerLinkStyle = {
   color: deepPurple500,
   textDecoration: 'none',
 };
 
-const footerContainer = {
-  display: 'flex',
-  justifyContent: 'space-between',
-  alignItems: 'center',
-  marginTop: '20px',
-};
+class BotsList extends Component {
+  constructor(props) {
+    super(props);
 
-// Helper Component
-const PrimaryText = () => (
-  <p style={pStyle}>
-    Reflen
-    <span style={noteStyle}>ecf5973</span>
-  </p>
-);
+    this.state = {
+      isLoading: true,
+      data: [],
+    };
+  }
 
-const BotsList = () => (
-  <MuiThemeProvider>
-    <Paper zDepth={2} style={paperStyle}>
-      <List style={{ padding: 0 }}>
-        <ListItem
-          leftAvatar={<Avatar backgroundColor={deepPurple500} icon={<CodeIcon />} />}
-          primaryText={<PrimaryText />}
-          secondaryText="http://www.reflen.com"
-        />
-        <Divider />
-        <ListItem
-          leftAvatar={<Avatar backgroundColor={deepPurple500} icon={<CodeIcon />} />}
-          primaryText={<PrimaryText />}
-          secondaryText="http://www.reflen.com"
-        />
-        <Divider />
-        <ListItem
-          leftAvatar={<Avatar backgroundColor={deepPurple500} icon={<CodeIcon />} />}
-          primaryText={<PrimaryText />}
-          secondaryText="http://www.reflen.com"
-        />
-        <Divider />
-        <ListItem
-          leftAvatar={<Avatar backgroundColor={deepPurple500} icon={<CodeIcon />} />}
-          primaryText={<PrimaryText />}
-          secondaryText="http://www.reflen.com"
-        />
-        <Divider />
-      </List>
-      <div style={footerContainer}>
-        <Link to="#" style={linkStyle}>View all Applications</Link>
-        <RaisedButton label="Create Application" />
-      </div>
-    </Paper>
-  </MuiThemeProvider>
-);
+  componentDidMount() {
+    setTimeout(() => {
+      this.setState({
+        data: fakeData.data,
+        isLoading: false,
+      });
+    }, 1000);
+  }
 
-export default BotsList;
+  render() {
+    const { isLoading } = this.state;
+
+    if (isLoading) {
+      return <Loader />;
+    }
+
+    return (
+      <MuiThemeProvider>
+        <Paper zDepth={2} className={s.paper}>
+          <List style={{ padding: 0 }}>
+            {this.state.data.map(application => (
+              <div>
+                <ListItem
+                  leftAvatar={<Avatar backgroundColor={deepPurple500} icon={<CodeIcon />} />}
+                  primaryText={<PrimaryText text={application.title} number={application.number} />}
+                  secondaryText={application.link}
+                />
+                <Divider />
+              </div>
+              ),
+            )}
+          </List>
+
+          <div className={s.footerContainer}>
+            <Link to="#" style={footerLinkStyle}>View all Applications</Link>
+            <RaisedButton label="Create Application" />
+          </div>
+        </Paper>
+      </MuiThemeProvider>
+    );
+  }
+}
+
+export default withStyles(s)(BotsList);
