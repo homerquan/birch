@@ -16,15 +16,18 @@ export default {
   path: '/',
   chunk: 'home',
   action() {
+  // TODO: for MVP, add home overview later
+  // return { redirect: "/apps" };
 
-  	// TODO: for MVP, add home overview later
-  	return { redirect: "/apps" };
-
-    // return {
-    //   title: 'convospot dashboard',
-    //   chunk: 'home',
-    //   component: <Layout><Home /></Layout>,
-    // };
+    return {
+      title: 'convospot dashboard',
+      chunk: 'home',
+      component: (
+        <Layout>
+          <Home />
+        </Layout>
+      ),
+    };
   },
 
 };

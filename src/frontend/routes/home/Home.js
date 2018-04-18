@@ -8,36 +8,35 @@
  */
 
 import React from 'react';
-import PropTypes from 'prop-types';
-import { graphql, compose } from 'react-apollo';
+// import { compose } from 'react-apollo';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import { Page, Section, LayoutProvider } from 'react-page-layout';
 import s from './Home.css';
+
 import grids from '../../components/Layout/grids';
 import Title from '../../components/Title';
-import Dashboard from '../../components/Dashboard';
+// import Dashboard from '../../components/Dashboard';
+import BotsList from '../../components/BotsList/BotsList';
 import Activities from '../../components/Activities/Activities';
 
 class Home extends React.Component {
   render() {
     return (
       <LayoutProvider layouts={grids}>
-				<Page layout="grid-one-two">
-				    <Section slot="top">
-						<Title>Overview</Title>
-					</Section>
-					<Section slot="main">
-						<Dashboard/>
-					</Section>
-					<Section slot="right">
-						<Activities/>
-					</Section>
-				</Page>
-	 </LayoutProvider>
+        <Page layout="grid-one-two">
+          <Section slot="top">
+            <Title>Overview</Title>
+          </Section>
+          <Section slot="main">
+            <BotsList />
+          </Section>
+          <Section slot="right">
+            <Activities />
+          </Section>
+        </Page>
+      </LayoutProvider>
     );
   }
 }
 
-export default compose(
-  withStyles(s),
-)(Home);
+export default (withStyles(s))(Home);
