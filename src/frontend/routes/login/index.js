@@ -44,7 +44,7 @@ export default {
 	chunk: 'login',
 	action({store, params, query, path}) {
 
-		let login = isLogin(store.getState());
+	    let login = isLogin(store.getState());
 
 		if (login) {
 			return { redirect: "/profile" };

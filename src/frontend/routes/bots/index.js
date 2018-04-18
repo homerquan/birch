@@ -22,9 +22,11 @@ export default {
 	action({store, params, query, path}) {
 		let login = isLogin(store.getState());
 
-		if (!login) {
-			return { redirect: "/login?redirect="+path };
-		}
+
+		// Homer: disable for front-end dev			
+		// if (!login) {
+		// 	return { redirect: "/login?redirect="+path };
+		// }
 		
 		return {
 			title,
