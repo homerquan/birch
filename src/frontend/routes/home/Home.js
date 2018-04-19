@@ -12,7 +12,7 @@ import React from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import { Page, Section, LayoutProvider } from 'react-page-layout';
 import s from './Home.css';
-
+import Paper from 'material-ui/Paper';
 import grids from '../../components/Layout/grids';
 import Title from '../../components/Title';
 // import Dashboard from '../../components/Dashboard';

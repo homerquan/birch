@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Paper from 'material-ui/Paper';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import { List, ListItem } from 'material-ui/List';
@@ -8,7 +7,7 @@ import Avatar from 'material-ui/Avatar';
 import CodeIcon from 'material-ui/svg-icons/action/code';
 import { deepPurple500 } from 'material-ui/styles/colors';
 import RaisedButton from 'material-ui/RaisedButton';
-
+import Paper from 'material-ui/Paper';
 import s from './BotsList.css';
 import PrimaryText from './PrimaryText';
 import Link from '../Link/Link';
@@ -52,7 +51,7 @@ class BotsList extends Component {
     return (
       <MuiThemeProvider>
         <Paper zDepth={2} className={s.paper}>
-          <List style={{ padding: 0 }}>
+         <List style={{ padding: 0 }}>
             {this.state.data.map(application => (
               <div key={application.id}>
                 <ListItem
