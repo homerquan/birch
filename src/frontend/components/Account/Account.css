@@ -8,4 +8,31 @@
     display: grid;
     grid-gap: 20px;
     grid-template-columns: 30% 1fr;
+    margin: 20px 0;
+}
+
+.divider {
+    grid-column: span 2;
+    padding: 20px 0;
+}
+
+.profile {
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+
+.imgUpload {
+    padding: 0 40px 20px 0;
+}
+
+.helperText {
+    font-size: 14px;
+    margin-top: 0;
+}
+
+.sectionTitle {
+    margin-top: 0;
+    margin-left: 20px;
+    font-weight: normal;
 }

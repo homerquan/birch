@@ -12,6 +12,8 @@ import { Page, Section, LayoutProvider } from 'react-page-layout';
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { Tabs, Tab } from 'material-ui/Tabs';
+import Paper from 'material-ui/Paper';
+
 
 import grids from '../../components/Layout/grids';
 import Title from '../../components/Title';
@@ -42,17 +44,19 @@ class AccountView extends React.Component {
           </Section>
           <Section slot="main">
             <MuiThemeProvider>
-              <Tabs
-                value={this.state.value}
-                onChange={this.handleChange}
-              >
-                <Tab label="Account" value="account">
-                  <Account />
-                </Tab>
-                <Tab label="Billing" value="billing">
-                  <Billing />
-                </Tab>
-              </Tabs>
+              <Paper>
+                <Tabs
+                  value={this.state.value}
+                  onChange={this.handleChange}
+                >
+                  <Tab label="Account" value="account">
+                    <Account />
+                  </Tab>
+                  <Tab label="Billing" value="billing">
+                    <Billing />
+                  </Tab>
+                </Tabs>
+              </Paper>
             </MuiThemeProvider>
           </Section>
         </Page>
