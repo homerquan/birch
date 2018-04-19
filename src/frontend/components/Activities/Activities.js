@@ -12,10 +12,12 @@
  */
 import React from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import { List } from 'material-ui/List';
 import Divider from 'material-ui/Divider';
 import { deepPurple500 } from 'material-ui/styles/colors';
-
+import Paper from 'material-ui/Paper';
+import s from './Activities.css';
 import fakeData from './fakeData.json';
 import Link from '../Link/Link';
 import MessageListItem from './MessageListItem';
@@ -62,7 +64,7 @@ class Activities extends React.Component {
 
     return (
       <MuiThemeProvider>
-        <div>
+        <Paper zDepth={2} className={s.paper}>
           <List style={{ padding: 0 }}>
             {this.state.data.map(application => (
               <div key={application.id}>
@@ -84,11 +86,13 @@ class Activities extends React.Component {
               ),
             )}
           </List>
-          <Link to="#" style={viewAllLink}>View All Activities</Link>
-        </div>
+          <div className={s.footerContainer}>
+           <Link to="#" style={viewAllLink}>View All Activities</Link>
+          </div>
+        </Paper>
       </MuiThemeProvider>
     );
   }
 }
 
-export default Activities;
+export default withStyles(s)(Activities);
