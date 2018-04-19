@@ -29,7 +29,7 @@ const styles = {
     boxShadow: 'none'
   },
   stickyHeader: {
-    backgroundColor: white
+    backgroundColor: white,
   }
 };
 
@@ -71,7 +71,7 @@ class Header extends React.Component {
         <div>
           <LoadingIndicator loading={this.state.loading} />
           <GlobalNotice />
-          <Sticky onStateChange={this.handleStickyChange}>
+          <Sticky onStateChange={this.handleStickyChange} innerZ={100}>
           <AppBar
             title={selectedAppName}
             className={this.state.headerClass}
