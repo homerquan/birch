@@ -1,0 +1,32 @@
+/*
+* @Author: Michael
+* @Date:   2017-4-19
+* @Last Modified by:   Michael
+* @Last Modified time: 2017-4-19
+*/
+.container {
+    display: grid;
+    grid-gap: 20px;
+    grid-template-columns: 30% 1fr;
+    margin: 20px 0;
+    padding-bottom: 20px;
+}
+
+.sectionTitle {
+    margin-top: 0;
+    margin-left: 20px;
+    font-weight: normal;
+}
+
+.divider {
+    grid-column: span 2;
+    padding: 20px 0;
+}
+
+.noCCText {
+    margin-top: 0;
+}
+
+.table {
+    margin-top: 20px;
+}

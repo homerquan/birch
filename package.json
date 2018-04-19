@@ -71,6 +71,7 @@
     "react-dom": "^15.6.2",
     "react-event-timeline": "^1.4.0",
     "react-icons": "^2.2.7",
+    "react-input-mask": "^1.2.2",
     "react-loading-skeleton": "^0.3.2",
     "react-material-icons": "^1.0.2",
     "react-notification-system": "^0.2.16",
