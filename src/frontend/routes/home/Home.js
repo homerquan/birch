@@ -8,14 +8,12 @@
  */
 
 import React from 'react';
-// import { compose } from 'react-apollo';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import { Page, Section, LayoutProvider } from 'react-page-layout';
 import s from './Home.css';
 
 import grids from '../../components/Layout/grids';
 import Title from '../../components/Title';
-// import Dashboard from '../../components/Dashboard';
 import BotsList from '../../components/BotsList/BotsList';
 import Activities from '../../components/Activities/Activities';
 

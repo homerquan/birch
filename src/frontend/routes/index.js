@@ -20,13 +20,13 @@ export default {
     require('./privacy').default,
     require('./admin').default,
     require('./debug').default,
+    require('./account').default,
 
     // Wildcard routes, e.g. { path: '*', ... } (must go last)
     require('./notFound').default,
   ],
 
-  async action({next}) {
-    
+  async action({ next }) {
     const route = await next();
 
     // Provide default values for title, description etc.
