@@ -1,0 +1,35 @@
+/*
+* @Author: Michael
+* @Date:   2017-4-20
+* @Last Modified by:   Michael
+* @Last Modified time: 2017-4-20
+*/
+.messageContainer {
+    position: absolute;
+    z-index: 101;
+    right: 0;
+    top: 46px;
+    background-color: blue;
+}
+
+.list {
+    padding: 0;
+    color: white;
+}
+
+.header {
+    border-bottom: 1px solid lightgrey;
+}
+
+.footer {
+    border-top: 1px solid lightgrey;
+    text-align: center;
+}
+
+.headerTitle {
+    margin: 8px 0 4px 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 14px;
+    padding: 0 10px;
+}

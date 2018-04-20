@@ -60,3 +60,18 @@
 .top-true {
   background: black;
 }
+
+
+
+
+.messageContainer {
+  position: absolute;
+  z-index: 101;
+  left: -32px;
+  background-color: blue;
+}
+
+.list {
+  padding: 0;
+  color: white;
+}

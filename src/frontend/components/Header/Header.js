@@ -21,7 +21,17 @@ import Loader from "../Loader";
 import GlobalNotice from "../GlobalNotice";
 import Sticky from "react-stickynode";
 import { connect } from 'react-redux';
+import FlatButton from 'material-ui/FlatButton';
+import IconButton from 'material-ui/IconButton';
+import ViewIcon from 'material-ui/svg-icons/action/visibility';
+import SMSIcon from 'material-ui/svg-icons/notification/sms';
+import NotificationIcon from 'material-ui/svg-icons/social/notifications';
+import { deepPurple500 } from 'material-ui/styles/colors';
+import Badge from 'material-ui/Badge';
 
+import IconMenu from 'material-ui/IconMenu';
+
+import Messages from './Messages';
 
 const styles = {
   header: {
@@ -33,6 +43,11 @@ const styles = {
   }
 };
 
+
+const btnStyle = {
+  marginTop: '3px',
+};
+
 function LoadingIndicator(props) {
   const loading = props.loading;
   if (loading) {
@@ -42,9 +57,44 @@ function LoadingIndicator(props) {
 };
 
 class Header extends React.Component {
-  state = {
-    loading: true
-  };
+  constructor(props) {
+    super(props);
+    
+    this.state = {
+      loading: true,
+      messagesOpen: false,
+      notificationsOpen: false
+    };
+
+    this.handleToggleButtonTouchTap = this.handleToggleButtonTouchTap.bind(this);
+  }
+
+  componentDidMount() {
+    // const messagesIcon = document.querySelector('.messageIcon');
+    // const notificationIcon = document.querySelector('.notificationIcon');
+
+    // document.addEventListener("click", (e) => {
+    //   if (messagesIcon.contains(e.target)) {
+    //     this.setState({ messagesOpen: true });
+    //   } else {
+    //     this.setState({ messagesOpen: false });
+    //   }
+
+    //   if (notificationIcon.contains(e.target)) {
+    //     this.setState({ notificationsOpen: true });
+    //   } else {
+    //     this.setState({ notificationsOpen: false });
+    //   }
+    // });
+
+    // after each refresh relogin using refresh token
+    setTimeout(() => this.setState({ loading: false }), 1500); // simulates loading of data
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener("keydown", this.handleKeyPress)
+    document.removeEventListener('click');
+  }
 
   handleToggleButtonTouchTap = e => {
     this.props.onToggleChange();
@@ -59,12 +109,13 @@ class Header extends React.Component {
   };
 
   // after each refresh relogin using refresh token
-  componentDidMount() {
-    setTimeout(() => this.setState({ loading: false }), 1500); // simulates loading of data
-  }
+  // componentDidMount() {
+  //   setTimeout(() => this.setState({ loading: false }), 1500); // simulates loading of data
+  // }
 
   render() {
-    const selectedAppName = this.props.runtime && this.props.runtime.selectedApp? this.props.runtime.selectedApp.name : '';
+    const selectedAppName = this.props.runtime && this.props.runtime.selectedApp ? this.props.runtime.selectedApp.name : '';
+
     return (
       <MuiThemeProvider muiTheme={getMuiTheme(themeDark)}>
      
@@ -72,15 +123,32 @@ class Header extends React.Component {
           <LoadingIndicator loading={this.state.loading} />
           <GlobalNotice />
           <Sticky onStateChange={this.handleStickyChange} innerZ={100}>
-          <AppBar
-            title={selectedAppName}
-            className={this.state.headerClass}
-            style={this.state.sticky ? styles.stickyHeader : styles.header}
-            onLeftIconButtonTouchTap={this.handleToggleButtonTouchTap.bind(
-              this
-            )}
-          >
-          </AppBar>
+            <AppBar
+              title={selectedAppName}
+              className={this.state.headerClass}
+              style={this.state.sticky ? styles.stickyHeader : styles.header}
+              onLeftIconButtonTouchTap={this.handleToggleButtonTouchTap}
+              iconElementRight={
+                <div>
+                  <Messages
+                  
+                  />
+                  <Badge
+                    badgeContent={10}
+                    badgeStyle={{top: 0, right: 0, width: 20, height: 20, paddingTop: 1, fontSize: 10 }}
+                    style={{ padding: 0 }}
+                  >
+                    <IconButton
+                      className='notificationIcon'
+                      style={btnStyle}
+                    >
+                      <NotificationIcon color={deepPurple500} />
+                    </IconButton>
+                  </Badge>
+                </div>
+              }
+            >
+            </AppBar>
           </Sticky>  
         </div>
       </MuiThemeProvider>
