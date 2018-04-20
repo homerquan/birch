@@ -113,12 +113,14 @@ class Messages extends Component {
       // is clicked on
       if (isOpen) {
         this.setState({ isOpen: false });
+        return;
       }
 
       this.setState({ isOpen: true });
-    } else {
-      this.setState({ isOpen: false });
+      return;
     }
+
+    this.setState({ isOpen: false });
   }
 
   render() {
