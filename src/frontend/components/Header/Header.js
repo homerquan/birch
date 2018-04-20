@@ -69,31 +69,9 @@ class Header extends React.Component {
     this.handleToggleButtonTouchTap = this.handleToggleButtonTouchTap.bind(this);
   }
 
+  // after each refresh relogin using refresh token
   componentDidMount() {
-    // const messagesIcon = document.querySelector('.messageIcon');
-    // const notificationIcon = document.querySelector('.notificationIcon');
-
-    // document.addEventListener("click", (e) => {
-    //   if (messagesIcon.contains(e.target)) {
-    //     this.setState({ messagesOpen: true });
-    //   } else {
-    //     this.setState({ messagesOpen: false });
-    //   }
-
-    //   if (notificationIcon.contains(e.target)) {
-    //     this.setState({ notificationsOpen: true });
-    //   } else {
-    //     this.setState({ notificationsOpen: false });
-    //   }
-    // });
-
-    // after each refresh relogin using refresh token
     setTimeout(() => this.setState({ loading: false }), 1500); // simulates loading of data
-  }
-
-  componentWillUnmount() {
-    document.removeEventListener("keydown", this.handleKeyPress)
-    document.removeEventListener('click');
   }
 
   handleToggleButtonTouchTap = e => {
@@ -107,11 +85,6 @@ class Header extends React.Component {
       this.setState({ sticky: false });
     }
   };
-
-  // after each refresh relogin using refresh token
-  // componentDidMount() {
-  //   setTimeout(() => this.setState({ loading: false }), 1500); // simulates loading of data
-  // }
 
   render() {
     const selectedAppName = this.props.runtime && this.props.runtime.selectedApp ? this.props.runtime.selectedApp.name : '';
