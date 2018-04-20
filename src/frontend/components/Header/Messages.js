@@ -124,10 +124,12 @@ class Messages extends Component {
   }
 
   render() {
+    const { isLoading, messages, isOpen } = this.state;
+
     return (
       <MuiThemeProvider>
         <Badge
-          badgeContent={10}
+          badgeContent={messages.length}
           badgeStyle={badgeStyle}
           style={badgeRootStyle}
         >
@@ -137,15 +139,15 @@ class Messages extends Component {
           >
             <SMSIcon color={deepPurple500} />
           </IconButton>
-          <Paper style={this.state.isOpen ? paperStyle : hiddenStyle}>
+          <Paper style={isOpen ? paperStyle : hiddenStyle}>
             <div className={s.header}>
               <p className={s.headerTitle}>Messages</p>
             </div>
             <List style={listStyle}>
             <Subheader style={subHeaderStyle}>Recent</Subheader>
-              {this.state.isLoading
+              {isLoading
                 ? 'Loading...'
-                : this.state.messages.map((message, index) => (
+                : messages.map((message, index) => (
                   <div key={index}>
                     {index > 0 ? <Divider /> : ''}  
                     <ListItem

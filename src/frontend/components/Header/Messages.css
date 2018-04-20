@@ -4,19 +4,6 @@
 * @Last Modified by:   Michael
 * @Last Modified time: 2017-4-20
 */
-.messageContainer {
-    position: absolute;
-    z-index: 101;
-    right: 0;
-    top: 46px;
-    background-color: blue;
-}
-
-.list {
-    padding: 0;
-    color: white;
-}
-
 .header {
     border-bottom: 1px solid lightgrey;
 }
