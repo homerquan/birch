@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import withStyles from "isomorphic-style-loader/lib/withStyles";
 import Badge from 'material-ui/Badge';
 import IconButton from 'material-ui/IconButton';
-import SMSIcon from 'material-ui/svg-icons/notification/sms';
+import NotificationIcon from 'material-ui/svg-icons/social/notifications';
 import Paper from 'material-ui/Paper';
-import { deepPurple500, pink500, darkBlack } from 'material-ui/styles/colors';
+import { deepPurple500, pink500 } from 'material-ui/styles/colors';
 import { List, ListItem } from 'material-ui/List';
 import Avatar from 'material-ui/Avatar';
 import CodeIcon from 'material-ui/svg-icons/action/code';
@@ -14,8 +14,8 @@ import Divider from 'material-ui/Divider';
 import Subheader from 'material-ui/Subheader';
 import Link from '../Link/Link';
 
-import s from "./Messages.css";
-import fakeData from './fakeMessages.json';
+import s from "./Notifications.css";
+import fakeData from './fakeNotifications.json';
 
 const badgeStyle = {
   top: -4,
@@ -55,7 +55,7 @@ const subHeaderStyle = {
 const listStyle = {
   padding: 0,
   overflowY: 'scroll',
-  maxHeight: '315px', // show 4 messages
+  maxHeight: '315px', // show 4 notifications
 }
 
 const footerText = {
@@ -72,27 +72,27 @@ const hiddenStyle = {
   display: 'none'
 };
 
-class Messages extends Component {
+class Notifications extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       isOpen: false,
       isLoading: true,
-      messages: [],
+      notifications: [],
     }
 
     this.handleEventListener = this.handleEventListener.bind(this);
   }
 
   componentDidMount() {
-    // TODO: Figure out how messages are going to be loaded
+    // TODO: Figure out how notifications are going to be loaded
     // so that I can set up a proper loader. Might make more
     // sense to have the whole component be loaded/unloaded
     // in the header itself.
     setTimeout(() => {
       this.setState({
-        messages: fakeData.data,
+        notifications: fakeData.data,
         isLoading: false,
       });
     }, 1000);
@@ -106,10 +106,10 @@ class Messages extends Component {
 
   handleEventListener(e) {
     const { isOpen } = this.state
-    const messagesIcon = document.querySelector('.messageIcon');
+    const notificationsIcon = document.querySelector('.notificationIcon');
 
-    if (messagesIcon.contains(e.target)) {
-      // Close messages if it's already open and the icon
+    if (notificationsIcon.contains(e.target)) {
+      // Close notifications if it's already open and the icon
       // is clicked on
       if (isOpen) {
         this.setState({ isOpen: false });
@@ -124,30 +124,30 @@ class Messages extends Component {
   }
 
   render() {
-    const { isLoading, messages, isOpen } = this.state;
+    const { isLoading, notifications, isOpen } = this.state;
 
     return (
       <MuiThemeProvider>
         <Badge
-          badgeContent={messages.length}
-          badgeStyle={messages.length ? badgeStyle : hiddenStyle}
+          badgeContent={notifications.length}
+          badgeStyle={notifications.length ? badgeStyle : hiddenStyle}
           style={badgeRootStyle}
         >
           <IconButton
-            className="messageIcon"
+            className="notificationIcon"
             style={btnStyle} 
           >
-            <SMSIcon color={deepPurple500} />
+            <NotificationIcon color={deepPurple500} />
           </IconButton>
           <Paper style={isOpen ? paperStyle : hiddenStyle}>
             <div className={s.header}>
-              <p className={s.headerTitle}>Messages</p>
+              <p className={s.headerTitle}>Notifications</p>
             </div>
             <List style={listStyle}>
             <Subheader style={subHeaderStyle}>Recent</Subheader>
               {isLoading
                 ? 'Loading...'
-                : messages.map((message, index) => (
+                : notifications.map((message, index) => (
                   <div key={index}>
                     {index > 0 ? <Divider /> : ''}  
                     <ListItem
@@ -169,8 +169,4 @@ class Messages extends Component {
   }
 }
 
-Messages.propTypes = {
-
-};
-
-export default withStyles(s)(Messages);
+export default withStyles(s)(Notifications);
