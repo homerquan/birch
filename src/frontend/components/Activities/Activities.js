@@ -23,6 +23,7 @@ import Link from '../Link/Link';
 import MessageListItem from './MessageListItem';
 import NotificationListItem from './NotificationListItem';
 import Loader from '../Loader/Loader';
+import ActivitiesContentLoader from './ActivitiesContentLoader';
 
 // Styles
 // TODO: Need to explore ways to include
@@ -59,7 +60,7 @@ class Activities extends React.Component {
     const { isLoading } = this.state;
 
     if (isLoading) {
-      return <Loader />;
+      return <ActivitiesContentLoader />;
     }
 
     return (

@@ -8,10 +8,11 @@ import CodeIcon from 'material-ui/svg-icons/action/code';
 import { deepPurple500 } from 'material-ui/styles/colors';
 import RaisedButton from 'material-ui/RaisedButton';
 import Paper from 'material-ui/Paper';
+
 import s from './BotsList.css';
 import PrimaryText from './PrimaryText';
 import Link from '../Link/Link';
-import Loader from '../Loader/Loader';
+import BotsListLoader from './BotsListLoader';
 import fakeData from './fakeData.json';
 
 // Styles
@@ -45,7 +46,7 @@ class BotsList extends Component {
     const { isLoading } = this.state;
 
     if (isLoading) {
-      return <Loader />;
+      return <BotsListLoader />;
     }
 
     return (
