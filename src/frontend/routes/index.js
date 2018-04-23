@@ -9,6 +9,7 @@ export default {
   children: [
     require('./home').default,
     require('./conversations').default,
+    require('./conversationsTwo').default,
     require('./bots').default,
     require('./bot').default,
     require('./newBot').default,
