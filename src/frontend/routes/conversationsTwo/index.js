@@ -1,7 +1,7 @@
 import React from "react";
 import Conversations from "./Conversations";
 import Layout from "../../components/Layout";
-import {isLogin} from "../../utils";
+import { isLogin } from "../../utils";
 
 const title = "Live Conversations";
 
@@ -9,7 +9,7 @@ export default {
 	path: "/:id/conversations-two",
 	chunk: 'conversations-two',
 	action({store, params, query, path}) {
-		let login = isLogin(store.getState());
+		// let login = isLogin(store.getState());
 
 		// if (!login) {
     //   return { redirect: "/login?redirect=" + path };

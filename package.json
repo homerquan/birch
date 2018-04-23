@@ -48,6 +48,7 @@
     "material-ui": "^0.18.7",
     "material-ui-datatables": "^0.18.2",
     "method-override": "^2.3.9",
+    "moment": "^2.22.1",
     "mongoose": "^4.10.4",
     "mongoose-auto-increment": "^5.0.1",
     "mongoose-pagination": "^1.0.0",

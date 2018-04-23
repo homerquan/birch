@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { graphql, compose } from "react-apollo";
-import { connect } from "react-redux";
+// import { graphql, compose } from "react-apollo";
+// import { connect } from "react-redux";
 import { Page, Section, LayoutProvider } from "react-page-layout";
 import withStyles from "isomorphic-style-loader/lib/withStyles";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider"
@@ -33,6 +33,26 @@ const data = {
 			token: 'sdf3423',
 			createdAt: '2018-05-04T21:02:26.294Z',
 			updatedAt: '2018-05-04T21:02:26.294Z'
+		},
+		{
+			id: 'ddcd39c9-dcbc-4a26-bcf7-fdasfasdf324',
+			visitor: 'ddcd39c9-dcbc-4a26-bcf7-fdasfasdf324',
+			bot: 'ddcd39c9-dcbc-4a26-bcf7-fdasfasdf324',
+			client: 'ddcd39c9-dcbc-4a26-bcf7-fdasfasdf324',
+			status: 'offline',
+			mode: 'automatic',
+			intentions: [{
+				name: 'buying more',
+				score: 55
+			}],
+			actions: [{
+				source: 'ai',
+				name: 'recommanding more',
+				status: 'done'
+			}],
+			token: 'sdf3423',
+			createdAt: '2018-05-04T21:03:30.294Z',
+			updatedAt: '2018-05-04T21:03:30.294Z'
 		} 
 	],
 	loading: false,
@@ -61,12 +81,11 @@ class Conversations extends React.Component {
 	}
 }
 
-function selectProps(state) {
-  return {
-    session: state.session
-  };
-}
+// function selectProps(state) {
+//   return {
+//     session: state.session
+//   };
+// }
 
-export default compose(withStyles(s))(
-	 connect(selectProps, null)(Conversations)
-);
+export default withStyles(s)(Conversations);
+// export default withStyles(s)(connect(selectProps, null)(Conversations));
