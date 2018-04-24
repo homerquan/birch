@@ -152,7 +152,27 @@ class ConversationsTable extends Component {
   constructor(props) {
     super(props);
     
+    this.state = {
+      page: 1,
+      rowSize: 10,
+    }
+    
     this.handleSortOrderChange = this.handleSortOrderChange.bind(this);
+    this.handleNextPageClick = this.handleNextPageClick.bind(this);
+    this.handlePreviousPageClick = this.handlePreviousPageClick.bind(this);
+    this.handleRowSizeChange = this.handleRowSizeChange.bind(this);
+  }
+
+  handleNextPageClick = () => {
+    this.setState({ page: this.state.page + 1 })
+  }
+  
+  handlePreviousPageClick = () => {
+    this.setState({ page: this.state.page - 1 })
+  }
+
+  handleRowSizeChange = (rowSizeIndex, rowSize) => {
+    this.setState({ page: 1, rowSize });
   }
 
   handleSortOrderChange(key, order, array) {
@@ -176,16 +196,19 @@ class ConversationsTable extends Component {
   }
 
   render() {
-    const { conversations, openDrawer, addPinned } = this.props
+    const { conversations, openDrawer, addPinned } = this.props;
+    const { rowSize, page } = this.state;
 
     // Build the initial conversation array, moving pinned conversations
     // to the top.
     const pinned = conversations.filter(conv => conv.pinned);
     const notPinned = conversations.filter(conv => !conv.pinned);
-    let data = [
+    const data = [
       ...pinned,
       ...notPinned
     ]
+
+    let displayData = data.slice(rowSize * (page - 1), rowSize * page)
   
     return (
       <DataTables
@@ -193,12 +216,16 @@ class ConversationsTable extends Component {
         selectable={false}
         showRowHover={true}
         columns={tableColumns(addPinned)}
-        data={data}
+        data={displayData}
         showCheckboxes={false}
         onCellClick={openDrawer}
-        onSortOrderChange={(key, order) => this.handleSortOrderChange(key, order, data)}
-        page={1}
-        count={100}
+        onSortOrderChange={(key, order) => this.handleSortOrderChange(key, order, displayData)}
+        onNextPageClick={this.handleNextPageClick}
+        onPreviousPageClick={this.handlePreviousPageClick}
+        onRowSizeChange={this.handleRowSizeChange}
+        page={page}
+        rowSize={rowSize}
+        count={conversations.length}
       />
     )
   }
