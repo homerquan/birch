@@ -1,23 +1,30 @@
-import React, { Component } from 'react';
+  import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import withStyles from "isomorphic-style-loader/lib/withStyles";
-import DataTables from "material-ui-datatables";
-import Avatar from "material-ui/Avatar";
-import Chip from "material-ui/Chip";
-import IconButton from "material-ui/IconButton";
-import OnlineIcon from "react-material-icons/icons/action/swap-horiz";
-import OffIcon from "react-material-icons/icons/notification/sync-disabled";
-import MoreIcon from "react-material-icons/icons/navigation/more-vert";
-import Blockies from "react-blockies";
+import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import DataTables from 'material-ui-datatables';
+import Avatar from 'material-ui/Avatar';
+import Chip from 'material-ui/Chip';
+import IconButton from 'material-ui/IconButton';
+import OnlineIcon from 'react-material-icons/icons/action/swap-horiz';
+import OffIcon from 'react-material-icons/icons/notification/sync-disabled';
+import MoreIcon from 'react-material-icons/icons/navigation/more-vert';
+import ChatIcon from 'react-material-icons/icons/communication/chat-bubble';
+import { grey500 } from 'material-ui/styles/colors';
+import Blockies from 'react-blockies';
 import moment from 'moment';
 import Toggle from 'material-ui/Toggle';
 
 import s from "./ConversationsView.css";
 
 const styles = {
+  chipDark: {
+    margin: 2,
+    display: "inline-block",
+    backgroundColor: 'rgb(179, 179, 179)'
+  },
   chip: {
     margin: 2,
-    display: "inline-block"
+    display: "inline-block",
   }
 };
 
@@ -48,8 +55,10 @@ const tableColumns = (addPinned) => ([
     },
     render: (id, all) => (
       <div>
-        <div className={s.visitorName}>Anomynous</div>
-        <div className={s.visitorId}>{id}</div>
+        <div className={s.visitorName}>
+          Anomynous
+          <span>{id}</span>
+        </div>
       </div>
     )
   },
@@ -69,17 +78,19 @@ const tableColumns = (addPinned) => ([
     label: "Intentions",
     render: (intentions, all) => (
       <div> 
-        {intentions && intentions.length ? (
-          intentions.map((intention, index) =>
-            <span>
+        {intentions && intentions.length 
+          ? intentions.map((intention, index, array) => {
+            console.log('Index: ', index)
+            console.log('array: ', array.length)
+            return (<span>
               <Chip 
                 key={index}
-                style={styles.chip}>
+                style={array.length === (index + 1) ? styles.chip : styles.chipDark}>
                   {intention.name}
               </Chip>
               <br />
             </span>
-          )
+          )}
         ) : (
           <span>waiting data</span>
         )}  
@@ -132,6 +143,16 @@ const tableColumns = (addPinned) => ([
           onToggle={(id) => addPinned(id)}
         />
     }
+  },
+  {
+    style: {
+      width: 30
+    },
+    render: (id, all) => (
+      <IconButton>
+        <ChatIcon color={grey500} />
+      </IconButton>
+    )
   },
   {
     key: "id",
