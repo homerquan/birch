@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import withStyles from "isomorphic-style-loader/lib/withStyles";
 import DataTables from "material-ui-datatables";
@@ -10,6 +10,7 @@ import OffIcon from "react-material-icons/icons/notification/sync-disabled";
 import MoreIcon from "react-material-icons/icons/navigation/more-vert";
 import Blockies from "react-blockies";
 import moment from 'moment';
+import Toggle from 'material-ui/Toggle';
 
 import s from "./ConversationsView.css";
 
@@ -20,7 +21,7 @@ const styles = {
   }
 };
 
-const tableColumns = [
+const tableColumns = (addPinned) => ([
   {
     key: "id",
     style: {
@@ -70,11 +71,14 @@ const tableColumns = [
       <div> 
         {intentions && intentions.length ? (
           intentions.map((intention, index) =>
-            <Chip
-              key={index}
-              style={styles.chip}>
-                {intention.name}
-            </Chip>
+            <span>
+              <Chip 
+                key={index}
+                style={styles.chip}>
+                  {intention.name}
+              </Chip>
+              <br />
+            </span>
           )
         ) : (
           <span>waiting data</span>
@@ -89,12 +93,15 @@ const tableColumns = [
       <div>
        {actions && actions.length ? (
           actions.map((action, index) =>
-            <Chip 
-              key={index} 
-              style={styles.chip}
-            >
-              <Avatar size={32}>{action.source.charAt(0)}</Avatar> {action.name} { action.status === 'in-progress' && <img src="/images/loader.gif" /> }
-            </Chip>
+            <span>
+              <Chip 
+                key={index} 
+                style={styles.chip}
+              >
+                <Avatar size={32}>{action.source.charAt(0)}</Avatar> {action.name} { action.status === 'in-progress' && <img src="/images/loader.gif" /> }
+              </Chip>
+              <br />
+            </span>
           )
         ) : (
           <span>waiting actions</span>
@@ -111,6 +118,22 @@ const tableColumns = [
     )
   },
   {
+    key: 'pinned',
+    label: 'Pin to Top',
+    style: {
+      width: 40
+    },
+    render: (pin, all) => {
+      const { id } = all;
+
+      return <Toggle
+          name={id}
+          toggled={pin}
+          onToggle={(id) => addPinned(id)}
+        />
+    }
+  },
+  {
     key: "id",
     style: {
       width: 30
@@ -123,39 +146,68 @@ const tableColumns = [
       </div>
     )
   }
-];
+]);
 
-// /https://github.com/hyojin/material-ui-datatables/issues/46
-const sortByStringAscending = (array, condition)  => array.sort((a, b) => a[condition].localeCompare(b[condition]))
-const sortByStringDescending = (array, condition)  => array.sort((a, b) => b[condition].localeCompare(a[condition]))
-
-const ConversationsTable = ({ conversations, openDrawer, handleSortOrderChange }) => {
-  // console.log('Conversations: ', conversations)
-  let data = sortByStringDescending(conversations, 'status')
-  const handleSort = (key, order) => {
-    // console.log('Key: ', key)
-    // console.log('Order: ', order)
-    order === 'desc' ? sortByStringDescending(data, key) : sortByStringAscending(data, key)
+class ConversationsTable extends Component {
+  constructor(props) {
+    super(props);
+    
+    this.handleSortOrderChange = this.handleSortOrderChange.bind(this);
   }
+
+  handleSortOrderChange(key, order, array) {
+    // Original idea here: https://github.com/hyojin/material-ui-datatables/issues/46
+    // First sort by pinned/not pinned then sort the passed in key/order
+    array.sort((a, b) => {
+      if (a.pinned && !b.pinned) {
+        return -1;
+      }
+
+      if (!a.pinned && b.pinned) {
+        return 1;
+      }
+
+      if (order === 'desc') {
+        return b[key].localeCompare(a[key])
+      } else {
+        return a[key].localeCompare(b[key])
+      }
+    });
+  }
+
+  render() {
+    const { conversations, openDrawer, addPinned } = this.props
+
+    // Build the initial conversation array, moving pinned conversations
+    // to the top.
+    const pinned = conversations.filter(conv => conv.pinned);
+    const notPinned = conversations.filter(conv => !conv.pinned);
+    let data = [
+      ...pinned,
+      ...notPinned
+    ]
   
-  return (
-    <DataTables
-      height={"auto"}
-      selectable={false}
-      showRowHover={true}
-      columns={tableColumns}
-      data={data}
-      showCheckboxes={false}
-      onCellClick={openDrawer}
-      onSortOrderChange={handleSort}
-      page={1}
-      count={100}
-    />
-  );
-};
+    return (
+      <DataTables
+        height={"auto"}
+        selectable={false}
+        showRowHover={true}
+        columns={tableColumns(addPinned)}
+        data={data}
+        showCheckboxes={false}
+        onCellClick={openDrawer}
+        onSortOrderChange={(key, order) => this.handleSortOrderChange(key, order, data)}
+        page={1}
+        count={100}
+      />
+    )
+  }
+}
 
 ConversationsTable.propTypes = {
-  
+  conversations: PropTypes.array.isRequired,
+  openDrawer: PropTypes.func.isRequired,
+  addPinned: PropTypes.func.isRequired,
 };
 
 export default withStyles(s)(ConversationsTable);

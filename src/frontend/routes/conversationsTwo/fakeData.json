@@ -1,0 +1,271 @@
+{
+	"conversations": [
+		{
+			"id": "ddcd39c9-dcbc-4a26-bcf7-525d77c12d54",
+			"visitor": "ddcd39c9-dcbc-4a26-bcf7-525d77c12d54",
+			"bot": "ddcd39c9-dcbc-4a26-bcf7-525d77c12d54",
+			"client": "ddcd39c9-dcbc-4a26-bcf7-525d77c12d54",
+			"status": "online",
+			"mode": "automatic",
+			"intentions": [{
+				"name": "buying xyz",
+				"score": 34
+			}],
+			"actions": [{
+				"source": "ai",
+				"name": "recommending abc",
+				"status": "done"
+			}],
+			"token": "sdf3423",
+			"createdAt": "2018-05-04T21:02:26.294Z",
+			"updatedAt": "2018-05-04T21:02:26.294Z",
+			"pinned": false
+		},
+		{
+			"id": "ddcd39c9-dcbc-4a26-bcf7-fdsaf3253",
+			"visitor": "ddcd39c9-dcbc-4a26-bcf7-fdsaf3253",
+			"bot": "ddcd39c9-dcbc-4a26-bcf7-fdsaf3253",
+			"client": "ddcd39c9-dcbc-4a26-bcf7-fdsaf3253",
+			"status": "offline",
+			"mode": "automatic'",
+			"intentions": [
+				{
+					"name": "more one",
+					"score": 34
+				},
+				{
+					"name": "more one",
+					"score": 34
+				}
+			],
+			"actions": [
+				{
+					"source": "ai",
+					"name": "recommending more one",
+					"status": "done"
+				},
+				{
+					"source": "ai",
+					"name": "recommending more one",
+					"status": "done"
+				}
+			],
+			"token": "sdf3423",
+			"createdAt": "2018-05-04T21:02:26.294Z",
+			"updatedAt": "2018-05-04T21:01:26.294Z",
+			"pinned": false
+		},
+		{
+			"id": "ddcd39c9-dcbc-4a26-bcf7-sadf",
+			"visitor": "ddcd39c9-dcbc-4a26-bcf7-sadf",
+			"bot": "ddcd39c9-dcbc-4a26-bcf7-sadf",
+			"client": "ddcd39c9-dcbc-4a26-bcf7-sadf",
+			"status": "online",
+			"mode": "automatic",
+			"intentions": [{
+				"name": "more two",
+				"score": 34
+			}],
+			"actions": [{
+				"source": "ai",
+				"name": "recommending more two",
+				"status": "done"
+			}],
+			"token": "sdf3423",
+			"createdAt": "2018-05-04T21:02:26.294Z",
+			"updatedAt": "2018-05-03T21:11:26.294Z",
+			"pinned": false
+		},
+		{
+			"id": "ddcd39c9-dcbc-4a26-bcf7-4634fsdfd",
+			"visitor": "ddcd39c9-dcbc-4a26-bcf7-4634fsdfd",
+			"bot": "ddcd39c9-dcbc-4a26-bcf7-4634fsdfd",
+			"client": "ddcd39c9-dcbc-4a26-bcf7-4634fsdfd",
+			"status": "offline",
+			"mode": "automatic",
+			"intentions": [{
+				"name": "buying more",
+				"score": 55
+			}],
+			"actions": [{
+				"source": "ai",
+				"name": "recommending more",
+				"status": "done"
+			}],
+			"token": "sdf3423",
+			"createdAt": "2018-05-04T21:03:30.294Z",
+			"updatedAt": "2018-05-04T21:03:30.294Z",
+			"pinned": false
+        },
+
+		{
+			"id": "ddcd39c9-dcbc-4a26-bcf7-4634fsdfd",
+			"visitor": "ddcd39c9-dcbc-4a26-bcf7-4634fsdfd",
+			"bot": "ddcd39c9-dcbc-4a26-bcf7-4634fsdfd",
+			"client": "ddcd39c9-dcbc-4a26-bcf7-4634fsdfd",
+			"status": "online",
+			"mode": "automatic",
+			"intentions": [{
+				"name": "buying more",
+				"score": 55
+			}],
+			"actions": [{
+				"source": "ai",
+				"name": "recommending more",
+				"status": "done"
+			}],
+			"token": "sdf3423",
+			"createdAt": "2018-05-04T21:11:30.294Z",
+			"updatedAt": "2018-05-04T21:11:30.294Z",
+			"pinned": true
+        },
+		{
+			"id": "ddcd39c9-dcbc-4a26-bcf7-4634fsdfd",
+			"visitor": "ddcd39c9-dcbc-4a26-bcf7-4634fsdfd",
+			"bot": "ddcd39c9-dcbc-4a26-bcf7-4634fsdfd",
+			"client": "ddcd39c9-dcbc-4a26-bcf7-4634fsdfd",
+			"status": "online",
+			"mode": "automatic",
+			"intentions": [{
+				"name": "buying more",
+				"score": 55
+			}],
+			"actions": [{
+				"source": "ai",
+				"name": "recommending more",
+				"status": "done"
+			}],
+			"token": "sdf3423",
+			"createdAt": "2018-05-04T21:22:30.294Z",
+			"updatedAt": "2018-05-04T21:22:30.294Z",
+			"pinned": true
+        },
+        {
+			"id": "ddcd39c9-dcbc-4a26-bcf7-4634fsdfd",
+			"visitor": "ddcd39c9-dcbc-4a26-bcf7-4634fsdfd",
+			"bot": "ddcd39c9-dcbc-4a26-bcf7-4634fsdfd",
+			"client": "ddcd39c9-dcbc-4a26-bcf7-4634fsdfd",
+			"status": "online",
+			"mode": "automatic",
+			"intentions": [{
+				"name": "buying more",
+				"score": 55
+			}],
+			"actions": [{
+				"source": "ai",
+				"name": "recommending more",
+				"status": "done"
+			}],
+			"token": "sdf3423",
+			"createdAt": "2018-05-04T21:33:30.294Z",
+			"updatedAt": "2018-05-04T21:33:30.294Z",
+			"pinned": true
+        },
+        {
+			"id": "ddcd39c9-dcbc-4a26-bcf7-4634fsdfd",
+			"visitor": "ddcd39c9-dcbc-4a26-bcf7-4634fsdfd",
+			"bot": "ddcd39c9-dcbc-4a26-bcf7-4634fsdfd",
+			"client": "ddcd39c9-dcbc-4a26-bcf7-4634fsdfd",
+			"status": "offline",
+			"mode": "automatic",
+			"intentions": [{
+				"name": "buying more",
+				"score": 55
+			}],
+			"actions": [{
+				"source": "ai",
+				"name": "recommending more",
+				"status": "done"
+			}],
+			"token": "sdf3423",
+			"createdAt": "2018-05-04T21:44:30.294Z",
+			"updatedAt": "2018-05-04T21:44:30.294Z",
+			"pinned": true
+        },
+        {
+			"id": "ddcd39c9-dcbc-4a26-bcf7-4634fsdfd",
+			"visitor": "ddcd39c9-dcbc-4a26-bcf7-4634fsdfd",
+			"bot": "ddcd39c9-dcbc-4a26-bcf7-4634fsdfd",
+			"client": "ddcd39c9-dcbc-4a26-bcf7-4634fsdfd",
+			"status": "offline",
+			"mode": "automatic",
+			"intentions": [{
+				"name": "buying more",
+				"score": 55
+			}],
+			"actions": [{
+				"source": "ai",
+				"name": "recommending more",
+				"status": "done"
+			}],
+			"token": "sdf3423",
+			"createdAt": "2018-05-04T21:55:30.294Z",
+			"updatedAt": "2018-05-04T21:55:30.294Z",
+			"pinned": true
+		},
+		{
+			"id": "ddcd39c9-dcbc-4a26-bcf7-4634fsdfd",
+			"visitor": "ddcd39c9-dcbc-4a26-bcf7-4634fsdfd",
+			"bot": "ddcd39c9-dcbc-4a26-bcf7-4634fsdfd",
+			"client": "ddcd39c9-dcbc-4a26-bcf7-4634fsdfd",
+			"status": "offline",
+			"mode": "automatic",
+			"intentions": [{
+				"name": "buying more",
+				"score": 55
+			}],
+			"actions": [{
+				"source": "ai",
+				"name": "recommending more",
+				"status": "done"
+			}],
+			"token": "sdf3423",
+			"createdAt": "2018-05-04T21:50:30.294Z",
+			"updatedAt": "2018-05-04T21:50:30.294Z",
+			"pinned": true
+        },
+        {
+			"id": "ddcd39c9-dcbc-4a26-bcf7-4634fsdfd",
+			"visitor": "ddcd39c9-dcbc-4a26-bcf7-4634fsdfd",
+			"bot": "ddcd39c9-dcbc-4a26-bcf7-4634fsdfd",
+			"client": "ddcd39c9-dcbc-4a26-bcf7-4634fsdfd",
+			"status": "offline",
+			"mode": "automatic",
+			"intentions": [{
+				"name": "buying more",
+				"score": 55
+			}],
+			"actions": [{
+				"source": "ai",
+				"name": "recommending more",
+				"status": "done"
+			}],
+			"token": "sdf3423",
+			"createdAt": "2018-05-04T20:03:30.294Z",
+			"updatedAt": "2018-05-04T20:03:30.294Z",
+			"pinned": true
+        },
+        {
+			"id": "ddcd39c9-dcbc-4a26-bcf7-4634fsdfd",
+			"visitor": "ddcd39c9-dcbc-4a26-bcf7-4634fsdfd",
+			"bot": "ddcd39c9-dcbc-4a26-bcf7-4634fsdfd",
+			"client": "ddcd39c9-dcbc-4a26-bcf7-4634fsdfd",
+			"status": "offline",
+			"mode": "automatic",
+			"intentions": [{
+				"name": "buying more",
+				"score": 55
+			}],
+			"actions": [{
+				"source": "ai",
+				"name": "recommending more",
+				"status": "done"
+			}],
+			"token": "sdf3423",
+			"createdAt": "2018-05-04T19:03:30.294Z",
+			"updatedAt": "2018-05-04T19:03:30.294Z",
+			"pinned": true
+		}
+	],
+	"loading": false
+}

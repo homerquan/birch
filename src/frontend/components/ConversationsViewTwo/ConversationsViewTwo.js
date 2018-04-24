@@ -53,8 +53,6 @@ import ConversationsTable from './ConversationsTable';
 //   }
 // `;
 
-
-
 class ConversationsView extends Component {
   constructor(props) {
     super(props);
@@ -64,9 +62,11 @@ class ConversationsView extends Component {
       selectedConversation: null,
     };
 
-    // this.handleSortOrderChange = this.handleSortOrderChange.bind(this);
+    this.addPinned = this.addPinned.bind(this);
   }
 
+  component
+  
   closeDrawer = () => {
     this.setState({
       openDrawer: false
@@ -81,13 +81,18 @@ class ConversationsView extends Component {
     });
   };
 
-  // handleSortOrderChange (key, order) {
-  //   console.log('Key: ', key)
-  //   console.log('Order: ', order)
-  // }
+  addPinned (conversationId) {
+    // TODO:
+    // conversationId.target.name is id of conversation.
+    // Make api call to save this conversation as pinned
+    console.log(conversationId.target.name);
+  }
 
   render() {
-    const { conversations, loading, refetch } = this.props.data;
+    const { conversations, loading } = this.props.data;
+    // Fake function until real funcion can be passed through props
+    // from graphql
+    const refetch = () => {};
 
     if (loading) return <h1>Loading</h1>;
 
@@ -104,10 +109,20 @@ class ConversationsView extends Component {
           </Toolbar>
 
           {conversations && conversations.length 
-            ? <ConversationsTable
-              conversations={conversations}
-              onCellClick={this.openDrawer}
-              />
+            ?   <div>
+                  <ConversationsTable
+                    conversations={conversations}
+                    onCellClick={this.openDrawer}
+                    addPinned={this.addPinned}
+                  />
+
+                  {/* <ConversationsTable
+                    style={{ marginTop: '40px' }}
+                    conversations={conversations.filter(conv => !conv.pinned)}
+                    onCellClick={this.openDrawer}
+                    addPinned={this.addPinned}
+                  /> */}
+                </div>
             : (
             <div>
               <div className={s.nothing}>
