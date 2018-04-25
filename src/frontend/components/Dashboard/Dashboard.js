@@ -9,17 +9,19 @@
  * @Last Modified by:   Homer
  * @Last Modified time: 2017-12-17 23:58:31
  */
-import React from "react";
-import { graphql, compose } from "react-apollo";
-import Paper from "material-ui/Paper";
-import withStyles from "isomorphic-style-loader/lib/withStyles";
-import s from "./Dashboard.css";
-import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
+import React from 'react';
+import { graphql, compose } from 'react-apollo';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import lightTheme from '../theme';
+import Paper from 'material-ui/Paper';
+import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import s from './Dashboard.css';
 
 class Dashboard extends React.Component {
   render() {
     return (
-      <MuiThemeProvider>
+      <MuiThemeProvider muiTheme={getMuiTheme(lightTheme)}>
         <div>
           <Paper className={s.card} zDepth={1}>
             <div className={s.value}>12,345</div>

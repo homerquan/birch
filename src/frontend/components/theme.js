@@ -16,7 +16,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 exports.default = {
   spacing: _spacing2.default,
-  fontFamily: 'Roboto, sans-serif',
+  fontFamily: 'Open Sans, Roboto, sans-serif',
   borderRadius: 2,
   palette: {
     primary1Color: _colors.deepPurple500,

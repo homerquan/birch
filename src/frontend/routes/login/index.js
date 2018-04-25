@@ -7,15 +7,16 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
-import React from "react";
-import FullScreen from "../../components/Layout/Fullscreen";
-import LoginView from "../../components/LoginView";
-import Paper from "material-ui/Paper";
-import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
-import { deepPurple500, white } from "material-ui/styles/colors";
-import Background from "./bg.svg";
-import { isLogin } from "../../utils";
-
+import React from 'react';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import lightTheme from '../../components/theme'
+import Paper from 'material-ui/Paper';
+import { deepPurple500, white } from 'material-ui/styles/colors';
+import FullScreen from '../../components/Layout/Fullscreen';
+import LoginView from '../../components/LoginView';
+import Background from './bg.svg';
+import { isLogin } from '../../utils';
 
 const title = "Log In";
 
@@ -55,7 +56,7 @@ export default {
 			chunk: 'login',
 			component: (
 				<FullScreen>
-					<MuiThemeProvider>
+					<MuiThemeProvider muiTheme={getMuiTheme(lightTheme)}>
 						<div style={styles.loginScreen}>
 							<Paper style={styles.loginPaper} zDepth={2}>
 								<LoginView title={title} redirect={query.redirect}/>

@@ -11,9 +11,11 @@
  */
 import React from 'react';
 import { graphql, compose } from 'react-apollo';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import lightTheme from '../theme';
 import Paper from 'material-ui/Paper';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import IconButton from 'material-ui/IconButton';
 import CloseIcon from 'react-material-icons/icons/content/clear';
 import s from './GlobalNotice.css';
@@ -49,7 +51,7 @@ class GlobalNotice extends React.Component {
   
   render() {
     return (
-    <MuiThemeProvider>	
+      <MuiThemeProvider muiTheme={getMuiTheme(lightTheme)}>
       <div className={s.globalNotice} style={this.state. isActive ? {} : { display: 'none' }} > 
       		<span className={s.content}>{this.props.notice}</span>
       		<IconButton className={s.noticeButton} iconStyle={styles.noticeIcon} style={styles.closeButton} onTouchTap={this.handleClose}><CloseIcon/></IconButton>

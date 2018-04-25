@@ -11,16 +11,18 @@
  */
 import React from 'react';
 import { graphql, compose } from 'react-apollo';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import lightTheme from '../theme';
 import Paper from 'material-ui/Paper';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import s from './Loader.css';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import LinearProgress from 'material-ui/LinearProgress';
+import s from './Loader.css';
 
 class Loader extends React.Component {
   render() {
     return (
-    <MuiThemeProvider>	
+      <MuiThemeProvider muiTheme={getMuiTheme(lightTheme)}>	
      <LinearProgress mode="indeterminate" />
     </MuiThemeProvider>
     );

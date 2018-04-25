@@ -12,6 +12,8 @@
  */
 import React, { Component } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from "material-ui/styles/getMuiTheme";
+import lightTheme from '../theme';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import { List } from 'material-ui/List';
 import Divider from 'material-ui/Divider';
@@ -64,7 +66,7 @@ class ConversationDetailsActivity extends Component {
     }
 
     return (
-      <MuiThemeProvider>
+      <MuiThemeProvider muiTheme={getMuiTheme(lightTheme)}>
         <Paper zDepth={2} className={s.paper}>
           <List style={{ padding: 0 }}>
             {this.state.data.map(application => (

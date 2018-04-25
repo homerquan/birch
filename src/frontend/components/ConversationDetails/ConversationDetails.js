@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from "material-ui/styles/getMuiTheme";
+import lightTheme from '../theme';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import moment from 'moment';
 import Blockies from 'react-blockies';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Paper from 'material-ui/Paper';
 import { List, ListItem } from 'material-ui/List';
 import CompareArrows from 'material-ui/svg-icons/action/compare-arrows';
@@ -18,7 +20,7 @@ class ConversationDetails extends Component {
     const { conversation } = this.props;
     
     return (
-      <MuiThemeProvider>
+      <MuiThemeProvider muiTheme={getMuiTheme(lightTheme)}>
         <Paper>
           <div className={s.blockyWrapper}>
             <Blockies

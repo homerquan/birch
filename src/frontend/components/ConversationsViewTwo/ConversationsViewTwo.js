@@ -5,14 +5,16 @@
 * @Last Modified time: 2017-12-28 08:26:05
 */
 
-import React, { Component } from "react";
-// import { graphql, compose } from "react-apollo";
-// import gql from "graphql-tag";
-import withStyles from "isomorphic-style-loader/lib/withStyles";
-import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
-import ConversationDrawer from "../ConversationDrawer";
-import IconButton from "material-ui/IconButton";
-import ReloadIcon from "react-material-icons/icons/action/cached";
+import React, { Component } from 'react';
+// import { graphql, compose } from 'react-apollo';
+// import gql from 'graphql-tag';
+import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import lightTheme from '../theme';
+import ConversationDrawer from '../ConversationDrawer';
+import IconButton from 'material-ui/IconButton';
+import ReloadIcon from 'react-material-icons/icons/action/cached';
 import {
   Toolbar,
   ToolbarGroup
@@ -97,7 +99,7 @@ class ConversationsView extends Component {
     if (loading) return <h1>Loading</h1>;
 
     return (
-      <MuiThemeProvider>
+      <MuiThemeProvider muiTheme={getMuiTheme(lightTheme)}>
         <div>
           <Toolbar>
             <ToolbarGroup firstChild={true} />

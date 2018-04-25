@@ -5,29 +5,31 @@
 * @Last Modified time: 2018-01-01 00:34:13
 */
 
-import React from "react";
-import { graphql, compose } from "react-apollo";
-import DataTables from "material-ui-datatables";
-import Paper from "material-ui/Paper"
-import Avatar from "material-ui/Avatar"
-import Chip from "material-ui/Chip"
-import withStyles from "isomorphic-style-loader/lib/withStyles"
-import MuiThemeProvider from "material-ui/styles/MuiThemeProvider"
-import IconButton from "material-ui/IconButton"
-import OnlineIcon from "react-material-icons/icons/action/swap-horiz"
-import OffIcon from "react-material-icons/icons/notification/sync-disabled"
-import ActiveActionIcon from "react-material-icons/icons/action/history"
-import ReloadIcon from "react-material-icons/icons/action/cached"
-import AddIcon from "react-material-icons/icons/content/add"
-import CircularProgress from "material-ui/CircularProgress"
-import MoreIcon from "react-material-icons/icons/navigation/more-vert"
-import s from "./BotsView.css"
-import gql from "graphql-tag"
-import Blockies from "react-blockies"
-import RaisedButton from "material-ui/RaisedButton"
-import * as runtimeActions from "../../actions/runtime"
+import React from 'react';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import lightTheme from '../theme';
+import { graphql, compose } from 'react-apollo';
+import DataTables from 'material-ui-datatables';
+import Paper from 'material-ui/Paper'
+import Avatar from 'material-ui/Avatar'
+import Chip from 'material-ui/Chip'
+import withStyles from 'isomorphic-style-loader/lib/withStyles'
+import IconButton from 'material-ui/IconButton'
+import OnlineIcon from 'react-material-icons/icons/action/swap-horiz'
+import OffIcon from 'react-material-icons/icons/notification/sync-disabled'
+import ActiveActionIcon from 'react-material-icons/icons/action/history'
+import ReloadIcon from 'react-material-icons/icons/action/cached'
+import AddIcon from 'react-material-icons/icons/content/add'
+import CircularProgress from 'material-ui/CircularProgress'
+import MoreIcon from 'react-material-icons/icons/navigation/more-vert'
+import s from './BotsView.css'
+import gql from 'graphql-tag'
+import Blockies from 'react-blockies'
+import RaisedButton from 'material-ui/RaisedButton'
+import * as runtimeActions from '../../actions/runtime'
 import { connect } from 'react-redux'
-import { bindActionCreators } from "redux"
+import { bindActionCreators } from 'redux'
 import config from '../../config';
 
 
@@ -98,7 +100,7 @@ class BotsView extends React.Component {
     if (loading) return <h1>Loading</h1>;
 
     return (
-      <MuiThemeProvider>
+      <MuiThemeProvider muiTheme={getMuiTheme(lightTheme)}>
         <div>
           <Toolbar>
             <ToolbarGroup firstChild={true} />

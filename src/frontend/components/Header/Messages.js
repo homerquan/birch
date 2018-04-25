@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import withStyles from "isomorphic-style-loader/lib/withStyles";
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import lightTheme from '../theme';
+import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import Badge from 'material-ui/Badge';
 import IconButton from 'material-ui/IconButton';
 import SMSIcon from 'material-ui/svg-icons/notification/sms';
@@ -14,7 +16,7 @@ import Divider from 'material-ui/Divider';
 import Subheader from 'material-ui/Subheader';
 import Link from '../Link/Link';
 
-import s from "./Messages.css";
+import s from './Messages.css';
 import fakeData from './fakeMessages.json';
 
 const badgeStyle = {
@@ -127,7 +129,7 @@ class Messages extends Component {
     const { isLoading, messages, isOpen } = this.state;
 
     return (
-      <MuiThemeProvider>
+      <MuiThemeProvider muiTheme={getMuiTheme(lightTheme)}>
         <Badge
           badgeContent={messages.length}
           badgeStyle={messages.length ? badgeStyle : hiddenStyle}

@@ -7,10 +7,11 @@
 
 import React from "react";
 import { graphql, compose } from "react-apollo";
+import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import lightTheme from '../theme';
 import Paper from "material-ui/Paper";
 import withStyles from "isomorphic-style-loader/lib/withStyles";
-import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
-import s from "./KnowledgeView.css";
 import gql from "graphql-tag";
 import IconButton from "material-ui/IconButton";
 import SendIcon from "react-material-icons/icons/action/done";
@@ -22,6 +23,7 @@ import {
   ToolbarSeparator,
   ToolbarTitle
 } from "material-ui/Toolbar";
+import s from "./KnowledgeView.css";
 
 const knowledgeQuery = gql`
   query knowledgeQuery($clientId: String!, $botId: String!) {
@@ -81,7 +83,7 @@ class KnowledgeView extends React.Component {
     if (loading) return <h1>Loading</h1>;
 
     return (
-      <MuiThemeProvider>
+      <MuiThemeProvider muiTheme={getMuiTheme(lightTheme)}>
         <div>
           <Toolbar>
             <ToolbarGroup firstChild={true} />

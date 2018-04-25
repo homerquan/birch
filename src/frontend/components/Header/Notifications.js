@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import getMuiTheme from "material-ui/styles/getMuiTheme";
+import lightTheme from '../theme';
 import withStyles from "isomorphic-style-loader/lib/withStyles";
 import Badge from 'material-ui/Badge';
 import IconButton from 'material-ui/IconButton';
@@ -127,7 +129,7 @@ class Notifications extends Component {
     const { isLoading, notifications, isOpen } = this.state;
 
     return (
-      <MuiThemeProvider>
+      <MuiThemeProvider muiTheme={getMuiTheme(lightTheme)}>
         <Badge
           badgeContent={notifications.length}
           badgeStyle={notifications.length ? badgeStyle : hiddenStyle}
