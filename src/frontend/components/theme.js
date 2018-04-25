@@ -23,7 +23,8 @@ exports.default = {
     primary2Color: _colors.deepPurple700,
     primary3Color: _colors.grey600,
     accent1Color: _colors.pinkA200,
-    accent2Color: _colors.pinkA400,
-    accent3Color: _colors.pinkA100
+    accent2Color: _colors.grey100,
+    accent3Color: _colors.pinkA100,
+    textColor: _colors.darkBlack
   }
 };

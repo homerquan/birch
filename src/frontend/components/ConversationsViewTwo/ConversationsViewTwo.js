@@ -117,13 +117,6 @@ class ConversationsView extends Component {
                     onCellClick={this.openDrawer}
                     addPinned={this.addPinned}
                   />
-
-                  {/* <ConversationsTable
-                    style={{ marginTop: '40px' }}
-                    conversations={conversations.filter(conv => !conv.pinned)}
-                    onCellClick={this.openDrawer}
-                    addPinned={this.addPinned}
-                  /> */}
                 </div>
             : (
             <div>
@@ -136,7 +129,7 @@ class ConversationsView extends Component {
             )
           }
 
-          {/* <ConversationDrawer
+          {/* <ConversationDrawerTwo
             conversation={this.state.selectedConversation}
             clientId={this.props.clientId}
             open={this.state.openDrawer}
