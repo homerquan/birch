@@ -8,7 +8,7 @@
  * @Email: homer@convospot.io
  * @Date:   2017-11-05 17:00:20
  * @Last Modified by:   Michael
- * @Last Modified time: 2017-04-18 17:55:06
+ * @Last Modified time: 2017-04-24 17:55:06
  */
 import React, { Component } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -17,13 +17,13 @@ import { List } from 'material-ui/List';
 import Divider from 'material-ui/Divider';
 import { deepPurple500 } from 'material-ui/styles/colors';
 import Paper from 'material-ui/Paper';
-import s from './Activities.css';
+import s from './ConversationDetailsActivity.css';
 import fakeData from './fakeData.json';
 import Link from '../Link/Link';
 import MessageListItem from '../MessageListItem/MessageListItem';
 import NotificationListItem from '../NotificationListItem/NotificationListItem';
 import Loader from '../Loader/Loader';
-import ActivitiesContentLoader from './ActivitiesContentLoader';
+import ConversationDetailsLoader from './ConversationDetailsLoader';
 
 // Styles
 // TODO: Need to explore ways to include
@@ -37,7 +37,7 @@ const viewAllLink = {
   textAlign: 'right',
 };
 
-class Activities extends Component {
+class ConversationDetailsActivity extends Component {
   constructor(props) {
     super(props);
 
@@ -60,7 +60,7 @@ class Activities extends Component {
     const { isLoading } = this.state;
 
     if (isLoading) {
-      return <ActivitiesContentLoader />;
+      return <ConversationDetailsLoader />;
     }
 
     return (
@@ -88,7 +88,7 @@ class Activities extends Component {
             )}
           </List>
           <div className={s.footerContainer}>
-           <Link to="#" style={viewAllLink}>View All Activities</Link>
+           <Link to="#" style={viewAllLink}>View All Conversations</Link>
           </div>
         </Paper>
       </MuiThemeProvider>
@@ -96,4 +96,4 @@ class Activities extends Component {
   }
 }
 
-export default withStyles(s)(Activities);
+export default withStyles(s)(ConversationDetailsActivity);
