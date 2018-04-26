@@ -24,8 +24,6 @@ import { setRuntimeVariable } from "./actions/runtime";
 import config from "./config";
 import apolloClient from "./core/apolloClient";
 
-import 'open-sans-fontface';
-
 //
 // Tell any CSS tooling (such as Material UI) to use all vendor prefixes if the
 // user agent is not known.
