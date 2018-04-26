@@ -12,7 +12,6 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import lightTheme from '../theme';
-import ConversationDrawer from '../ConversationDrawer';
 import IconButton from 'material-ui/IconButton';
 import ReloadIcon from 'react-material-icons/icons/action/cached';
 import {
@@ -23,6 +22,7 @@ import {
 import s from "./ConversationsView.css";
 import config from '../../config';
 import ConversationsTable from './ConversationsTable';
+import ConversationDrawerTwo from '../ConversationDrawerTwo/ConversationDrawerTwo';
 
 
 // const conversationsQuery = gql`
@@ -60,8 +60,8 @@ class ConversationsView extends Component {
     super(props);
 
     this.state = {
-      openDrawer: false,
-      selectedConversation: null,
+      drawerIsOpen: false,
+      selectedConversation: {},
     };
 
     this.addPinned = this.addPinned.bind(this);
@@ -71,15 +71,19 @@ class ConversationsView extends Component {
   
   closeDrawer = () => {
     this.setState({
-      openDrawer: false
+      drawerIsOpen: false
     });
   };
 
   openDrawer = index => {
-    const selected = this.props.data.conversations[index];
+    // const selected = this.props.data.conversations[index];
+    // this.setState({
+    //   drawerIsOpen: true,
+    //   selectedConversation: selected
+    // });
+
     this.setState({
-      openDrawer: true,
-      selectedConversation: selected
+      drawerIsOpen: true
     });
   };
 
@@ -114,7 +118,7 @@ class ConversationsView extends Component {
             ?   <div>
                   <ConversationsTable
                     conversations={conversations}
-                    onCellClick={this.openDrawer}
+                    openDrawer={this.openDrawer}
                     addPinned={this.addPinned}
                   />
                 </div>
@@ -129,12 +133,12 @@ class ConversationsView extends Component {
             )
           }
 
-          {/* <ConversationDrawerTwo
+          <ConversationDrawerTwo
             conversation={this.state.selectedConversation}
             clientId={this.props.clientId}
-            open={this.state.openDrawer}
-            onClose={this.closeDrawer}
-          /> */}
+            isOpen={this.state.drawerIsOpen}
+            closeDrawer={this.closeDrawer}
+          />
         </div>
       </MuiThemeProvider>
     );

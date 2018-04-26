@@ -28,7 +28,7 @@ const styles = {
   }
 };
 
-const tableColumns = (addPinned) => ([
+const tableColumns = (addPinned, openDrawer) => ([
   {
     key: "id",
     style: {
@@ -80,11 +80,8 @@ const tableColumns = (addPinned) => ([
       <div> 
         {intentions && intentions.length 
           ? intentions.map((intention, index, array) => {
-            console.log('Index: ', index)
-            console.log('array: ', array.length)
-            return (<span>
+            return (<span key={index}>
               <Chip 
-                key={index}
                 style={array.length === (index + 1) ? styles.chip : styles.chipDark}>
                   {intention.name}
               </Chip>
@@ -104,9 +101,8 @@ const tableColumns = (addPinned) => ([
       <div>
        {actions && actions.length ? (
           actions.map((action, index) =>
-            <span>
+            <span key={index}>
               <Chip 
-                key={index} 
                 style={styles.chip}
               >
                 <Avatar size={32}>{action.source.charAt(0)}</Avatar> {action.name} { action.status === 'in-progress' && <img src="/images/loader.gif" /> }
@@ -149,7 +145,7 @@ const tableColumns = (addPinned) => ([
       width: 30
     },
     render: (id, all) => (
-      <IconButton>
+      <IconButton onClick={openDrawer}>
         <ChatIcon color={grey500} />
       </IconButton>
     )
@@ -236,7 +232,7 @@ class ConversationsTable extends Component {
         height={"auto"}
         selectable={false}
         showRowHover={true}
-        columns={tableColumns(addPinned)}
+        columns={tableColumns(addPinned, openDrawer)}
         data={displayData}
         showCheckboxes={false}
         onCellClick={openDrawer}
