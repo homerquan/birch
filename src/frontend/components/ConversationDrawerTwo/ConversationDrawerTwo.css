@@ -1,0 +1,24 @@
+.messagesContainer {
+    background-color: white;
+    flex: 1;
+}
+
+.utilityBar {
+    background-color: rgb(103, 58, 183);
+    height: 34px;
+    width: 100%;
+}
+
+.chatBoxContainer {
+    background-color: white;
+    display: flex;
+    border-top: 1px solid lightgray;
+}
+
+.chatInput {
+    flex: 1;
+    height: 48px;
+    width: 100%;
+    border: none;
+    padding-left: 10px;
+}

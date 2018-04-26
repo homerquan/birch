@@ -3,17 +3,39 @@ import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import CloseIcon from 'material-ui/svg-icons/navigation/close';
 import IconButton from 'material-ui/IconButton';
+import AddIcon from 'material-ui/svg-icons/content/add';
+
+import { deepPurple500, white } from 'material-ui/styles/colors';
 
 import s from './ConversationDrawerTwo.css';
 import withWidth, { MEDIUM, LARGE } from 'material-ui/utils/withWidth'
+import { deepPurple100 } from 'material-ui/styles/colors';
 
 class ConversationDrawerTwo extends Component {
+  constructor(props) {
+    super(props);
+    
+    this.state = {
+      currentMessage: ''
+    }
+
+    this.handleInputOnChange = this.handleInputOnChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleInputOnChange(e) {
+    this.setState({ currentMessage: e.target.value });
+  }
+  
+  handleClick(e, data) {
+    console.log(data.foo);
+  }
+  
   render() {
     const { width, isOpen, closeDrawer } = this.props;
+    const { currentMessage } = this.state;
 
     const styles = {
-      conversationDrawer: {
-      },
       conversationBG: {
         display: isOpen ? 'block' : 'none',
         backgroundColor: 'rgba(0, 0, 0, .40)',
@@ -25,17 +47,17 @@ class ConversationDrawerTwo extends Component {
         zIndex: 102,
       },
       conversationWrapper: {
-        backgroundColor: 'white',
+        backgroundColor: deepPurple500,
         position: 'fixed',
         display: 'flex',
-        justifyContent: 'flex-end',
+        flexDirection: 'column',
         top: 0,
         right: 0,
         bottom: 0,
         left: '20%',
         zIndex: 103,
         transition: 'transform 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms',
-        transform: isOpen ? 'translate(0px, 0px)' : 'translate(110%, 0px)',
+        transform: isOpen ? 'translateX(0px)' : 'translateX(110%)',
       },
       closeIconBG: {
         backgroundColor: 'transparent',
@@ -44,7 +66,7 @@ class ConversationDrawerTwo extends Component {
         position: 'absolute',
         left: '-24px',
         borderTop: '8px solid transparent',
-        borderRight: '24px solid white',
+        borderRight: `24px solid ${deepPurple500}`,
         borderBottom: '8px solid transparent',
       },
       closeIconBtn: {
@@ -60,9 +82,12 @@ class ConversationDrawerTwo extends Component {
         height: 16
       },
       conversationContainer: {
-        backgroundColor: 'green',
+        display: 'flex',
+        flexDirection: 'column',
+        flex: 1,
+        backgroundColor: deepPurple500,
         width: '100%',
-        maxWidth: '700px',
+        maxWidth: width === LARGE ? '700px' : 'none',
         margin: width === LARGE ? '0 auto' : 0,
       }
     }    
@@ -71,9 +96,41 @@ class ConversationDrawerTwo extends Component {
       <div style={styles.conversationDrawer}>
         <div style={styles.conversationBG}></div>
         <div style={styles.conversationWrapper}>
+
+          <div className={s.utilityBar}>
+          </div>
+        
           <div style={styles.conversationContainer}>
-            <h1>Conversation</h1>
-            <p>laksjdflajsdflasjf jals fdla lasjdf laskjdf l;asj flaksjfd lasjdf laksjdf ajslkdfj asl;df</p>
+            <div className={s.messagesContainer}>
+              <p>some content</p>
+            </div>
+
+            <div className={s.chatBoxContainer}>
+              <ContextMenuTrigger id="some_unique_identifier">
+                <IconButton>
+                  <AddIcon />
+                </IconButton>
+              </ContextMenuTrigger>
+              <ContextMenu id="some_unique_identifier">
+                <MenuItem data={{foo: 'bar'}} onClick={this.handleClick}>
+                  ContextMenu Item 1
+                </MenuItem>
+                <MenuItem data={{foo: 'bar'}} onClick={this.handleClick}>
+                  ContextMenu Item 2
+                </MenuItem>
+                <MenuItem divider />
+                <MenuItem data={{foo: 'bar'}} onClick={this.handleClick}>
+                  ContextMenu Item 3
+                </MenuItem>
+              </ContextMenu>
+              <input
+                className={s.chatInput}
+                onChange={(e) => this.handleInputOnChange(e)}
+                value={currentMessage}
+                placeholder="Type Here"
+              />
+            </div>
+
           </div>
           <div style={styles.closeIconBG}></div>
           <IconButton
@@ -81,9 +138,8 @@ class ConversationDrawerTwo extends Component {
             style={styles.closeIconBtn}
             onClick={closeDrawer}
           >
-            <CloseIcon color='black'  />
+            <CloseIcon color={white}  />
           </IconButton>
-          {/* <CloseIcon  style={styles.closeIcon} /> */}
         </div>
       </div>
     );
