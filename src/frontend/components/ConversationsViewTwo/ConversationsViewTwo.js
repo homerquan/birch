@@ -60,7 +60,7 @@ class ConversationsView extends Component {
     super(props);
 
     this.state = {
-      drawerIsOpen: true,
+      drawerIsOpen: false,
       selectedConversation: {},
     };
 

@@ -22,3 +22,9 @@
     border: none;
     padding-left: 10px;
 }
+
+
+
+.contextRoot {
+    background-color: red;
+}

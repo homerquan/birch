@@ -4,19 +4,27 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import CloseIcon from 'material-ui/svg-icons/navigation/close';
 import IconButton from 'material-ui/IconButton';
 import AddIcon from 'material-ui/svg-icons/content/add';
-
 import { deepPurple500, white } from 'material-ui/styles/colors';
+// import Popup from 'reactjs-popup';
 
 import s from './ConversationDrawerTwo.css';
 import withWidth, { MEDIUM, LARGE } from 'material-ui/utils/withWidth'
-import { deepPurple100 } from 'material-ui/styles/colors';
+
+let contextTrigger = null;
+
+const MenuIcon = () => (
+  <IconButton onClick={this.toggleMenu}>
+    <AddIcon />
+  </IconButton>
+);
+
 
 class ConversationDrawerTwo extends Component {
   constructor(props) {
     super(props);
     
     this.state = {
-      currentMessage: ''
+      currentMessage: '',
     }
 
     this.handleInputOnChange = this.handleInputOnChange.bind(this);
@@ -31,6 +39,15 @@ class ConversationDrawerTwo extends Component {
     console.log(data.foo);
   }
   
+  toggleMenu(e) {
+    console.log('Thid was called: ', e)
+    console.log('Thid was called: ', contextTrigger)
+    if(contextTrigger) {
+      console.log('fsadfsd');
+      contextTrigger.handleContextClick(e);
+    }
+  }
+
   render() {
     const { width, isOpen, closeDrawer } = this.props;
     const { currentMessage } = this.state;
@@ -106,23 +123,15 @@ class ConversationDrawerTwo extends Component {
             </div>
 
             <div className={s.chatBoxContainer}>
-              <ContextMenuTrigger id="some_unique_identifier">
-                <IconButton>
-                  <AddIcon />
-                </IconButton>
-              </ContextMenuTrigger>
-              <ContextMenu id="some_unique_identifier">
-                <MenuItem data={{foo: 'bar'}} onClick={this.handleClick}>
-                  ContextMenu Item 1
-                </MenuItem>
-                <MenuItem data={{foo: 'bar'}} onClick={this.handleClick}>
-                  ContextMenu Item 2
-                </MenuItem>
-                <MenuItem divider />
-                <MenuItem data={{foo: 'bar'}} onClick={this.handleClick}>
-                  ContextMenu Item 3
-                </MenuItem>
-              </ContextMenu>
+              {/* <Popup
+                trigger={<button className="button"> Open Modal </button>}
+                modal
+                closeOnDocumentClick
+              >
+                <span> Modal content </span>
+              </Popup> */}
+
+
               <input
                 className={s.chatInput}
                 onChange={(e) => this.handleInputOnChange(e)}
