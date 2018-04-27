@@ -3,21 +3,12 @@ import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import CloseIcon from 'material-ui/svg-icons/navigation/close';
 import IconButton from 'material-ui/IconButton';
-import AddIcon from 'material-ui/svg-icons/content/add';
+import SendIcon from 'material-ui/svg-icons/content/send';
 import { deepPurple500, white } from 'material-ui/styles/colors';
-// import Popup from 'reactjs-popup';
-
-import s from './ConversationDrawerTwo.css';
 import withWidth, { MEDIUM, LARGE } from 'material-ui/utils/withWidth'
 
-let contextTrigger = null;
-
-const MenuIcon = () => (
-  <IconButton onClick={this.toggleMenu}>
-    <AddIcon />
-  </IconButton>
-);
-
+import s from './ConversationDrawerTwo.css';
+import ActionMenu from './ActionMenu';
 
 class ConversationDrawerTwo extends Component {
   constructor(props) {
@@ -28,26 +19,12 @@ class ConversationDrawerTwo extends Component {
     }
 
     this.handleInputOnChange = this.handleInputOnChange.bind(this);
-    this.handleClick = this.handleClick.bind(this);
   }
 
   handleInputOnChange(e) {
     this.setState({ currentMessage: e.target.value });
   }
   
-  handleClick(e, data) {
-    console.log(data.foo);
-  }
-  
-  toggleMenu(e) {
-    console.log('Thid was called: ', e)
-    console.log('Thid was called: ', contextTrigger)
-    if(contextTrigger) {
-      console.log('fsadfsd');
-      contextTrigger.handleContextClick(e);
-    }
-  }
-
   render() {
     const { width, isOpen, closeDrawer } = this.props;
     const { currentMessage } = this.state;
@@ -123,23 +100,19 @@ class ConversationDrawerTwo extends Component {
             </div>
 
             <div className={s.chatBoxContainer}>
-              {/* <Popup
-                trigger={<button className="button"> Open Modal </button>}
-                modal
-                closeOnDocumentClick
-              >
-                <span> Modal content </span>
-              </Popup> */}
-
+              <ActionMenu />
 
               <input
                 className={s.chatInput}
                 onChange={(e) => this.handleInputOnChange(e)}
                 value={currentMessage}
-                placeholder="Type Here"
+                placeholder="Type Something"
               />
-            </div>
 
+              <IconButton>
+                <SendIcon />
+              </IconButton>
+            </div>
           </div>
           <div style={styles.closeIconBG}></div>
           <IconButton

@@ -12,18 +12,21 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import lightTheme from '../theme';
-import IconButton from 'material-ui/IconButton';
 import ReloadIcon from 'react-material-icons/icons/action/cached';
 import {
   Toolbar,
   ToolbarGroup
 } from "material-ui/Toolbar";
 
+import Popup from 'reactjs-popup';
+
 import s from "./ConversationsView.css";
 import config from '../../config';
 import ConversationsTable from './ConversationsTable';
 import ConversationDrawerTwo from '../ConversationDrawerTwo/ConversationDrawerTwo';
 
+import IconButton from 'material-ui/IconButton';
+import AddIcon from 'material-ui/svg-icons/content/add';
 
 // const conversationsQuery = gql`
 //   query ConversationsQuery($clientId : String!, $botId: String){
@@ -60,14 +63,12 @@ class ConversationsView extends Component {
     super(props);
 
     this.state = {
-      drawerIsOpen: false,
+      drawerIsOpen: true,
       selectedConversation: {},
     };
 
     this.addPinned = this.addPinned.bind(this);
   }
-
-  component
   
   closeDrawer = () => {
     this.setState({
@@ -105,6 +106,39 @@ class ConversationsView extends Component {
     return (
       <MuiThemeProvider muiTheme={getMuiTheme(lightTheme)}>
         <div>
+        <Popup
+            trigger={<IconButton><AddIcon /></IconButton>}
+            position="top left"
+            on="hover"
+            closeOnDocumentClick
+            mouseLeaveDelay={300}
+            mouseEnterDelay={0}
+            contentStyle={{ padding: "0px", border: "none" }}
+            arrow
+            offsetY={0}
+          >
+            <div className={s.menu}>
+              <div className={s.menuItem}> item 1</div>
+              <div className={s.menuItem}> item 2</div>
+              <Popup
+                trigger={<div className="menu-item"> sup Menu </div>}
+                position="right top"
+                on="hover"
+                closeOnDocumentClick
+                mouseLeaveDelay={300}
+                mouseEnterDelay={0}
+                contentStyle={{ padding: "0px", border: "none" }}
+                arrow={false}
+              >
+                <div className="menu">
+                  <div className="menu-item"> item 1</div>
+                  <div className="menu-item"> item 2</div>
+                  <div className="menu-item"> item 3</div>
+                </div>
+              </Popup>
+            </div>
+          </Popup>
+
           <Toolbar>
             <ToolbarGroup firstChild={true} />
             <ToolbarGroup>
@@ -144,8 +178,6 @@ class ConversationsView extends Component {
     );
   }
 }
-
-
 
 export default withStyles(s)(ConversationsView);
 
