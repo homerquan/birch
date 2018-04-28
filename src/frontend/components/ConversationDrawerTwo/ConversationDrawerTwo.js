@@ -9,6 +9,7 @@ import withWidth, { MEDIUM, LARGE } from 'material-ui/utils/withWidth'
 
 import s from './ConversationDrawerTwo.css';
 import ActionMenu from './ActionMenu';
+import fakeData from './fakeData.json';
 
 class ConversationDrawerTwo extends Component {
   constructor(props) {
@@ -100,7 +101,7 @@ class ConversationDrawerTwo extends Component {
             </div>
 
             <div className={s.chatBoxContainer}>
-              <ActionMenu />
+              <ActionMenu plugins={fakeData.plugins} />
 
               <input
                 className={s.chatInput}

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Popup from 'reactjs-popup';
 import { List, ListItem } from 'material-ui/List';
 import Subheader from 'material-ui/Subheader';
@@ -39,37 +40,39 @@ const styles = {
   },
 };
 
-const ActionMenu = () => {
-  return (
-    <Popup
-      trigger={<IconButton><AddIcon /></IconButton>}
-      position="top left"
-      on="click"
-      mouseLeaveDelay={300}
-      closeOnDocumentClick
-      contentStyle={styles.popupStyle}
-      arrow={false}
-      offsetY={10}
-    >
-      <List style={styles.listStyle}>
-        <Subheader style={styles.subHeaderStyle}>General Actions</Subheader>
-        <ListItem 
-          style={styles.listItemStyle}
-          innerDivStyle={styles.innerDivStyle} 
-          primaryText="File" 
-          leftIcon={<AttachFileIcon style={styles.smallIcon} />} 
-        />
-        <ListItem 
-          style={styles.listItemStyle}
-          innerDivStyle={styles.innerDivStyle}
-          primaryText="Post"
-          leftIcon={<DescriptionIcon style={styles.smallIcon} />} 
-        />
-        <Subheader style={styles.subHeaderStyle}>Plugins</Subheader>
-        <SubMenu />
-      </List>
-    </Popup>
-  );
+const ActionMenu = ({ plugins }) => (
+  <Popup
+    trigger={<IconButton><AddIcon /></IconButton>}
+    position="top left"
+    on="click"
+    mouseLeaveDelay={300}
+    closeOnDocumentClick
+    contentStyle={styles.popupStyle}
+    arrow={false}
+    offsetY={10}
+  >
+    <List style={styles.listStyle}>
+      <Subheader style={styles.subHeaderStyle}>General Actions</Subheader>
+      <ListItem 
+        style={styles.listItemStyle}
+        innerDivStyle={styles.innerDivStyle} 
+        primaryText="File" 
+        leftIcon={<AttachFileIcon style={styles.smallIcon} />} 
+      />
+      <ListItem 
+        style={styles.listItemStyle}
+        innerDivStyle={styles.innerDivStyle}
+        primaryText="Post"
+        leftIcon={<DescriptionIcon style={styles.smallIcon} />} 
+      />
+      <Subheader style={styles.subHeaderStyle}>Plugins</Subheader>
+      {plugins.map(plugin => <SubMenu plugin={plugin} />)}
+    </List>
+  </Popup>
+);
+
+ActionMenu.proptypes = {
+  plugins: PropTypes.object
 };
 
 export default ActionMenu;

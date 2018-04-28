@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Popup from 'reactjs-popup';
 import { List, ListItem } from 'material-ui/List';
 import ChevronRight from 'material-ui/svg-icons/navigation/chevron-right';
@@ -36,40 +37,39 @@ const styles = {
   },
 };
 
-const SubMenu = () => {
-  return (
-    <Popup
-      trigger={
-        <ListItem
-          style={styles.listItemStyle}
-          innerDivStyle={styles.innerDivStyle}
-          primaryText="Google Calendar" 
-          leftIcon={<PermContactIcon style={styles.smallIcon} />} 
-          rightIcon={<ChevronRight style={styles.smallIcon} />}
-        />
-      }
-      position="right top"
-      on="hover"
-      mouseLeaveDelay={300}
-      closeOnDocumentClick
-      contentStyle={styles.popupStyle}
-      arrow={false}
-      offsetX={8}
-    >
-      <List style={styles.listStyle}>
-        <ListItem
-          style={styles.listItemStyle}
-          innerDivStyle={styles.subInnerDivStyle}
-          primaryText="Create an Event"
-        />
+const SubMenu = ({ plugin }) => (
+  <Popup
+    trigger={
+      <ListItem
+        style={styles.listItemStyle}
+        innerDivStyle={styles.innerDivStyle}
+        primaryText={plugin.name} 
+        leftIcon={<PermContactIcon style={styles.smallIcon} />} 
+        rightIcon={<ChevronRight style={styles.smallIcon} />}
+      />
+    }
+    position="right top"
+    on="hover"
+    mouseLeaveDelay={300}
+    closeOnDocumentClick
+    contentStyle={styles.popupStyle}
+    arrow={false}
+    offsetX={8}
+  >
+    <List style={styles.listStyle}>
+      {plugin.sub.map(sub => (
         <ListItem
           style={styles.listItemStyle}
           innerDivStyle={styles.subInnerDivStyle}
-          primaryText="Cancel Event"
+          primaryText={sub.name}
         />
-      </List>
-    </Popup>
-  );
+      ))}
+    </List>
+  </Popup>
+);
+
+SubMenu.prototypes = {
+  plugin: PropTypes.object
 };
 
 export default SubMenu;

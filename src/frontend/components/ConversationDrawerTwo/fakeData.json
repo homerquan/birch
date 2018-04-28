@@ -1,0 +1,23 @@
+{
+    "plugins": [
+        {
+            "name": "Google Calendar",
+            "sub": [
+                {
+                    "name": "Create an Event"
+                },
+                {
+                    "name": "Cancel Event"
+                }
+            ]
+        },
+        {
+            "name": "Other Plugin",
+            "sub": [
+                {
+                    "name": "An Event!"
+                }
+            ]
+        }
+    ]
+}
