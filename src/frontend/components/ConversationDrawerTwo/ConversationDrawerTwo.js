@@ -8,6 +8,7 @@ import { deepPurple500, white } from 'material-ui/styles/colors';
 import withWidth, { MEDIUM, LARGE } from 'material-ui/utils/withWidth'
 
 import s from './ConversationDrawerTwo.css';
+import MessagesContainer from './MessagesContainer';
 import ActionMenu from './ActionMenu';
 import fakeData from './fakeData.json';
 
@@ -96,9 +97,7 @@ class ConversationDrawerTwo extends Component {
           </div>
 
           <div style={styles.conversationContainer}>
-            <div className={s.messagesContainer}>
-              <p>some content</p>
-            </div>
+            <MessagesContainer messages={fakeData.messages} />
 
             <div className={s.chatBoxContainer}>
               <ActionMenu plugins={fakeData.plugins} />

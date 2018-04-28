@@ -1,0 +1,62 @@
+.messagesContainer {
+    background-color: white;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    overflow: scroll;
+}
+
+.messageIncoming {
+    margin-top: 14px;
+    width: auto;
+    margin-right: 10%;
+}
+
+.messageOutgoing {
+    margin-top: 14px;
+    margin-left: 10%;
+    text-align: right;
+}
+
+.messageContainerIncoming {
+    display: inline-block;
+    /* background-color: lightgrey; */
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid lightgrey;
+}
+
+.messageContainerOutgoing {
+    display: inline-block;
+    /* background-color: lightblue; */
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid lightgrey;
+}
+
+.messageInfoBar {
+    margin-bottom: 5px;
+}
+
+.messageAvatar {
+    margin-right: 5px;
+}
+
+.messageType {
+    background-color: rgb(103, 58, 183);
+    font-size: 10px;
+    color: white;
+    padding: 2px 4px;
+    border-radius: 4px;
+    margin-right: 5px;
+}
+
+.messageSent {
+    font-size: 14px;
+}
+
+.message {
+    padding: 0;
+    margin: 0;
+}
