@@ -88,12 +88,12 @@ class ConversationDrawerTwo extends Component {
     
     return (
       <div style={styles.conversationDrawer}>
-        <div style={styles.conversationBG}></div>
+        <div style={styles.conversationBG} onClick={closeDrawer}></div>
         <div style={styles.conversationWrapper}>
 
           <div className={s.utilityBar}>
           </div>
-        
+
           <div style={styles.conversationContainer}>
             <div className={s.messagesContainer}>
               <p>some content</p>
@@ -112,8 +112,15 @@ class ConversationDrawerTwo extends Component {
               <IconButton>
                 <SendIcon />
               </IconButton>
+
+              {/* <div className={s.decisionSupportContainer}>
+                <p>Option One</p>
+                <p>Option Two</p>
+              </div> */}
+              
             </div>
           </div>
+
           <div style={styles.closeIconBG}></div>
           <IconButton
             iconStyle={styles.closeIcon}

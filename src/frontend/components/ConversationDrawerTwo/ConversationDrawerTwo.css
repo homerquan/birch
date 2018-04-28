@@ -10,6 +10,7 @@
 }
 
 .chatBoxContainer {
+    position: relative;
     background-color: white;
     display: flex;
     border-top: 1px solid lightgray;
@@ -18,25 +19,15 @@
 .chatInput {
     flex: 1;
     height: 48px;
-    
     border: none;
     padding-left: 10px;
 }
 
-
-
-
-.menu {
-    background-color: red;
-    display: flex;
-    flex-direction: column;
-    background: #ffffff;
-    z-index: 104;
-}
-
-.menuItem {
-    cursor: pointer;
-    padding: 5px;
-    height: 28px;
-    border-bottom: 1px solid rgb(187, 187, 187);
-}
+/* .decisionSupportContainer {
+    position: absolute;
+    border: 1px solid lightgray;
+    left: 48px;
+    right: 48px;
+    bottom: 114%;
+    padding: 10px;
+} */
