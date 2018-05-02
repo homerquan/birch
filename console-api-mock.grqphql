@@ -1,12 +1,12 @@
 type Intention {
-  name: String
+  name: String @fake(type:lorem, options:{loremSize:word})
   score: Int
 }
 
 type Action {
-  source: String
-  name: String
-  status: String
+  source: String @examples(values: ["ai", "helper", "visitor"])
+  name: String @fake(type:lorem, options:{loremSize:word})
+  status: String @examples(values: ["done", "progress"])
 }
 
 type Conversation {
@@ -28,8 +28,8 @@ type Conversation {
 
 type Message {
   id: String
-  text: String
-  source: String
+  text: String @fake(type:lorem, options:{loremSize:words})
+  source: String @examples(values: ["ai", "helper", "visitor"])
   sourceId: String
   destination: String
   destinationId: String
