@@ -18,6 +18,9 @@ type Conversation {
   mode: String
   intentions: [Intention]
   actions: [Action]
+  messages: [Message]
+  # messages will be returned in a MessageFeed object wrapper
+  messageFeed(cursor: String): MessageFeed 
   token: String
   createdAt: String
   updatedAt: String
@@ -34,6 +37,14 @@ type Message {
   client: String
   createdAt: String
   updatedAt: String
+}
+
+type MessageFeed {
+  # cursor specifies the place in the list where we left off
+  cursor: String!
+  
+  # this is a chunk of messages to be returned
+  messages: [Message]!
 }
 
 type Bot {
@@ -64,10 +75,22 @@ type Suggestion {
 }
 
 type Query {
-  conversations(clientId: String, botId: String): [Conversation]
+  conversations(clientId: String!, botId: String!): [Conversation]
   messages(conversationId: String, clientId: String): [Message]
   bots(clientId: String): [Bot]
   knowledge(clientId: String, botId: String): Knowledge
+}
+
+type ConversationEvent {
+  id: String @fake(type:uuid)
+}
+
+type ConversationEventFeed {
+  # cursor specifies the place in the list where we left off
+  cursor: String!
+  
+  # this is a chunk of messages to be returned
+  events: [ConversationEvent]!
 }
 
 type Mutation {
