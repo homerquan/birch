@@ -253,6 +253,6 @@
     "serve": "babel-node tools/run runServer",
     "start": "cd build;npm start",
     "dev": "BABEL_DISABLE_CACHE=1 babel-node tools/run start",
-    "debug": "babel-node --inspect --debug-brk tools/run start"
+    "debug": "babel-node --inspect --inspect-brk tools/run start"
   }
 }
