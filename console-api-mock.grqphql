@@ -48,13 +48,13 @@ type MessageFeed {
 }
 
 type Bot {
-  id: String @fake(type:uuid)
+  id: ID @fake(type:uuid)
   name: String @fake(type:word)
   token: String @fake(type:uuid)
   host: String @fake(type:url)
   client: String @fake(type:uuid)
-  createdAt: String @fake(type:pastDate)
-  updatedAt: String @fake(type:pastDate)
+  createdAt: String @fake(type:pastDate,options:{dateFormat:""})
+  updatedAt: String @fake(type:pastDate,options:{dateFormat:""})
 }
 
 type Knowledge {
@@ -75,7 +75,7 @@ type Suggestion {
 }
 
 type Query {
-  conversations(clientId: String!, botId: String!): [Conversation]
+  conversations(clientId: String, botId: String): [Conversation]
   messages(conversationId: String, clientId: String): [Message]
   bots(clientId: String): [Bot]
   knowledge(clientId: String, botId: String): Knowledge
