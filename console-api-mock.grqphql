@@ -48,13 +48,13 @@ type MessageFeed {
 }
 
 type Bot {
-  id: String
-  name: String
-  token: String
-  host: String
-  client: String
-  createdAt: String
-  updatedAt: String
+  id: String @fake(type:uuid)
+  name: String @fake(type:word)
+  token: String @fake(type:uuid)
+  host: String @fake(type:url)
+  client: String @fake(type:uuid)
+  createdAt: String @fake(type:pastDate)
+  updatedAt: String @fake(type:pastDate)
 }
 
 type Knowledge {
