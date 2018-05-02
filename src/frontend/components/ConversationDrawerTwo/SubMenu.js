@@ -43,8 +43,8 @@ const SubMenu = ({ plugin }) => (
       <ListItem
         style={styles.listItemStyle}
         innerDivStyle={styles.innerDivStyle}
-        primaryText={plugin.name} 
-        leftIcon={<PermContactIcon style={styles.smallIcon} />} 
+        primaryText={plugin.name}
+        leftIcon={<PermContactIcon style={styles.smallIcon} />}
         rightIcon={<ChevronRight style={styles.smallIcon} />}
       />
     }
@@ -68,8 +68,11 @@ const SubMenu = ({ plugin }) => (
   </Popup>
 );
 
-SubMenu.prototypes = {
-  plugin: PropTypes.object
+SubMenu.propTypes = {
+  plugin: PropTypes.shape({
+    name: PropTypes.string,
+    sub: PropTypes.array,
+  }).isRequired,
 };
 
 export default SubMenu;

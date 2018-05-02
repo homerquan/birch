@@ -53,26 +53,31 @@ const ActionMenu = ({ plugins }) => (
   >
     <List style={styles.listStyle}>
       <Subheader style={styles.subHeaderStyle}>General Actions</Subheader>
-      <ListItem 
+      <ListItem
         style={styles.listItemStyle}
-        innerDivStyle={styles.innerDivStyle} 
-        primaryText="File" 
-        leftIcon={<AttachFileIcon style={styles.smallIcon} />} 
+        innerDivStyle={styles.innerDivStyle}
+        primaryText="File"
+        leftIcon={<AttachFileIcon style={styles.smallIcon} />}
       />
-      <ListItem 
+      <ListItem
         style={styles.listItemStyle}
         innerDivStyle={styles.innerDivStyle}
         primaryText="Post"
-        leftIcon={<DescriptionIcon style={styles.smallIcon} />} 
+        leftIcon={<DescriptionIcon style={styles.smallIcon} />}
       />
       <Subheader style={styles.subHeaderStyle}>Plugins</Subheader>
-      {plugins.map(plugin => <SubMenu plugin={plugin} />)}
+      {plugins.map(plugin => <SubMenu key={plugin.name} plugin={plugin} />)}
     </List>
   </Popup>
 );
 
-ActionMenu.proptypes = {
-  plugins: PropTypes.object
+ActionMenu.propTypes = {
+  plugins: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string,
+      sub: PropTypes.array,
+    }),
+  ).isRequired,
 };
 
 export default ActionMenu;

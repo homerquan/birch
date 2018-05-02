@@ -60,3 +60,57 @@
     padding: 0;
     margin: 0;
 }
+
+
+
+
+
+.messageOutgoingNotRecieved {
+    display: inline-block;
+    border-radius: 6px;
+    margin-top: 14px;
+    opacity: .25;
+}
+
+
+
+
+
+.messageErrorContainer {
+    display: flex;
+    align-content: center;
+    background-color: lightyellow;
+    padding: 10px;
+    margin-top: 14px;
+}
+
+.messageError {
+    flex: 1;
+    margin: 0;
+}
+
+.messageErrorTitle {
+    font-weight: bold;
+}
+
+.messageErrorRetry {
+    color: rgb(103, 58, 183);
+    font-weight: bold;
+    margin: 0 10px;
+    cursor: pointer;
+}
+
+.messageErrorCancel {
+    margin: 0 10px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+
+
+
+
+.messageTyping {
+    width: 75px;
+    margin-top: 14px;
+}

@@ -5,9 +5,7 @@ import moment from 'moment';
 
 import s from './MessagesContainer.css';
 
-// const MessagesContainer = ({ messages }) => {
 class MessagesContainer extends Component {
-
   componentDidMount() {
     const messageContainerInner = document.getElementById('messageContainerInner');
     messageContainerInner.scrollIntoView(false);
@@ -19,25 +17,32 @@ class MessagesContainer extends Component {
     return (
       <div className={s.messagesContainer}>
         <div id="messageContainerInner">
-          {messages.map((message, index) => (
-            <div key={index} className={message.typeIncoming ? s.messageIncoming : s.messageOutgoing }>
-              <div className={message.typeIncoming ? s.messageContainerIncoming : s.messageContainerOutgoing }>
+          {messages.map(message => (
+            <div
+              key={message.id}
+              className={message.typeIncoming ? s.messageIncoming : s.messageOutgoing}
+            >
+              <div
+                className={message.typeIncoming
+                  ? s.messageContainerIncoming
+                  : s.messageContainerOutgoing}
+              >
                 <div className={s.messageInfoBar}>
                   {message.typeIncoming
                     ? <img
-                        className={s.messageAvatar}
-                        width="18px"
-                        height="18px"
-                        src="/images/avatar-visitor.png"
-                        alt="Visitor Icon"
-                      />
+                      className={s.messageAvatar}
+                      width="18px"
+                      height="18px"
+                      src="/images/avatar-visitor.png"
+                      alt="Visitor Icon"
+                    />
                     : <img
-                        className={s.messageAvatar}
-                        width="18px"
-                        height="18px"
-                        src="/images/avatar-ai.png"
-                        alt="Visitor Icon"
-                      />
+                      className={s.messageAvatar}
+                      width="18px"
+                      height="18px"
+                      src="/images/avatar-ai.png"
+                      alt="Visitor Icon"
+                    />
                   }
                   <span className={s.messageType}>
                     {message.typeIncoming
@@ -51,15 +56,53 @@ class MessagesContainer extends Component {
               </div>
             </div>
           ))}
+
+          <div className={s.messageOutgoingNotRecieved}>
+            <div className={s.messageContainerOutgoing}>
+              <div className={s.messageInfoBar}>
+                <img
+                  className={s.messageAvatar}
+                  width="18px"
+                  height="18px"
+                  src="/images/avatar-ai.png"
+                  alt="Visitor Icon"
+                />
+                <span className={s.messageType}>A.I.</span>
+                <span className={s.messageSent}>{moment('2018-04-27T21:02:26.294Z').startOf('day').fromNow()}</span>
+              </div>
+              <p className={s.message}>This message hasn&apos;t been recieved yet.</p>
+            </div>
+          </div>
+
+          <div className={s.messageErrorContainer}>
+            <p className={s.messageError}>
+              <span className={s.messageErrorTitle}>Error: </span>timeout
+            </p>
+            <p className={s.messageErrorRetry}>Retry</p>
+            <p className={s.messageErrorCancel}>Cancel</p>
+          </div>
+
+          <img
+            className={s.messageTyping}
+            src="/images/message-typing.gif"
+            alt="A message is being typed"
+          />
+
         </div>
       </div>
     );
   }
-};
+}
 
 MessagesContainer.propTypes = {
-  messages: PropTypes.array,
+  messages: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string,
+      typeIncoming: PropTypes.bool,
+      sent: PropTypes.string,
+      message: PropTypes.string,
+    }),
+  ).isRequired,
 };
 
 export default withStyles(s)(MessagesContainer);
-
