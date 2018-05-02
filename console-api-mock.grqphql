@@ -1,12 +1,12 @@
 type Intention {
-  name: String
+  name: String @fake(type:lorem, options:{loremSize:word})
   score: Int
 }
 
 type Action {
-  source: String
-  name: String
-  status: String
+  source: String @examples(values: ["ai", "helper", "visitor"])
+  name: String @fake(type:lorem, options:{loremSize:word})
+  status: String @examples(values: ["done", "progress"])
 }
 
 type Conversation {
@@ -18,6 +18,9 @@ type Conversation {
   mode: String
   intentions: [Intention]
   actions: [Action]
+  messages: [Message]
+  # messages will be returned in a MessageFeed object wrapper
+  messageFeed(cursor: String): MessageFeed 
   token: String
   createdAt: String
   updatedAt: String
@@ -25,8 +28,8 @@ type Conversation {
 
 type Message {
   id: String
-  text: String
-  source: String
+  text: String @fake(type:lorem, options:{loremSize:words})
+  source: String @examples(values: ["ai", "helper", "visitor"])
   sourceId: String
   destination: String
   destinationId: String
@@ -36,14 +39,22 @@ type Message {
   updatedAt: String
 }
 
+type MessageFeed {
+  # cursor specifies the place in the list where we left off
+  cursor: String!
+  
+  # this is a chunk of messages to be returned
+  messages: [Message]!
+}
+
 type Bot {
-  id: String
-  name: String
-  token: String
-  host: String
-  client: String
-  createdAt: String
-  updatedAt: String
+  id: ID @fake(type:uuid)
+  name: String @fake(type:word)
+  token: String @fake(type:uuid)
+  host: String @fake(type:url)
+  client: String @fake(type:uuid)
+  createdAt: String @fake(type:pastDate,options:{dateFormat:""})
+  updatedAt: String @fake(type:pastDate,options:{dateFormat:""})
 }
 
 type Knowledge {
@@ -68,6 +79,18 @@ type Query {
   messages(conversationId: String, clientId: String): [Message]
   bots(clientId: String): [Bot]
   knowledge(clientId: String, botId: String): Knowledge
+}
+
+type ConversationEvent {
+  id: String @fake(type:uuid)
+}
+
+type ConversationEventFeed {
+  # cursor specifies the place in the list where we left off
+  cursor: String!
+  
+  # this is a chunk of messages to be returned
+  events: [ConversationEvent]!
 }
 
 type Mutation {
