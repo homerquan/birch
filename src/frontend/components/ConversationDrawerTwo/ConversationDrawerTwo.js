@@ -30,7 +30,14 @@ class ConversationDrawerTwo extends Component {
     this.handleInputOnChange = this.handleInputOnChange.bind(this);
     this.handleKeyPress = this.handleKeyPress.bind(this);
     this.addMessage = this.addMessage.bind(this);
+
+    console.log('props here: ', this.props.conversation);
   }
+
+  // static getDerivedStateFromProps(nextProps, prevState) {
+  //   console.log('next props: ', nextProps);
+  //   return nextProps;
+  // }
 
   componentWillMount() {
     document.addEventListener('keydown', this.handleKeyPress);
@@ -144,9 +151,9 @@ class ConversationDrawerTwo extends Component {
   }
 
   render() {
-    const { width, isOpen, closeDrawer } = this.props;
+    const { width, isOpen, closeDrawer, conversation } = this.props;
     const { currentMessage, activeCommands } = this.state;
-
+    console.log('Conversation here: ', conversation)
     const styles = {
       conversationBG: {
         display: isOpen ? 'block' : 'none',
@@ -228,7 +235,7 @@ class ConversationDrawerTwo extends Component {
           <div className={s.utilityBar} />
 
           <div style={styles.conversationContainer}>
-            <Paper className={s.decisionThinking}>
+            {/* <Paper className={s.decisionThinking}>
               <p className={s.decisionThinkingText}>Filling out referral form...</p>
               <LinearProgress mode="indeterminate" />
             </Paper>
@@ -247,10 +254,11 @@ class ConversationDrawerTwo extends Component {
                   <FlatButton label="Accept" />
                 </Badge>
               </div>
-            </Paper>
+            </Paper> */}
 
-
-            <MessagesContainer messages={fakeData.messages} />
+            <MessagesContainer
+              messages={conversation.messages}
+            />
 
             <div className={s.chatBoxContainer}>
               <ActionMenu plugins={fakeData.plugins} />
@@ -288,6 +296,9 @@ class ConversationDrawerTwo extends Component {
 }
 
 ConversationDrawerTwo.propTypes = {
+  conversation: PropTypes.shape({
+    messages: PropTypes.array,
+  }).isRequired,
   isOpen: PropTypes.bool.isRequired,
   closeDrawer: PropTypes.func.isRequired,
   width: PropTypes.number.isRequired,

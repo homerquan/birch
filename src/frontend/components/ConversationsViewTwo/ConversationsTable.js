@@ -1,4 +1,4 @@
-  import React, { Component } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import DataTables from 'material-ui-datatables';
@@ -14,27 +14,27 @@ import Blockies from 'react-blockies';
 import moment from 'moment';
 import Toggle from 'material-ui/Toggle';
 
-import s from "./ConversationsView.css";
+import s from './ConversationTable.css';
 
 const styles = {
   chipDark: {
     margin: 2,
-    display: "inline-block",
-    backgroundColor: 'rgb(179, 179, 179)'
+    display: 'inline-block',
+    backgroundColor: 'rgb(179, 179, 179)',
   },
   chip: {
     margin: 2,
-    display: "inline-block",
-  }
+    display: 'inline-block',
+  },
 };
 
 const tableColumns = (addPinned, openDrawer) => ([
   {
-    key: "id",
+    key: 'id',
     style: {
-      width: 10
+      width: 10,
     },
-    render: (id, all) => (
+    render: id => (
       <div>
         <Blockies
           seed={id}
@@ -45,135 +45,138 @@ const tableColumns = (addPinned, openDrawer) => ([
           spotColor="#666666"
         />
       </div>
-    )
+    ),
   },
   {
-    key: "id",
-    label: "Visitor",
+    key: 'id',
+    label: 'Visitor',
     style: {
-      width: 160
+      width: 160,
     },
-    render: (id, all) => (
+    render: id => (
       <div>
         <div className={s.visitorName}>
           Anomynous
           <span>{id}</span>
         </div>
       </div>
-    )
+    ),
   },
   {
-    key: "status",
-    label: "Status",
+    key: 'status',
+    label: 'Status',
     style: {
-      width: 40
+      width: 40,
     },
     sortable: true,
-    render: (online, all) => {
-      return online === 'online' ? <OnlineIcon /> : <OffIcon />
-    }
+    render: online => (
+      online === 'online' ? <OnlineIcon /> : <OffIcon />
+    ),
   },
   {
-    key: "intentions",
-    label: "Intentions",
-    render: (intentions, all) => (
-      <div> 
-        {intentions && intentions.length 
-          ? intentions.map((intention, index, array) => {
-            return (<span key={index}>
-              <Chip 
-                style={array.length === (index + 1) ? styles.chip : styles.chipDark}>
-                  {intention.name}
+    key: 'intentions',
+    label: 'Intentions',
+    render: intentions => (
+      <div>
+        {intentions && intentions.length
+          ? intentions.map((intention, index, array) => (
+            <span key={intention.name}>
+              <Chip
+                style={array.length === (index + 1) ? styles.chip : styles.chipDark}
+              >
+                {intention.name}
               </Chip>
               <br />
             </span>
-          )}
+          ),
         ) : (
           <span>waiting data</span>
-        )}  
+        )}
       </div>
-    )
+    ),
   },
   {
-    key: "actions",
-    label: "Actions",
-    render: (actions, all) => (
+    key: 'actions',
+    label: 'Actions',
+    render: actions => (
       <div>
-       {actions && actions.length ? (
-          actions.map((action, index) =>
-            <span key={index}>
-              <Chip 
+        {actions && actions.length ? (
+          actions.map(action => (
+            <span key={action.name}>
+              <Chip
                 style={styles.chip}
               >
-                <Avatar size={32}>{action.source.charAt(0)}</Avatar> {action.name} { action.status === 'in-progress' && <img src="/images/loader.gif" /> }
+                <Avatar size={32}>
+                  {action.source.charAt(0)}
+                </Avatar> {action.name} { action.status === 'in-progress' && <img src="/images/loader.gif" alt="loading" /> }
               </Chip>
               <br />
             </span>
-          )
+          ))
         ) : (
           <span>waiting actions</span>
-        )}  
+        )}
       </div>
-    )
+    ),
   },
   {
     key: 'updatedAt',
     label: 'Last Updated',
     sortable: true,
-    render: (updatedAt, all) => (
+    render: updatedAt => (
       <span>{moment(updatedAt).format('LLL')}</span>
-    )
+    ),
   },
   {
     key: 'pinned',
     label: 'Pin to Top',
     style: {
-      width: 40
+      width: 40,
     },
     render: (pin, all) => {
       const { id } = all;
 
-      return <Toggle
-          name={id}
-          toggled={pin}
-          onToggle={(id) => addPinned(id)}
-        />
-    }
+      return (<Toggle
+        name={id}
+        toggled={pin}
+        onToggle={passedId => addPinned(passedId)}
+      />);
+    },
   },
   {
     style: {
-      width: 30
+      width: 30,
     },
-    render: (id, all) => (
+    render: () => (
       <IconButton onClick={openDrawer}>
         <ChatIcon color={grey500} />
       </IconButton>
-    )
+    ),
   },
   {
-    key: "id",
+    key: 'id',
     style: {
-      width: 30
+      width: 30,
     },
-    render: (id, all) => (
+    render: () => (
       <div>
         <IconButton tooltip="More">
           <MoreIcon />
         </IconButton>
       </div>
-    )
-  }
+    ),
+  },
 ]);
 
 class ConversationsTable extends Component {
   constructor(props) {
     super(props);
-    
+
     this.state = {
       page: 1,
       rowSize: 10,
-    }
-    
+    };
+
     this.handleSortOrderChange = this.handleSortOrderChange.bind(this);
     this.handleNextPageClick = this.handleNextPageClick.bind(this);
     this.handlePreviousPageClick = this.handlePreviousPageClick.bind(this);
@@ -181,18 +184,18 @@ class ConversationsTable extends Component {
   }
 
   handleNextPageClick = () => {
-    this.setState({ page: this.state.page + 1 })
+    this.setState({ page: this.state.page + 1 });
   }
-  
+
   handlePreviousPageClick = () => {
-    this.setState({ page: this.state.page - 1 })
+    this.setState({ page: this.state.page - 1 });
   }
 
   handleRowSizeChange = (rowSizeIndex, rowSize) => {
     this.setState({ page: 1, rowSize });
   }
 
-  handleSortOrderChange(key, order, array) {
+  handleSortOrderChange(key, order, array) {  // eslint-disable-line
     // Original idea here: https://github.com/hyojin/material-ui-datatables/issues/46
     // First sort by pinned/not pinned then sort the passed in key/order
     array.sort((a, b) => {
@@ -205,10 +208,10 @@ class ConversationsTable extends Component {
       }
 
       if (order === 'desc') {
-        return b[key].localeCompare(a[key])
-      } else {
-        return a[key].localeCompare(b[key])
+        return b[key].localeCompare(a[key]);
       }
+
+      return a[key].localeCompare(b[key]);
     });
   }
 
@@ -222,16 +225,16 @@ class ConversationsTable extends Component {
     const notPinned = conversations.filter(conv => !conv.pinned);
     const data = [
       ...pinned,
-      ...notPinned
-    ]
+      ...notPinned,
+    ];
 
-    let displayData = data.slice(rowSize * (page - 1), rowSize * page)
-  
+    const displayData = data.slice(rowSize * (page - 1), rowSize * page);
+
     return (
       <DataTables
-        height={"auto"}
+        height="auto"
         selectable={false}
-        showRowHover={true}
+        showRowHover
         columns={tableColumns(addPinned, openDrawer)}
         data={displayData}
         showCheckboxes={false}
@@ -244,12 +247,22 @@ class ConversationsTable extends Component {
         rowSize={rowSize}
         count={conversations.length}
       />
-    )
+    );
   }
 }
 
 ConversationsTable.propTypes = {
-  conversations: PropTypes.array.isRequired,
+  conversations: PropTypes.arrayOf(
+    PropTypes.shape({
+      actions: PropTypes.array,
+      client: PropTypes.string,
+      id: PropTypes.string,
+      intentions: PropTypes.array,
+      mode: PropTypes.string,
+      updatedAt: PropTypes.string,
+      visito: PropTypes.string,
+    }),
+  ).isRequired,
   openDrawer: PropTypes.func.isRequired,
   addPinned: PropTypes.func.isRequired,
 };

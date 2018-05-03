@@ -4,38 +4,6 @@
 * @Last Modified by:   Homer
 * @Last Modified time: 2017-12-28 11:17:33
 */
-@import '../variables.css';
-
-.visitorName {
-	font-weight: 600;
-}
-
-.visitorName span {
-	display: block;
-    font-size: 12px;
-    background-color: lightgray;
-    border: 1px solid gray;
-    padding: 1px 2px;
-    border-radius: 2px;
-	font-weight: normal;   
-	overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.visitorId {
-	font-size: 9px;
-	/* color: var(--color-text-light); */
-	color: #ecfb5973;
-}
-
-.intentionChip {
-	display: inline-block;
-	padding: 2px;
-}
-
-.chipProgress {
-	position: absolute;
-}
 
 .nothing {
 	height: 400px;
@@ -49,23 +17,4 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-}
-
-
-
-.menu {
-    background-color: red;
-    width: 200px;
-    display: flex;
-    flex-direction: column;
-    background: #ffffff;
-    z-index: 104;
-}
-
-.menuItem {
-	background-color: red;
-    cursor: pointer;
-    padding: 5px;
-    height: 28px;
-    border-bottom: 1px solid rgb(187, 187, 187);
 }

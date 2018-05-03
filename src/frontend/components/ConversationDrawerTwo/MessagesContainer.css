@@ -7,7 +7,7 @@
     overflow: scroll;
 }
 
-.messageIncoming {
+/* .messageIncoming {
     margin-top: 14px;
     width: auto;
     margin-right: 10%;
@@ -17,7 +17,7 @@
     margin-top: 14px;
     margin-left: 10%;
     text-align: right;
-}
+} */
 
 .messageContainerIncoming {
     display: inline-block;

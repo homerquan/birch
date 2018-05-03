@@ -11,8 +11,15 @@ class MessagesContainer extends Component {
     messageContainerInner.scrollIntoView(false);
   }
 
+  // static getDerivedStateFromProps(nextProps, prevState) {
+  //   console.log('Previous Message Container props: ', prevState);
+  //   console.log('Message Container props: ', nextProps);
+  //   return nextProps;
+  // }
+
   render() {
     const { messages } = this.props;
+    console.log('Herhalsdjfs: ', messages)
 
     return (
       <div className={s.messagesContainer}>
@@ -23,12 +30,12 @@ class MessagesContainer extends Component {
               className={message.typeIncoming ? s.messageIncoming : s.messageOutgoing}
             >
               <div
-                className={message.typeIncoming
+                className={message.source === 'visitor'
                   ? s.messageContainerIncoming
                   : s.messageContainerOutgoing}
               >
                 <div className={s.messageInfoBar}>
-                  {message.typeIncoming
+                  {message.source === 'ai'
                     ? <img
                       className={s.messageAvatar}
                       width="18px"
@@ -45,14 +52,11 @@ class MessagesContainer extends Component {
                     />
                   }
                   <span className={s.messageType}>
-                    {message.typeIncoming
-                      ? 'Visitor'
-                      : 'A.I.'
-                    }
+                    {message.source}
                   </span>
                   <span className={s.messageSent}>{moment(message.sent).startOf('day').fromNow()}</span>
                 </div>
-                <p className={s.message}>{message.message}</p>
+                <p className={s.message}>{message.text}</p>
               </div>
             </div>
           ))}
@@ -98,9 +102,9 @@ MessagesContainer.propTypes = {
   messages: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.string,
-      typeIncoming: PropTypes.bool,
-      sent: PropTypes.string,
-      message: PropTypes.string,
+      source: PropTypes.oneOf(['ai', 'visitor', 'helper']),
+      createdAt: PropTypes.string,
+      text: PropTypes.string,
     }),
   ).isRequired,
 };
