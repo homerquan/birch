@@ -6,8 +6,6 @@ import Paper from 'material-ui/Paper';
 
 import s from './CommandList.css';
 
-// const CommandList = ({ activeCommands, currentMessage }) => {
-
 class CommandList extends Component {
   // Ensure that the ative list item is always showing in the
   // scroll view.

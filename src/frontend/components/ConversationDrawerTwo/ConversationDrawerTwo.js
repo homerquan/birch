@@ -6,6 +6,10 @@ import IconButton from 'material-ui/IconButton';
 import SendIcon from 'material-ui/svg-icons/content/send';
 import { deepPurple500, white } from 'material-ui/styles/colors';
 import withWidth, { LARGE } from 'material-ui/utils/withWidth';
+import Paper from 'material-ui/Paper';
+import LinearProgress from 'material-ui/LinearProgress';
+import FlatButton from 'material-ui/FlatButton';
+import Badge from 'material-ui/Badge';
 
 import s from './ConversationDrawerTwo.css';
 import MessagesContainer from './MessagesContainer';
@@ -191,12 +195,23 @@ class ConversationDrawerTwo extends Component {
       },
       conversationContainer: {
         display: 'flex',
+        position: 'relative',
         flexDirection: 'column',
         flex: 1,
         backgroundColor: deepPurple500,
         width: '100%',
         maxWidth: width === LARGE ? '700px' : 'none',
         margin: width === LARGE ? '0 auto' : 0,
+      },
+      badgeRootStyle: {
+        padding: 0,
+      },
+      badgeStyle: {
+        top: -3,
+        right: 1,
+        width: 18,
+        height: 18,
+        fontSize: 10,
       },
     };
 
@@ -213,6 +228,28 @@ class ConversationDrawerTwo extends Component {
           <div className={s.utilityBar} />
 
           <div style={styles.conversationContainer}>
+            <Paper className={s.decisionThinking}>
+              <p className={s.decisionThinkingText}>Filling out referral form...</p>
+              <LinearProgress mode="indeterminate" />
+            </Paper>
+            <Paper className={s.decisionAction} zDepth={3}>
+              <p className={s.decisionActionText}>
+                <b>Recommend: </b> Real-time engagement driven by augmented intelligence.
+              </p>
+              <div className={s.decisionButtons}>
+                <FlatButton label="Cancel" primary />
+                <Badge
+                  badgeContent={4}
+                  primary
+                  style={styles.badgeRootStyle}
+                  badgeStyle={styles.badgeStyle}
+                >
+                  <FlatButton label="Accept" />
+                </Badge>
+              </div>
+            </Paper>
+
+
             <MessagesContainer messages={fakeData.messages} />
 
             <div className={s.chatBoxContainer}>
