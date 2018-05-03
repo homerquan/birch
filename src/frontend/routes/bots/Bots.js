@@ -22,9 +22,7 @@ import BotsView from "../../components/BotsView";
 
 class Bots extends React.Component {
 	
-	this.props.session.userId = 'ddcd39c9-dcbc-4a26-bcf7-525d77c12d54'
-    
-    render() {
+	render() {
 		return (
 			<LayoutProvider layouts={grids}>
 				<Page layout="grid-one-one">
@@ -32,7 +30,7 @@ class Bots extends React.Component {
 						<Title>{this.props.title}</Title>
 					</Section>
 					<Section slot="main">
-						<BotsView clientId={this.props.session.userId}/>
+						<BotsView clientId={this.props.session.userId || 'ddcd39c9-dcbc-4a26-bcf7-525d77c12d54'}/>
 					</Section>
 				</Page>
 			</LayoutProvider>
