@@ -21,7 +21,10 @@ import Title from "../../components/Title";
 import BotsView from "../../components/BotsView";
 
 class Bots extends React.Component {
-	render() {
+	
+	this.props.session.userId = 'ddcd39c9-dcbc-4a26-bcf7-525d77c12d54'
+    
+    render() {
 		return (
 			<LayoutProvider layouts={grids}>
 				<Page layout="grid-one-one">

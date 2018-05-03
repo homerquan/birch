@@ -74,6 +74,18 @@ type Suggestion {
   delay: Int
 }
 
+type Notice {
+  id: ID @fake(type:uuid)
+}
+
+# For system messages in header
+type UserMessage {
+  id: ID @fake(type:uuid)
+  type: String
+  text: String
+  action: String
+}
+
 type Query {
   conversations(clientId: String, botId: String): [Conversation]
   messages(conversationId: String, clientId: String): [Message]
