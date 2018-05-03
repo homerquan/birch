@@ -1,0 +1,22 @@
+/*
+* @Author: Michael
+* @Date:   2018-05-03
+* @Last Modified by:   Michael
+* @Last Modified time: 2018-05-03
+*/
+
+.visitorName {
+	font-weight: 600;
+}
+
+.visitorName span {
+	display: block;
+    font-size: 12px;
+    background-color: lightgray;
+    border: 1px solid gray;
+    padding: 1px 2px;
+    border-radius: 2px;
+	font-weight: normal;   
+	overflow: hidden;
+    text-overflow: ellipsis;
+}

@@ -22,8 +22,8 @@ type Conversation {
   # messages will be returned in a MessageFeed object wrapper
   messageFeed(cursor: String): MessageFeed 
   token: String
-  createdAt: String
-  updatedAt: String
+  createdAt: String @fake(type:recentDate)
+  updatedAt: String @fake(type:recentDate)
 }
 
 type Message {
@@ -35,8 +35,8 @@ type Message {
   destinationId: String
   bot: String
   client: String
-  createdAt: String
-  updatedAt: String
+  createdAt: String @fake(type:recentDate)
+  updatedAt: String @fake(type:recentDate)
 }
 
 type MessageFeed {
@@ -72,18 +72,6 @@ type Suggestion {
   text: String
   conversation: String
   delay: Int
-}
-
-type Notice {
-  id: ID @fake(type:uuid)
-}
-
-# For system messages in header
-type UserMessage {
-  id: ID @fake(type:uuid)
-  type: String
-  text: String
-  action: String
 }
 
 type Query {

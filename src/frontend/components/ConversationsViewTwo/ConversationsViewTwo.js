@@ -6,51 +6,54 @@
 */
 
 import React, { Component } from 'react';
-// import { graphql, compose } from 'react-apollo';
-// import gql from 'graphql-tag';
+import PropTypes from 'prop-types';
+import { graphql, compose } from 'react-apollo';
+import gql from 'graphql-tag';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import lightTheme from '../theme';
 import ReloadIcon from 'react-material-icons/icons/action/cached';
 import IconButton from 'material-ui/IconButton';
-import {
-  Toolbar,
-  ToolbarGroup
-} from "material-ui/Toolbar";
+import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
 
-import s from "./ConversationsView.css";
-import config from '../../config';
+import lightTheme from '../theme';
+import s from './ConversationsView.css';
+// import config from '../../config';
 import ConversationsTable from './ConversationsTable';
 import ConversationDrawerTwo from '../ConversationDrawerTwo/ConversationDrawerTwo';
 
-// const conversationsQuery = gql`
-//   query ConversationsQuery($clientId : String!, $botId: String){
-//     conversations(clientId : $clientId, botId: $botId) {
-//       id
-//       visitor
-//       client
-//       intentions {
-//         name
-//         score
-//       }
-//       actions {
-//         source
-//         name
-//         status
-//       }
-//       mode
-//       updatedAt
-//     }
-//   }
-// `;
+const conversationsQuery = gql`
+  query ConversationsQuery($clientId : String!, $botId: String){
+    conversations(clientId : $clientId, botId: $botId) {
+      id
+      visitor
+      client
+      intentions {
+        name
+        score
+      }
+      actions {
+        source
+        name
+        status
+      }
+      messages {
+        id
+        text,
+        source
+      }
+      mode
+      updatedAt
+    }
+  }
+`;
 
 // const subscriptionConversationQuery = gql`
 //   subscription onUpdateConversation($clientId:String) {
 //     updateConversation(clientId:$clientId) {
 //       id
 //       status
-//     } 
+//     }
 //   }
 // `;
 
@@ -59,32 +62,31 @@ class ConversationsView extends Component {
     super(props);
 
     this.state = {
-      drawerIsOpen: true,
-      selectedConversation: {},
+      drawerIsOpen: false,
+      selectedConversation: null,
     };
 
     this.addPinned = this.addPinned.bind(this);
+    this.openDrawer = this.openDrawer.bind(this);
+    this.closeDrawer = this.closeDrawer.bind(this);
   }
-  
-  closeDrawer = () => {
-    this.setState({
-      drawerIsOpen: false
-    });
-  };
 
-  openDrawer = index => {
-    // const selected = this.props.data.conversations[index];
-    // this.setState({
-    //   drawerIsOpen: true,
-    //   selectedConversation: selected
-    // });
+  closeDrawer() {
+    this.setState({ drawerIsOpen: false });
+  }
+
+  openDrawer(index) {
+    const selected = this.props.data.conversations[index];
+
+    console.log('Selected Here: ', this.props.data.conversations[index]);
 
     this.setState({
-      drawerIsOpen: true
+      drawerIsOpen: true,
+      selectedConversation: selected,
     });
-  };
+  }
 
-  addPinned (conversationId) {
+  addPinned(conversationId) {
     // TODO:
     // conversationId.target.name is id of conversation.
     // Make api call to save this conversation as pinned
@@ -92,10 +94,7 @@ class ConversationsView extends Component {
   }
 
   render() {
-    const { conversations, loading } = this.props.data;
-    // Fake function until real funcion can be passed through props
-    // from graphql
-    const refetch = () => {};
+    const { conversations, loading, refetch } = this.props.data;
 
     if (loading) return <h1>Loading</h1>;
 
@@ -103,7 +102,7 @@ class ConversationsView extends Component {
       <MuiThemeProvider muiTheme={getMuiTheme(lightTheme)}>
         <div>
           <Toolbar>
-            <ToolbarGroup firstChild={true} />
+            <ToolbarGroup firstChild />
             <ToolbarGroup>
               <IconButton tooltip="Reload" onTouchTap={() => refetch()}>
                 <ReloadIcon />
@@ -111,46 +110,56 @@ class ConversationsView extends Component {
             </ToolbarGroup>
           </Toolbar>
 
-          {conversations && conversations.length 
-            ?   <div>
-                  <ConversationsTable
-                    conversations={conversations}
-                    openDrawer={this.openDrawer}
-                    addPinned={this.addPinned}
-                  />
-                </div>
-            : (
-            <div>
-              <div className={s.nothing}>
-                <div className={s.fun}>
-                  <img src="/images/nothing.png" />
+          {conversations && conversations.length
+            ? (
+              <div>
+                <ConversationsTable
+                  conversations={conversations}
+                  openDrawer={this.openDrawer}
+                  addPinned={this.addPinned}
+                />
+              </div>
+            ) : (
+              <div>
+                <div className={s.nothing}>
+                  <div className={s.fun}>
+                    <img src="/images/nothing.png" alt="No Conversations" />
+                  </div>
                 </div>
               </div>
-            </div>
             )
           }
 
-          <ConversationDrawerTwo
-            conversation={this.state.selectedConversation}
-            clientId={this.props.clientId}
-            isOpen={this.state.drawerIsOpen}
-            closeDrawer={this.closeDrawer}
-          />
+          {this.state.selectedConversation &&
+            <ConversationDrawerTwo
+              conversation={this.state.selectedConversation}
+              clientId={this.props.clientId}
+              isOpen={this.state.drawerIsOpen}
+              closeDrawer={this.closeDrawer}
+            />
+          }
         </div>
       </MuiThemeProvider>
     );
   }
 }
 
-export default withStyles(s)(ConversationsView);
+ConversationsView.propTypes = {
+  clientId: PropTypes.string.isRequired,
+  data: PropTypes.shape({
+    conversations: PropTypes.array,
+    loading: PropTypes.bool,
+    refetch: PropTypes.func,
+  }).isRequired,
+};
 
-// export default withStyles(s)(
-//   compose(
-//     graphql(conversationsQuery, {
-//       options: props => ({
-//         variables: { clientId: props.clientId, botId: props.botId },
-//         pollInterval: config.pollInterval
-//       })
-//     })
-//   )(ConversationsTable)
-// );
+export default withStyles(s)(
+  compose(
+    graphql(conversationsQuery, {
+      options: props => ({
+        variables: { clientId: props.clientId, botId: props.botId },
+        // pollInterval: config.pollInterval
+      }),
+    }),
+  )(ConversationsView),
+);

@@ -1,41 +1,45 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { graphql, compose } from "react-apollo";
-import Title from "../../components/Title";
-import { connect } from "react-redux";
-import { Page, Section, LayoutProvider } from "react-page-layout";
-import s from "./Conversations.css";
-import grids from "../../components/Layout/grids";
-import ConversationsView from "../../components/ConversationsView";
-import withStyles from "isomorphic-style-loader/lib/withStyles";
-import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
+import React from 'react';
+import PropTypes from 'prop-types';
+import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import { compose } from 'react-apollo';
+import { Page, Section, LayoutProvider } from 'react-page-layout';
+import { connect } from 'react-redux';
+import Title from '../../components/Title';
+import s from './Conversations.css';
+import grids from '../../components/Layout/grids';
+import ConversationsViewTwo from '../../components/ConversationsViewTwo/ConversationsViewTwo';
 
 class Conversations extends React.Component {
-	render() {
-		return (
-			<LayoutProvider layouts={grids}>
-				<Page layout="grid-one-one">
-					<Section slot="top">
-						<Title>{this.props.title}</Title>
-					</Section>
-					<Section slot="main">
-						<ConversationsView
-							clientId={this.props.session.userId || 'ddcd39c9-dcbc-4a26-bcf7-525d77c12d54'}
-							botId={this.props.botId}
-						/>
-					</Section>
-				</Page>
-			</LayoutProvider>
-		);
-	}
+  render() {
+    return (
+      <LayoutProvider layouts={grids}>
+        <Page layout="grid-one-one">
+          <Section slot="top">
+            <Title>{this.props.title}</Title>
+          </Section>
+          <Section slot="main">
+            <ConversationsViewTwo
+              clientId={this.props.session.userId || 'ddcd39c9-dcbc-4a26-bcf7-525d77c12d54'}
+              botId={this.props.botId}
+            />
+          </Section>
+        </Page>
+      </LayoutProvider>
+    );
+  }
 }
+
+Conversations.propTypes = {
+  title: PropTypes.string.isRequired,
+  botId: PropTypes.string.isRequired,
+};
 
 function selectProps(state) {
   return {
-    session: state.session
+    session: state.session,
   };
 }
 
 export default compose(withStyles(s))(
-	 connect(selectProps, null)(Conversations)
+   connect(selectProps, null)(Conversations),
 );
