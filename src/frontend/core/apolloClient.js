@@ -6,7 +6,6 @@
 */
 
 import createApolloClient from "./createApolloClient";
-import schema from "../data/schema";
 
 const apolloClient = createApolloClient();
 

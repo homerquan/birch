@@ -30,7 +30,7 @@ class Bots extends React.Component {
 						<Title>{this.props.title}</Title>
 					</Section>
 					<Section slot="main">
-						<BotsView clientId={this.props.session.userId || 'ddcd39c9-dcbc-4a26-bcf7-525d77c12d54'}/>
+						<BotsView clientId={this.props.session.userId}/>
 					</Section>
 				</Page>
 			</LayoutProvider>

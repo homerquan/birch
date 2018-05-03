@@ -12,5 +12,5 @@ module.exports = {
 	clientUrl: '__clientUrl',
 	clientSubscriptionUrl: '__clientSubscriptionUrl',
 	widgetUrl: '__widgetUrl',
-	apiPrefix: '/api'
+	apiPrefix: '/api',
 };
