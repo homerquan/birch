@@ -20,7 +20,7 @@ class Conversations extends React.Component {
 					</Section>
 					<Section slot="main">
 						<ConversationsView
-							clientId={this.props.session.userId}
+							clientId={this.props.session.userId || 'ddcd39c9-dcbc-4a26-bcf7-525d77c12d54'}
 							botId={this.props.botId}
 						/>
 					</Section>
