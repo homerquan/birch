@@ -10,7 +10,6 @@ import grids from '../../components/Layout/grids';
 import ConversationsViewTwo from '../../components/ConversationsViewTwo/ConversationsViewTwo';
 
 class Conversations extends React.Component {
-<<<<<<< HEAD
 	render() {
 		return (
 			<LayoutProvider layouts={grids}>
@@ -28,25 +27,6 @@ class Conversations extends React.Component {
 			</LayoutProvider>
 		);
 	}
-=======
-  render() {
-    return (
-      <LayoutProvider layouts={grids}>
-        <Page layout="grid-one-one">
-          <Section slot="top">
-            <Title>{this.props.title}</Title>
-          </Section>
-          <Section slot="main">
-            <ConversationsViewTwo
-              clientId={this.props.session.userId || 'ddcd39c9-dcbc-4a26-bcf7-525d77c12d54'}
-              botId={this.props.botId}
-            />
-          </Section>
-        </Page>
-      </LayoutProvider>
-    );
-  }
->>>>>>> 8947d95a9aed0e7c4cf20c6e422dc4418215334b
 }
 
 Conversations.propTypes = {
