@@ -9,11 +9,11 @@ export default {
   path: '/:id/conversations',
   chunk: 'conversations',
   action({ store, params, path }) {
-    // const login = isLogin(store.getState());
+    const login = isLogin(store.getState());
 
-    // if (!login) {
-    //   return { redirect: `/login?redirect=${path}` };
-    // }
+    if (!login) {
+      return { redirect: `/login?redirect=${path}` };
+    }
 
     return {
       title,

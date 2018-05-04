@@ -1,29 +1,29 @@
-import React from "react";
-import Knowledge from "./Knowledge";
-import Layout from "../../components/Layout";
-import {isLogin} from "../../utils";
+import React from 'react';
+import Knowledge from './Knowledge';
+import Layout from '../../components/Layout';
+import { isLogin } from '../../utils';
 
 
-const title = "Knowledge";
+const title = 'Knowledge';
 
 export default {
-	path: "/:id/Knowledge",
-	chunk: 'knowledge',
-	action({store, params, query, path}) {
-		let login = isLogin(store.getState());
+  path: '/:id/Knowledge',
+  chunk: 'knowledge',
+  action({ store, params, path }) {
+    const login = isLogin(store.getState());
 
-		if (!login) {
-    		return { redirect: "/login?redirect="+path };
-  		}
+    if (!login) {
+      return { redirect: `/login?redirect=${path}` };
+    }
 
-		return {
-			title,
-			chunk: 'knowledge',
-			component: (
-				<Layout>
-					<Knowledge title={title} botId={params.id} />
-				</Layout>
-			)
-		};
-	}
+    return {
+      title,
+      chunk: 'knowledge',
+      component: (
+        <Layout>
+          <Knowledge title={title} botId={params.id} />
+        </Layout>
+      ),
+    };
+  },
 };
