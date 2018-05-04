@@ -1,0 +1,112 @@
+.pluginList {
+    padding: 0;
+    margin: 0;
+    padding-bottom: 20px;
+}
+
+.pluginList li {
+    display: flex;
+    background-color: #f9f9f9;
+    list-style-type: none;
+    margin: 20px 20px 0 20px;
+    padding: 20px;
+}
+
+.imgPlaceholder {
+    background-color: darkgray;
+    width: 200px;
+    height: 140px;
+}
+
+.content {
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    padding-left: 10px;
+}
+
+.content h3 {
+    margin: 0;
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+}
+
+.content h3 span {
+    margin: 0;
+    font-size: 12px;
+    line-height: 12px;
+    font-weight: 100;
+    background-color: black;
+    color: white;
+    border-radius: 6px;
+    padding: 3px 20px;
+    margin-left: 10px;
+    letter-spacing: 1px;
+}
+
+.by {
+    margin: 0;
+    margin-top: 5px;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.text {
+    margin-top: 10;
+    font-size: 14px;
+}
+
+.details {
+    background-color: transparent;
+    font-size: 16px;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    border: none;
+    outline: none;
+}
+
+.raisedButton {
+    align-self: end;
+}
+
+.noPluginsInstalled {
+    text-align: center;
+    margin: 0;
+    padding: 40px;
+    font-size: 20px;
+}
+
+
+
+
+.drawer {
+    display: flex;
+}
+
+.sideBar {
+    width: 200px;
+    padding: 10px;
+}
+
+.drawerInstallBtn {
+    margin-top: 10px;
+}
+
+.fakeImage {
+    width: 100%;
+    height: 150px;
+    background-color: darkgray;
+}
+
+.mainContainer {
+    max-width: 500px;
+    padding: 0 10px;
+}
+
+
+.formGroup {
+    display: block;
+}
