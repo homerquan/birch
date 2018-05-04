@@ -7,25 +7,25 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
-import React from "react";
-import NotFound from "./NotFound";
-import FullScreen from "../../components/Layout/Fullscreen";
+import React from 'react';
+import NotFound from './NotFound';
+import FullScreen from '../../components/Layout/Fullscreen';
 
-const title = "Page Not Found";
+const title = 'Page Not Found';
 
 export default {
-	path: "*",
-	chunk: 'notFound',
-	action() {
-		return {
-			title,
-			chunk: 'notFound',
-			component: (
-				<FullScreen>
-					<NotFound title={title} />
-				</FullScreen>
-			),
-			status: 404
-		};
-	}
+  path: '*',
+  chunk: 'notFound',
+  action() {
+    return {
+      title,
+      chunk: 'notFound',
+      component: (
+        <FullScreen>
+          <NotFound title={title} />
+        </FullScreen>
+      ),
+      status: 404,
+    };
+  },
 };

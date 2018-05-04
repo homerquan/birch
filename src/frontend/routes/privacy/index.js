@@ -22,7 +22,6 @@ export default {
     return {
       title: data.title,
       chunk: 'privacy',
-      chunk: 'privacy',
       component: <Layout><Page {...data} /></Layout>,
     };
   },

@@ -10,17 +10,17 @@
 import React from 'react';
 import Account from './Account';
 import Layout from '../../components/Layout';
-// import { isLogin } from "../../utils";
+import { isLogin } from '../../utils';
 
 export default {
   path: '/account',
   chunk: 'account',
-  action() {
-    // let login = isLogin(store.getState());
+  action({ store, path }) {
+    const login = isLogin(store.getState());
 
-		// if (!login) {
-		// 	return { redirect: "/login?redirect="+path };
-		// }
+    if (!login) {
+      return { redirect: `/login?redirect=${path}` };
+    }
 
     return {
       title: 'My Account',
@@ -32,5 +32,4 @@ export default {
       ),
     };
   },
-
 };

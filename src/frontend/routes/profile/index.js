@@ -7,31 +7,31 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
-import React from "react";
-import Layout from "../../components/Layout";
-import Profile from "./Profile";
-import { isLogin } from "../../utils";
+import React from 'react';
+import Layout from '../../components/Layout';
+import Profile from './Profile';
+import { isLogin } from '../../utils';
 
-const title = "Profile";
+const title = 'Profile';
 
 export default {
-	path: "/profile",
-	chunk: 'profile',
-	action({ store, params, query }) {
-		let login = isLogin(store.getState());
+  path: '/profile',
+  chunk: 'profile',
+  action({ store, path }) {
+    const login = isLogin(store.getState());
 
-		if (!login) {
-			return { redirect: "/login?redirect="+path };
-		}
-		
-		return {
-			title,
-			chunk: 'profile',
-			component: (
-				<Layout>
-					<Profile title={title} />
-				</Layout>
-			)
-		};
-	}
+    if (!login) {
+      return { redirect: `/login?redirect=${path}` };
+    }
+
+    return {
+      title,
+      chunk: 'profile',
+      component: (
+        <Layout>
+          <Profile title={title} />
+        </Layout>
+      ),
+    };
+  },
 };

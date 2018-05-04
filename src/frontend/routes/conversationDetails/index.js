@@ -9,32 +9,31 @@
  * @Last Modified by:   Michael
  * @Last Modified time: 2017-04-24
  */
-import React from "react";
-import ConversationDetailsView from "./ConversationDetailsView";
-import Layout from "../../components/Layout";
-// import { isLogin } from "../../utils";
+import React from 'react';
+import ConversationDetailsView from './ConversationDetailsView';
+import Layout from '../../components/Layout';
+import { isLogin } from '../../utils';
 
-const title = "Conversation Details";
+const title = 'Conversation Details';
 
 export default {
-	path: "/conversation-details",
-	chunk: 'conversation-details',
-	action({store, params, query, path}) {
-		// let login = isLogin(store.getState());
+  path: '/conversation-details',
+  chunk: 'conversation-details',
+  action({ store, path }) {
+    const login = isLogin(store.getState());
 
-		// Homer: disable for front-end dev			
-		// if (!login) {
-		// 	return { redirect: "/login?redirect="+path };
-		// }
-		
-		return {
-			title,
-			chunk: 'bots',
-			component: (
-				<Layout>
-					<ConversationDetailsView title={title} />
-				</Layout>
-			)
-		};
-	}
+    if (!login) {
+      return { redirect: `/login?redirect=${path}` };
+    }
+
+    return {
+      title,
+      chunk: 'bots',
+      component: (
+        <Layout>
+          <ConversationDetailsView title={title} />
+        </Layout>
+      ),
+    };
+  },
 };
