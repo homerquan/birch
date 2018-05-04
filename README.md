@@ -1,6 +1,7 @@
 # convospot.io admin console
 
 ## Mock
+
 * `cd api_faker`
 * `npm install -g graphql-faker`
 * `graphql-faker ./console-api-mock.grqphql -p 8084`

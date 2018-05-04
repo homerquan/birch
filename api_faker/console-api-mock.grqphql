@@ -1,3 +1,8 @@
+type PageInfo {
+  endCursor: String @examples(values: ["Y3Vyc29yMw=="])
+  hasNextPage: Boolean @examples(values: [true])
+}
+
 type Intention {
   name: String @fake(type:lorem, options:{loremSize:word})
   score: Int
@@ -7,6 +12,15 @@ type Action {
   source: String @examples(values: ["ai", "helper", "visitor"])
   name: String @fake(type:lorem, options:{loremSize:word})
   status: String @examples(values: ["done", "progress"])
+}
+
+type User {
+  id: String @fake(type:uuid)
+  name: String
+  email: String @fake(type:email)
+  avatar: String @fake(type:imageUrl)
+  createdAt: String @fake(type:pastDate,options:{dateFormat:""})
+  updatedAt: String @fake(type:pastDate,options:{dateFormat:""})
 }
 
 type Conversation {
@@ -19,15 +33,21 @@ type Conversation {
   intentions: [Intention]
   actions: [Action]
   messages: [Message]
+  supports: [Support]
   # messages will be returned in a MessageFeed object wrapper
-  messageFeed(cursor: String): MessageFeed 
+  messagesConnection(
+    first: Int,
+    after: String,
+    last: Int,
+    before: String
+  ): MessagesConnection 
   token: String
-  createdAt: String @fake(type:recentDate)
-  updatedAt: String @fake(type:recentDate)
+  createdAt: String @fake(type:pastDate,options:{dateFormat:""})
+  updatedAt: String @fake(type:pastDate,options:{dateFormat:""})
 }
 
 type Message {
-  id: String
+  id: String @fake(type:uuid)
   text: String @fake(type:lorem, options:{loremSize:words})
   source: String @examples(values: ["ai", "helper", "visitor"])
   sourceId: String
@@ -35,23 +55,28 @@ type Message {
   destinationId: String
   bot: String
   client: String
-  createdAt: String @fake(type:recentDate)
-  updatedAt: String @fake(type:recentDate)
+  createdAt: String @fake(type:pastDate,options:{dateFormat:""})
+  updatedAt: String @fake(type:pastDate,options:{dateFormat:""})
 }
 
-type MessageFeed {
-  # cursor specifies the place in the list where we left off
-  cursor: String!
-  
-  # this is a chunk of messages to be returned
-  messages: [Message]!
+type MessagesConnection {
+  pageInfo: PageInfo!
+  edges: [MessagesEdge]
 }
+
+type MessagesEdge {
+  cursor: String! @examples(values: ["Y3Vyc29yMw=="])
+  node: Message
+}
+
 
 type Bot {
   id: ID @fake(type:uuid)
   name: String @fake(type:word)
   token: String @fake(type:uuid)
+  protocol: String  @examples(values: ["http", "https"])
   host: String @fake(type:url)
+  mode: String @examples(values: ["auto", "semi", "manual"])
   client: String @fake(type:uuid)
   createdAt: String @fake(type:pastDate,options:{dateFormat:""})
   updatedAt: String @fake(type:pastDate,options:{dateFormat:""})
@@ -63,15 +88,35 @@ type Knowledge {
   text: String
   bot: String
   client: String
-  createdAt: String
-  updatedAt: String
+  createdAt: String @fake(type:pastDate,options:{dateFormat:""})
+  updatedAt: String @fake(type:pastDate,options:{dateFormat:""})
 }
 
-type Suggestion {
+type Support {
   id: String
   text: String
   conversation: String
   delay: Int
+  createdAt: String @fake(type:pastDate,options:{dateFormat:""})
+  updatedAt: String @fake(type:pastDate,options:{dateFormat:""})
+}
+
+type Notice {
+  id: ID @fake(type:uuid)
+  type: String
+  icon: String @fake(type:imageUrl)
+  text: String @fake(type:lorem, options:{loremSize:words})
+  action: String @fake(type:url)
+  createdAt: String @fake(type:pastDate,options:{dateFormat:""})
+  updatedAt: String @fake(type:pastDate,options:{dateFormat:""})
+}
+
+# For system messages in header
+type UserMessage {
+  id: ID @fake(type:uuid)
+  type: String
+  text: String
+  action: String
 }
 
 type Query {
@@ -93,11 +138,18 @@ type ConversationEventFeed {
   events: [ConversationEvent]!
 }
 
+input MessageInput {
+  text: String!
+  conversationId: String!
+}
+
 type Mutation {
   updateConversation(conversationId: String!): Conversation
-  createMessage(text: String!, conversationId: String!): Message
+  createMessage(input: MessageInput): Message
   createBot(clientId: String!, name: String!, url: String!): Bot
   updateKnowledge(clientId: String!, botId:String!, text: String!): Knowledge
+  changeAccountPassword(clientId:String!):User
+  closeAccount(clientId: String!): User
 }
 
 type Subscription {
@@ -105,8 +157,8 @@ type Subscription {
   updateConversation(clientId:String): Conversation
   createMessage(clientId:String): Message
   updateMessage(clientId:String): Message
-  receiveSuggestion: String
-  createSuggestion(conversationId:String): Suggestion
+  receiveSupport: String
+  createSupport(conversationId:String): Support
 }
 
 schema {
