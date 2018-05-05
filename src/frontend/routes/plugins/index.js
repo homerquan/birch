@@ -21,9 +21,9 @@ export default {
   action({ store, path }) {
     const login = isLogin(store.getState());
 
-    // if (!login) {
-    //   return { redirect: `/login?redirect=${path}` };
-    // }
+    if (!login) {
+      return { redirect: `/login?redirect=${path}` };
+    }
 
     return {
       title: 'Plugins',
