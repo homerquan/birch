@@ -1,0 +1,55 @@
+{
+    "plugins": [
+        {
+            "id": "asdfsad",
+            "name": "Google Calendar",
+            "author": "Reflen Inc.",
+            "description": "Easily check Google Calendar and add new events from websites you visit.",
+            "category": "action"
+        },
+        {
+            "id": "42432",
+            "name": "Google Sheet",
+            "author": "Reflen Inc.",
+            "description": "Easily check Google Shee's and add new things from websites you visit.",
+            "category": "action"
+        },
+        {
+            "id": "asdfsad-324",
+            "name": "ConvoSpot",
+            "author": "Reflen Inc.",
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+            "category": "data model"
+        },
+        {
+            "id": "asdfsa-asdfd",
+            "name": "Consectetur",
+            "author": "Adipiscing",
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nulla est, tempor nec nisl ac, ullamcorper rutrum arcu. Mauris quis augue eget nisl vulputate porttitor sit amet quis nibh.",
+            "category": "knowledge"
+        },
+        {
+            "id": "asdfsa-asdf-asdfsdfd",
+            "name": "Other",
+            "author": "Other Compnay",
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nulla est, tempor nec nisl ac, ullamcorper rutrum arcu. Mauris quis augue eget nisl vulputate porttitor sit amet quis nibh.",
+            "category": "other"
+        }
+    ],
+    "installed": [
+        {
+            "id": "asdfsad",
+            "name": "Google Calendar",
+            "author": "Reflen Inc.",
+            "description": "Easily check Google Calendar and add new events from websites you visit.",
+            "category": "action"
+        },
+        {
+            "id": "42432",
+            "name": "Google Sheet",
+            "author": "Reflen Inc.",
+            "description": "Easily check Google Shee's and add new things from websites you visit.",
+            "category": "action"
+        }
+    ]
+}

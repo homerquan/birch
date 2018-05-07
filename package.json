@@ -45,7 +45,7 @@
     "jsonwebtoken": "^7.4.1",
     "jwt-decode": "^2.2.0",
     "lusca": "^1.4.1",
-    "material-ui": "^0.18.7",
+    "material-ui": "^0.19.4",
     "material-ui-datatables": "^0.18.2",
     "method-override": "^2.3.9",
     "moment": "^2.22.1",
