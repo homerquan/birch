@@ -35,7 +35,7 @@ type Conversation {
   messages: [Message]
   supports: [Support]
   # messages will be returned in a MessageFeed object wrapper
-  messagesConnection(
+  messages(
     first: Int,
     after: String,
     last: Int,
@@ -60,6 +60,7 @@ type Message {
 }
 
 type MessagesConnection {
+  totalCount: Int
   pageInfo: PageInfo!
   edges: [MessagesEdge]
 }
@@ -69,6 +70,26 @@ type MessagesEdge {
   node: Message
 }
 
+
+type ConversationsConnection {
+  totalCount: Int
+  pageInfo: PageInfo!
+  edges: [ConversationsEdge ]
+}
+
+type ConversationsEdge {
+  cursor: String! @examples(values: ["Y3Vyc29yMw=="])
+  node: Conversation
+}
+
+type ConversationsFeed {
+   conversations(
+    first: Int,
+    after: String,
+    last: Int,
+    before: String
+  ): ConversationsConnection 
+}
 
 type Bot {
   id: ID @fake(type:uuid)
@@ -87,7 +108,6 @@ type Knowledge {
   raw: String
   text: String
   bot: String
-  client: String
   createdAt: String @fake(type:pastDate,options:{dateFormat:""})
   updatedAt: String @fake(type:pastDate,options:{dateFormat:""})
 }
@@ -97,21 +117,12 @@ type Support {
   text: String
   conversation: String
   delay: Int
+  client: String
   createdAt: String @fake(type:pastDate,options:{dateFormat:""})
   updatedAt: String @fake(type:pastDate,options:{dateFormat:""})
 }
 
-type Notice {
-  id: ID @fake(type:uuid)
-  type: String
-  icon: String @fake(type:imageUrl)
-  text: String @fake(type:lorem, options:{loremSize:words})
-  action: String @fake(type:url)
-  createdAt: String @fake(type:pastDate,options:{dateFormat:""})
-  updatedAt: String @fake(type:pastDate,options:{dateFormat:""})
-}
 
-# For system messages in header
 type UserMessage {
   id: ID @fake(type:uuid)
   type: String
@@ -120,6 +131,7 @@ type UserMessage {
 }
 
 type Query {
+  ConversationsFeed(clientId: String, botId: String): ConversationsFeed
   conversations(clientId: String, botId: String): [Conversation]
   messages(conversationId: String, clientId: String): [Message]
   bots(clientId: String): [Bot]
