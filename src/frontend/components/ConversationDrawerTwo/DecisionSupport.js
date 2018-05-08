@@ -5,10 +5,11 @@ import Paper from 'material-ui/Paper';
 import LinearProgress from 'material-ui/LinearProgress';
 import FlatButton from 'material-ui/FlatButton';
 import Badge from 'material-ui/Badge';
+import classnames from 'classnames';
 
 import s from './DecisionSupport.css';
 
-const DecisionSupport = () => {
+const DecisionSupport = ({ isOpen }) => {
   const styles = {
     badgeRootStyle: {
       padding: 0,
@@ -22,30 +23,39 @@ const DecisionSupport = () => {
     },
   };
 
-  return (
-    <div>
-      <Paper className={s.decisionThinking}>
-        <p className={s.decisionThinkingText}>Filling out referral form...</p>
-        <LinearProgress mode="indeterminate" />
-      </Paper>
-      <Paper className={s.decisionAction} zDepth={3}>
-        <p className={s.decisionActionText}>
-          <b>Recommend: </b> Real-time engagement driven by augmented intelligence.
-        </p>
-        <div className={s.decisionButtons}>
-          <FlatButton label="Cancel" primary />
-          <Badge
-            badgeContent={4}
-            primary
-            style={styles.badgeRootStyle}
-            badgeStyle={styles.badgeStyle}
-          >
-            <FlatButton label="Accept" />
-          </Badge>
-        </div>
-      </Paper>
-    </div>
-  );
+  // const containerClass = classnames(
+  //   s.container,
+  //   [s.active]: isOpen
+  // );
+
+  if (isOpen) {
+    return (
+      <div >
+        <Paper className={s.decisionThinking}>
+          <p className={s.decisionThinkingText}>Filling out referral form...</p>
+          <LinearProgress mode="indeterminate" />
+        </Paper>
+        <Paper className={s.decisionAction} zDepth={3}>
+          <p className={s.decisionActionText}>
+            <b>Recommend: </b> Real-time engagement driven by augmented intelligence.
+          </p>
+          <div className={s.decisionButtons}>
+            <FlatButton label="Cancel" primary />
+            <Badge
+              badgeContent={4}
+              primary
+              style={styles.badgeRootStyle}
+              badgeStyle={styles.badgeStyle}
+            >
+              <FlatButton label="Accept" />
+            </Badge>
+          </div>
+        </Paper>
+      </div>
+    );
+  }
+
+  return <div />;
 };
 
 // DecisionSupport.propTypes = {

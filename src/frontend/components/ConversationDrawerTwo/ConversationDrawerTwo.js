@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { graphql, compose } from 'react-apollo';
+import gql from 'graphql-tag';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import CloseIcon from 'material-ui/svg-icons/navigation/close';
 import IconButton from 'material-ui/IconButton';
@@ -15,6 +18,28 @@ import CommandsList from './CommandList';
 import Training from '../Training/Training';
 import DecisionSupport from './DecisionSupport';
 import fakeData from './fakeData.json';
+import { ACTION_TYPES } from '../../constants';
+
+const conversationQuery = gql`
+  query Conversation($conversationId: String){
+    conversation(conversationId: $conversationId){
+      messages(first:1) {
+      edges {
+        node {
+          id
+          text
+          source
+        }
+      }
+      totalCount
+            pageInfo {
+        hasNextPage
+        endCursor
+      }
+    }
+    }
+  }
+`;
 
 class ConversationDrawerTwo extends Component {
   constructor(props) {
@@ -148,9 +173,12 @@ class ConversationDrawerTwo extends Component {
     // then add it to the message list.
   }
 
+  transform = data => {
+    return _.map(data, 'node');
+  }
 
   render() {
-    const { width, isOpen, closeDrawer, conversation } = this.props;
+    const { width, isOpen, closeDrawer } = this.props;
     const { currentMessage, activeCommands, trainingIsOpen } = this.state;
 
     const styles = {
@@ -240,11 +268,15 @@ class ConversationDrawerTwo extends Component {
             </div>
 
             <div style={styles.conversationContainer}>
-              <DecisionSupport />
-
-              <MessagesContainer
-                messages={conversation.messages}
+              <DecisionSupport
+                isOpen={this.props.runtime[ACTION_TYPES.OPEN_DECISION_SUPPORT]}
               />
+
+              {this.props.data.conversation !== undefined &&
+                <MessagesContainer
+                  messages={this.transform(this.props.data.conversation.messages.edges)}
+                />
+              }
 
               <div className={s.chatBoxContainer}>
                 <ActionMenu plugins={fakeData.plugins} />
@@ -289,19 +321,34 @@ class ConversationDrawerTwo extends Component {
   }
 }
 
-ConversationDrawerTwo.defaultProps = {
-  conversation: {
-    messages: [],
-  },
-};
-
 ConversationDrawerTwo.propTypes = {
-  conversation: PropTypes.shape({
-    messages: PropTypes.array,
-  }),
+  data: PropTypes.shape({
+    conversation: PropTypes.shape({
+      messages: PropTypes.array,
+    }),
+  }).isRequired,
+  runtime: PropTypes.shape({
+    openDecisionSupport: PropTypes.bool,
+  }).isRequired,
   isOpen: PropTypes.bool.isRequired,
   closeDrawer: PropTypes.func.isRequired,
   width: PropTypes.number.isRequired,
 };
 
-export default withWidth()(withStyles(s)(ConversationDrawerTwo));
+
+function selectProps(state) {
+  return {
+    runtime: state.runtime,
+  };
+}
+
+export default withWidth()(withStyles(s)(
+  compose(
+    graphql(conversationQuery, {
+      options: props => ({
+        variables: { conversationId: props.clientId },
+      }),
+    }),
+    connect(selectProps, null),
+  )(ConversationDrawerTwo),
+));
