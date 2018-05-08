@@ -147,8 +147,8 @@ const tableColumns = (addPinned, openDrawer) => ([
     style: {
       width: 30,
     },
-    render: () => (
-      <IconButton onClick={openDrawer}>
+    render: (name, all) => (
+      <IconButton onClick={() => openDrawer(all.id)}>
         <ChatIcon color={grey500} />
       </IconButton>
     ),
@@ -238,7 +238,6 @@ class ConversationsTable extends Component {
         columns={tableColumns(addPinned, openDrawer)}
         data={displayData}
         showCheckboxes={false}
-        onCellClick={openDrawer}
         onSortOrderChange={(key, order) => this.handleSortOrderChange(key, order, displayData)}
         onNextPageClick={this.handleNextPageClick}
         onPreviousPageClick={this.handlePreviousPageClick}

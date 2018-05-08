@@ -63,7 +63,7 @@ class ConversationsView extends Component {
 
     this.state = {
       drawerIsOpen: false,
-      selectedConversation: null,
+      selectedConversation: { messages: [] },
     };
 
     this.addPinned = this.addPinned.bind(this);
@@ -75,10 +75,8 @@ class ConversationsView extends Component {
     this.setState({ drawerIsOpen: false });
   }
 
-  openDrawer(index) {
-    const selected = this.props.data.conversations[index];
-
-    console.log('Selected Here: ', this.props.data.conversations[index]);
+  openDrawer(conversationId) {
+    const selected = this.props.data.conversations.find(con => con.id === conversationId);
 
     this.setState({
       drawerIsOpen: true,
@@ -130,7 +128,7 @@ class ConversationsView extends Component {
             )
           }
 
-          {this.state.selectedConversation &&
+          {this.state.drawerIsOpen &&
             <ConversationDrawerTwo
               conversation={this.state.selectedConversation}
               clientId={this.props.clientId}
@@ -138,6 +136,7 @@ class ConversationsView extends Component {
               closeDrawer={this.closeDrawer}
             />
           }
+
         </div>
       </MuiThemeProvider>
     );
