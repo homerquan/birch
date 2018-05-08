@@ -7,6 +7,7 @@
 
 import React from 'react';
 import { graphql, compose } from 'react-apollo';
+import _ from 'lodash';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import lightTheme from '../theme';
@@ -190,6 +191,10 @@ class ConversationsTable extends React.Component {
     });
   };
 
+  transform = data => {
+    return _.map(data, 'node');
+  }
+
   render() {
     const { ConversationsFeed, loading, refetch } = this.props.data;
 
@@ -213,7 +218,7 @@ class ConversationsTable extends React.Component {
               selectable={false}
               showRowHover={true}
               columns={tableColumns}
-              data={ConversationsFeed.conversations.edges}
+              data={this.transform(ConversationsFeed.conversations.edges)}
               showCheckboxes={false}
               onCellClick={this.openDrawer}
               page={1}

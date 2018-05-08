@@ -8,6 +8,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { graphql, compose } from 'react-apollo';
+import _ from 'lodash';
 import gql from 'graphql-tag';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -23,27 +24,33 @@ import ConversationsTable from './ConversationsTable';
 import ConversationDrawerTwo from '../ConversationDrawerTwo/ConversationDrawerTwo';
 
 const conversationsQuery = gql`
-  query ConversationsQuery($clientId : String!, $botId: String){
-    conversations(clientId : $clientId, botId: $botId) {
-      id
-      visitor
-      client
-      intentions {
-        name
-        score
+  query ConversationsQuery($clientId : String, $botId: String){
+    ConversationsFeed(clientId : $clientId, botId: $botId) {
+      conversations(first:1){
+        edges {
+          cursor
+          node{
+            id
+            visitor
+            client
+            intentions {
+              name
+              score
+            }
+            actions {
+              source
+              name
+              status
+            }
+            mode
+            updatedAt
+          }
+        }
+        pageInfo{
+          hasNextPage
+          endCursor
+        }
       }
-      actions {
-        source
-        name
-        status
-      }
-      messages {
-        id
-        text,
-        source
-      }
-      mode
-      updatedAt
     }
   }
 `;
@@ -76,7 +83,7 @@ class ConversationsView extends Component {
   }
 
   openDrawer(conversationId) {
-    const selected = this.props.data.conversations.find(con => con.id === conversationId);
+    const selected = this.props.data.ConversationsFeed.conversations.edges.find(con => con.node.id === conversationId);
 
     this.setState({
       drawerIsOpen: true,
@@ -91,8 +98,12 @@ class ConversationsView extends Component {
     console.log(conversationId.target.name);
   }
 
+  transform = data => {
+    return _.map(data, 'node');
+  }
+
   render() {
-    const { conversations, loading, refetch } = this.props.data;
+    const { ConversationsFeed, loading, refetch } = this.props.data;
 
     if (loading) return <h1>Loading</h1>;
 
@@ -108,11 +119,11 @@ class ConversationsView extends Component {
             </ToolbarGroup>
           </Toolbar>
 
-          {conversations && conversations.length
+          {ConversationsFeed.conversations.edges && ConversationsFeed.conversations.edges.length
             ? (
               <div>
                 <ConversationsTable
-                  conversations={conversations}
+                  conversations={this.transform(ConversationsFeed.conversations.edges)}
                   openDrawer={this.openDrawer}
                   addPinned={this.addPinned}
                 />
