@@ -4,7 +4,7 @@ type PageInfo {
 }
 
 type Error {
-  code: Int @examples(values: [401, 404])
+  code: Int @examples(values: [100, 404])
   message: String @examples(values: ["You got an error"])
   detail: String @examples(values: ["details about this error, only show in dev mode"])
 }
@@ -193,13 +193,14 @@ input MessageInput {
   conversationId: String!
 }
 
-type MessageWithError {
+type CreateMessageResponse  {
   error: Error
+  message: Message
 }
 
 type Mutation {
   updateConversation(conversationId: String!): Conversation
-  createMessage(input: MessageInput): MessageWithError  #please replace return type to test error
+  createMessage(input: MessageInput): CreateMessageResponse
   createBot(clientId: String!, name: String!, url: String!): Bot
   updateKnowledge(clientId: String!, botId:String!, text: String!): Knowledge
   changeAccountPassword(clientId:String!):User
