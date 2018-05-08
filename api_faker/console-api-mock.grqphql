@@ -91,6 +91,37 @@ type ConversationsFeed {
   ): ConversationsConnection 
 }
 
+type NotificationsFeed {
+   notifications(
+    first: Int,
+    after: String,
+    last: Int,
+    before: String,
+    filter: [String]
+  ): NotificationsConnection 
+}
+
+type NotificationsConnection {
+  totalCount: Int
+  pageInfo: PageInfo!
+  edges: [NotificationsEdge ]
+}
+
+type NotificationsEdge {
+  cursor: String! @examples(values: ["Y3Vyc29yMw=="])
+  node: Notification
+}
+
+type Notification {
+  id: ID @fake(type:uuid)
+  text: String  @fake(type:lorem, options:{loremSize:words})
+  status: String @examples(values: ["unread", "read", "archived"])
+  link: String @fake(type:url)
+  createdAt: String @fake(type:pastDate,options:{dateFormat:""})
+  updatedAt: String @fake(type:pastDate,options:{dateFormat:""})
+}
+
+
 type Bot {
   id: ID @fake(type:uuid)
   name: String @fake(type:word)
@@ -131,6 +162,7 @@ type UserMessage {
 }
 
 type Query {
+  NotificationsFeed(clientId: String): NotificationsFeed
   ConversationsFeed(clientId: String, botId: String): ConversationsFeed
   conversations(clientId: String, botId: String): [Conversation]
   messages(conversationId: String, clientId: String): [Message]
