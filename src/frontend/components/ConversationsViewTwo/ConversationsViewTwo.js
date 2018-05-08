@@ -8,6 +8,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { graphql, compose } from 'react-apollo';
+import _ from 'lodash';
 import gql from 'graphql-tag';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -23,6 +24,7 @@ import ConversationsTable from './ConversationsTable';
 import ConversationDrawerTwo from '../ConversationDrawerTwo/ConversationDrawerTwo';
 
 const conversationsQuery = gql`
+<<<<<<< HEAD
   query {
     ConversationsFeed(clientId: "abc", botId: "123") {
       conversations(first:1,last:10){
@@ -31,6 +33,28 @@ const conversationsQuery = gql`
           node {
             id
             client
+=======
+  query ConversationsQuery($clientId : String, $botId: String){
+    conversationsFeed(clientId : $clientId, botId: $botId) {
+      conversations(first:1){
+        edges {
+          cursor
+          node{
+            id
+            visitor
+            client
+            intentions {
+              name
+              score
+            }
+            actions {
+              source
+              name
+              status
+            }
+            mode
+            updatedAt
+>>>>>>> 6a848708b363acb6c4f9200608cb19b0cb6b9310
           }
         }
         pageInfo{
@@ -96,7 +120,7 @@ class ConversationsView extends Component {
   }
 
   openDrawer(conversationId) {
-    const selected = this.props.data.conversations.find(con => con.id === conversationId);
+    const selected = this.props.data.conversationsFeed.conversations.edges.find(con => con.node.id === conversationId);
 
     this.setState({
       drawerIsOpen: true,
@@ -111,8 +135,12 @@ class ConversationsView extends Component {
     console.log(conversationId.target.name);
   }
 
+  transform = data => {
+    return _.map(data, 'node');
+  }
+
   render() {
-    const { conversations, loading, refetch } = this.props.data;
+    const { conversationsFeed, loading, refetch } = this.props.data;
 
     if (loading) return <h1>Loading</h1>;
 
@@ -128,11 +156,11 @@ class ConversationsView extends Component {
             </ToolbarGroup>
           </Toolbar>
 
-          {conversations && conversations.length
+          {conversationsFeed.conversations.edges && conversationsFeed.conversations.edges.length
             ? (
               <div>
                 <ConversationsTable
-                  conversations={conversations}
+                  conversations={this.transform(conversationsFeed.conversations.edges)}
                   openDrawer={this.openDrawer}
                   addPinned={this.addPinned}
                 />

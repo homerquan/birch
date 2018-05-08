@@ -7,6 +7,7 @@
 
 import React from 'react';
 import { graphql, compose } from 'react-apollo';
+import _ from 'lodash';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import lightTheme from '../theme';
@@ -43,22 +44,33 @@ const styles = {
 };
 
 const conversationsQuery = gql`
-  query ConversationsQuery($clientId : String!, $botId: String){
-    conversations(clientId : $clientId, botId: $botId) {
-      id
-      visitor
-      client
-      intentions {
-        name
-        score
+  query ConversationsQuery($clientId : String, $botId: String){
+    ConversationsFeed(clientId : $clientId, botId: $botId) {
+      conversations(first:1){
+        edges {
+          cursor
+          node{
+            id
+            visitor
+            client
+            intentions {
+              name
+              score
+            }
+            actions {
+              source
+              name
+              status
+            }
+            mode
+            updatedAt
+          }
+        }
+        pageInfo{
+          hasNextPage
+          endCursor
+        }
       }
-      actions {
-        source
-        name
-        status
-      }
-      mode
-      updatedAt
     }
   }
 `;
@@ -179,8 +191,12 @@ class ConversationsTable extends React.Component {
     });
   };
 
+  transform = data => {
+    return _.map(data, 'node');
+  }
+
   render() {
-    const { conversations, loading, refetch } = this.props.data;
+    const { ConversationsFeed, loading, refetch } = this.props.data;
 
     if (loading) return <h1>Loading</h1>;
 
@@ -196,13 +212,13 @@ class ConversationsTable extends React.Component {
             </ToolbarGroup>
           </Toolbar>
 
-          {conversations && conversations.length ? (
+          {ConversationsFeed.conversations.edges && ConversationsFeed.conversations.edges.length ? (
             <DataTables
               height={"auto"}
               selectable={false}
               showRowHover={true}
               columns={tableColumns}
-              data={conversations}
+              data={this.transform(ConversationsFeed.conversations.edges)}
               showCheckboxes={false}
               onCellClick={this.openDrawer}
               page={1}

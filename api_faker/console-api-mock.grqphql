@@ -5,7 +5,7 @@ type PageInfo {
 
 type Intention {
   name: String @fake(type:lorem, options:{loremSize:word})
-  score: Int
+  score: Int @examples(values: [19, 38])
 }
 
 type Action {
@@ -72,7 +72,7 @@ type MessagesEdge {
 
 
 type ConversationsConnection {
-  totalCount: Int
+  totalCount: Int @examples(values: [2, 3, 5])
   pageInfo: PageInfo!
   edges: [ConversationsEdge ]
 }
@@ -90,6 +90,37 @@ type ConversationsFeed {
     before: String
   ): ConversationsConnection 
 }
+
+type NotificationsFeed {
+   notifications(
+    first: Int,
+    after: String,
+    last: Int,
+    before: String,
+    filter: [String]
+  ): NotificationsConnection 
+}
+
+type NotificationsConnection {
+  totalCount: Int @examples(values: [2, 3, 5])
+  pageInfo: PageInfo!
+  edges: [NotificationsEdge ]
+}
+
+type NotificationsEdge {
+  cursor: String! @examples(values: ["Y3Vyc29yMw=="])
+  node: Notification
+}
+
+type Notification {
+  id: ID @fake(type:uuid)
+  text: String  @fake(type:lorem, options:{loremSize:words})
+  status: String @examples(values: ["unread", "read", "archived"])
+  link: String @fake(type:url)
+  createdAt: String @fake(type:pastDate,options:{dateFormat:""})
+  updatedAt: String @fake(type:pastDate,options:{dateFormat:""})
+}
+
 
 type Bot {
   id: ID @fake(type:uuid)
@@ -131,8 +162,9 @@ type UserMessage {
 }
 
 type Query {
-  ConversationsFeed(clientId: String, botId: String): ConversationsFeed
-  conversations(clientId: String, botId: String): [Conversation]
+  notificationsFeed(clientId: String): NotificationsFeed
+  conversationsFeed(clientId: String, botId: String): ConversationsFeed
+  conversation(conversationId: String): Conversation
   messages(conversationId: String, clientId: String): [Message]
   bots(clientId: String): [Bot]
   knowledge(clientId: String, botId: String): Knowledge
