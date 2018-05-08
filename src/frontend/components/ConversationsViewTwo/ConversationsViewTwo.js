@@ -24,16 +24,6 @@ import ConversationsTable from './ConversationsTable';
 import ConversationDrawerTwo from '../ConversationDrawerTwo/ConversationDrawerTwo';
 
 const conversationsQuery = gql`
-<<<<<<< HEAD
-  query {
-    ConversationsFeed(clientId: "abc", botId: "123") {
-      conversations(first:1,last:10){
-        totalCount
-        edges{
-          node {
-            id
-            client
-=======
   query ConversationsQuery($clientId : String, $botId: String){
     conversationsFeed(clientId : $clientId, botId: $botId) {
       conversations(first:1){
@@ -54,7 +44,6 @@ const conversationsQuery = gql`
             }
             mode
             updatedAt
->>>>>>> 6a848708b363acb6c4f9200608cb19b0cb6b9310
           }
         }
         pageInfo{
