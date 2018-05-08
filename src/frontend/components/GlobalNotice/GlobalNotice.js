@@ -10,7 +10,10 @@
  * @Last Modified time: 2017-11-05 19:41:01
  */
 import React from 'react';
+import PropTypes from "prop-types";
+import { connect } from 'react-redux';
 import { graphql, compose } from 'react-apollo';
+import {ignoreGlobalNotification} from '../../actions/globalNotification';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import lightTheme from '../theme';
@@ -35,29 +38,35 @@ const styles = {
 };
 
 class GlobalNotice extends React.Component {
-  constructor(props, context) {
-    super(props, context);
-    this.state = {
-      isActive: false,
-    }
+  constructor(props) {
+    super(props);
   }
 
   handleClose = () => {
-    this.setState({
-      isActive: false,
-    });
+    this.props.dispatch(ignoreGlobalNotification({
+        name: "IGNORE_GLOBAL_NOTIFICATION",
+        value: {}
+    }))
   }
 
-  
   render() {
+    console.log(this.props.notification);
     return (
       <MuiThemeProvider muiTheme={getMuiTheme(lightTheme)}>
-      <div className={s.globalNotice} style={this.state. isActive ? {} : { display: 'none' }} > 
-      		<span className={s.content}>{this.props.notice}</span>
-      		<IconButton className={s.noticeButton} iconStyle={styles.noticeIcon} style={styles.closeButton} onTouchTap={this.handleClose}><CloseIcon/></IconButton>
+      <div className={s.globalNotice} style={this.props.globalNotification ? {} : { display: 'none' }} > 
+      		<span className={s.content}>{this.props.globalNotification ? this.props.globalNotification.text : ''}</span>
+      		<IconButton className={s.noticeButton} iconStyle={styles.noticeIcon} style={styles.closeButton} onTouchTap={this.handleClose}><CloseIcon/>
+          </IconButton>
       </div>
     </MuiThemeProvider>
     );
   }
 }
-export default withStyles(s)(GlobalNotice);
+
+function selectProps(state) {
+  return {
+    globalNotification: state.globalNotification
+  };
+}
+
+export default withStyles(s)(connect(selectProps, null)(GlobalNotice));
