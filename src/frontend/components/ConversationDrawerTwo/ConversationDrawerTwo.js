@@ -6,15 +6,14 @@ import IconButton from 'material-ui/IconButton';
 import SendIcon from 'material-ui/svg-icons/content/send';
 import { deepPurple500, white } from 'material-ui/styles/colors';
 import withWidth, { LARGE } from 'material-ui/utils/withWidth';
-import Paper from 'material-ui/Paper';
-import LinearProgress from 'material-ui/LinearProgress';
-import FlatButton from 'material-ui/FlatButton';
-import Badge from 'material-ui/Badge';
+import Toggle from 'material-ui/Toggle';
 
 import s from './ConversationDrawerTwo.css';
 import MessagesContainer from './MessagesContainer';
 import ActionMenu from './ActionMenu';
 import CommandsList from './CommandList';
+import Training from '../Training/Training';
+import DecisionSupport from './DecisionSupport';
 import fakeData from './fakeData.json';
 
 class ConversationDrawerTwo extends Component {
@@ -25,19 +24,14 @@ class ConversationDrawerTwo extends Component {
       currentMessage: '',
       activeCommands: [],
       keysPressed: [],
+      trainingIsOpen: false,
     };
 
     this.handleInputOnChange = this.handleInputOnChange.bind(this);
     this.handleKeyPress = this.handleKeyPress.bind(this);
     this.addMessage = this.addMessage.bind(this);
-
-    console.log('props here: ', this.props.conversation);
+    this.handleToggle = this.handleToggle.bind(this);
   }
-
-  // static getDerivedStateFromProps(nextProps, prevState) {
-  //   console.log('next props: ', nextProps);
-  //   return nextProps;
-  // }
 
   componentWillMount() {
     document.addEventListener('keydown', this.handleKeyPress);
@@ -145,15 +139,20 @@ class ConversationDrawerTwo extends Component {
     }
   }
 
+  handleToggle() {
+    this.setState({ trainingIsOpen: !this.state.trainingIsOpen });
+  }
+
   addMessage(newMessage) { // eslint-disable-line
     // TODO: Need to hook this up to save the new mesage
     // then add it to the message list.
   }
 
+
   render() {
     const { width, isOpen, closeDrawer, conversation } = this.props;
-    const { currentMessage, activeCommands } = this.state;
-    console.log('Conversation here: ', conversation)
+    const { currentMessage, activeCommands, trainingIsOpen } = this.state;
+
     const styles = {
       conversationBG: {
         display: isOpen ? 'block' : 'none',
@@ -210,95 +209,96 @@ class ConversationDrawerTwo extends Component {
         maxWidth: width === LARGE ? '700px' : 'none',
         margin: width === LARGE ? '0 auto' : 0,
       },
-      badgeRootStyle: {
-        padding: 0,
-      },
-      badgeStyle: {
-        top: -3,
-        right: 1,
-        width: 18,
-        height: 18,
-        fontSize: 10,
-      },
+    };
+
+    const toggleLabel = {
+      color: 'white',
     };
 
     return (
-      <div style={styles.conversationDrawer}>
-        <div
-          style={styles.conversationBG}
-          onClick={closeDrawer}
-          role="button"
-          tabIndex="0"
-        />
-        <div style={styles.conversationWrapper}>
-
-          <div className={s.utilityBar} />
-
-          <div style={styles.conversationContainer}>
-            {/* <Paper className={s.decisionThinking}>
-              <p className={s.decisionThinkingText}>Filling out referral form...</p>
-              <LinearProgress mode="indeterminate" />
-            </Paper>
-            <Paper className={s.decisionAction} zDepth={3}>
-              <p className={s.decisionActionText}>
-                <b>Recommend: </b> Real-time engagement driven by augmented intelligence.
-              </p>
-              <div className={s.decisionButtons}>
-                <FlatButton label="Cancel" primary />
-                <Badge
-                  badgeContent={4}
-                  primary
-                  style={styles.badgeRootStyle}
-                  badgeStyle={styles.badgeStyle}
-                >
-                  <FlatButton label="Accept" />
-                </Badge>
-              </div>
-            </Paper> */}
-
-            <MessagesContainer
-              messages={conversation.messages}
-            />
-
-            <div className={s.chatBoxContainer}>
-              <ActionMenu plugins={fakeData.plugins} />
-
-              <input
-                className={s.chatInput}
-                onChange={e => this.handleInputOnChange(e)}
-                value={currentMessage}
-                placeholder="Type Something"
-              />
-
-              <IconButton>
-                <SendIcon />
-              </IconButton>
-
-              <CommandsList
-                activeCommands={activeCommands}
-                currentMessage={currentMessage}
-              />
-            </div>
-          </div>
-
-          <div style={styles.closeIconBG} />
-          <IconButton
-            iconStyle={styles.closeIcon}
-            style={styles.closeIconBtn}
+      <div>
+        <div style={styles.conversationDrawer}>
+          <div
+            style={styles.conversationBG}
             onClick={closeDrawer}
-          >
-            <CloseIcon color={white} />
-          </IconButton>
+            role="button"
+            tabIndex="0"
+          />
+          <div style={styles.conversationWrapper}>
+
+            <div className={s.utilityBarContainer}>
+              <div className={s.utilityBar}>
+                <Toggle
+                  style={{ width: 'auto' }}
+                  label="Open Training"
+                  className={s.trainingToggle}
+                  labelStyle={toggleLabel}
+                  toggled={trainingIsOpen}
+                  onClick={this.handleToggle}
+                />
+              </div>
+            </div>
+
+            <div style={styles.conversationContainer}>
+              <DecisionSupport />
+
+              <MessagesContainer
+                messages={conversation.messages}
+              />
+
+              <div className={s.chatBoxContainer}>
+                <ActionMenu plugins={fakeData.plugins} />
+
+                <input
+                  className={s.chatInput}
+                  onChange={e => this.handleInputOnChange(e)}
+                  value={currentMessage}
+                  placeholder="Type Something"
+                />
+
+                <IconButton>
+                  <SendIcon />
+                </IconButton>
+
+                <CommandsList
+                  activeCommands={activeCommands}
+                  currentMessage={currentMessage}
+                />
+              </div>
+            </div>
+
+            <div style={styles.closeIconBG} />
+            <IconButton
+              iconStyle={styles.closeIcon}
+              style={styles.closeIconBtn}
+              onClick={closeDrawer}
+            >
+              <CloseIcon color={white} />
+            </IconButton>
+          </div>
         </div>
+
+        {trainingIsOpen &&
+          <Training
+            isOpen={trainingIsOpen}
+            close={this.handleToggle}
+          />
+        }
       </div>
     );
   }
 }
 
+ConversationDrawerTwo.defaultProps = {
+  conversation: {
+    messages: [],
+  },
+};
+
 ConversationDrawerTwo.propTypes = {
   conversation: PropTypes.shape({
     messages: PropTypes.array,
-  }).isRequired,
+  }),
   isOpen: PropTypes.bool.isRequired,
   closeDrawer: PropTypes.func.isRequired,
   width: PropTypes.number.isRequired,

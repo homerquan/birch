@@ -1,0 +1,82 @@
+@import '../../components/variables.css';
+
+.container {
+    display: none;
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-color: white;
+    z-index: 104;
+}
+
+.active {
+    display: block;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    flex-direction: row-reverse;
+    height: 80px;
+    padding: 0 20px;
+    background-color: rgb(103, 58, 183);
+}
+
+.bodyContainer {
+    display: flex;
+    height: 100%;
+}
+
+.sidebar {
+    background-color: white;
+    width: 180px;
+}
+
+.diagramWrapper {
+    background-color: red;
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    padding-top: 100px;
+    background-color: #3c3c3c;
+    background-image:
+    linear-gradient(0deg,
+      transparent 24%,
+       rgba(255, 255, 255, 0.05) 25%,
+       rgba(255, 255, 255, 0.05) 26%,
+      transparent 27%,
+      transparent 74%,
+       rgba(255, 255, 255, 0.05) 75%,
+       rgba(255, 255, 255, 0.05) 76%,
+      transparent 77%,
+      transparent),
+    linear-gradient(90deg,
+      transparent 24%,
+       rgba(255, 255, 255, 0.05) 25%,
+       rgba(255, 255, 255, 0.05) 26%,
+      transparent 27%,
+      transparent 74%,
+       rgba(255, 255, 255, 0.05) 75%,
+       rgba(255, 255, 255, 0.05) 76%,
+      transparent 77%,
+      transparent);
+  background-size: 50px 50px;
+}
+
+.diagramOptions {
+    position: absolute;
+    z-index: 106;
+    background-color: white;
+    width: 95%;
+    left: 2%;
+    top: 8px;
+    padding: 10px;    
+    border-radius: 5px;
+}
+
+.diagramWidget {
+    height: 100%;
+    min-height: 600px;
+}

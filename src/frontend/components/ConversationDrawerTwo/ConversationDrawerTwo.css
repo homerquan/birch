@@ -1,7 +1,18 @@
-.utilityBar {
+.utilityBarContainer {
     background-color: rgb(103, 58, 183);
-    height: 34px;
+
     width: 100%;
+    padding: 10px;
+}
+
+.utilityBar {
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.trainingToggle {
+    width: auto;
+    max-width: 200px;
 }
 
 .chatBoxContainer {
@@ -16,40 +27,4 @@
     height: 48px;
     border: none;
     padding-left: 10px;
-}
-
-
-
-
-.decisionThinking {
-    position: absolute;
-    background-color: white;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 104;
-}
-
-.decisionThinkingText {
-    padding: 14px;
-    margin: 0;
-}
-
-.decisionAction {
-    position: absolute;
-    background-color: white;
-    top: 53px;
-    left: 0;
-    right: 0;
-    z-index: 104;
-}
-
-.decisionActionText {
-    padding: 14px;
-    margin: 0;
-}
-
-.decisionButtons {
-    display: flex;
-    flex-direction: row-reverse;
 }

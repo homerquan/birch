@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import moment from 'moment';
+import classnames from 'classnames';
 
 import s from './MessagesContainer.css';
 
@@ -19,7 +20,11 @@ class MessagesContainer extends Component {
 
   render() {
     const { messages } = this.props;
-    console.log('Herhalsdjfs: ', messages)
+
+    const messageNotRecievedOutgoing = classnames(
+      [s.messageOutgoing],
+      { [s.messageNotRecieved]: true },
+    );
 
     return (
       <div className={s.messagesContainer}>
@@ -27,13 +32,9 @@ class MessagesContainer extends Component {
           {messages.map(message => (
             <div
               key={message.id}
-              className={message.typeIncoming ? s.messageIncoming : s.messageOutgoing}
+              className={message.source === 'visitor' ? s.messageIncoming : s.messageOutgoing}
             >
-              <div
-                className={message.source === 'visitor'
-                  ? s.messageContainerIncoming
-                  : s.messageContainerOutgoing}
-              >
+              <div className={s.messageBody}>
                 <div className={s.messageInfoBar}>
                   {message.source === 'ai'
                     ? <img
@@ -61,8 +62,8 @@ class MessagesContainer extends Component {
             </div>
           ))}
 
-          <div className={s.messageOutgoingNotRecieved}>
-            <div className={s.messageContainerOutgoing}>
+          <div className={messageNotRecievedOutgoing}>
+            <div className={s.messageBody}>
               <div className={s.messageInfoBar}>
                 <img
                   className={s.messageAvatar}

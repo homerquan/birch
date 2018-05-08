@@ -10,23 +10,23 @@ import grids from '../../components/Layout/grids';
 import ConversationsViewTwo from '../../components/ConversationsViewTwo/ConversationsViewTwo';
 
 class Conversations extends React.Component {
-	render() {
-		return (
-			<LayoutProvider layouts={grids}>
-				<Page layout="grid-one-one">
-					<Section slot="top">
-						<Title>{this.props.title}</Title>
-					</Section>
-					<Section slot="main">
-						<ConversationsView
-							clientId={this.props.session.userId}
-							botId={this.props.botId}
-						/>
-					</Section>
-				</Page>
-			</LayoutProvider>
-		);
-	}
+  render() {
+    return (
+      <LayoutProvider layouts={grids}>
+        <Page layout="grid-one-one">
+          <Section slot="top">
+            <Title>{this.props.title}</Title>
+          </Section>
+          <Section slot="main">
+            <ConversationsViewTwo
+              clientId={this.props.session.userId}
+              botId={this.props.botId}
+            />
+          </Section>
+        </Page>
+      </LayoutProvider>
+    );
+  }
 }
 
 Conversations.propTypes = {
