@@ -3,6 +3,12 @@ type PageInfo {
   hasNextPage: Boolean @examples(values: [true])
 }
 
+type Error {
+  code: Int @examples(values: [100, 404])
+  message: String @examples(values: ["You got an error"])
+  detail: String @examples(values: ["details about this error, only show in dev mode"])
+}
+
 type Intention {
   name: String @fake(type:lorem, options:{loremSize:word})
   score: Int @examples(values: [19, 38])
@@ -53,6 +59,7 @@ type Message {
   sourceId: String
   destination: String
   destinationId: String
+  status: String @examples(values: ["sent", "sending"])
   bot: String
   client: String
   createdAt: String @fake(type:pastDate,options:{dateFormat:""})
@@ -186,13 +193,14 @@ input MessageInput {
   conversationId: String!
 }
 
-type MessageWithError {
-  error: String 
+type CreateMessageResponse  {
+  error: Error
+  message: Message
 }
 
 type Mutation {
   updateConversation(conversationId: String!): Conversation
-  createMessage(input: MessageInput): MessageWithError  #please replace return type to test error
+  createMessage(input: MessageInput): CreateMessageResponse
   createBot(clientId: String!, name: String!, url: String!): Bot
   updateKnowledge(clientId: String!, botId:String!, text: String!): Knowledge
   changeAccountPassword(clientId:String!):User
