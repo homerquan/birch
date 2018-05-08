@@ -59,7 +59,7 @@ type Message {
   sourceId: String
   destination: String
   destinationId: String
-  status: String @examples(values: ["sent", "sending", "canceled"])
+  status: String @examples(values: ["sent", "sending"])
   bot: String
   client: String
   createdAt: String @fake(type:pastDate,options:{dateFormat:""})
