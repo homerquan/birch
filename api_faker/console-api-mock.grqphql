@@ -5,7 +5,7 @@ type PageInfo {
 
 type Intention {
   name: String @fake(type:lorem, options:{loremSize:word})
-  score: Int
+  score: Int @examples(values: [19, 38])
 }
 
 type Action {
@@ -72,7 +72,7 @@ type MessagesEdge {
 
 
 type ConversationsConnection {
-  totalCount: Int
+  totalCount: Int @examples(values: [2, 3, 5])
   pageInfo: PageInfo!
   edges: [ConversationsEdge ]
 }
@@ -102,7 +102,7 @@ type NotificationsFeed {
 }
 
 type NotificationsConnection {
-  totalCount: Int
+  totalCount: Int @examples(values: [2, 3, 5])
   pageInfo: PageInfo!
   edges: [NotificationsEdge ]
 }

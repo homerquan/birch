@@ -48,7 +48,7 @@ with pagination:
 query {
   conversations {
     id
-     messagesConnection(first:2){
+     messages(first:2){
       edges {
         cursor
         node {
@@ -78,6 +78,33 @@ query {
     }
   }
  }
+}
+
+query 
+{
+  ConversationsFeed(clientId:"abc",botId:"123") {
+    conversations(first:1){
+      edges {
+        cursor
+        node{
+          id
+          visitor
+          client
+          intentions {
+            name
+            score
+          }
+          actions {
+            source
+            name
+            status
+          }
+          mode
+          updatedAt
+        }
+      }
+    }
+  }
 }
 ```
 
