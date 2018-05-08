@@ -13,4 +13,5 @@ module.exports = {
 	clientSubscriptionUrl: '__clientSubscriptionUrl',
 	widgetUrl: '__widgetUrl',
 	apiPrefix: '/api',
+	allowDevDebug: true  //allow simulate events in dev console
 };
