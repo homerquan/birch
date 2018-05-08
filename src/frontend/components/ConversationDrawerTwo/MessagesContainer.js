@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import moment from 'moment';
 import classnames from 'classnames';
 
 import s from './MessagesContainer.css';
+import { ACTION_TYPES } from '../../constants';
 
 class MessagesContainer extends Component {
   componentDidMount() {
@@ -62,7 +64,7 @@ class MessagesContainer extends Component {
             </div>
           ))}
 
-          <div className={messageNotRecievedOutgoing}>
+          {/* <div className={messageNotRecievedOutgoing}>
             <div className={s.messageBody}>
               <div className={s.messageInfoBar}>
                 <img
@@ -77,21 +79,29 @@ class MessagesContainer extends Component {
               </div>
               <p className={s.message}>This message hasn&apos;t been recieved yet.</p>
             </div>
-          </div>
+          </div> */}
 
-          <div className={s.messageErrorContainer}>
-            <p className={s.messageError}>
-              <span className={s.messageErrorTitle}>Error: </span>timeout
-            </p>
-            <p className={s.messageErrorRetry}>Retry</p>
-            <p className={s.messageErrorCancel}>Cancel</p>
-          </div>
+          {this.props.runtime[ACTION_TYPES.SHOW_CHAT_ERROR]
+            ? (
+              <div className={s.messageErrorContainer}>
+                <p className={s.messageError}>
+                  <span className={s.messageErrorTitle}>Error: </span>timeout
+                </p>
+                <p className={s.messageErrorRetry}>Retry</p>
+                <p className={s.messageErrorCancel}>Cancel</p>
+              </div>
+            ) : ''
+          }
 
-          <img
-            className={s.messageTyping}
-            src="/images/message-typing.gif"
-            alt="A message is being typed"
-          />
+          {this.props.runtime[ACTION_TYPES.SHOW_CHAT_BUBBLE]
+            ? (
+              <img
+                className={s.messageTyping}
+                src="/images/message-typing.gif"
+                alt="A message is being typed"
+              />
+            ) : ''
+          }
 
         </div>
       </div>
@@ -100,6 +110,10 @@ class MessagesContainer extends Component {
 }
 
 MessagesContainer.propTypes = {
+  runtime: PropTypes.shape({
+    SHOW_CHAT_BUBBLE: PropTypes.bool,
+    SHOW_CHAT_ERROR: PropTypes.bool,
+  }).isRequired,
   messages: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.string,
@@ -110,4 +124,13 @@ MessagesContainer.propTypes = {
   ).isRequired,
 };
 
-export default withStyles(s)(MessagesContainer);
+
+function selectProps(state) {
+  return {
+    runtime: state.runtime,
+  };
+}
+
+export default withStyles(s)(
+  connect(selectProps, null)(MessagesContainer),
+);
