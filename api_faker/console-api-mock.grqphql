@@ -16,7 +16,7 @@ type Action {
 
 type User {
   id: String @fake(type:uuid)
-  name: String
+  name: String @fake(type:lorem, options:{loremSize:word})
   email: String @fake(type:email)
   avatar: String @fake(type:imageUrl)
   createdAt: String @fake(type:pastDate,options:{dateFormat:""})
@@ -146,13 +146,12 @@ type Knowledge {
 type Support {
   id: String
   text: String
-  conversation: String
   delay: Int
+  conversation: String
   client: String
   createdAt: String @fake(type:pastDate,options:{dateFormat:""})
   updatedAt: String @fake(type:pastDate,options:{dateFormat:""})
 }
-
 
 type UserMessage {
   id: ID @fake(type:uuid)
@@ -187,9 +186,13 @@ input MessageInput {
   conversationId: String!
 }
 
+type MessageWithError {
+  error: String 
+}
+
 type Mutation {
   updateConversation(conversationId: String!): Conversation
-  createMessage(input: MessageInput): Message
+  createMessage(input: MessageInput): MessageWithError  #please replace return type to test error
   createBot(clientId: String!, name: String!, url: String!): Bot
   updateKnowledge(clientId: String!, botId:String!, text: String!): Knowledge
   changeAccountPassword(clientId:String!):User
