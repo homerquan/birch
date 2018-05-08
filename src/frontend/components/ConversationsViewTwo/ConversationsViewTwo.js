@@ -23,30 +23,50 @@ import ConversationsTable from './ConversationsTable';
 import ConversationDrawerTwo from '../ConversationDrawerTwo/ConversationDrawerTwo';
 
 const conversationsQuery = gql`
-  query ConversationsQuery($clientId : String!, $botId: String){
-    conversations(clientId : $clientId, botId: $botId) {
-      id
-      visitor
-      client
-      intentions {
-        name
-        score
+  query {
+    ConversationsFeed(clientId: "abc", botId: "123") {
+      conversations(first:1,last:10){
+        totalCount
+        edges{
+          node {
+            id
+            client
+          }
+        }
+        pageInfo{
+          hasNextPage
+          endCursor
+        }
       }
-      actions {
-        source
-        name
-        status
-      }
-      messages {
-        id
-        text,
-        source
-      }
-      mode
-      updatedAt
     }
   }
 `;
+
+// const conversationsQuery = gql`
+//   query ConversationsQuery($clientId : String!, $botId: String){
+//     conversations(clientId : $clientId, botId: $botId) {
+      // id
+      // visitor
+      // client
+      // intentions {
+      //   name
+      //   score
+      // }
+      // actions {
+      //   source
+      //   name
+      //   status
+      // }
+      // messages {
+      //   id
+      //   text,
+      //   source
+      // }
+      // mode
+      // updatedAt
+//     }
+//   }
+// `;
 
 // const subscriptionConversationQuery = gql`
 //   subscription onUpdateConversation($clientId:String) {
