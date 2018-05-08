@@ -25,7 +25,7 @@ import ConversationDrawerTwo from '../ConversationDrawerTwo/ConversationDrawerTw
 
 const conversationsQuery = gql`
   query ConversationsQuery($clientId : String, $botId: String){
-    ConversationsFeed(clientId : $clientId, botId: $botId) {
+    conversationsFeed(clientId : $clientId, botId: $botId) {
       conversations(first:1){
         edges {
           cursor
@@ -83,7 +83,7 @@ class ConversationsView extends Component {
   }
 
   openDrawer(conversationId) {
-    const selected = this.props.data.ConversationsFeed.conversations.edges.find(con => con.node.id === conversationId);
+    const selected = this.props.data.conversationsFeed.conversations.edges.find(con => con.node.id === conversationId);
 
     this.setState({
       drawerIsOpen: true,
@@ -103,7 +103,7 @@ class ConversationsView extends Component {
   }
 
   render() {
-    const { ConversationsFeed, loading, refetch } = this.props.data;
+    const { conversationsFeed, loading, refetch } = this.props.data;
 
     if (loading) return <h1>Loading</h1>;
 
@@ -119,11 +119,11 @@ class ConversationsView extends Component {
             </ToolbarGroup>
           </Toolbar>
 
-          {ConversationsFeed.conversations.edges && ConversationsFeed.conversations.edges.length
+          {conversationsFeed.conversations.edges && conversationsFeed.conversations.edges.length
             ? (
               <div>
                 <ConversationsTable
-                  conversations={this.transform(ConversationsFeed.conversations.edges)}
+                  conversations={this.transform(conversationsFeed.conversations.edges)}
                   openDrawer={this.openDrawer}
                   addPinned={this.addPinned}
                 />

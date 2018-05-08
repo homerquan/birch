@@ -162,8 +162,8 @@ type UserMessage {
 }
 
 type Query {
-  NotificationsFeed(clientId: String): NotificationsFeed
-  ConversationsFeed(clientId: String, botId: String): ConversationsFeed
+  notificationsFeed(clientId: String): NotificationsFeed
+  conversationsFeed(clientId: String, botId: String): ConversationsFeed
   conversations(clientId: String, botId: String): [Conversation]
   messages(conversationId: String, clientId: String): [Message]
   bots(clientId: String): [Bot]
