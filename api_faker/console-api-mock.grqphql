@@ -1,7 +1,7 @@
 # Name convention:
 #  * Do not consume entities directly, using <entities>Feed with pagination
 #  * Single entitie can be consumed directly, e.g., conversation. Always query it by uuid
-#  * Query (read), Mutation(write), Subscription(real-time push) are special types
+#  * Query(read), Mutation(write), Subscription(real-time push) are special types
 # .  * Subscription can't fake here, using redux dispatch action to simulate
 
 type PageInfo {
@@ -267,6 +267,8 @@ type ConversationEventFeed {
 input MessageInput {
   text: String!
   conversationId: String!
+  userId: String!
+  isLearning: Boolean! #once learning switch is on, this is ture.
 }
 
 type CreateMessageResponse  {
