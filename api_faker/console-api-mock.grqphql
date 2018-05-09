@@ -41,6 +41,7 @@ type Conversation {
   client: String
   status: String  @examples(values: ["online", "disconnected"])
   mode: String @examples(values: ["auto", "semi", "manual"])
+  pinToTop: Boolean @examples(values: [true,false])
   intentions: [Intention]
   actions: [Action]
   messages: [Message]
@@ -80,6 +81,15 @@ type MessagesConnection {
 type MessagesEdge {
   cursor: String! @examples(values: ["Y3Vyc29yMw=="])
   node: Message
+}
+
+type MessagesFeed {
+   messages(
+    first: Int,
+    after: String,
+    last: Int,
+    before: String
+  ): MessagesConnection 
 }
 
 
@@ -146,6 +156,27 @@ type Bot {
   updatedAt: String @fake(type:pastDate,options:{dateFormat:""})
 }
 
+type BotsConnection {
+  totalCount: Int
+  pageInfo: PageInfo!
+  edges: [BotsEdge]
+}
+
+type BotsEdge {
+  cursor: String! @examples(values: ["Y3Vyc29yMw=="])
+  node: Bot
+}
+
+type BotsFeed {
+   bots(
+    first: Int,
+    after: String,
+    last: Int,
+    before: String
+  ): BotsConnection 
+}
+
+
 type Knowledge {
   id: String
   raw: String
@@ -176,6 +207,8 @@ type Query {
   notificationsFeed(clientId: String): NotificationsFeed
   conversationsFeed(clientId: String, botId: String): ConversationsFeed
   conversation(conversationId: String): Conversation
+  messagesFeed(conversationId: String): MessagesFeed
+  botsFeed(clientId: String): BotsFeed
   messages(conversationId: String, clientId: String): [Message] #this will be removed
   bots(clientId: String): [Bot] #this will be removed
   knowledge(clientId: String, botId: String): Knowledge #this will be removed
