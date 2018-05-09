@@ -26,8 +26,8 @@ const NotificationsFeed = gql`
           }
         }
         pageInfo{
-        hasNextPage
-        endCursor
+          hasNextPage
+          endCursor
         }
       }
     }
@@ -97,8 +97,10 @@ class Notifications extends Component {
           notificationsFeed: {
             __typename: previousResult.notificationsFeed.__typename, // eslint-disable-line
             notifications: {
+              __typename: previousResult.notificationsFeed.notifications.__typename, // eslint-disable-line
               edges: [...previousEntry, ...newNotifications],
               pageInfo: fetchMoreResult.notificationsFeed.notifications.pageInfo,
+              totalCount: [...previousEntry, ...newNotifications].length,
             },
           },
         };
@@ -109,10 +111,14 @@ class Notifications extends Component {
   render() {
     const { data: { loading, notificationsFeed } } = this.props;
 
+    if (loading) {
+      return <p>Loading Messages</p>;
+    }
+
     return (
       <div>
         <List style={styles.listStyle}>
-          {!loading && notificationsFeed.notifications.edges
+          {notificationsFeed.notifications.edges
             ? (
               this.transform(notificationsFeed.notifications.edges).map((message, index) => (
                 <div key={message.id}>
@@ -131,6 +137,7 @@ class Notifications extends Component {
           label="Load More"
           primary
           fullWidth
+          disabled={!notificationsFeed.notifications.pageInfo.hasNextPage}
           onClick={this.loadMore}
         />
       </div>
