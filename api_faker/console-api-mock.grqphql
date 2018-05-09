@@ -1,7 +1,8 @@
 # Name convention:
 #  * Do not consume entities directly, using <entities>Feed with pagination
 #  * Single entitie can be consumed directly, e.g., conversation. Always query it by uuid
-#  * Query (read), Mutation(write), Subscription(real-time push) are special type
+#  * Query (read), Mutation(write), Subscription(real-time push) are special types
+# .  * Subscription can't fake here, using redux dispatch action to simulate
 
 type PageInfo {
   endCursor: String @examples(values: ["Y3Vyc29yMw=="])
@@ -178,7 +179,7 @@ type BotsFeed {
 
 
 type Knowledge {
-  id: String
+  id: ID @fake(type:uuid)
   raw: String
   text: String
   bot: String
@@ -187,20 +188,56 @@ type Knowledge {
 }
 
 type Support {
-  id: String
+  id: ID @fake(type:uuid)
   text: String
   delay: Int
   conversation: String
+  status: String @examples(values: ["expired", "ignored", "acive"])
   client: String
   createdAt: String @fake(type:pastDate,options:{dateFormat:""})
   updatedAt: String @fake(type:pastDate,options:{dateFormat:""})
 }
 
+type Plugin {
+  id: ID @fake(type:uuid)
+  type: String @examples(values: ["data", "action", "model"])
+  name: String @fake(type:lorem, options:{loremSize:words})
+  installed: Boolean @examples(values: [true,false])
+  image: String @fake(type:imageUrl)
+  description: String @fake(type:lorem, options:{loremSize:sentences})
+  createdAt: String @fake(type:pastDate,options:{dateFormat:""})
+  updatedAt: String @fake(type:pastDate,options:{dateFormat:""})
+}
+
+type PluginsConnection {
+  totalCount: Int
+  pageInfo: PageInfo!
+  edges: [PluginsEdge]
+}
+
+type PluginsEdge {
+  cursor: String! @examples(values: ["Y3Vyc29yMw=="])
+  node: Plugin
+}
+
+type PluginsFeed {
+   bots(
+    first: Int,
+    after: String,
+    last: Int,
+    before: String
+  ):PluginsConnection 
+}
+
+# Messages in topbar
 type UserMessage {
   id: ID @fake(type:uuid)
   type: String
   text: String
-  action: String
+  icon: String @fake(type:imageUrl)
+  source: String
+  createdAt: String @fake(type:pastDate,options:{dateFormat:""})
+  updatedAt: String @fake(type:pastDate,options:{dateFormat:""})
 }
 
 type Query {
@@ -209,6 +246,7 @@ type Query {
   conversation(conversationId: String): Conversation
   messagesFeed(conversationId: String): MessagesFeed
   botsFeed(clientId: String): BotsFeed
+  pluginsFeed(conversationId: String): PluginsFeed
   messages(conversationId: String, clientId: String): [Message] #this will be removed
   bots(clientId: String): [Bot] #this will be removed
   knowledge(clientId: String, botId: String): Knowledge #this will be removed
