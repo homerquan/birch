@@ -58,7 +58,7 @@ query{
 
 query {
  notificationsFeed(clientId:"abc") {
-  notifications(first:1,last:10, filter:["status=unread"] ){
+  notifications(filter:["status=unread"] ){
     totalCount
     edges{
       node {
@@ -174,6 +174,7 @@ In redux dev tool, dispatch events such as
 ## Note
 
 * Using Apollo 1.x
+  * upload file in graphql: https://github.com/jaydenseric/graphql-multipart-request-spec
 * Server side rendering
 * Universal router
   * https://github.com/erikras/react-redux-universal-hot-example
