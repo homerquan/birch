@@ -191,7 +191,9 @@ function selectProps(state) {
 }
 
 Notifications.propTypes = {
-  runtime: PropTypes.number.isRequired,
+  runtime: PropTypes.shape({
+    NOTIFICATIONS_COUNT: PropTypes.number,
+  }).isRequired,
   data: PropTypes.shape({
     notificationsFeed: PropTypes.object,
   }).isRequired,

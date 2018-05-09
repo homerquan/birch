@@ -27,7 +27,7 @@ export default {
       chunk: 'notifications',
       component: (
         <Layout>
-          <Notifications  />
+          <Notifications />
         </Layout>
       ),
     };

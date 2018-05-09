@@ -7,7 +7,9 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
-import React from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { Page, Section, LayoutProvider } from 'react-page-layout';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
@@ -18,32 +20,18 @@ import grids from '../../components/Layout/grids';
 import Title from '../../components/Title';
 import Notifications from '../../components/Notifications/Notifications';
 
-class AccountView extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      value: 'account',
-    };
-
-    this.handleChange = this.handleChange.bind(this);
-  }
-
-  handleChange(value) {
-    this.setState({ value });
-  }
-
+class NotificationsView extends Component {
   render() {
     return (
       <LayoutProvider layouts={grids}>
         <Page layout="grid-one-one">
           <Section slot="top">
-            <Title>Manage Account</Title>
+            <Title>Notifications</Title>
           </Section>
           <Section slot="main">
             <MuiThemeProvider muiTheme={getMuiTheme(themeWhite)}>
               <Paper>
-                <Notifications />
+                <Notifications clientId={this.props.session.userId} />
               </Paper>
             </MuiThemeProvider>
           </Section>
@@ -53,4 +41,16 @@ class AccountView extends React.Component {
   }
 }
 
-export default AccountView;
+NotificationsView.propTypes = {
+  session: PropTypes.shape({
+    userId: PropTypes.string,
+  }).isRequired,
+};
+
+function selectProps(state) {
+  return {
+    session: state.session,
+  };
+}
+
+export default connect(selectProps, null)(NotificationsView);
