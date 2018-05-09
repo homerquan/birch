@@ -241,6 +241,7 @@ type Mutation {
   createMessage(input: MessageInput): CreateMessageResponse
   createBot(clientId: String!, name: String!, url: String!): Bot
   updateKnowledge(clientId: String!, botId:String!, text: String!): Knowledge
+  updateConversationPinToTop(conversationId:String!,pinToTop:Boolean!): Conversation
   changeAccountPassword(clientId:String!):User
   closeAccount(clientId: String!): User
 }
