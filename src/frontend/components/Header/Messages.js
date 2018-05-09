@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import lightTheme from '../theme';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import Badge from 'material-ui/Badge';
 import IconButton from 'material-ui/IconButton';
 import SMSIcon from 'material-ui/svg-icons/notification/sms';
 import Paper from 'material-ui/Paper';
-import { deepPurple500, pink500, darkBlack } from 'material-ui/styles/colors';
+import { deepPurple500, pink500 } from 'material-ui/styles/colors';
 import { List, ListItem } from 'material-ui/List';
 import Avatar from 'material-ui/Avatar';
 import CodeIcon from 'material-ui/svg-icons/action/code';
@@ -16,6 +15,7 @@ import Divider from 'material-ui/Divider';
 import Subheader from 'material-ui/Subheader';
 import Link from '../Link/Link';
 
+import lightTheme from '../theme';
 import s from './Messages.css';
 import fakeData from './fakeMessages.json';
 
@@ -37,7 +37,7 @@ const badgeRootStyle = {
 };
 
 const btnStyle = {
-  padding: 0
+  padding: 0,
 };
 
 const paperStyle = {
@@ -45,7 +45,7 @@ const paperStyle = {
   zIndex: 101,
   right: 0,
   top: 46,
-  width: 430
+  width: 430,
 };
 
 const subHeaderStyle = {
@@ -58,7 +58,7 @@ const listStyle = {
   padding: 0,
   overflowY: 'scroll',
   maxHeight: '315px', // show 4 messages
-}
+};
 
 const footerText = {
   margin: '8px 0',
@@ -67,11 +67,11 @@ const footerText = {
   lineHeight: '14px',
   padding: '0 10px',
   color: deepPurple500,
-  textDecoration: 'none'
+  textDecoration: 'none',
 };
 
 const hiddenStyle = {
-  display: 'none'
+  display: 'none',
 };
 
 class Messages extends Component {
@@ -82,7 +82,7 @@ class Messages extends Component {
       isOpen: false,
       isLoading: true,
       messages: [],
-    }
+    };
 
     this.handleEventListener = this.handleEventListener.bind(this);
   }
@@ -99,15 +99,15 @@ class Messages extends Component {
       });
     }, 1000);
 
-    document.addEventListener("click", this.handleEventListener);
+    document.addEventListener('click', this.handleEventListener);
   }
 
   componentWillUnmount() {
-    document.removeEventListener("click", this.handleEventListener);
+    document.removeEventListener('click', this.handleEventListener);
   }
 
   handleEventListener(e) {
-    const { isOpen } = this.state
+    const { isOpen } = this.state;
     const messagesIcon = document.querySelector('.messageIcon');
 
     if (messagesIcon.contains(e.target)) {
@@ -137,7 +137,7 @@ class Messages extends Component {
         >
           <IconButton
             className="messageIcon"
-            style={btnStyle} 
+            style={btnStyle}
           >
             <SMSIcon color={deepPurple500} />
           </IconButton>
@@ -146,12 +146,12 @@ class Messages extends Component {
               <p className={s.headerTitle}>Messages</p>
             </div>
             <List style={listStyle}>
-            <Subheader style={subHeaderStyle}>Recent</Subheader>
+              <Subheader style={subHeaderStyle}>Recent</Subheader>
               {isLoading
                 ? 'Loading...'
                 : messages.map((message, index) => (
-                  <div key={index}>
-                    {index > 0 ? <Divider /> : ''}  
+                  <div key={message.id}>
+                    {index > 0 ? <Divider /> : ''}
                     <ListItem
                       leftAvatar={<Avatar backgroundColor={deepPurple500} icon={<CodeIcon />} />}
                       secondaryText={<p>{message.message}</p>}
@@ -171,8 +171,8 @@ class Messages extends Component {
   }
 }
 
-Messages.propTypes = {
+// Messages.propTypes = {
 
-};
+// };
 
 export default withStyles(s)(Messages);
