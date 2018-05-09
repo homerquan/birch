@@ -151,6 +151,7 @@ type Bot {
   token: String @fake(type:uuid)
   protocol: String  @examples(values: ["http", "https"])
   host: String @fake(type:url)
+  type: String @examples(values: ["personal", "health"])
   mode: String @examples(values: ["auto", "semi", "manual"])
   client: String @fake(type:uuid)
   createdAt: String @fake(type:pastDate,options:{dateFormat:""})
@@ -350,6 +351,7 @@ type CreateMessageResponse  {
 }
 
 type Mutation {
+  me: User # account details
   updateConversation(conversationId: String!): Conversation
   createMessage(input: MessageInput): CreateMessageResponse
   createBot(clientId: String!, name: String!, url: String!): Bot
