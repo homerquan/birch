@@ -14,7 +14,7 @@ import Blockies from 'react-blockies';
 import moment from 'moment';
 import Toggle from 'material-ui/Toggle';
 
-import s from './ConversationTable.css';
+import s from './ConversationsTable.css';
 
 const styles = {
   chipDark: {
@@ -80,7 +80,7 @@ const tableColumns = (addPinned, openDrawer) => ([
       <div>
         {intentions && intentions.length
           ? intentions.map((intention, index, array) => (
-            <span key={intention.name}>
+            <span key={intention.id}>
               <Chip
                 style={array.length === (index + 1) ? styles.chip : styles.chipDark}
               >
@@ -102,7 +102,7 @@ const tableColumns = (addPinned, openDrawer) => ([
       <div>
         {actions && actions.length ? (
           actions.map(action => (
-            <span key={action.name}>
+            <span key={action.id}>
               <Chip
                 style={styles.chip}
               >
@@ -128,17 +128,17 @@ const tableColumns = (addPinned, openDrawer) => ([
     ),
   },
   {
-    key: 'pinned',
+    key: 'pinToTop',
     label: 'Pin to Top',
     style: {
       width: 40,
     },
-    render: (pin, all) => {
+    render: (pinToTop, all) => {
       const { id } = all;
 
       return (<Toggle
         name={id}
-        toggled={pin}
+        toggled={pinToTop}
         onToggle={passedId => addPinned(passedId)}
       />);
     },
@@ -199,11 +199,11 @@ class ConversationsTable extends Component {
     // Original idea here: https://github.com/hyojin/material-ui-datatables/issues/46
     // First sort by pinned/not pinned then sort the passed in key/order
     array.sort((a, b) => {
-      if (a.pinned && !b.pinned) {
+      if (a.pinToTop && !b.pinToTop) {
         return -1;
       }
 
-      if (!a.pinned && b.pinned) {
+      if (!a.pinToTop && b.pinToTop) {
         return 1;
       }
 
@@ -221,8 +221,8 @@ class ConversationsTable extends Component {
 
     // Build the initial conversation array, moving pinned conversations
     // to the top.
-    const pinned = conversations.filter(conv => conv.pinned);
-    const notPinned = conversations.filter(conv => !conv.pinned);
+    const pinned = conversations.filter(conv => conv.pinToTop);
+    const notPinned = conversations.filter(conv => !conv.pinToTop);
     const data = [
       ...pinned,
       ...notPinned,
@@ -257,6 +257,7 @@ ConversationsTable.propTypes = {
       client: PropTypes.string,
       id: PropTypes.string,
       intentions: PropTypes.array,
+      pinToTop: PropTypes.bool,
       mode: PropTypes.string,
       updatedAt: PropTypes.string,
       visito: PropTypes.string,

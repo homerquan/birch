@@ -1,8 +1,8 @@
 /*
 * @Author: Homer
 * @Date:   2017-12-17 23:50:40
-* @Last Modified by:   Homer
-* @Last Modified time: 2017-12-28 08:26:05
+* @Last Modified by:   Michael
+* @Last Modified time: 2018-05-09
 */
 
 import React, { Component } from 'react';
@@ -38,10 +38,12 @@ const conversationsQuery = gql`
               score
             }
             actions {
+              id
               source
               name
               status
             }
+            pinToTop
             mode
             updatedAt
           }
@@ -50,36 +52,11 @@ const conversationsQuery = gql`
           hasNextPage
           endCursor
         }
+        totalCount
       }
     }
   }
 `;
-
-// const conversationsQuery = gql`
-//   query ConversationsQuery($clientId : String!, $botId: String){
-//     conversations(clientId : $clientId, botId: $botId) {
-      // id
-      // visitor
-      // client
-      // intentions {
-      //   name
-      //   score
-      // }
-      // actions {
-      //   source
-      //   name
-      //   status
-      // }
-      // messages {
-      //   id
-      //   text,
-      //   source
-      // }
-      // mode
-      // updatedAt
-//     }
-//   }
-// `;
 
 // const subscriptionConversationQuery = gql`
 //   subscription onUpdateConversation($clientId:String) {
@@ -108,8 +85,9 @@ class ConversationsView extends Component {
     this.setState({ drawerIsOpen: false });
   }
 
-  openDrawer(conversationId) {
-    const selected = this.props.data.conversationsFeed.conversations.edges.find(con => con.node.id === conversationId);
+  openDrawer(convoId) {
+    const { data: { conversationsFeed } } = this.props;
+    const selected = conversationsFeed.conversations.edges.find(convo => convo.node.id === convoId);
 
     this.setState({
       drawerIsOpen: true,
@@ -117,16 +95,13 @@ class ConversationsView extends Component {
     });
   }
 
-  addPinned(conversationId) {
-    // TODO:
-    // conversationId.target.name is id of conversation.
-    // Make api call to save this conversation as pinned
-    console.log(conversationId.target.name);
+  addPinned(e) {
+    const conversationId = e.target.name;
+    this.props.mutate({ variables: { conversationId, pinToTop: true } })
+      .then(() => this.props.data.refetch());
   }
 
-  transform = data => {
-    return _.map(data, 'node');
-  }
+  transform = data => (_.map(data, 'node'));
 
   render() {
     const { conversationsFeed, loading, refetch } = this.props.data;
@@ -183,14 +158,25 @@ class ConversationsView extends Component {
 ConversationsView.propTypes = {
   clientId: PropTypes.string.isRequired,
   data: PropTypes.shape({
-    conversations: PropTypes.array,
+    conversationsFeed: PropTypes.object,
     loading: PropTypes.bool,
     refetch: PropTypes.func,
   }).isRequired,
+  mutate: PropTypes.func.isRequired,
 };
+
+const updateConversationPinToTop = gql`
+  mutation UpdateConversationPinToTop($conversationId: String!, $pinToTop: Boolean!)  {
+    updateConversationPinToTop(conversationId:$conversationId, pinToTop: $pinToTop) {
+      id
+      pinToTop
+    }
+  }
+`;
 
 export default withStyles(s)(
   compose(
+    graphql(updateConversationPinToTop),
     graphql(conversationsQuery, {
       options: props => ({
         variables: { clientId: props.clientId, botId: props.botId },
