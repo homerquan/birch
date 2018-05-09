@@ -58,7 +58,7 @@ query{
 
 query {
  notificationsFeed(clientId:"abc") {
-  notifications(first:1,last:10, filter:["status=unread"] ){
+  notifications(filter:["status=unread"] ){
     totalCount
     edges{
       node {
