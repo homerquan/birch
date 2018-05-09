@@ -119,6 +119,27 @@ query{
     }
   }
 }
+
+query{
+  pluginsFeed(conversationId:"uuid") {
+    bots(first:1) {
+      edges {
+       node {
+         id
+         image
+         name
+         description
+       }
+      }
+      totalCount
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
+    }
+  }
+}
+
 ```
 
 ## Debug runtime 

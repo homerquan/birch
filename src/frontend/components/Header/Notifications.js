@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { graphql, compose } from 'react-apollo';
+import _ from 'lodash';
 import gql from 'graphql-tag';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
