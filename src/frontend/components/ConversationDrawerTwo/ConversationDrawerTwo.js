@@ -49,13 +49,15 @@ class ConversationDrawerTwo extends Component {
       currentMessage: '',
       activeCommands: [],
       keysPressed: [],
+      enableTraining: false,
       trainingIsOpen: false,
     };
 
     this.handleInputOnChange = this.handleInputOnChange.bind(this);
     this.handleKeyPress = this.handleKeyPress.bind(this);
     this.addMessage = this.addMessage.bind(this);
-    this.handleToggle = this.handleToggle.bind(this);
+    this.handleEnableTrainingToggle = this.handleEnableTrainingToggle.bind(this);
+    this.handleTrainingIsOpenToggle = this.handleTrainingIsOpenToggle.bind(this);
   }
 
   componentWillMount() {
@@ -164,7 +166,11 @@ class ConversationDrawerTwo extends Component {
     }
   }
 
-  handleToggle() {
+  handleEnableTrainingToggle() {
+    this.setState({ enableTraining: !this.state.enableTraining });
+  }
+
+  handleTrainingIsOpenToggle() {
     this.setState({ trainingIsOpen: !this.state.trainingIsOpen });
   }
 
@@ -179,7 +185,7 @@ class ConversationDrawerTwo extends Component {
 
   render() {
     const { width, isOpen, closeDrawer } = this.props;
-    const { currentMessage, activeCommands, trainingIsOpen } = this.state;
+    const { currentMessage, activeCommands, trainingIsOpen, enableTraining } = this.state;
 
     const styles = {
       conversationBG: {
@@ -236,6 +242,7 @@ class ConversationDrawerTwo extends Component {
         width: '100%',
         maxWidth: width === LARGE ? '700px' : 'none',
         margin: width === LARGE ? '0 auto' : 0,
+        overflow: 'hidden',
       },
     };
 
@@ -258,11 +265,11 @@ class ConversationDrawerTwo extends Component {
               <div className={s.utilityBar}>
                 <Toggle
                   style={{ width: 'auto' }}
-                  label="Open Training"
+                  label="Enable Training"
                   className={s.trainingToggle}
                   labelStyle={toggleLabel}
-                  toggled={trainingIsOpen}
-                  onClick={this.handleToggle}
+                  toggled={enableTraining}
+                  onClick={this.handleEnableTrainingToggle}
                 />
               </div>
             </div>
@@ -270,6 +277,8 @@ class ConversationDrawerTwo extends Component {
             <div style={styles.conversationContainer}>
               <DecisionSupport
                 isOpen={this.props.runtime[ACTION_TYPES.OPEN_DECISION_SUPPORT]}
+                enableTraining={this.state.enableTraining}
+                openTraining={this.handleTrainingIsOpenToggle}
               />
 
               {this.props.data.conversation !== undefined &&
@@ -313,7 +322,7 @@ class ConversationDrawerTwo extends Component {
         {trainingIsOpen &&
           <Training
             isOpen={trainingIsOpen}
-            close={this.handleToggle}
+            close={this.handleTrainingIsOpenToggle}
           />
         }
       </div>
@@ -324,11 +333,11 @@ class ConversationDrawerTwo extends Component {
 ConversationDrawerTwo.propTypes = {
   data: PropTypes.shape({
     conversation: PropTypes.shape({
-      messages: PropTypes.array,
+      messages: PropTypes.object,
     }),
   }).isRequired,
   runtime: PropTypes.shape({
-    openDecisionSupport: PropTypes.bool,
+    openDecisionSupport: PropTypes.number,
   }).isRequired,
   isOpen: PropTypes.bool.isRequired,
   closeDrawer: PropTypes.func.isRequired,
