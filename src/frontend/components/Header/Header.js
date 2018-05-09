@@ -78,7 +78,7 @@ class Header extends React.Component {
 
     return (
       <MuiThemeProvider muiTheme={getMuiTheme(themeDark)}>
-     
+
         <div>
           <LoadingIndicator loading={this.state.loading} />
           <GlobalNotice />
@@ -91,12 +91,11 @@ class Header extends React.Component {
               iconElementRight={
                 <div>
                   <Messages />
-                  <Notifications />
+                  <Notifications clientId={'asdf'} />
                 </div>
               }
-            >
-            </AppBar>
-          </Sticky>  
+            />
+          </Sticky>
         </div>
       </MuiThemeProvider>
     );
