@@ -1,3 +1,8 @@
+# Name convention:
+#  * Do not consume entities directly, using <entities>Feed with pagination
+#  * Single entitie can be consumed directly, e.g., conversation. Always query it by uuid
+#  * Query (read), Mutation(write), Subscription(real-time push) are special type
+
 type PageInfo {
   endCursor: String @examples(values: ["Y3Vyc29yMw=="])
   hasNextPage: Boolean @examples(values: [true])
@@ -34,8 +39,9 @@ type Conversation {
   visitor: String
   bot: String
   client: String
-  status: String
-  mode: String
+  status: String  @examples(values: ["online", "disconnected"])
+  mode: String @examples(values: ["auto", "semi", "manual"])
+  pinToTop: Boolean @examples(values: [true,false])
   intentions: [Intention]
   actions: [Action]
   messages: [Message]
@@ -75,6 +81,15 @@ type MessagesConnection {
 type MessagesEdge {
   cursor: String! @examples(values: ["Y3Vyc29yMw=="])
   node: Message
+}
+
+type MessagesFeed {
+   messages(
+    first: Int,
+    after: String,
+    last: Int,
+    before: String
+  ): MessagesConnection 
 }
 
 
@@ -141,6 +156,27 @@ type Bot {
   updatedAt: String @fake(type:pastDate,options:{dateFormat:""})
 }
 
+type BotsConnection {
+  totalCount: Int
+  pageInfo: PageInfo!
+  edges: [BotsEdge]
+}
+
+type BotsEdge {
+  cursor: String! @examples(values: ["Y3Vyc29yMw=="])
+  node: Bot
+}
+
+type BotsFeed {
+   bots(
+    first: Int,
+    after: String,
+    last: Int,
+    before: String
+  ): BotsConnection 
+}
+
+
 type Knowledge {
   id: String
   raw: String
@@ -171,9 +207,11 @@ type Query {
   notificationsFeed(clientId: String): NotificationsFeed
   conversationsFeed(clientId: String, botId: String): ConversationsFeed
   conversation(conversationId: String): Conversation
-  messages(conversationId: String, clientId: String): [Message]
-  bots(clientId: String): [Bot]
-  knowledge(clientId: String, botId: String): Knowledge
+  messagesFeed(conversationId: String): MessagesFeed
+  botsFeed(clientId: String): BotsFeed
+  messages(conversationId: String, clientId: String): [Message] #this will be removed
+  bots(clientId: String): [Bot] #this will be removed
+  knowledge(clientId: String, botId: String): Knowledge #this will be removed
 }
 
 type ConversationEvent {
@@ -203,6 +241,7 @@ type Mutation {
   createMessage(input: MessageInput): CreateMessageResponse
   createBot(clientId: String!, name: String!, url: String!): Bot
   updateKnowledge(clientId: String!, botId:String!, text: String!): Knowledge
+  updateConversationPinToTop(conversationId:String!,pinToTop:Boolean!): Conversation
   changeAccountPassword(clientId:String!):User
   closeAccount(clientId: String!): User
 }

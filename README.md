@@ -15,16 +15,7 @@
 
 Edit in `http://localhost:8084/editor/`
 
-```
-query {
-  conversations(clientId:"ddcd39c9-dcbc-4a26-bcf7-525d77c12d54") {
-    id
-    visitor
-    client
-    mode
-    updatedAt
-  }
-}
+
 ```
 An example with variable:
 
@@ -45,24 +36,28 @@ using variable:
 
 with pagination:
 ```
-query {
-  conversations {
-    id
-     messages(first:2){
+query{
+  messagesFeed(conversationId:"uuid") {
+    messages(first:1) {
       edges {
-        cursor
-        node {
-          id
-          source
-          text
-        }
+       node {
+         id
+         source
+         text
+       }
+      }
+      totalCount
+      pageInfo {
+        hasNextPage
+        endCursor
       }
     }
   }
 }
 
+
 query {
- NotificationsFeed(clientId:"abc") {
+ notificationsFeed(clientId:"abc") {
   notifications(first:1,last:10, filter:["status=unread"] ){
     totalCount
     edges{
@@ -82,7 +77,7 @@ query {
 
 query 
 {
-  ConversationsFeed(clientId:"abc",botId:"123") {
+  conversationsFeed(clientId:"abc",botId:"123") {
     conversations(first:1){
       edges {
         cursor
@@ -102,6 +97,24 @@ query
           mode
           updatedAt
         }
+      }
+    }
+  }
+}
+
+query{
+  botsFeed(clientId:"uuid") {
+    bots(first:1) {
+      edges {
+       node {
+         id
+         host
+       }
+      }
+      totalCount
+      pageInfo {
+        hasNextPage
+        endCursor
       }
     }
   }
