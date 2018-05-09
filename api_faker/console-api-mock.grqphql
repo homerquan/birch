@@ -1,3 +1,8 @@
+# Name convention:
+#  * Do not consume entities directly, using <entities>Feed with pagination
+#  * Single entitie can be consumed directly, e.g., conversation. Always query it by uuid
+#  * Query (read), Mutation(write), Subscription(real-time push) are special type
+
 type PageInfo {
   endCursor: String @examples(values: ["Y3Vyc29yMw=="])
   hasNextPage: Boolean @examples(values: [true])
@@ -34,8 +39,8 @@ type Conversation {
   visitor: String
   bot: String
   client: String
-  status: String
-  mode: String
+  status: String  @examples(values: ["online", "disconnected"])
+  mode: String @examples(values: ["auto", "semi", "manual"])
   intentions: [Intention]
   actions: [Action]
   messages: [Message]
@@ -171,9 +176,9 @@ type Query {
   notificationsFeed(clientId: String): NotificationsFeed
   conversationsFeed(clientId: String, botId: String): ConversationsFeed
   conversation(conversationId: String): Conversation
-  messages(conversationId: String, clientId: String): [Message]
-  bots(clientId: String): [Bot]
-  knowledge(clientId: String, botId: String): Knowledge
+  messages(conversationId: String, clientId: String): [Message] #this will be removed
+  bots(clientId: String): [Bot] #this will be removed
+  knowledge(clientId: String, botId: String): Knowledge #this will be removed
 }
 
 type ConversationEvent {
