@@ -43,59 +43,55 @@ const NotificationsFeed = gql`
   }
 `;
 
-const badgeStyle = {
-  top: -4,
-  right: -4,
-  width: 21,
-  height: 20,
-  paddingTop: 1,
-  fontSize: 10,
-  border: '2px solid white',
-  zIndex: 1,
-  backgroundColor: pink500,
-  color: 'white',
-};
 
-const badgeRootStyle = {
-  padding: 0,
-};
-
-const btnStyle = {
-  padding: 0,
-};
-
-const paperStyle = {
-  position: 'absolute',
-  zIndex: 101,
-  right: 0,
-  top: 46,
-  width: 430,
-};
-
-const subHeaderStyle = {
-  lineHeight: '14px',
-  paddingTop: 10,
-  paddingBottom: 5,
-};
-
-const listStyle = {
-  padding: 0,
-  overflowY: 'scroll',
-  maxHeight: '317px', // show 4 notifications
-};
-
-const footerText = {
-  margin: '8px 0',
-  fontSize: '14px',
-  fontWeight: 400,
-  lineHeight: '14px',
-  padding: '0 10px',
-  color: deepPurple500,
-  textDecoration: 'none',
-};
-
-const hiddenStyle = {
-  display: 'none',
+const styles = {
+  badgeStyle: {
+    top: -4,
+    right: -4,
+    width: 21,
+    height: 20,
+    paddingTop: 1,
+    fontSize: 10,
+    border: '2px solid white',
+    zIndex: 1,
+    backgroundColor: pink500,
+    color: 'white',
+  },
+  badgeRootStyle: {
+    padding: 0,
+  },
+  btnStyle: {
+    padding: 0,
+  },
+  paperStyle: {
+    position: 'absolute',
+    zIndex: 101,
+    right: 0,
+    top: 46,
+    width: 430,
+  },
+  subHeaderStyle: {
+    lineHeight: '14px',
+    paddingTop: 10,
+    paddingBottom: 5,
+  },
+  listStyle: {
+    padding: 0,
+    overflowY: 'scroll',
+    maxHeight: '317px', // show 4 notifications
+  },
+  footerText: {
+    margin: '8px 0',
+    fontSize: '14px',
+    fontWeight: 400,
+    lineHeight: '14px',
+    padding: '0 10px',
+    color: deepPurple500,
+    textDecoration: 'none',
+  },
+  hiddenStyle: {
+    display: 'none',
+  },
 };
 
 class Notifications extends Component {
@@ -143,21 +139,25 @@ class Notifications extends Component {
       <MuiThemeProvider muiTheme={getMuiTheme(lightTheme)}>
         <Badge
           badgeContent={runtime[ACTION_TYPES.NOTIFICATIONS_COUNT]}
-          badgeStyle={runtime[ACTION_TYPES.NOTIFICATIONS_COUNT] > 0 ? badgeStyle : hiddenStyle}
-          style={badgeRootStyle}
+          badgeStyle={
+            runtime[ACTION_TYPES.NOTIFICATIONS_COUNT] > 0
+            ? styles.badgeStyle
+            : styles.hiddenStyle
+          }
+          style={styles.badgeRootStyle}
         >
           <IconButton
             className="notificationIcon"
-            style={btnStyle}
+            style={styles.btnStyle}
           >
             <NotificationIcon color={deepPurple500} />
           </IconButton>
-          <Paper style={isOpen ? paperStyle : hiddenStyle}>
+          <Paper style={isOpen ? styles.paperStyle : styles.hiddenStyle}>
             <div className={s.header}>
               <p className={s.headerTitle}>Notifications</p>
             </div>
-            <List style={listStyle}>
-              <Subheader style={subHeaderStyle}>Recent</Subheader>
+            <List style={styles.listStyle}>
+              <Subheader style={styles.subHeaderStyle}>Recent</Subheader>
               {notificationsFeed.notifications.edges
                 ? (
                   this.transform(notificationsFeed.notifications.edges).map((message, index) => (
@@ -174,7 +174,7 @@ class Notifications extends Component {
               }
             </List>
             <div className={s.footer}>
-              <Link to='#' style={footerText}>See All</Link>
+              <Link to="/notifications" style={styles.footerText}>See All</Link>
             </div>
           </Paper>
         </Badge>
