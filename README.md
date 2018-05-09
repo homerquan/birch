@@ -158,6 +158,46 @@ In redux dev tool, dispatch events such as
 
 ```
 {
+    "type": "SET_RUNTIME_VARIABLE",
+    "payload": {
+        "name": "OPEN_DECISION_SUPPORT",
+        "value": 1
+    }
+}
+```
+
+```
+{
+    "type": "SET_RUNTIME_VARIABLE",
+    "payload": {
+        "name": "SHOW_CHAT_BUBBLE",
+        "value": 1
+    }
+}
+```
+
+```
+{
+    "type": "SET_RUNTIME_VARIABLE",
+    "payload": {
+        "name": "SHOW_CHAT_ERROR",
+        "value": 1
+    }
+}
+```
+
+```
+{
+    "type": "SET_RUNTIME_VARIABLE",
+    "payload": {
+        "name": "NOTIFICATIONS_COUNT",
+        "value": 1
+    }
+}
+```
+
+```
+{
     "type": "ADD_GLOBAL_NOTIFICATION",
     "payload": {
         "id": 123,
