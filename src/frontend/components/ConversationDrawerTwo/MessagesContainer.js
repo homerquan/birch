@@ -14,12 +14,6 @@ class MessagesContainer extends Component {
     messageContainerInner.scrollIntoView(false);
   }
 
-  // static getDerivedStateFromProps(nextProps, prevState) {
-  //   console.log('Previous Message Container props: ', prevState);
-  //   console.log('Message Container props: ', nextProps);
-  //   return nextProps;
-  // }
-
   render() {
     const { messages } = this.props;
 
@@ -111,8 +105,8 @@ class MessagesContainer extends Component {
 
 MessagesContainer.propTypes = {
   runtime: PropTypes.shape({
-    SHOW_CHAT_BUBBLE: PropTypes.bool,
-    SHOW_CHAT_ERROR: PropTypes.bool,
+    SHOW_CHAT_BUBBLE: PropTypes.number,
+    SHOW_CHAT_ERROR: PropTypes.number,
   }).isRequired,
   messages: PropTypes.arrayOf(
     PropTypes.shape({

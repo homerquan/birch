@@ -1,15 +1,16 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import Paper from 'material-ui/Paper';
 import LinearProgress from 'material-ui/LinearProgress';
 import FlatButton from 'material-ui/FlatButton';
+import RaisedButton from 'material-ui/RaisedButton';
 import Badge from 'material-ui/Badge';
 import classnames from 'classnames';
 
 import s from './DecisionSupport.css';
 
-const DecisionSupport = ({ isOpen }) => {
+const DecisionSupport = ({ isOpen, enableTraining, openTraining }) => {
   const styles = {
     badgeRootStyle: {
       padding: 0,
@@ -23,24 +24,32 @@ const DecisionSupport = ({ isOpen }) => {
     },
   };
 
-  // const containerClass = classnames(
-  //   s.container,
-  //   [s.active]: isOpen
-  // );
+  const containerClass = classnames(
+    s.decisionSupportContainer,
+    { [s.active]: isOpen },
+  );
 
-  if (isOpen) {
-    return (
-      <div >
-        <Paper className={s.decisionThinking}>
-          <p className={s.decisionThinkingText}>Filling out referral form...</p>
-          <LinearProgress mode="indeterminate" />
-        </Paper>
-        <Paper className={s.decisionAction} zDepth={3}>
-          <p className={s.decisionActionText}>
-            <b>Recommend: </b> Real-time engagement driven by augmented intelligence.
-          </p>
-          <div className={s.decisionButtons}>
-            <FlatButton label="Cancel" primary />
+  return (
+    <Paper className={containerClass} zDepth={3}>
+      <div>
+        <p className={s.decisionThinkingText}>Filling out referral form...</p>
+        <LinearProgress mode="indeterminate" />
+      </div>
+
+      <div>
+        <p className={s.decisionActionText}>
+          <b>Recommend: </b> Real-time engagement driven by augmented intelligence.
+        </p>
+        <div className={s.decisionButtons}>
+          <div>
+            <RaisedButton
+              label="Edit"
+              primary
+              onClick={openTraining}
+              disabled={!enableTraining}
+            />
+          </div>
+          <div>
             <Badge
               badgeContent={4}
               primary
@@ -49,17 +58,18 @@ const DecisionSupport = ({ isOpen }) => {
             >
               <FlatButton label="Accept" />
             </Badge>
+            <FlatButton label="Cancel" primary />
           </div>
-        </Paper>
+        </div>
       </div>
-    );
-  }
-
-  return <div />;
+    </Paper>
+  );
 };
 
-// DecisionSupport.propTypes = {
-
-// };
+DecisionSupport.propTypes = {
+  isOpen: PropTypes.number.isRequired,
+  enableTraining: PropTypes.bool.isRequired,
+  openTraining: PropTypes.func.isRequired,
+};
 
 export default withStyles(s)(DecisionSupport);

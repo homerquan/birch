@@ -1,24 +1,19 @@
-.decisionThinking {
+.decisionSupportContainer {
     position: absolute;
-    background-color: white;
     top: 0;
     left: 0;
     right: 0;
     z-index: 104;
+    transform: translateY(-110%);
+}
+
+.active {
+    transform: translateY(0);
 }
 
 .decisionThinkingText {
     padding: 14px;
     margin: 0;
-}
-
-.decisionAction {
-    position: absolute;
-    background-color: white;
-    top: 53px;
-    left: 0;
-    right: 0;
-    z-index: 104;
 }
 
 .decisionActionText {
@@ -28,5 +23,7 @@
 
 .decisionButtons {
     display: flex;
-    flex-direction: row-reverse;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 10px;
 }
