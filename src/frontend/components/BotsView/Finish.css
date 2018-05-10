@@ -1,0 +1,9 @@
+.copyContainer {
+    display: flex
+}
+
+.copyContainer input {
+    padding: 10px;
+    flex: 1;
+    margin-top: 14px;
+}

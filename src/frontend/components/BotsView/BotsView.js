@@ -6,39 +6,28 @@
 */
 
 import React from 'react';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import lightTheme from '../theme';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { graphql, compose } from 'react-apollo';
+import gql from 'graphql-tag';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import DataTables from 'material-ui-datatables';
-import Paper from 'material-ui/Paper'
-import Avatar from 'material-ui/Avatar'
-import Chip from 'material-ui/Chip'
-import withStyles from 'isomorphic-style-loader/lib/withStyles'
-import IconButton from 'material-ui/IconButton'
-import OnlineIcon from 'react-material-icons/icons/action/swap-horiz'
-import OffIcon from 'react-material-icons/icons/notification/sync-disabled'
-import ActiveActionIcon from 'react-material-icons/icons/action/history'
-import ReloadIcon from 'react-material-icons/icons/action/cached'
-import AddIcon from 'react-material-icons/icons/content/add'
-import CircularProgress from 'material-ui/CircularProgress'
-import MoreIcon from 'react-material-icons/icons/navigation/more-vert'
-import s from './BotsView.css'
-import gql from 'graphql-tag'
-import Blockies from 'react-blockies'
-import RaisedButton from 'material-ui/RaisedButton'
-import * as runtimeActions from '../../actions/runtime'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
-import config from '../../config';
-
-
+import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import IconButton from 'material-ui/IconButton';
+import ReloadIcon from 'react-material-icons/icons/action/cached';
+import AddIcon from 'react-material-icons/icons/content/add';
 import {
   Toolbar,
   ToolbarGroup,
-  ToolbarSeparator,
-  ToolbarTitle
-} from "material-ui/Toolbar";
+} from 'material-ui/Toolbar';
+
+import * as runtimeActions from '../../actions/runtime';
+import config from '../../config';
+import lightTheme from '../theme';
+import s from './BotsView.css';
+import NewApp from './NewApp';
 
 const botsQuery = gql`
   query BotsQuery($clientId: String!) {
@@ -53,48 +42,71 @@ const botsQuery = gql`
 
 const tableColumns = [
   {
-    key: "name",
-    label: "Name",
+    key: 'name',
+    label: 'Name',
     style: {
-      width: 160
-    }
+      width: 160,
+    },
   },
   {
-    key: "host",
-    label: "Host",
+    key: 'host',
+    label: 'Host',
     style: {
-      width: 60
-    }
+      width: 60,
+    },
   },
   {
-    key: "token",
-    label: "Embed code",
+    key: 'token',
+    label: 'Embed code',
     render: (token, all) => (
-      <div> 
+      <div>
         <code className={s.smallCode}>
-           &lt;script src="{config.widgetUrl}" bid="{all.id}" token="{token}" async&gt;&lt;/script&gt;
+           &lt;script
+           src=&quot;{config.widgetUrl}&quot;
+           bid=&quot;{all.id}&quot;
+           token=&quot;{token}&quot;
+           async&gt;&lt;/script&gt;
         </code>
       </div>
-    )
-  }
+    ),
+  },
 ];
 
 class BotsView extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { openDrawer: false, selectedConversation: null };
+
+    this.state = {
+      openDrawer: false,
+      selectedConversation: null,
+      newAppModalIsOpen: true,
+    };
+
+    this.closeNewAppModal = this.closeNewAppModal.bind(this);
+    this.openNewAppModal = this.openNewAppModal.bind(this);
   }
 
-  selectBot = index => {
+  selectBot = (index) => {
     const selected = this.props.data.bots[index];
+
     this.props.actions.setRuntimeVariable({
       name: 'selectedApp',
-      value: selected
+      value: selected,
     });
-    window.location.replace("/"+selected.id+"/conversations"); 
+
+    window.location.replace(`/${selected.id}/conversations`);
   };
 
+  closeNewAppModal() {
+    this.setState({ newAppModalIsOpen: false });
+  }
+
+  openNewAppModal() {
+    this.setState({ newAppModalIsOpen: true });
+  }
+
   render() {
+    const { newAppModalIsOpen } = this.state;
     const { bots, loading, refetch } = this.props.data;
 
     if (loading) return <h1>Loading</h1>;
@@ -103,9 +115,9 @@ class BotsView extends React.Component {
       <MuiThemeProvider muiTheme={getMuiTheme(lightTheme)}>
         <div>
           <Toolbar>
-            <ToolbarGroup firstChild={true} />
+            <ToolbarGroup firstChild />
             <ToolbarGroup>
-              <IconButton tooltip="Add" href="/new_app">
+              <IconButton tooltip="Add" onClick={this.openNewAppModal}>
                 <AddIcon />
               </IconButton>
               <IconButton tooltip="Reload" onTouchTap={() => refetch()}>
@@ -116,9 +128,9 @@ class BotsView extends React.Component {
 
           {bots && bots.length ? (
             <DataTables
-              height={"auto"}
+              height={'auto'}
               selectable={false}
-              showRowHover={true}
+              showRowHover
               columns={tableColumns}
               data={bots}
               showCheckboxes={false}
@@ -130,26 +142,44 @@ class BotsView extends React.Component {
             <div>
               <div className={s.nothing}>
                 <div className={s.fun}>
-                  <img src="/images/nothing.png" />
+                  <img src="/images/nothing.png" alt="No Apps" />
                 </div>
               </div>
             </div>
           )}
         </div>
+
+        {newAppModalIsOpen &&
+          <NewApp
+            close={this.closeNewAppModal}
+          />
+        }
+
       </MuiThemeProvider>
     );
   }
 }
 
+BotsView.propTypes = {
+  data: PropTypes.shape({
+    loading: PropTypes.bool,
+    refetch: PropTypes.func,
+    bots: PropTypes.object,
+  }).isRequired,
+  actions: PropTypes.shape({
+    setRuntimeVariable: PropTypes.func,
+  }).isRequired,
+};
+
 function selectProps(state) {
   return {
-    runtime: state.runtime
+    runtime: state.runtime,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(runtimeActions, dispatch)
+    actions: bindActionCreators(runtimeActions, dispatch),
   };
 }
 
@@ -157,8 +187,8 @@ export default withStyles(s)(
   compose(
     graphql(botsQuery, {
       options: props => ({
-        variables: { clientId: props.clientId }
-      })
-    })
-  )(connect(selectProps, mapDispatchToProps)(BotsView))
+        variables: { clientId: props.clientId },
+      }),
+    }),
+  )(connect(selectProps, mapDispatchToProps)(BotsView)),
 );
