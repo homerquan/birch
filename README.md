@@ -75,6 +75,7 @@ query {
  }
 }
 
+
 query 
 {
   conversationsFeed(clientId:"abc",botId:"123") {
@@ -99,6 +100,25 @@ query
         }
       }
     }
+  }
+}
+
+query {
+  conversation(conversationId:"a87cb625-18fb-4929-a2fc-e588aab28c5"){
+    messages(first:1) {
+     edges {
+      node {
+        id
+        text
+        source
+      }
+     }
+     totalCount
+     pageInfo {
+      hasNextPage
+      endCursor
+    }
+   }
   }
 }
 
