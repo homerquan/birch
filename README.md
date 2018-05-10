@@ -154,9 +154,7 @@ In redux dev tool, dispatch events such as
         "value": 1
     }
 }
-```
 
-```
 {
     "type": "SET_RUNTIME_VARIABLE",
     "payload": {
@@ -164,9 +162,7 @@ In redux dev tool, dispatch events such as
         "value": 1
     }
 }
-```
 
-```
 {
     "type": "SET_RUNTIME_VARIABLE",
     "payload": {
@@ -174,9 +170,7 @@ In redux dev tool, dispatch events such as
         "value": 1
     }
 }
-```
 
-```
 {
     "type": "SET_RUNTIME_VARIABLE",
     "payload": {
@@ -184,9 +178,7 @@ In redux dev tool, dispatch events such as
         "value": 1
     }
 }
-```
 
-```
 {
     "type": "SET_RUNTIME_VARIABLE",
     "payload": {

@@ -24,6 +24,7 @@ import { ACTION_TYPES } from '../../constants';
 const conversationQuery = gql`
   query Conversation($conversationId: String){
     conversation(conversationId: $conversationId){
+      id
       messages(first:1) {
         edges {
           node {
@@ -175,15 +176,26 @@ class ConversationDrawerTwo extends Component {
     this.setState({ trainingIsOpen: !this.state.trainingIsOpen });
   }
 
-  addMessage(newMessage) { // eslint-disable-line
-    // TODO: Need to hook this up to save the new mesage
-    // then add it to the message list.
+  addMessage(text) {
+    const { session, data, mutate } = this.props;
+    const { enableTraining } = this.state;
+
+    const newMessage = {
+      text,
+      conversationId: data.conversation.id,
+      userId: session.userId,
+      isLearning: enableTraining,
+    };
+
+    mutate({ variables: { ...newMessage } })
+      .then(() => data.refetch())
+      .then(this.setState({ currentMessage: '' }));
   }
 
   transform = data => (_.map(data, 'node'));
 
   render() {
-    const { width, isOpen, closeDrawer, data: { loading } } = this.props;
+    const { width, isOpen, closeDrawer, data: { loading, conversation } } = this.props;
     const { currentMessage, activeCommands, trainingIsOpen, enableTraining } = this.state;
 
     const styles = {
@@ -284,11 +296,10 @@ class ConversationDrawerTwo extends Component {
                 openTraining={this.handleTrainingIsOpenToggle}
               />
 
-              {this.props.data.conversation !== undefined &&
-                <MessagesContainer
-                  messages={this.transform(this.props.data.conversation.messages.edges)}
-                />
-              }
+              <MessagesContainer
+                messages={this.transform(conversation.messages.edges)}
+              />
+              
 
               <div className={s.chatBoxContainer}>
                 <ActionMenu plugins={fakeData.plugins} />
@@ -301,7 +312,9 @@ class ConversationDrawerTwo extends Component {
                 />
 
                 <IconButton>
-                  <SendIcon />
+                  <SendIcon
+                    onClick={() => this.addMessage(currentMessage)}
+                  />
                 </IconButton>
 
                 <CommandsList
@@ -339,6 +352,10 @@ ConversationDrawerTwo.propTypes = {
       messages: PropTypes.object,
     }),
   }).isRequired,
+  mutate: PropTypes.func.isRequired,
+  session: PropTypes.shape({
+    userId: PropTypes.string,
+  }).isRequired,
   runtime: PropTypes.shape({
     openDecisionSupport: PropTypes.number,
   }).isRequired,
@@ -347,15 +364,31 @@ ConversationDrawerTwo.propTypes = {
   width: PropTypes.number.isRequired,
 };
 
+const createMessage = gql`
+  mutation CreateMessage($input: MessageInput) {
+    createMessage(input: $input){
+      error {
+        code
+        message
+        detail
+      }
+      message {
+        id
+      }
+    }
+  }
+`;
 
 function selectProps(state) {
   return {
     runtime: state.runtime,
+    session: state.session,
   };
 }
 
 export default withWidth()(withStyles(s)(
   compose(
+    graphql(createMessage),
     graphql(conversationQuery, {
       options: props => ({
         variables: { conversationId: props.clientId },
