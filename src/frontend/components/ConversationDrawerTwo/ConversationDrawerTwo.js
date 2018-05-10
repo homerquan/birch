@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 import { connect } from 'react-redux';
 import { graphql, compose } from 'react-apollo';
 import gql from 'graphql-tag';
@@ -24,19 +25,19 @@ const conversationQuery = gql`
   query Conversation($conversationId: String){
     conversation(conversationId: $conversationId){
       messages(first:1) {
-      edges {
-        node {
-          id
-          text
-          source
+        edges {
+          node {
+            id
+            text
+            source
+          }
+        }
+        totalCount
+        pageInfo {
+          hasNextPage
+          endCursor
         }
       }
-      totalCount
-            pageInfo {
-        hasNextPage
-        endCursor
-      }
-    }
     }
   }
 `;
@@ -179,12 +180,10 @@ class ConversationDrawerTwo extends Component {
     // then add it to the message list.
   }
 
-  transform = data => {
-    return _.map(data, 'node');
-  }
+  transform = data => (_.map(data, 'node'));
 
   render() {
-    const { width, isOpen, closeDrawer } = this.props;
+    const { width, isOpen, closeDrawer, data: { loading } } = this.props;
     const { currentMessage, activeCommands, trainingIsOpen, enableTraining } = this.state;
 
     const styles = {
@@ -249,6 +248,10 @@ class ConversationDrawerTwo extends Component {
     const toggleLabel = {
       color: 'white',
     };
+
+    if (loading) {
+      return <p>Loading</p>;
+    }
 
     return (
       <div>

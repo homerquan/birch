@@ -32,6 +32,9 @@ class Conversations extends React.Component {
 Conversations.propTypes = {
   title: PropTypes.string.isRequired,
   botId: PropTypes.string.isRequired,
+  session: PropTypes.shape({
+    userId: PropTypes.string,
+  }).isRequired,
 };
 
 function selectProps(state) {

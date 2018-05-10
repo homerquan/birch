@@ -15,16 +15,7 @@
 
 Edit in `http://localhost:8084/editor/`
 
-```
-query {
-  conversations(clientId:"ddcd39c9-dcbc-4a26-bcf7-525d77c12d54") {
-    id
-    visitor
-    client
-    mode
-    updatedAt
-  }
-}
+
 ```
 An example with variable:
 
@@ -45,25 +36,29 @@ using variable:
 
 with pagination:
 ```
-query {
-  conversations {
-    id
-     messages(first:2){
+query{
+  messagesFeed(conversationId:"uuid") {
+    messages(first:1) {
       edges {
-        cursor
-        node {
-          id
-          source
-          text
-        }
+       node {
+         id
+         source
+         text
+       }
+      }
+      totalCount
+      pageInfo {
+        hasNextPage
+        endCursor
       }
     }
   }
 }
 
+
 query {
- NotificationsFeed(clientId:"abc") {
-  notifications(first:1,last:10, filter:["status=unread"] ){
+ notificationsFeed(clientId:"abc") {
+  notifications(filter:["status=unread"] ){
     totalCount
     edges{
       node {
@@ -80,8 +75,10 @@ query {
  }
 }
 
-query {
-  ConversationsFeed(clientId:"abc",botId:"123") {
+
+query 
+{
+  conversationsFeed(clientId:"abc",botId:"123") {
     conversations(first:1){
       edges {
         cursor
@@ -124,6 +121,45 @@ query {
    }
   }
 }
+
+query{
+  botsFeed(clientId:"uuid") {
+    bots(first:1) {
+      edges {
+       node {
+         id
+         host
+       }
+      }
+      totalCount
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
+    }
+  }
+}
+
+query{
+  pluginsFeed(conversationId:"uuid") {
+    bots(first:1) {
+      edges {
+       node {
+         id
+         image
+         name
+         description
+       }
+      }
+      totalCount
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
+    }
+  }
+}
+
 ```
 
 ## Debug runtime 
@@ -135,6 +171,46 @@ In redux dev tool, dispatch events such as
     "type": "SET_RUNTIME_VARIABLE",
     "payload": {
         "name": "test",
+        "value": 1
+    }
+}
+```
+
+```
+{
+    "type": "SET_RUNTIME_VARIABLE",
+    "payload": {
+        "name": "OPEN_DECISION_SUPPORT",
+        "value": 1
+    }
+}
+```
+
+```
+{
+    "type": "SET_RUNTIME_VARIABLE",
+    "payload": {
+        "name": "SHOW_CHAT_BUBBLE",
+        "value": 1
+    }
+}
+```
+
+```
+{
+    "type": "SET_RUNTIME_VARIABLE",
+    "payload": {
+        "name": "SHOW_CHAT_ERROR",
+        "value": 1
+    }
+}
+```
+
+```
+{
+    "type": "SET_RUNTIME_VARIABLE",
+    "payload": {
+        "name": "NOTIFICATIONS_COUNT",
         "value": 1
     }
 }
@@ -158,6 +234,7 @@ In redux dev tool, dispatch events such as
 ## Note
 
 * Using Apollo 1.x
+  * upload file in graphql: https://github.com/jaydenseric/graphql-multipart-request-spec
 * Server side rendering
 * Universal router
   * https://github.com/erikras/react-redux-universal-hot-example

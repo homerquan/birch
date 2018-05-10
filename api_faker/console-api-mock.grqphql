@@ -1,3 +1,9 @@
+# Name convention:
+#  * Do not consume entities directly, using <entities>Feed with pagination
+#  * Single entitie can be consumed directly, e.g., conversation. Always query it by uuid
+#  * Query(read), Mutation(write), Subscription(real-time push) are special types
+# .  * Subscription can't fake here, using redux dispatch action to simulate
+
 type PageInfo {
   endCursor: String @examples(values: ["Y3Vyc29yMw=="])
   hasNextPage: Boolean @examples(values: [true])
@@ -10,11 +16,13 @@ type Error {
 }
 
 type Intention {
+  id: String @fake(type:uuid)
   name: String @fake(type:lorem, options:{loremSize:word})
   score: Int @examples(values: [19, 38])
 }
 
 type Action {
+  id: String @fake(type:uuid)
   source: String @examples(values: ["ai", "helper", "visitor"])
   name: String @fake(type:lorem, options:{loremSize:word})
   status: String @examples(values: ["done", "progress"])
@@ -34,8 +42,9 @@ type Conversation {
   visitor: String
   bot: String
   client: String
-  status: String
-  mode: String
+  status: String  @examples(values: ["online", "disconnected"])
+  mode: String @examples(values: ["auto", "semi", "manual"])
+  pinToTop: Boolean @examples(values: [true,false])
   intentions: [Intention]
   actions: [Action]
   messages: [Message]
@@ -75,6 +84,15 @@ type MessagesConnection {
 type MessagesEdge {
   cursor: String! @examples(values: ["Y3Vyc29yMw=="])
   node: Message
+}
+
+type MessagesFeed {
+   messages(
+    first: Int,
+    after: String,
+    last: Int,
+    before: String
+  ): MessagesConnection 
 }
 
 
@@ -141,8 +159,29 @@ type Bot {
   updatedAt: String @fake(type:pastDate,options:{dateFormat:""})
 }
 
+type BotsConnection {
+  totalCount: Int
+  pageInfo: PageInfo!
+  edges: [BotsEdge]
+}
+
+type BotsEdge {
+  cursor: String! @examples(values: ["Y3Vyc29yMw=="])
+  node: Bot
+}
+
+type BotsFeed {
+   bots(
+    first: Int,
+    after: String,
+    last: Int,
+    before: String
+  ): BotsConnection 
+}
+
+
 type Knowledge {
-  id: String
+  id: ID @fake(type:uuid)
   raw: String
   text: String
   bot: String
@@ -151,29 +190,68 @@ type Knowledge {
 }
 
 type Support {
-  id: String
+  id: ID @fake(type:uuid)
   text: String
   delay: Int
   conversation: String
+  status: String @examples(values: ["expired", "ignored", "acive"])
   client: String
   createdAt: String @fake(type:pastDate,options:{dateFormat:""})
   updatedAt: String @fake(type:pastDate,options:{dateFormat:""})
 }
 
+type Plugin {
+  id: ID @fake(type:uuid)
+  type: String @examples(values: ["data", "action", "model"])
+  name: String @fake(type:lorem, options:{loremSize:words})
+  installed: Boolean @examples(values: [true,false])
+  image: String @fake(type:imageUrl)
+  description: String @fake(type:lorem, options:{loremSize:sentences})
+  createdAt: String @fake(type:pastDate,options:{dateFormat:""})
+  updatedAt: String @fake(type:pastDate,options:{dateFormat:""})
+}
+
+type PluginsConnection {
+  totalCount: Int
+  pageInfo: PageInfo!
+  edges: [PluginsEdge]
+}
+
+type PluginsEdge {
+  cursor: String! @examples(values: ["Y3Vyc29yMw=="])
+  node: Plugin
+}
+
+type PluginsFeed {
+   bots(
+    first: Int,
+    after: String,
+    last: Int,
+    before: String
+  ):PluginsConnection 
+}
+
+# Messages in topbar
 type UserMessage {
   id: ID @fake(type:uuid)
   type: String
   text: String
-  action: String
+  icon: String @fake(type:imageUrl)
+  source: String
+  createdAt: String @fake(type:pastDate,options:{dateFormat:""})
+  updatedAt: String @fake(type:pastDate,options:{dateFormat:""})
 }
 
 type Query {
   notificationsFeed(clientId: String): NotificationsFeed
   conversationsFeed(clientId: String, botId: String): ConversationsFeed
   conversation(conversationId: String): Conversation
-  messages(conversationId: String, clientId: String): [Message]
-  bots(clientId: String): [Bot]
-  knowledge(clientId: String, botId: String): Knowledge
+  messagesFeed(conversationId: String): MessagesFeed
+  botsFeed(clientId: String): BotsFeed
+  pluginsFeed(conversationId: String): PluginsFeed
+  messages(conversationId: String, clientId: String): [Message] #this will be removed
+  bots(clientId: String): [Bot] #this will be removed
+  knowledge(clientId: String, botId: String): Knowledge #this will be removed
 }
 
 type ConversationEvent {
@@ -191,6 +269,8 @@ type ConversationEventFeed {
 input MessageInput {
   text: String!
   conversationId: String!
+  userId: String!
+  isLearning: Boolean! #once learning switch is on, this is ture.
 }
 
 type CreateMessageResponse  {
@@ -203,6 +283,7 @@ type Mutation {
   createMessage(input: MessageInput): CreateMessageResponse
   createBot(clientId: String!, name: String!, url: String!): Bot
   updateKnowledge(clientId: String!, botId:String!, text: String!): Knowledge
+  updateConversationPinToTop(conversationId:String!,pinToTop:Boolean!): Conversation
   changeAccountPassword(clientId:String!):User
   closeAccount(clientId: String!): User
 }

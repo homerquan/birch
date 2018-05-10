@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import getMuiTheme from "material-ui/styles/getMuiTheme";
-import lightTheme from '../theme';
-import withStyles from "isomorphic-style-loader/lib/withStyles";
+import { connect } from 'react-redux';
+import { graphql, compose } from 'react-apollo';
+import _ from 'lodash';
+import gql from 'graphql-tag';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import Badge from 'material-ui/Badge';
 import IconButton from 'material-ui/IconButton';
 import NotificationIcon from 'material-ui/svg-icons/social/notifications';
@@ -16,62 +19,80 @@ import Divider from 'material-ui/Divider';
 import Subheader from 'material-ui/Subheader';
 import Link from '../Link/Link';
 
-import s from "./Notifications.css";
-import fakeData from './fakeNotifications.json';
+import lightTheme from '../theme';
+import s from './Notifications.css';
+import { ACTION_TYPES } from '../../constants';
 
-const badgeStyle = {
-  top: -4,
-  right: -4,
-  width: 21,
-  height: 20,
-  paddingTop: 1,
-  fontSize: 10,
-  border: '2px solid white',
-  zIndex: 1,
-  backgroundColor: pink500,
-  color: 'white',
-};
+const NotificationsFeed = gql`
+  query NotificationsFeed($clientId: String) {
+    notificationsFeed(clientId: $clientId){
+      notifications(first:1, filter:["status=unread"]){
+        totalCount
+        edges {
+          node {
+            id
+            text
+            status
+          }
+        }
+        pageInfo{
+        hasNextPage
+        endCursor
+        }
+      }
+    }
+  }
+`;
 
-const badgeRootStyle = {
-  padding: 0,
-};
 
-const btnStyle = {
-  padding: 0
-};
-
-const paperStyle = {
-  position: 'absolute',
-  zIndex: 101,
-  right: 0,
-  top: 46,
-  width: 430
-};
-
-const subHeaderStyle = {
-  lineHeight: '14px',
-  paddingTop: 10,
-  paddingBottom: 5,
-};
-
-const listStyle = {
-  padding: 0,
-  overflowY: 'scroll',
-  maxHeight: '315px', // show 4 notifications
-}
-
-const footerText = {
-  margin: '8px 0',
-  fontSize: '14px',
-  fontWeight: 400,
-  lineHeight: '14px',
-  padding: '0 10px',
-  color: deepPurple500,
-  textDecoration: 'none'
-};
-
-const hiddenStyle = {
-  display: 'none'
+const styles = {
+  badgeStyle: {
+    top: -4,
+    right: -4,
+    width: 21,
+    height: 20,
+    paddingTop: 1,
+    fontSize: 10,
+    border: '2px solid white',
+    zIndex: 1,
+    backgroundColor: pink500,
+    color: 'white',
+  },
+  badgeRootStyle: {
+    padding: 0,
+  },
+  btnStyle: {
+    padding: 0,
+  },
+  paperStyle: {
+    position: 'absolute',
+    zIndex: 101,
+    right: 0,
+    top: 46,
+    width: 430,
+  },
+  subHeaderStyle: {
+    lineHeight: '14px',
+    paddingTop: 10,
+    paddingBottom: 5,
+  },
+  listStyle: {
+    padding: 0,
+    overflowY: 'scroll',
+    maxHeight: '317px', // show 4 notifications
+  },
+  footerText: {
+    margin: '8px 0',
+    fontSize: '14px',
+    fontWeight: 400,
+    lineHeight: '14px',
+    padding: '0 10px',
+    color: deepPurple500,
+    textDecoration: 'none',
+  },
+  hiddenStyle: {
+    display: 'none',
+  },
 };
 
 class Notifications extends Component {
@@ -80,44 +101,26 @@ class Notifications extends Component {
 
     this.state = {
       isOpen: false,
-      isLoading: true,
-      notifications: [],
-    }
+    };
 
     this.handleEventListener = this.handleEventListener.bind(this);
   }
 
   componentDidMount() {
-    // TODO: Figure out how notifications are going to be loaded
-    // so that I can set up a proper loader. Might make more
-    // sense to have the whole component be loaded/unloaded
-    // in the header itself.
-    setTimeout(() => {
-      this.setState({
-        notifications: fakeData.data,
-        isLoading: false,
-      });
-    }, 1000);
-
-    document.addEventListener("click", this.handleEventListener);
+    document.addEventListener('click', this.handleEventListener);
   }
 
   componentWillUnmount() {
-    document.removeEventListener("click", this.handleEventListener);
+    document.removeEventListener('click', this.handleEventListener);
   }
 
   handleEventListener(e) {
-    const { isOpen } = this.state
+    const { isOpen } = this.state;
     const notificationsIcon = document.querySelector('.notificationIcon');
 
-    if (notificationsIcon.contains(e.target)) {
-      // Close notifications if it's already open and the icon
-      // is clicked on
-      if (isOpen) {
-        this.setState({ isOpen: false });
-        return;
-      }
-
+    // Close notifications if it's already open and the icon
+    // is clicked on
+    if (notificationsIcon.contains(e.target) && !isOpen) {
       this.setState({ isOpen: true });
       return;
     }
@@ -125,44 +128,54 @@ class Notifications extends Component {
     this.setState({ isOpen: false });
   }
 
+  transform = data => (
+    _.map(data, 'node') // eslint-disable-line
+  );
+
   render() {
-    const { isLoading, notifications, isOpen } = this.state;
+    const { isOpen } = this.state;
+    const { runtime, data: { notificationsFeed } } = this.props;
 
     return (
       <MuiThemeProvider muiTheme={getMuiTheme(lightTheme)}>
         <Badge
-          badgeContent={notifications.length}
-          badgeStyle={notifications.length ? badgeStyle : hiddenStyle}
-          style={badgeRootStyle}
+          badgeContent={runtime[ACTION_TYPES.NOTIFICATIONS_COUNT]}
+          badgeStyle={
+            runtime[ACTION_TYPES.NOTIFICATIONS_COUNT] > 0
+            ? styles.badgeStyle
+            : styles.hiddenStyle
+          }
+          style={styles.badgeRootStyle}
         >
           <IconButton
             className="notificationIcon"
-            style={btnStyle} 
+            style={styles.btnStyle}
           >
             <NotificationIcon color={deepPurple500} />
           </IconButton>
-          <Paper style={isOpen ? paperStyle : hiddenStyle}>
+          <Paper style={isOpen ? styles.paperStyle : styles.hiddenStyle}>
             <div className={s.header}>
               <p className={s.headerTitle}>Notifications</p>
             </div>
-            <List style={listStyle}>
-            <Subheader style={subHeaderStyle}>Recent</Subheader>
-              {isLoading
-                ? 'Loading...'
-                : notifications.map((message, index) => (
-                  <div key={index}>
-                    {index > 0 ? <Divider /> : ''}  
-                    <ListItem
-                      leftAvatar={<Avatar backgroundColor={deepPurple500} icon={<CodeIcon />} />}
-                      secondaryText={<p>{message.message}</p>}
-                      secondaryTextLines={2}
-                    />
-                  </div>
-                ))
+            <List style={styles.listStyle}>
+              <Subheader style={styles.subHeaderStyle}>Recent</Subheader>
+              {notificationsFeed.notifications.edges
+                ? (
+                  this.transform(notificationsFeed.notifications.edges).map((message, index) => (
+                    <div key={message.id}>
+                      {index > 0 ? <Divider /> : ''}
+                      <ListItem
+                        leftAvatar={<Avatar backgroundColor={deepPurple500} icon={<CodeIcon />} />}
+                        secondaryText={<p>{message.text}</p>}
+                        secondaryTextLines={2}
+                      />
+                    </div>
+                  ))
+                ) : 'Loading...'
               }
             </List>
             <div className={s.footer}>
-              <Link to='#' style={footerText}>See All</Link>
+              <Link to="/notifications" style={styles.footerText}>See All</Link>
             </div>
           </Paper>
         </Badge>
@@ -171,4 +184,28 @@ class Notifications extends Component {
   }
 }
 
-export default withStyles(s)(Notifications);
+function selectProps(state) {
+  return {
+    runtime: state.runtime,
+  };
+}
+
+Notifications.propTypes = {
+  runtime: PropTypes.shape({
+    NOTIFICATIONS_COUNT: PropTypes.number,
+  }).isRequired,
+  data: PropTypes.shape({
+    notificationsFeed: PropTypes.object,
+  }).isRequired,
+};
+
+export default withStyles(s)(
+  compose(
+    graphql(NotificationsFeed, {
+      options: props => ({
+        variables: { clientId: props.clientId },
+      }),
+    }),
+    connect(selectProps, null),
+  )(Notifications),
+);
