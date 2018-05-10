@@ -20,7 +20,10 @@ export default {
       chunk: 'conversations',
       component: (
         <Layout>
-          <Conversations title={title} botId={params.id} />
+          <Conversations
+            title={title}
+            botId={params.id}
+          />
         </Layout>
       ),
     };

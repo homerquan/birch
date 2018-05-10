@@ -1,109 +1,29 @@
-/*
-* @Author: Homer
-* @Date:   2017-12-22 02:20:17
-* @Last Modified by:   Homer
-* @Last Modified time: 2018-01-06 18:27:29
-*/
-@import "../variables.css";
+.utilityBarContainer {
+    background-color: rgb(103, 58, 183);
+    width: 100%;
+    padding: 10px;
+}
 
-.flexContainer {
-	width: 100%;
-    height: 100%;
+.utilityBar {
+    max-width: 700px;
+    margin: 0 auto;
+}
 
+.trainingToggle {
+    width: auto;
+    max-width: 200px;
+}
+
+.chatBoxContainer {
+    position: relative;
+    background-color: white;
     display: flex;
-    flex-direction: column;
-   
-    justify-content: flex-start; /* align items in Main Axis */
-    align-items: stretch; /* align items in Cross Axis */
-    align-content: stretch; /* Extra space in Cross Axis */
-}
-.topbar {
-	background: var(--color-content-background);
-}
-.conversation {
-	background: var(--color-content-background);
-	display: flex;
-    flex: 1; /* same as flex: 1 1 auto; */
-    flex-direction: column;
-    overflow: scroll;
-}
-.inputs {
-	background: white;
-	height: 100px;
-	position: relative;
+    border-top: 1px solid lightgray;
 }
 
-.inputControl {
-	position: absolute;
-	top: 0;
+.chatInput {
+    flex: 1;
+    height: 48px;
+    border: none;
+    padding-left: 10px;
 }
-
-.inputField {
-    position: absolute;
-    top: 0;
-    left: 40px;
-    width: calc(100%-140px);
-}
-
-.sendButton {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-}
-
-.messageBulk {
-    display: block;
-    padding: 10px 10px;
-    margin: 2.5px 5px;
-    width: calc(80%-10px);
-    border-radius: 5px !important;
-}
-
-.visitorBulk {
-    float: right;
-}
-
-.avatarIcon {
-   height: 24px;
-   width: 24px;
-   margin-bottom: 2px;
-   margin-right: 5px;
-}
-
-.sourceName {
-    background-color: #C3C3E5;
-    padding: 2px 4px;
-    border-radius: 5px;
-    font-weight: 600;
-    color: white;
-    font-size: 14px;
-}
-
-.messageText {
-    font-weight: 400;
-    margin: 5px 30px;
-}
-
-.actionCard {
-    background: white;
-    margin: 5px;
-    padding: 5px;
-    border: dashed 2px #ddd;
-    border-radius: 10px;
-}
-
-.actionTitle {
-    font-size: 12px;
-    font-weight: 400;
-    margin-bottom: 10px;
-    color: #c4c4c4;
-}
-
-.actionText {
-    font-weight: 400;
-}
-
-.actionOption {
-    text-align: right;
-}
-

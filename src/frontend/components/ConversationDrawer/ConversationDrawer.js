@@ -1,320 +1,399 @@
-/*
-* @Author: Homer
-* @Date:   2017-12-17 23:50:40
-* @Last Modified by:   Homer
-* @Last Modified time: 2018-01-16 19:16:24
-*/
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import _ from 'lodash';
+import { connect } from 'react-redux';
+import { graphql, compose } from 'react-apollo';
+import gql from 'graphql-tag';
+import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import CloseIcon from 'material-ui/svg-icons/navigation/close';
+import IconButton from 'material-ui/IconButton';
+import SendIcon from 'material-ui/svg-icons/content/send';
+import { deepPurple500, white } from 'material-ui/styles/colors';
+import withWidth, { LARGE } from 'material-ui/utils/withWidth';
+import Toggle from 'material-ui/Toggle';
 
-import React from "react";
-import { graphql, compose, withApollo } from "react-apollo";
-import Paper from "material-ui/Paper";
-import { connect } from "react-redux";
-import withStyles from "isomorphic-style-loader/lib/withStyles";
-import Drawer from "material-ui/Drawer";
-import Avatar from "material-ui/Avatar";
-import IconButton from "material-ui/IconButton";
-import TextField from "material-ui/TextField";
-import RaisedButton from "material-ui/RaisedButton";
-import CloseIcon from "react-material-icons/icons/content/clear";
-import ReloadIcon from "react-material-icons/icons/action/cached";
-import OpenTextIcon from "react-material-icons/icons/hardware/keyboard";
-import CloseTextIcon from "react-material-icons/icons/hardware/keyboard-hide";
-import AiAvatarIcon from "react-icons/lib/fa/circle-o";
-import VisitorAvatarIcon from "react-icons/lib/ti/user-outline";
-import HelperAvatarIcon from "react-icons/lib/fa/user";
-import FlatButton from "material-ui/FlatButton";
-import Badge from "material-ui/Badge";
-import s from "./ConversationDrawer.css";
-import gql from "graphql-tag";
-import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
-import getMuiTheme from "material-ui/styles/getMuiTheme";
-import theme from "../theme";
-import config from "../../config";
+import s from './ConversationDrawer.css';
+import MessagesContainer from './MessagesContainer';
+import ActionMenu from './ActionMenu';
+import CommandsList from './CommandList';
+import Training from '../Training/Training';
+import DecisionSupport from './DecisionSupport';
+import fakeData from './fakeData.json';
+import { ACTION_TYPES } from '../../constants';
 
-const messagesQuery = gql`
-  query MessagesQuery($clientId: String, $conversationId: String) {
-    messages(clientId: $clientId, conversationId: $conversationId) {
+const conversationQuery = gql`
+  query Conversation($conversationId: String){
+    conversation(conversationId: $conversationId){
       id
-      source
-      text
+      messages(first:1) {
+        edges {
+          node {
+            id
+            text
+            source
+          }
+        }
+        totalCount
+        pageInfo {
+          hasNextPage
+          endCursor
+        }
+      }
     }
   }
 `;
 
-const createMessageQuery = gql`
-  mutation createMessageQuery($conversationId: String!, $text: String!) {
-    createMessage(conversationId: $conversationId, text: $text) {
-      id
-      text
-    }
-  }
-`;
-
-const createSuggestionQuery = gql`
-  subscription onCreateSuggestion($conversationId: String) {
-    createSuggestion(conversationId: $conversationId) {
-      id
-      text
-      delay
-    }
-  }
-`;
-
-class ConversationDrawer extends React.Component {
+class ConversationDrawerTwo extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
-      isShowInput: false,
-      inputMessage: "",
-      suggestion: null,
-      countDown: 0
+      currentMessage: '',
+      activeCommands: [],
+      keysPressed: [],
+      enableTraining: false,
+      trainingIsOpen: false,
     };
+
+    this.handleInputOnChange = this.handleInputOnChange.bind(this);
+    this.handleKeyPress = this.handleKeyPress.bind(this);
+    this.addMessage = this.addMessage.bind(this);
+    this.handleEnableTrainingToggle = this.handleEnableTrainingToggle.bind(this);
+    this.handleTrainingIsOpenToggle = this.handleTrainingIsOpenToggle.bind(this);
   }
 
-  handleCloseButtonTouchTap = () => {
-    this.props.onClose();
-  };
+  componentWillMount() {
+    document.addEventListener('keydown', this.handleKeyPress);
+    document.addEventListener('keyup', this.handleKeyPress);
+  }
 
-  showInputBox = () => {
-    this.setState({
-      isShowInput: true
-    });
-  };
+  componentWillUnmount() {
+    document.removeEventListener('keydown', this.handleKeyPress);
+    document.removeEventListener('keyup', this.handleKeyPress);
+  }
 
-  hideInputBox = () => {
-    this.setState({
-      isShowInput: false
-    });
-  };
+  handleInputOnChange(e) {
+    const currentMessage = e.target.value;
+    let activeCommands = [];
 
-  sendMessage = () => {
-    const { mutate, conversation } = this.props;
-    mutate({
-      variables: {
-        conversationId: conversation ? conversation.id : "",
-        text: this.state.inputMessage
-      },
-      update: (store, { data: { createMessage } }) => {
-        console.log("test");
+    if (currentMessage.charAt(0) === '/') {
+      activeCommands = fakeData.commands.filter((command, index) => {
+        fakeData.commands[index].active = false;
+
+        // Match the currentMessage to the command name and return
+        // the matched commands
+        return command.command.lastIndexOf(currentMessage) >= 0;
+      });
+
+      // Set the first action in the returned list as
+      // the active command
+      if (activeCommands.length > 0) {
+        activeCommands[0].active = true;
       }
-    });
-  };
+    }
 
-  handleChange(event) {
-    this.setState({ inputMessage: event.target.value });
+    this.setState({ currentMessage, activeCommands });
   }
 
-  async componentWillUpdate() {
-    if (this.props.conversation) {
-      if (this.subscription) this.subscription.unsubscribe();
-      let that = this;
-      this.subscription = this.props.client
-        .subscribe({
-          query: createSuggestionQuery,
-          variables: {
-            conversationId: that.props.conversation
-              ? that.props.conversation.id
-              : ""
-          }
-        })
-        .subscribe({
-          next(data) {
-            that.setState({
-              suggestion: data.createSuggestion,
-              countDown: data.createSuggestion.delay
-            });
-            setTimeout(function() {
-              that.setState({
-                suggestion: null
-              });
-            }, data.createSuggestion.delay * 1000);
-            setInterval(function() {
-              if (that.state.countDown >= 0) {
-                that.setState({
-                  countDown: that.state.countDown - 1
-                });
-              }
-            }, 1000);
-          },
-          error(err) {
-            console.error("err", err);
-          }
-        });
+  handleKeyPress(e) {
+    const { activeCommands, keysPressed, currentMessage } = this.state;
+
+    keysPressed[e.keyCode] = e.type === 'keydown';
+    this.setState({ keysPressed });
+
+    // Enter Key
+    if (keysPressed[13]) {
+      // Decide whether or not we're sending a command or a message
+      if (activeCommands.length > 0) {
+        // Get the current active command and return the name . . . for now
+        const activeCommand = activeCommands.find(command => command.active);
+        const message = `Entered Command: "${activeCommand.action}"`;
+        this.addMessage(message);
+      } else {
+        this.addMessage(currentMessage);
+      }
+
+      this.setState({
+        currentMessage: '',
+        activeCommands: [],
+      });
+    }
+
+    // We only need to listen for the other key presses
+    // when we have commands available
+    if (activeCommands.length > 0) {
+      // Escape Key
+      if (keysPressed[27]) {
+        this.setState({ activeCommands: [] });
+      }
+    }
+
+    // Tab or Down Arrow Key
+    if (keysPressed[9] || keysPressed[40]) {
+      e.preventDefault(); // Stop tab focus from moving
+
+      // Find the current active command, get it's index and
+      // increment by one, or reset to 0
+      const currentActive = activeCommands.find(action => action.active);
+      const currentActiveIndex = activeCommands.indexOf(currentActive);
+
+      activeCommands[currentActiveIndex].active = false;
+      if (activeCommands[currentActiveIndex + 1]) {
+        activeCommands[currentActiveIndex + 1].active = true;
+      } else {
+        activeCommands[0].active = true;
+      }
+
+      this.setState({ activeCommands });
+    }
+
+    // Up Arrow Key
+    if (keysPressed[38]) {
+      e.preventDefault(); // Stop tab focus from moving
+
+      // Find the current active command, get it's index and
+      // decrement by one, or set to last index in array
+      const currentActive = activeCommands.find(action => action.active);
+      const currentActiveIndex = activeCommands.indexOf(currentActive);
+
+      activeCommands[currentActiveIndex].active = false;
+
+      if (activeCommands[currentActiveIndex - 1]) {
+        activeCommands[currentActiveIndex - 1].active = true;
+      } else {
+        activeCommands[activeCommands.length - 1].active = true;
+      }
+
+      this.setState({ activeCommands });
     }
   }
 
-  async componentWillUnmount() {
-    if (this.subscription) this.subscription.unsubscribe();
+  handleEnableTrainingToggle() {
+    this.setState({ enableTraining: !this.state.enableTraining });
   }
 
+  handleTrainingIsOpenToggle() {
+    this.setState({ trainingIsOpen: !this.state.trainingIsOpen });
+  }
+
+  addMessage(text) {
+    const { session, data, mutate } = this.props;
+    const { enableTraining } = this.state;
+
+    const newMessage = {
+      text,
+      conversationId: data.conversation.id,
+      userId: session.userId,
+      isLearning: enableTraining,
+    };
+
+    mutate({ variables: { ...newMessage } })
+      .then(() => data.refetch())
+      .then(this.setState({ currentMessage: '' }));
+  }
+
+  transform = data => (_.map(data, 'node'));
+
   render() {
-    const conversation = this.props.conversation;
-    const { messages, loading, refetch } = this.props.data;
-    const isShowInput = this.state.isShowInput;
+    const { width, isOpen, closeDrawer, data: { loading, conversation } } = this.props;
+    const { currentMessage, activeCommands, trainingIsOpen, enableTraining } = this.state;
+
+    const styles = {
+      conversationBG: {
+        display: isOpen ? 'block' : 'none',
+        backgroundColor: 'rgba(0, 0, 0, .40)',
+        position: 'fixed',
+        left: 0,
+        top: 0,
+        right: 0,
+        bottom: 0,
+        zIndex: 102,
+      },
+      conversationWrapper: {
+        backgroundColor: deepPurple500,
+        position: 'fixed',
+        display: 'flex',
+        flexDirection: 'column',
+        top: 0,
+        right: 0,
+        bottom: 0,
+        left: '20%',
+        zIndex: 103,
+        transition: 'transform 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms',
+        transform: isOpen ? 'translateX(0px)' : 'translateX(110%)',
+      },
+      closeIconBG: {
+        backgroundColor: 'transparent',
+        width: '0',
+        height: '18px',
+        position: 'absolute',
+        left: '-24px',
+        borderTop: '8px solid transparent',
+        borderRight: `24px solid ${deepPurple500}`,
+        borderBottom: '8px solid transparent',
+      },
+      closeIconBtn: {
+        width: 32,
+        height: 32,
+        padding: 8,
+        left: -28,
+        top: 1,
+        position: 'absolute',
+      },
+      closeIcon: {
+        width: 16,
+        height: 16,
+      },
+      conversationContainer: {
+        display: 'flex',
+        position: 'relative',
+        flexDirection: 'column',
+        flex: 1,
+        backgroundColor: deepPurple500,
+        width: '100%',
+        maxWidth: width === LARGE ? '700px' : 'none',
+        margin: width === LARGE ? '0 auto' : 0,
+        overflow: 'hidden',
+      },
+    };
+
+    const toggleLabel = {
+      color: 'white',
+    };
+
+    if (loading) {
+      return <p>Loading</p>;
+    }
+
     return (
-      <MuiThemeProvider muiTheme={getMuiTheme(theme)}>
-        <Drawer
-          width={window.innerWidth > 650 ? 600 : "100%"}
-          openSecondary={true}
-          open={this.props.open}
-        >
-          <div className={s.flexContainer}>
-            <div className={s.topbar}>
-              <IconButton
-                tooltip="Close"
-                onTouchTap={this.handleCloseButtonTouchTap}
-              >
-                <CloseIcon />
-              </IconButton>
-              <IconButton tooltip="Reload" onTouchTap={() => refetch()}>
-                <ReloadIcon />
-              </IconButton>
+      <div>
+        <div style={styles.conversationDrawer}>
+          <div
+            style={styles.conversationBG}
+            onClick={closeDrawer}
+            role="button"
+            tabIndex="0"
+          />
+          <div style={styles.conversationWrapper}>
+
+            <div className={s.utilityBarContainer}>
+              <div className={s.utilityBar}>
+                <Toggle
+                  style={{ width: 'auto' }}
+                  label="Enable Training"
+                  className={s.trainingToggle}
+                  labelStyle={toggleLabel}
+                  toggled={enableTraining}
+                  onClick={this.handleEnableTrainingToggle}
+                />
+              </div>
             </div>
-            <div className={s.conversation}>
-              {messages && messages.length ? (
-                messages.map(message => (
-                  <div
-                    className={s.messageCard}
-                    data-convospot-message-id="{message.id}"
-                  >
-                    <Paper
-                      className={
-                        message.source === "visitor"
-                          ? s.messageBulk + " " + s.visitorBulk
-                          : s.messageBulk
-                      }
-                      zDepth={1}
-                    >
-                      {message.source == "ai" && (
-                        <div className={s.avatar}>
-                          <img
-                            className={s.avatarIcon}
-                            src="/images/avatar-ai.png"
-                          />
-                          <span className={s.sourceName}>A.I.</span>
-                        </div>
-                      )}
 
-                      {message.source == "visitor" && (
-                        <div className={s.avatar}>
-                          <img
-                            className={s.avatarIcon}
-                            src="/images/avatar-visitor.png"
-                          />
-                          <span className={s.sourceName}>Visitor</span>
-                        </div>
-                      )}
+            <div style={styles.conversationContainer}>
+              <DecisionSupport
+                isOpen={this.props.runtime[ACTION_TYPES.OPEN_DECISION_SUPPORT]}
+                enableTraining={this.state.enableTraining}
+                openTraining={this.handleTrainingIsOpenToggle}
+              />
 
-                      {message.source == "helper" && (
-                        <div className={s.avatar}>
-                          <img
-                            className={s.avatarIcon}
-                            src="/images/avatar-helper.png"
-                          />
-                          <span className={s.sourceName}>You</span>
-                        </div>
-                      )}
+              <MessagesContainer
+                messages={this.transform(conversation.messages.edges)}
+              />
+              
 
-                      <div className={s.messageText}> {message.text} </div>
-                    </Paper>
-                  </div>
-                ))
-              ) : (
-                <div> no message here </div>
-              )}
+              <div className={s.chatBoxContainer}>
+                <ActionMenu plugins={fakeData.plugins} />
 
-              {this.state.suggestion && (
-                <div className={s.actionCard}>
-                  <div className={s.actionTitle}>Suggested response</div>
-                  <div className={s.actionText}>
-                    {this.state.suggestion.text}
-                  </div>
-                  <div className={s.actionOption}>
-                    <Badge
-                      badgeContent={this.state.countDown}
-                      primary={true}
-                      badgeStyle={{ top: 20, right: 15 }}
-                    >
-                      <FlatButton primary={true} label="Accept" />
-                    </Badge>
-                    <FlatButton label="Ignore" />
-                  </div>
-                </div>
-              )}
+                <input
+                  className={s.chatInput}
+                  onChange={e => this.handleInputOnChange(e)}
+                  value={currentMessage}
+                  placeholder="Type Something"
+                />
+
+                <IconButton>
+                  <SendIcon
+                    onClick={() => this.addMessage(currentMessage)}
+                  />
+                </IconButton>
+
+                <CommandsList
+                  activeCommands={activeCommands}
+                  currentMessage={currentMessage}
+                />
+              </div>
             </div>
-            <div className={s.inputs}>
-              {isShowInput ? (
-                <div className={s.inputBox}>
-                  <div className={s.inputControl}>
-                    <IconButton tooltip="Close" onTouchTap={this.hideInputBox}>
-                      <CloseTextIcon />
-                    </IconButton>
-                  </div>
-                  <div className={s.inputField}>
-                    <TextField
-                      hintText="Input message here"
-                      floatingLabelText="Typing message (alt+enter to send)"
-                      fullWidth={true}
-                      multiLine={true}
-                      rows={2}
-                      value={this.state.inputMessage}
-                      onChange={this.handleChange.bind(this)}
-                    />
-                  </div>
-                  <div className={s.sendButton}>
-                    <RaisedButton
-                      label="Send"
-                      primary={true}
-                      disabled={this.state.inputMessage ? false : true}
-                      onTouchTap={this.sendMessage}
-                    />
-                  </div>
-                </div>
-              ) : (
-                <div className={s.optionBox}>
-                  <div>
-                    <IconButton
-                      tooltip="Type in"
-                      onTouchTap={this.showInputBox}
-                    >
-                      <OpenTextIcon />
-                    </IconButton>
-                  </div>
-                </div>
-              )}
-            </div>
+
+            <div style={styles.closeIconBG} />
+            <IconButton
+              iconStyle={styles.closeIcon}
+              style={styles.closeIconBtn}
+              onClick={closeDrawer}
+            >
+              <CloseIcon color={white} />
+            </IconButton>
           </div>
-        </Drawer>
-      </MuiThemeProvider>
+        </div>
+
+        {trainingIsOpen &&
+          <Training
+            isOpen={trainingIsOpen}
+            close={this.handleTrainingIsOpenToggle}
+          />
+        }
+      </div>
     );
   }
 }
 
+ConversationDrawerTwo.propTypes = {
+  data: PropTypes.shape({
+    conversation: PropTypes.shape({
+      messages: PropTypes.object,
+    }),
+  }).isRequired,
+  mutate: PropTypes.func.isRequired,
+  session: PropTypes.shape({
+    userId: PropTypes.string,
+  }).isRequired,
+  runtime: PropTypes.shape({
+    openDecisionSupport: PropTypes.number,
+  }).isRequired,
+  isOpen: PropTypes.bool.isRequired,
+  closeDrawer: PropTypes.func.isRequired,
+  width: PropTypes.number.isRequired,
+};
+
+const createMessage = gql`
+  mutation CreateMessage($input: MessageInput) {
+    createMessage(input: $input){
+      error {
+        code
+        message
+        detail
+      }
+      message {
+        id
+      }
+    }
+  }
+`;
+
 function selectProps(state) {
   return {
-    session: state.session
+    runtime: state.runtime,
+    session: state.session,
   };
 }
 
-export default withStyles(s)(
-  withApollo(
-    connect(selectProps, null)(
-      compose(
-        graphql(messagesQuery, {
-          options: (props, state) => ({
-            variables: {
-              clientId: props.clientId,
-              conversationId: props.conversation ? props.conversation.id : ""
-            },
-            pollInterval: config.pollInterval
-          })
-        }),
-        graphql(createMessageQuery, {
-          options: (props, state) => ({
-            variables: {}
-          })
-        })
-      )(ConversationDrawer)
-    )
-  )
-);
+export default withWidth()(withStyles(s)(
+  compose(
+    graphql(createMessage),
+    graphql(conversationQuery, {
+      options: props => ({
+        variables: { conversationId: props.clientId },
+      }),
+    }),
+    connect(selectProps, null),
+  )(ConversationDrawerTwo),
+));
