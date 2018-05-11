@@ -154,6 +154,7 @@ type Bot {
   protocol: String  @examples(values: ["http", "https"])
   host: String @fake(type:url)
   mode: String @examples(values: ["auto", "semi", "manual"])
+  embedCode: String @examples(values: ["<script src=\"http://widget.reflen.com/convospot.js\" bid=\"5f9efca2-c423-49d1-84f8-72981a07d430\" token=\"Z5lHSSvEnVdPZUhk\" async></script>"])
   client: String @fake(type:uuid)
   createdAt: String @fake(type:pastDate,options:{dateFormat:""})
   updatedAt: String @fake(type:pastDate,options:{dateFormat:""})
