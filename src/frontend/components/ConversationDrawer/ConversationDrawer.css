@@ -18,7 +18,9 @@
     position: relative;
     background-color: white;
     display: flex;
+    border-left: 1px solid lightgray;
     border-top: 1px solid lightgray;
+    border-right: 1px solid lightgray;
 }
 
 .chatInput {

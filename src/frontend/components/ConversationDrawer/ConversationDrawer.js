@@ -210,7 +210,7 @@ class ConversationDrawerTwo extends Component {
         zIndex: 102,
       },
       conversationWrapper: {
-        backgroundColor: deepPurple500,
+        backgroundColor: 'white',
         position: 'fixed',
         display: 'flex',
         flexDirection: 'column',
@@ -224,10 +224,11 @@ class ConversationDrawerTwo extends Component {
       },
       closeIconBG: {
         backgroundColor: 'transparent',
-        width: '0',
-        height: '18px',
+        width: 0,
+        height: 29,
         position: 'absolute',
-        left: '-24px',
+        left: -24,
+        top: -1,
         borderTop: '8px solid transparent',
         borderRight: `24px solid ${deepPurple500}`,
         borderBottom: '8px solid transparent',
@@ -237,7 +238,7 @@ class ConversationDrawerTwo extends Component {
         height: 32,
         padding: 8,
         left: -28,
-        top: 1,
+        top: 6,
         position: 'absolute',
       },
       closeIcon: {
