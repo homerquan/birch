@@ -79,7 +79,7 @@ class BotsView extends React.Component {
     this.state = {
       openDrawer: false,
       selectedConversation: null,
-      newAppModalIsOpen: true,
+      newAppModalIsOpen: false,
     };
 
     this.closeNewAppModal = this.closeNewAppModal.bind(this);
