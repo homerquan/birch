@@ -11,6 +11,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { graphql, compose } from 'react-apollo';
 import gql from 'graphql-tag';
+import _ from 'lodash';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import DataTables from 'material-ui-datatables';
@@ -18,6 +19,9 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import IconButton from 'material-ui/IconButton';
 import ReloadIcon from 'react-material-icons/icons/action/cached';
 import AddIcon from 'react-material-icons/icons/content/add';
+import CodeIcon from 'material-ui/svg-icons/action/code';
+import EyeIcon from 'material-ui/svg-icons/image/remove-red-eye';
+import MoreIcon from 'react-material-icons/icons/navigation/more-vert';
 import {
   Toolbar,
   ToolbarGroup,
@@ -25,23 +29,33 @@ import {
 
 import datatableTheme from '../datatableTheme';
 import * as runtimeActions from '../../actions/runtime';
-import config from '../../config';
 import lightTheme from '../theme';
 import s from './BotsView.css';
 import NewApp from './NewApp';
+import CopyCodeModal from './CopyCodeModal';
 
 const botsQuery = gql`
-  query BotsQuery($clientId: String!) {
-    bots(clientId: $clientId) {
-      id
-      name
-      host
-      token
+  query BotsFeed($clientId: String!) {
+    botsFeed(clientId: $clientId) {
+      bots(first:1) {
+        totalCount
+        edges {
+          cursor,
+          node{
+            id,
+            name,
+            host
+            embedCode,
+            mode,
+            updatedAt
+          }
+        }
+      }
     }
   }
 `;
 
-const tableColumns = [
+const tableColumns = (openCodeModal, selectBot) => ([
   {
     key: 'name',
     label: 'Name',
@@ -53,25 +67,40 @@ const tableColumns = [
     key: 'host',
     label: 'Host',
     style: {
-      width: 60,
+      width: 160,
     },
   },
   {
-    key: 'token',
+    key: 'embedCode',
     label: 'Embed code',
-    render: (token, all) => (
+    render: code => (
+      <IconButton onClick={() => openCodeModal(code)}>
+        <CodeIcon />
+      </IconButton>
+    ),
+  },
+  {
+    key: 'id',
+    label: 'View',
+    render: id => (
+      <IconButton onClick={() => selectBot(id)}>
+        <EyeIcon />
+      </IconButton>
+    ),
+  },
+  {
+    style: {
+      width: 30,
+    },
+    render: () => (
       <div>
-        <code className={s.smallCode}>
-           &lt;script
-           src=&quot;{config.widgetUrl}&quot;
-           bid=&quot;{all.id}&quot;
-           token=&quot;{token}&quot;
-           async&gt;&lt;/script&gt;
-        </code>
+        <IconButton tooltip="More">
+          <MoreIcon />
+        </IconButton>
       </div>
     ),
   },
-];
+]);
 
 class BotsView extends React.Component {
   constructor(props) {
@@ -81,14 +110,19 @@ class BotsView extends React.Component {
       openDrawer: false,
       selectedConversation: null,
       newAppModalIsOpen: false,
+      codeModalIsOpen: false,
+      codeModalCode: '',
     };
 
     this.closeNewAppModal = this.closeNewAppModal.bind(this);
     this.openNewAppModal = this.openNewAppModal.bind(this);
+    this.openCodeModal = this.openCodeModal.bind(this);
+    this.closeCodeModal = this.closeCodeModal.bind(this);
   }
 
-  selectBot = (index) => {
-    const selected = this.props.data.bots[index];
+  selectBot = (conversationId) => {
+    const conversations = this.transform(this.props.data.botsFeed.bots.edges);
+    const selected = conversations.find(convo => convo.id === conversationId);
 
     this.props.actions.setRuntimeVariable({
       name: 'selectedApp',
@@ -102,13 +136,29 @@ class BotsView extends React.Component {
     this.setState({ newAppModalIsOpen: false });
   }
 
+  openCodeModal(code) {
+    this.setState({
+      codeModalIsOpen: true,
+      codeModalCode: code,
+    });
+  }
+
+  closeCodeModal() {
+    this.setState({
+      codeModalIsOpen: false,
+      codeModalCode: '',
+    });
+  }
+
   openNewAppModal() {
     this.setState({ newAppModalIsOpen: true });
   }
 
+  transform = data => (_.map(data, 'node'));
+
   render() {
-    const { newAppModalIsOpen } = this.state;
-    const { bots, loading, refetch } = this.props.data;
+    const { newAppModalIsOpen, codeModalIsOpen, codeModalCode } = this.state;
+    const { botsFeed, loading, refetch } = this.props.data;
 
     if (loading) return <h1>Loading</h1>;
 
@@ -127,16 +177,15 @@ class BotsView extends React.Component {
             </ToolbarGroup>
           </Toolbar>
 
-          {bots && bots.length ? (
+          {botsFeed.bots && botsFeed.bots.totalCount > 0 ? (
             <MuiThemeProvider muiTheme={getMuiTheme(datatableTheme)}>
               <DataTables
                 height={'auto'}
                 selectable={false}
                 showRowHover
-                columns={tableColumns}
-                data={bots}
+                columns={tableColumns(this.openCodeModal, this.selectBot)}
+                data={this.transform(botsFeed.bots.edges)}
                 showCheckboxes={false}
-                onCellClick={this.selectBot}
                 page={1}
                 count={100}
               />
@@ -158,6 +207,13 @@ class BotsView extends React.Component {
           />
         }
 
+        {codeModalIsOpen &&
+          <CopyCodeModal
+            close={this.closeCodeModal}
+            code={codeModalCode}
+          />
+        }
+
       </MuiThemeProvider>
     );
   }
@@ -167,7 +223,7 @@ BotsView.propTypes = {
   data: PropTypes.shape({
     loading: PropTypes.bool,
     refetch: PropTypes.func,
-    bots: PropTypes.object,
+    botsFeed: PropTypes.object,
   }).isRequired,
   actions: PropTypes.shape({
     setRuntimeVariable: PropTypes.func,

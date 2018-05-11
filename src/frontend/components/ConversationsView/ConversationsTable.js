@@ -79,6 +79,9 @@ const tableColumns = (addPinned, openDrawer) => ([
   {
     key: 'intentions',
     label: 'Intentions',
+    style: {
+      width: 40,
+    },
     render: intentions => (
       <div>
         {intentions && intentions.length
@@ -101,6 +104,9 @@ const tableColumns = (addPinned, openDrawer) => ([
   {
     key: 'actions',
     label: 'Actions',
+    style: {
+      width: 40,
+    },
     render: actions => (
       <div>
         {actions && actions.length ? (
