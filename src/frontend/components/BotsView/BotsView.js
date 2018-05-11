@@ -31,7 +31,7 @@ import datatableTheme from '../datatableTheme';
 import * as runtimeActions from '../../actions/runtime';
 import lightTheme from '../theme';
 import s from './BotsView.css';
-import NewApp from './NewApp';
+import NewApp from '../NewApp/NewApp';
 import CopyCodeModal from './CopyCodeModal';
 
 const botsQuery = gql`

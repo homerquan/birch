@@ -17,6 +17,7 @@ import s from './BotsList.css';
 import PrimaryText from './PrimaryText';
 import BotsListLoader from './BotsListLoader';
 import fakeData from './fakeData.json';
+import NewApp from '../NewApp/NewApp';
 
 const linkStyle = {
   color: deepPurple500,
@@ -32,7 +33,10 @@ class BotsList extends Component {
     this.state = {
       isLoading: true,
       data: [],
+      newAppModalIsOpen: false,
     };
+
+    this.closeNewAppModal = this.closeNewAppModal.bind(this);
   }
 
   componentDidMount() {
@@ -44,8 +48,12 @@ class BotsList extends Component {
     }, 1000);
   }
 
+  closeNewAppModal() {
+    this.setState({ newAppModalIsOpen: false });
+  }
+
   render() {
-    const { isLoading } = this.state;
+    const { isLoading, newAppModalIsOpen } = this.state;
 
     if (isLoading) {
       return <BotsListLoader />;
@@ -75,9 +83,19 @@ class BotsList extends Component {
               labelStyle={linkStyle}
               href="#"
             />
-            <RaisedButton label="Create Application" />
+            <RaisedButton
+              onClick={() => this.setState({ newAppModalIsOpen: true })}
+              label="Create Application"
+              primary
+            />
           </div>
         </Paper>
+
+        {newAppModalIsOpen &&
+          <NewApp
+            close={this.closeNewAppModal}
+          />
+        }
       </MuiThemeProvider>
     );
   }
