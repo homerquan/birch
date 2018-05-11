@@ -13,8 +13,11 @@ import { grey500 } from 'material-ui/styles/colors';
 import Blockies from 'react-blockies';
 import moment from 'moment';
 import Toggle from 'material-ui/Toggle';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
 import s from './ConversationsTable.css';
+import datatableTheme from '../datatableTheme';
 
 const styles = {
   chipDark: {
@@ -231,21 +234,24 @@ class ConversationsTable extends Component {
     const displayData = data.slice(rowSize * (page - 1), rowSize * page);
 
     return (
-      <DataTables
-        height="auto"
-        selectable={false}
-        showRowHover
-        columns={tableColumns(addPinned, openDrawer)}
-        data={displayData}
-        showCheckboxes={false}
-        onSortOrderChange={(key, order) => this.handleSortOrderChange(key, order, displayData)}
-        onNextPageClick={this.handleNextPageClick}
-        onPreviousPageClick={this.handlePreviousPageClick}
-        onRowSizeChange={this.handleRowSizeChange}
-        page={page}
-        rowSize={rowSize}
-        count={conversations.length}
-      />
+      <MuiThemeProvider muiTheme={getMuiTheme(datatableTheme)}>
+        <DataTables
+          height="auto"
+          selectable={false}
+          showRowHover
+          columns={tableColumns(addPinned, openDrawer)}
+          data={displayData}
+          showCheckboxes={false}
+          onSortOrderChange={(key, order) => this.handleSortOrderChange(key, order, displayData)}
+          onNextPageClick={this.handleNextPageClick}
+          onPreviousPageClick={this.handlePreviousPageClick}
+          onRowSizeChange={this.handleRowSizeChange}
+          page={page}
+          rowSize={rowSize}
+          count={conversations.length}
+          tableHeaderColumnStyle={{ color: 'black' }}
+        />
+      </MuiThemeProvider>
     );
   }
 }
