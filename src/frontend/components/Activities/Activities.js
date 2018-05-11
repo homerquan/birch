@@ -91,6 +91,7 @@ class Activities extends Component {
               label="View all Activities"
               labelStyle={linkStyle}
               href="#"
+              fullWidth
             />
           </div>
         </Paper>

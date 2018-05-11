@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from "material-ui/styles/getMuiTheme";
-import lightTheme from '../theme';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import moment from 'moment';
 import Blockies from 'react-blockies';
@@ -11,17 +11,19 @@ import CompareArrows from 'material-ui/svg-icons/action/compare-arrows';
 import EventIcon from 'material-ui/svg-icons/notification/event-note';
 import Avatar from 'material-ui/Avatar';
 import Subheader from 'material-ui/Subheader';
-import { blue200, blue500 } from 'material-ui/styles/colors'
+import { blue200, blue500 } from 'material-ui/styles/colors';
 
+import lightTheme from '../theme';
 import s from './ConversationDetails.css';
 
 class ConversationDetails extends Component {
   render() {
     const { conversation } = this.props;
-    
+
     return (
       <MuiThemeProvider muiTheme={getMuiTheme(lightTheme)}>
-        <Paper>
+        <Paper className={s.paper}>
+          <Subheader>Conversation</Subheader>
           <div className={s.blockyWrapper}>
             <Blockies
               seed={conversation.id}
@@ -33,7 +35,7 @@ class ConversationDetails extends Component {
             />
           </div>
           <List>
-            <ListItem 
+            <ListItem
               leftIcon={<CompareArrows />}
               primaryText={
                 <div>
@@ -42,7 +44,7 @@ class ConversationDetails extends Component {
                 </div>
               }
             />
-            <ListItem 
+            <ListItem
               leftIcon={<EventIcon />}
               primaryText={
                 <div>
@@ -51,7 +53,7 @@ class ConversationDetails extends Component {
                 </div>
               }
             />
-            <ListItem 
+            <ListItem
               leftIcon={<EventIcon />}
               primaryText={
                 <div>
@@ -78,5 +80,13 @@ class ConversationDetails extends Component {
     );
   }
 }
+
+ConversationDetails.propTypes = {
+  conversation: PropTypes.shape({
+    id: PropTypes.string,
+    createdAt: PropTypes.string,
+    updatedAt: PropTypes.string,
+  }).isRequired,
+};
 
 export default withStyles(s)(ConversationDetails);
