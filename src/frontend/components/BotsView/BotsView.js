@@ -23,6 +23,7 @@ import {
   ToolbarGroup,
 } from 'material-ui/Toolbar';
 
+import datatableTheme from '../datatableTheme';
 import * as runtimeActions from '../../actions/runtime';
 import config from '../../config';
 import lightTheme from '../theme';
@@ -127,17 +128,19 @@ class BotsView extends React.Component {
           </Toolbar>
 
           {bots && bots.length ? (
-            <DataTables
-              height={'auto'}
-              selectable={false}
-              showRowHover
-              columns={tableColumns}
-              data={bots}
-              showCheckboxes={false}
-              onCellClick={this.selectBot}
-              page={1}
-              count={100}
-            />
+            <MuiThemeProvider muiTheme={getMuiTheme(datatableTheme)}>
+              <DataTables
+                height={'auto'}
+                selectable={false}
+                showRowHover
+                columns={tableColumns}
+                data={bots}
+                showCheckboxes={false}
+                onCellClick={this.selectBot}
+                page={1}
+                count={100}
+              />
+            </MuiThemeProvider>
           ) : (
             <div>
               <div className={s.nothing}>
