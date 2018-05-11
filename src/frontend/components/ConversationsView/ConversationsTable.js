@@ -147,29 +147,38 @@ const tableColumns = (addPinned, openDrawer) => ([
 
       return (<Toggle
         name={id}
+        tooltip="Pin to Top"
         toggled={pinToTop}
         onToggle={passedId => addPinned(passedId)}
       />);
     },
   },
   {
+    label: 'Open',
     style: {
       width: 30,
     },
     render: (name, all) => (
-      <IconButton onClick={() => openDrawer(all.id)}>
+      <IconButton
+        tooltip="Open"
+        onClick={() => openDrawer(all.id)}
+      >
         <ChatIcon color={grey500} />
       </IconButton>
     ),
   },
   {
+    label: 'More',
     key: 'id',
     style: {
       width: 30,
     },
     render: () => (
       <div>
-        <IconButton tooltip="More">
+        <IconButton
+          href="/conversation-details"
+          tooltip="More"
+        >
           <MoreIcon />
         </IconButton>
       </div>
