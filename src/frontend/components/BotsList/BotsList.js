@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from "material-ui/styles/getMuiTheme";
-import lightTheme from '../theme';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import { List, ListItem } from 'material-ui/List';
 import Divider from 'material-ui/Divider';
@@ -9,20 +8,21 @@ import Avatar from 'material-ui/Avatar';
 import CodeIcon from 'material-ui/svg-icons/action/code';
 import { deepPurple500 } from 'material-ui/styles/colors';
 import RaisedButton from 'material-ui/RaisedButton';
+import FlatButton from 'material-ui/FlatButton';
 import Paper from 'material-ui/Paper';
+import Subheader from 'material-ui/Subheader';
 
+import lightTheme from '../theme';
 import s from './BotsList.css';
 import PrimaryText from './PrimaryText';
-import Link from '../Link/Link';
 import BotsListLoader from './BotsListLoader';
 import fakeData from './fakeData.json';
 
-// Styles
-// TODO: Need to explore ways to include
-// material-ui styles in external css files.
-const footerLinkStyle = {
+const linkStyle = {
   color: deepPurple500,
-  textDecoration: 'none',
+  textTransform: 'none',
+  fontSize: '15px',
+  fontWeight: '400',
 };
 
 class BotsList extends Component {
@@ -54,7 +54,8 @@ class BotsList extends Component {
     return (
       <MuiThemeProvider muiTheme={getMuiTheme(lightTheme)}>
         <Paper zDepth={2} className={s.paper}>
-         <List style={{ padding: 0 }}>
+          <Subheader>Applications</Subheader>
+          <List style={{ padding: 0 }}>
             {this.state.data.map(application => (
               <div key={application.id}>
                 <ListItem
@@ -69,7 +70,11 @@ class BotsList extends Component {
           </List>
 
           <div className={s.footerContainer}>
-            <Link to="#" style={footerLinkStyle}>View all Applications</Link>
+            <FlatButton
+              label="View all Applications"
+              labelStyle={linkStyle}
+              href="#"
+            />
             <RaisedButton label="Create Application" />
           </div>
         </Paper>

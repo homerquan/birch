@@ -8,10 +8,7 @@
  */
 
 import React from 'react';
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import { Page, Section, LayoutProvider } from 'react-page-layout';
-import s from './Home.css';
-import Paper from 'material-ui/Paper';
 import grids from '../../components/Layout/grids';
 import Title from '../../components/Title';
 import BotsList from '../../components/BotsList/BotsList';
@@ -37,4 +34,4 @@ class Home extends React.Component {
   }
 }
 
-export default (withStyles(s))(Home);
+export default Home;
