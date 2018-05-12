@@ -340,6 +340,7 @@ type ConversationEventFeed {
 
 input MessageInput {
   text: String!
+  command: String
   conversationId: String!
   userId: String!
   isLearning: Boolean! #once learning switch is on, this is ture.
