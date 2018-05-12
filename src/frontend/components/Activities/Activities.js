@@ -12,31 +12,27 @@
  */
 import React, { Component } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from "material-ui/styles/getMuiTheme";
-import lightTheme from '../theme';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import { List } from 'material-ui/List';
 import Divider from 'material-ui/Divider';
 import { deepPurple500 } from 'material-ui/styles/colors';
 import Paper from 'material-ui/Paper';
+import Subheader from 'material-ui/Subheader';
+import FlatButton from 'material-ui/FlatButton';
+
+import lightTheme from '../theme';
 import s from './Activities.css';
 import fakeData from './fakeData.json';
-import Link from '../Link/Link';
 import MessageListItem from '../MessageListItem/MessageListItem';
 import NotificationListItem from '../NotificationListItem/NotificationListItem';
-import Loader from '../Loader/Loader';
 import ActivitiesContentLoader from './ActivitiesContentLoader';
 
-// Styles
-// TODO: Need to explore ways to include
-// material-ui styles in external css files.
-const viewAllLink = {
+const linkStyle = {
   color: deepPurple500,
-  textDecoration: 'none',
-  display: 'block',
-  marginTop: '5px',
-  fontSize: '14px',
-  textAlign: 'right',
+  textTransform: 'none',
+  fontSize: '15px',
+  fontWeight: '400',
 };
 
 class Activities extends Component {
@@ -68,6 +64,7 @@ class Activities extends Component {
     return (
       <MuiThemeProvider muiTheme={getMuiTheme(lightTheme)}>
         <Paper zDepth={2} className={s.paper}>
+          <Subheader>Recent Activities</Subheader>
           <List style={{ padding: 0 }}>
             {this.state.data.map(application => (
               <div key={application.id}>
@@ -90,7 +87,12 @@ class Activities extends Component {
             )}
           </List>
           <div className={s.footerContainer}>
-           <Link to="#" style={viewAllLink}>View All Activities</Link>
+            <FlatButton
+              label="View all Activities"
+              labelStyle={linkStyle}
+              href="#"
+              fullWidth
+            />
           </div>
         </Paper>
       </MuiThemeProvider>

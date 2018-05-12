@@ -4,25 +4,6 @@
 * @Last Modified by:   Homer
 * @Last Modified time: 2017-12-28 11:17:33
 */
-@import '../variables.css';
-
-.visitorName {
-	font-weight: 600;
-}
-
-.visitorId {
-	font-size: 9px;
-	color: var(--color-text-light);
-}
-
-.intentionChip {
-	display: inline-block;
-	padding: 2px;
-}
-
-.chipProgress {
-	position: absolute;
-}
 
 .nothing {
 	height: 400px;

@@ -13,8 +13,11 @@ import { grey500 } from 'material-ui/styles/colors';
 import Blockies from 'react-blockies';
 import moment from 'moment';
 import Toggle from 'material-ui/Toggle';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
-import s from './ConversationTable.css';
+import s from './ConversationsTable.css';
+import datatableTheme from '../datatableTheme';
 
 const styles = {
   chipDark: {
@@ -76,11 +79,14 @@ const tableColumns = (addPinned, openDrawer) => ([
   {
     key: 'intentions',
     label: 'Intentions',
+    style: {
+      width: 40,
+    },
     render: intentions => (
       <div>
         {intentions && intentions.length
           ? intentions.map((intention, index, array) => (
-            <span key={intention.name}>
+            <span key={intention.id}>
               <Chip
                 style={array.length === (index + 1) ? styles.chip : styles.chipDark}
               >
@@ -98,11 +104,14 @@ const tableColumns = (addPinned, openDrawer) => ([
   {
     key: 'actions',
     label: 'Actions',
+    style: {
+      width: 40,
+    },
     render: actions => (
       <div>
         {actions && actions.length ? (
           actions.map(action => (
-            <span key={action.name}>
+            <span key={action.id}>
               <Chip
                 style={styles.chip}
               >
@@ -128,39 +137,48 @@ const tableColumns = (addPinned, openDrawer) => ([
     ),
   },
   {
-    key: 'pinned',
+    key: 'pinToTop',
     label: 'Pin to Top',
     style: {
       width: 40,
     },
-    render: (pin, all) => {
+    render: (pinToTop, all) => {
       const { id } = all;
 
       return (<Toggle
         name={id}
-        toggled={pin}
+        tooltip="Pin to Top"
+        toggled={pinToTop}
         onToggle={passedId => addPinned(passedId)}
       />);
     },
   },
   {
+    label: 'Open',
     style: {
       width: 30,
     },
     render: (name, all) => (
-      <IconButton onClick={() => openDrawer(all.id)}>
+      <IconButton
+        tooltip="Open"
+        onClick={() => openDrawer(all.id)}
+      >
         <ChatIcon color={grey500} />
       </IconButton>
     ),
   },
   {
+    label: 'More',
     key: 'id',
     style: {
       width: 30,
     },
     render: () => (
       <div>
-        <IconButton tooltip="More">
+        <IconButton
+          href="/conversation-details"
+          tooltip="More"
+        >
           <MoreIcon />
         </IconButton>
       </div>
@@ -199,11 +217,11 @@ class ConversationsTable extends Component {
     // Original idea here: https://github.com/hyojin/material-ui-datatables/issues/46
     // First sort by pinned/not pinned then sort the passed in key/order
     array.sort((a, b) => {
-      if (a.pinned && !b.pinned) {
+      if (a.pinToTop && !b.pinToTop) {
         return -1;
       }
 
-      if (!a.pinned && b.pinned) {
+      if (!a.pinToTop && b.pinToTop) {
         return 1;
       }
 
@@ -221,8 +239,8 @@ class ConversationsTable extends Component {
 
     // Build the initial conversation array, moving pinned conversations
     // to the top.
-    const pinned = conversations.filter(conv => conv.pinned);
-    const notPinned = conversations.filter(conv => !conv.pinned);
+    const pinned = conversations.filter(conv => conv.pinToTop);
+    const notPinned = conversations.filter(conv => !conv.pinToTop);
     const data = [
       ...pinned,
       ...notPinned,
@@ -231,21 +249,24 @@ class ConversationsTable extends Component {
     const displayData = data.slice(rowSize * (page - 1), rowSize * page);
 
     return (
-      <DataTables
-        height="auto"
-        selectable={false}
-        showRowHover
-        columns={tableColumns(addPinned, openDrawer)}
-        data={displayData}
-        showCheckboxes={false}
-        onSortOrderChange={(key, order) => this.handleSortOrderChange(key, order, displayData)}
-        onNextPageClick={this.handleNextPageClick}
-        onPreviousPageClick={this.handlePreviousPageClick}
-        onRowSizeChange={this.handleRowSizeChange}
-        page={page}
-        rowSize={rowSize}
-        count={conversations.length}
-      />
+      <MuiThemeProvider muiTheme={getMuiTheme(datatableTheme)}>
+        <DataTables
+          height="auto"
+          selectable={false}
+          showRowHover
+          columns={tableColumns(addPinned, openDrawer)}
+          data={displayData}
+          showCheckboxes={false}
+          onSortOrderChange={(key, order) => this.handleSortOrderChange(key, order, displayData)}
+          onNextPageClick={this.handleNextPageClick}
+          onPreviousPageClick={this.handlePreviousPageClick}
+          onRowSizeChange={this.handleRowSizeChange}
+          page={page}
+          rowSize={rowSize}
+          count={conversations.length}
+          tableHeaderColumnStyle={{ color: 'black' }}
+        />
+      </MuiThemeProvider>
     );
   }
 }
@@ -257,6 +278,7 @@ ConversationsTable.propTypes = {
       client: PropTypes.string,
       id: PropTypes.string,
       intentions: PropTypes.array,
+      pinToTop: PropTypes.bool,
       mode: PropTypes.string,
       updatedAt: PropTypes.string,
       visito: PropTypes.string,

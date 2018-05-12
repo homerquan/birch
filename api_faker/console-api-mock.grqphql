@@ -16,11 +16,13 @@ type Error {
 }
 
 type Intention {
+  id: String @fake(type:uuid)
   name: String @fake(type:lorem, options:{loremSize:word})
   score: Int @examples(values: [19, 38])
 }
 
 type Action {
+  id: String @fake(type:uuid)
   source: String @examples(values: ["ai", "helper", "visitor"])
   name: String @fake(type:lorem, options:{loremSize:word})
   status: String @examples(values: ["done", "progress"])
@@ -151,8 +153,8 @@ type Bot {
   token: String @fake(type:uuid)
   protocol: String  @examples(values: ["http", "https"])
   host: String @fake(type:url)
-  type: String @examples(values: ["personal", "health"])
   mode: String @examples(values: ["auto", "semi", "manual"])
+  embedCode: String @examples(values: ["<script src=\"http://widget.reflen.com/convospot.js\" bid=\"5f9efca2-c423-49d1-84f8-72981a07d430\" token=\"Z5lHSSvEnVdPZUhk\" async></script>"])
   client: String @fake(type:uuid)
   createdAt: String @fake(type:pastDate,options:{dateFormat:""})
   updatedAt: String @fake(type:pastDate,options:{dateFormat:""})
@@ -241,77 +243,6 @@ type UserMessage {
   updatedAt: String @fake(type:pastDate,options:{dateFormat:""})
 }
 
-type UserMessagesConnection {
-  totalCount: Int
-  pageInfo: PageInfo!
-  edges: [UserMessagesEdge]
-}
-
-type UserMessagesEdge {
-  cursor: String! @examples(values: ["Y3Vyc29yMw=="])
-  node: UserMessage
-}
-
-type UserMessagesFeed {
-   bots(
-    first: Int,
-    after: String,
-    last: Int,
-    before: String
-  ):UserMessagesConnection 
-}
-
-# System activities in the landing page
-type UserActivity {
-  id: ID @fake(type:uuid)
-  type: String
-  bot: Bot
-  text: String
-  createdAt: String @fake(type:pastDate,options:{dateFormat:""})
-  updatedAt: String @fake(type:pastDate,options:{dateFormat:""})
-}
-
-type UserActivitiesConnection {
-  totalCount: Int
-  pageInfo: PageInfo!
-  edges: [UserActivitiesEdge]
-}
-
-type UserActivitiesEdge {
-  cursor: String! @examples(values: ["Y3Vyc29yMw=="])
-  node: UserActivity
-}
-
-type UserActivitiesFeed {
-   bots(
-    first: Int,
-    after: String,
-    last: Int,
-    before: String
-  ):UserActivitiesConnection 
-}
-
-type PluginsConnection {
-  totalCount: Int
-  pageInfo: PageInfo!
-  edges: [PluginsEdge]
-}
-
-type PluginsEdge {
-  cursor: String! @examples(values: ["Y3Vyc29yMw=="])
-  node: Plugin
-}
-
-type PluginsFeed {
-   bots(
-    first: Int,
-    after: String,
-    last: Int,
-    before: String
-  ):PluginsConnection 
-}
-
-
 type Query {
   notificationsFeed(clientId: String): NotificationsFeed
   conversationsFeed(clientId: String, botId: String): ConversationsFeed
@@ -319,8 +250,6 @@ type Query {
   messagesFeed(conversationId: String): MessagesFeed
   botsFeed(clientId: String): BotsFeed
   pluginsFeed(conversationId: String): PluginsFeed
-  userActivitiesFeed(clientId:String): UserActivitiesFeed
-  userMessagesFeed(clientId:String): UserMessagesFeed
   messages(conversationId: String, clientId: String): [Message] #this will be removed
   bots(clientId: String): [Bot] #this will be removed
   knowledge(clientId: String, botId: String): Knowledge #this will be removed
@@ -352,7 +281,6 @@ type CreateMessageResponse  {
 }
 
 type Mutation {
-  me: User # account details
   updateConversation(conversationId: String!): Conversation
   createMessage(input: MessageInput): CreateMessageResponse
   createBot(clientId: String!, name: String!, url: String!): Bot

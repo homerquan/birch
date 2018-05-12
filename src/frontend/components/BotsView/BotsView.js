@@ -6,96 +6,159 @@
 */
 
 import React from 'react';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import lightTheme from '../theme';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { graphql, compose } from 'react-apollo';
+import gql from 'graphql-tag';
+import _ from 'lodash';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import DataTables from 'material-ui-datatables';
-import Paper from 'material-ui/Paper'
-import Avatar from 'material-ui/Avatar'
-import Chip from 'material-ui/Chip'
-import withStyles from 'isomorphic-style-loader/lib/withStyles'
-import IconButton from 'material-ui/IconButton'
-import OnlineIcon from 'react-material-icons/icons/action/swap-horiz'
-import OffIcon from 'react-material-icons/icons/notification/sync-disabled'
-import ActiveActionIcon from 'react-material-icons/icons/action/history'
-import ReloadIcon from 'react-material-icons/icons/action/cached'
-import AddIcon from 'react-material-icons/icons/content/add'
-import CircularProgress from 'material-ui/CircularProgress'
-import MoreIcon from 'react-material-icons/icons/navigation/more-vert'
-import s from './BotsView.css'
-import gql from 'graphql-tag'
-import Blockies from 'react-blockies'
-import RaisedButton from 'material-ui/RaisedButton'
-import * as runtimeActions from '../../actions/runtime'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
-import config from '../../config';
-
-
+import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import IconButton from 'material-ui/IconButton';
+import ReloadIcon from 'react-material-icons/icons/action/cached';
+import AddIcon from 'react-material-icons/icons/content/add';
+import CodeIcon from 'material-ui/svg-icons/action/code';
+import EyeIcon from 'material-ui/svg-icons/image/remove-red-eye';
+import MoreIcon from 'react-material-icons/icons/navigation/more-vert';
 import {
   Toolbar,
   ToolbarGroup,
-  ToolbarSeparator,
-  ToolbarTitle
-} from "material-ui/Toolbar";
+} from 'material-ui/Toolbar';
+
+import datatableTheme from '../datatableTheme';
+import * as runtimeActions from '../../actions/runtime';
+import lightTheme from '../theme';
+import s from './BotsView.css';
+import NewApp from '../NewApp/NewApp';
+import CopyCodeModal from './CopyCodeModal';
 
 const botsQuery = gql`
-  query BotsQuery($clientId: String!) {
-    bots(clientId: $clientId) {
-      id
-      name
-      host
-      token
+  query BotsFeed($clientId: String!) {
+    botsFeed(clientId: $clientId) {
+      bots(first:1) {
+        totalCount
+        edges {
+          cursor,
+          node{
+            id,
+            name,
+            host
+            embedCode,
+            mode,
+            updatedAt
+          }
+        }
+      }
     }
   }
 `;
 
-const tableColumns = [
+const tableColumns = (openCodeModal, selectBot) => ([
   {
-    key: "name",
-    label: "Name",
+    key: 'name',
+    label: 'Name',
     style: {
-      width: 160
-    }
+      width: 160,
+    },
   },
   {
-    key: "host",
-    label: "Host",
+    key: 'host',
+    label: 'Host',
     style: {
-      width: 60
-    }
+      width: 160,
+    },
   },
   {
-    key: "token",
-    label: "Embed code",
-    render: (token, all) => (
-      <div> 
-        <code className={s.smallCode}>
-           &lt;script src="{config.widgetUrl}" bid="{all.id}" token="{token}" async&gt;&lt;/script&gt;
-        </code>
+    key: 'embedCode',
+    label: 'Embed code',
+    render: code => (
+      <IconButton onClick={() => openCodeModal(code)}>
+        <CodeIcon />
+      </IconButton>
+    ),
+  },
+  {
+    key: 'id',
+    label: 'View',
+    render: id => (
+      <IconButton onClick={() => selectBot(id)}>
+        <EyeIcon />
+      </IconButton>
+    ),
+  },
+  {
+    style: {
+      width: 30,
+    },
+    render: () => (
+      <div>
+        <IconButton tooltip="More">
+          <MoreIcon />
+        </IconButton>
       </div>
-    )
-  }
-];
+    ),
+  },
+]);
 
 class BotsView extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { openDrawer: false, selectedConversation: null };
+
+    this.state = {
+      openDrawer: false,
+      selectedConversation: null,
+      newAppModalIsOpen: false,
+      codeModalIsOpen: false,
+      codeModalCode: '',
+    };
+
+    this.closeNewAppModal = this.closeNewAppModal.bind(this);
+    this.openNewAppModal = this.openNewAppModal.bind(this);
+    this.openCodeModal = this.openCodeModal.bind(this);
+    this.closeCodeModal = this.closeCodeModal.bind(this);
   }
 
-  selectBot = index => {
-    const selected = this.props.data.bots[index];
+  selectBot = (conversationId) => {
+    const conversations = this.transform(this.props.data.botsFeed.bots.edges);
+    const selected = conversations.find(convo => convo.id === conversationId);
+
     this.props.actions.setRuntimeVariable({
       name: 'selectedApp',
-      value: selected
+      value: selected,
     });
-    window.location.replace("/"+selected.id+"/conversations"); 
+
+    window.location.replace(`/${selected.id}/conversations`);
   };
 
+  closeNewAppModal() {
+    this.setState({ newAppModalIsOpen: false });
+  }
+
+  openCodeModal(code) {
+    this.setState({
+      codeModalIsOpen: true,
+      codeModalCode: code,
+    });
+  }
+
+  closeCodeModal() {
+    this.setState({
+      codeModalIsOpen: false,
+      codeModalCode: '',
+    });
+  }
+
+  openNewAppModal() {
+    this.setState({ newAppModalIsOpen: true });
+  }
+
+  transform = data => (_.map(data, 'node'));
+
   render() {
-    const { bots, loading, refetch } = this.props.data;
+    const { newAppModalIsOpen, codeModalIsOpen, codeModalCode } = this.state;
+    const { botsFeed, loading, refetch } = this.props.data;
 
     if (loading) return <h1>Loading</h1>;
 
@@ -103,9 +166,9 @@ class BotsView extends React.Component {
       <MuiThemeProvider muiTheme={getMuiTheme(lightTheme)}>
         <div>
           <Toolbar>
-            <ToolbarGroup firstChild={true} />
+            <ToolbarGroup firstChild />
             <ToolbarGroup>
-              <IconButton tooltip="Add" href="/new_app">
+              <IconButton tooltip="Add" onClick={this.openNewAppModal}>
                 <AddIcon />
               </IconButton>
               <IconButton tooltip="Reload" onTouchTap={() => refetch()}>
@@ -114,42 +177,68 @@ class BotsView extends React.Component {
             </ToolbarGroup>
           </Toolbar>
 
-          {bots && bots.length ? (
-            <DataTables
-              height={"auto"}
-              selectable={false}
-              showRowHover={true}
-              columns={tableColumns}
-              data={bots}
-              showCheckboxes={false}
-              onCellClick={this.selectBot}
-              page={1}
-              count={100}
-            />
+          {botsFeed.bots && botsFeed.bots.totalCount > 0 ? (
+            <MuiThemeProvider muiTheme={getMuiTheme(datatableTheme)}>
+              <DataTables
+                height={'auto'}
+                selectable={false}
+                showRowHover
+                columns={tableColumns(this.openCodeModal, this.selectBot)}
+                data={this.transform(botsFeed.bots.edges)}
+                showCheckboxes={false}
+                page={1}
+                count={100}
+              />
+            </MuiThemeProvider>
           ) : (
             <div>
               <div className={s.nothing}>
                 <div className={s.fun}>
-                  <img src="/images/nothing.png" />
+                  <img src="/images/nothing.png" alt="No Apps" />
                 </div>
               </div>
             </div>
           )}
         </div>
+
+        {newAppModalIsOpen &&
+          <NewApp
+            close={this.closeNewAppModal}
+          />
+        }
+
+        {codeModalIsOpen &&
+          <CopyCodeModal
+            close={this.closeCodeModal}
+            code={codeModalCode}
+          />
+        }
+
       </MuiThemeProvider>
     );
   }
 }
 
+BotsView.propTypes = {
+  data: PropTypes.shape({
+    loading: PropTypes.bool,
+    refetch: PropTypes.func,
+    botsFeed: PropTypes.object,
+  }).isRequired,
+  actions: PropTypes.shape({
+    setRuntimeVariable: PropTypes.func,
+  }).isRequired,
+};
+
 function selectProps(state) {
   return {
-    runtime: state.runtime
+    runtime: state.runtime,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(runtimeActions, dispatch)
+    actions: bindActionCreators(runtimeActions, dispatch),
   };
 }
 
@@ -157,8 +246,8 @@ export default withStyles(s)(
   compose(
     graphql(botsQuery, {
       options: props => ({
-        variables: { clientId: props.clientId }
-      })
-    })
-  )(connect(selectProps, mapDispatchToProps)(BotsView))
+        variables: { clientId: props.clientId },
+      }),
+    }),
+  )(connect(selectProps, mapDispatchToProps)(BotsView)),
 );

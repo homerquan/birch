@@ -75,6 +75,7 @@ query {
  }
 }
 
+
 query 
 {
   conversationsFeed(clientId:"abc",botId:"123") {
@@ -99,6 +100,25 @@ query
         }
       }
     }
+  }
+}
+
+query {
+  conversation(conversationId:"a87cb625-18fb-4929-a2fc-e588aab28c5"){
+    messages(first:1) {
+     edges {
+      node {
+        id
+        text
+        source
+      }
+     }
+     totalCount
+     pageInfo {
+      hasNextPage
+      endCursor
+    }
+   }
   }
 }
 
@@ -151,6 +171,38 @@ In redux dev tool, dispatch events such as
     "type": "SET_RUNTIME_VARIABLE",
     "payload": {
         "name": "test",
+        "value": 1
+    }
+}
+
+{
+    "type": "SET_RUNTIME_VARIABLE",
+    "payload": {
+        "name": "OPEN_DECISION_SUPPORT",
+        "value": 1
+    }
+}
+
+{
+    "type": "SET_RUNTIME_VARIABLE",
+    "payload": {
+        "name": "SHOW_CHAT_BUBBLE",
+        "value": 1
+    }
+}
+
+{
+    "type": "SET_RUNTIME_VARIABLE",
+    "payload": {
+        "name": "SHOW_CHAT_ERROR",
+        "value": 1
+    }
+}
+
+{
+    "type": "SET_RUNTIME_VARIABLE",
+    "payload": {
+        "name": "NOTIFICATIONS_COUNT",
         "value": 1
     }
 }

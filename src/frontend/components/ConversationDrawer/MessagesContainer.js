@@ -4,14 +4,30 @@ import { connect } from 'react-redux';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import moment from 'moment';
 import classnames from 'classnames';
+import RaisedButton from 'material-ui/RaisedButton';
 
 import s from './MessagesContainer.css';
 import { ACTION_TYPES } from '../../constants';
 
 class MessagesContainer extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      showLoadMoreMessages: false,
+    };
+  }
+
   componentDidMount() {
     const messageContainerInner = document.getElementById('messageContainerInner');
     messageContainerInner.scrollIntoView(false);
+
+    // Show the load more messages button if messages are hidden in the
+    // scroll
+    const messageContainer = document.getElementById('messageContainer');
+    if (messageContainer.scrollTop > 50) {
+      this.setState({ showLoadMoreMessages: true });
+    }
   }
 
   render() {
@@ -22,9 +38,20 @@ class MessagesContainer extends Component {
       { [s.messageNotRecieved]: true },
     );
 
+    const showMoreButtonStyles = {
+      display: this.state.showLoadMoreMessages ? 'inline-block' : 'none',
+    };
+
     return (
-      <div className={s.messagesContainer}>
+      <div id="messageContainer" className={s.messagesContainer}>
         <div id="messageContainerInner">
+          <RaisedButton
+            style={showMoreButtonStyles}
+            label="Load More"
+            fullWidth
+            primary
+          />
+
           {messages.map(message => (
             <div
               key={message.id}
