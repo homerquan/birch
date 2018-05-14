@@ -1,14 +1,14 @@
 .decisionSupportContainer {
     position: absolute;
     top: 0;
-    left: 0;
-    right: 0;
+    left: 11px;
+    right: 11px;
     z-index: 104;
     transform: translateY(-110%);
 }
 
 .active {
-    transform: translateY(0);
+    transform: translateY(11px);
 }
 
 .decisionThinkingText {

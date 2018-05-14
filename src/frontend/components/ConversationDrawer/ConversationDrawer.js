@@ -8,9 +8,9 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import CloseIcon from 'material-ui/svg-icons/navigation/close';
 import IconButton from 'material-ui/IconButton';
 import SendIcon from 'material-ui/svg-icons/content/send';
-import { deepPurple500, white } from 'material-ui/styles/colors';
+import { lightGreenA700, grey900, white } from 'material-ui/styles/colors';
+import SchoolIcon from 'material-ui/svg-icons/social/school';
 import withWidth, { LARGE } from 'material-ui/utils/withWidth';
-import Toggle from 'material-ui/Toggle';
 
 import s from './ConversationDrawer.css';
 import MessagesContainer from './MessagesContainer';
@@ -210,7 +210,7 @@ class ConversationDrawerTwo extends Component {
         zIndex: 102,
       },
       conversationWrapper: {
-        backgroundColor: 'white',
+        backgroundColor: white,
         position: 'fixed',
         display: 'flex',
         flexDirection: 'column',
@@ -230,7 +230,7 @@ class ConversationDrawerTwo extends Component {
         left: -24,
         top: -1,
         borderTop: '8px solid transparent',
-        borderRight: `24px solid ${deepPurple500}`,
+        borderRight: '24px solid white',
         borderBottom: '8px solid transparent',
       },
       closeIconBtn: {
@@ -250,7 +250,6 @@ class ConversationDrawerTwo extends Component {
         position: 'relative',
         flexDirection: 'column',
         flex: 1,
-        backgroundColor: deepPurple500,
         width: '100%',
         maxWidth: width === LARGE ? '700px' : 'none',
         margin: width === LARGE ? '0 auto' : 0,
@@ -259,7 +258,7 @@ class ConversationDrawerTwo extends Component {
     };
 
     const toggleLabel = {
-      color: 'white',
+      color: white,
     };
 
     if (loading) {
@@ -279,14 +278,21 @@ class ConversationDrawerTwo extends Component {
 
             <div className={s.utilityBarContainer}>
               <div className={s.utilityBar}>
-                <Toggle
+                <IconButton
+                  tooltip="Enable Training"
+                  onClick={this.handleEnableTrainingToggle}
+                >
+                  <SchoolIcon color={enableTraining ? lightGreenA700 : grey900} />
+                </IconButton>
+
+                {/* <Toggle
                   style={{ width: 'auto' }}
                   label="Enable Training"
                   className={s.trainingToggle}
                   labelStyle={toggleLabel}
                   toggled={enableTraining}
                   onClick={this.handleEnableTrainingToggle}
-                />
+                /> */}
               </div>
             </div>
 
@@ -331,7 +337,7 @@ class ConversationDrawerTwo extends Component {
               style={styles.closeIconBtn}
               onClick={closeDrawer}
             >
-              <CloseIcon color={white} />
+              <CloseIcon />
             </IconButton>
           </div>
         </div>

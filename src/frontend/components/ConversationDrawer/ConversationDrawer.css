@@ -1,5 +1,6 @@
 .utilityBarContainer {
-    background-color: rgb(103, 58, 183);
+    background-color: white;
+    border-bottom: 1px solid lightgrey;
     width: 100%;
     padding: 10px;
 }
@@ -7,11 +8,6 @@
 .utilityBar {
     max-width: 700px;
     margin: 0 auto;
-}
-
-.trainingToggle {
-    width: auto;
-    max-width: 200px;
 }
 
 .chatBoxContainer {
