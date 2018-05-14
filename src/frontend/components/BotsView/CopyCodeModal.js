@@ -3,30 +3,11 @@ import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import RaisedButton from 'material-ui/RaisedButton';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import IconButton from 'material-ui/IconButton';
-import CloseIcon from 'material-ui/svg-icons/navigation/close';
 import Subheader from 'material-ui/Subheader';
 import FlatButton from 'material-ui/FlatButton';
 import HelpIcon from 'material-ui/svg-icons/action/help-outline';
 
 import s from './CopyCodeModal.css';
-
-const styles = {
-  closeButton: {
-    position: 'absolute',
-    top: '-17px',
-    right: '-17px',
-    backgroundColor: '#673ab7',
-    borderRadius: '50px',
-    width: 36,
-    height: 36,
-    padding: 8,
-  },
-  closeIcon: {
-    width: 18,
-    height: 18,
-  },
-};
 
 const CodeModal = ({ close, code }) => (
   <div className={s.container}>
@@ -47,6 +28,7 @@ const CodeModal = ({ close, code }) => (
         <div className={s.footer}>
           <RaisedButton
             label="Done"
+            primary
             onClick={close}
           />
           <FlatButton
