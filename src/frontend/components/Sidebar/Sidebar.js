@@ -30,6 +30,7 @@ import ListIcon from "react-material-icons/icons/action/list";
 import MoreIcon from "react-icons/lib/md/more-vert";
 import ConversationIcon from "react-material-icons/icons/communication/chat";
 import ConversationsIcon from "react-icons/lib/md/chat";
+import PluginsIcon from "react-icons/lib/md/developer-board";
 import KnowledgeIcon from "react-icons/lib/md/grain";
 import { connect } from "react-redux";
 
@@ -150,6 +151,9 @@ class Sidebar extends React.Component {
                 <List>
                   <ListItem leftIcon={<ConversationsIcon color={white} style={styles.iconItem} />}>
                     <a className={s.link} href={`/${selectedApp.id}/conversations`}>Conversations</a>
+                  </ListItem>
+                  <ListItem leftIcon={<PluginsIcon color={white} style={styles.iconItem} />}>
+                     <a className={s.link} href={`/${selectedApp.id}/plugins`}>Plugins</a>
                   </ListItem>
                   <ListItem leftIcon={<KnowledgeIcon color={white} style={styles.iconItem} />}>
                      <a className={s.link} href={`/${selectedApp.id}/knowledge`}>Knowledge</a>

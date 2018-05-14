@@ -16,9 +16,9 @@ import Layout from '../../components/Layout';
 import { isLogin } from '../../utils';
 
 export default {
-  path: '/plugins',
+  path: '/:id/plugins',
   chunk: 'plugins',
-  action({ store, path }) {
+  action({ store, params, path }) {
     const login = isLogin(store.getState());
 
     if (!login) {
@@ -30,7 +30,9 @@ export default {
       chunk: 'plugins',
       component: (
         <Layout>
-          <Plugins />
+          <Plugins 
+           botId={params.id}
+          />
         </Layout>
       ),
     };
