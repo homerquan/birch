@@ -8,7 +8,7 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import CloseIcon from 'material-ui/svg-icons/navigation/close';
 import IconButton from 'material-ui/IconButton';
 import SendIcon from 'material-ui/svg-icons/content/send';
-import { lightGreenA700, grey900, white } from 'material-ui/styles/colors';
+import { greenA700, grey900, white } from 'material-ui/styles/colors';
 import SchoolIcon from 'material-ui/svg-icons/social/school';
 import withWidth, { LARGE } from 'material-ui/utils/withWidth';
 
@@ -225,10 +225,10 @@ class ConversationDrawerTwo extends Component {
       closeIconBG: {
         backgroundColor: 'transparent',
         width: 0,
-        height: 29,
+        height: 32,
         position: 'absolute',
         left: -24,
-        top: -1,
+        top: 0,
         borderTop: '8px solid transparent',
         borderRight: '24px solid white',
         borderBottom: '8px solid transparent',
@@ -238,7 +238,7 @@ class ConversationDrawerTwo extends Component {
         height: 32,
         padding: 8,
         left: -28,
-        top: 6,
+        top: 9,
         position: 'absolute',
       },
       closeIcon: {
@@ -255,10 +255,15 @@ class ConversationDrawerTwo extends Component {
         margin: width === LARGE ? '0 auto' : 0,
         overflow: 'hidden',
       },
-    };
-
-    const toggleLabel = {
-      color: white,
+      small: {
+        width: 48,
+        height: 48,
+        padding: 8,
+      },
+      smallIcon: {
+        width: 24,
+        height: 24,
+      },
     };
 
     if (loading) {
@@ -281,18 +286,11 @@ class ConversationDrawerTwo extends Component {
                 <IconButton
                   tooltip="Enable Training"
                   onClick={this.handleEnableTrainingToggle}
+                  iconStyle={styles.smallIcon}
+                  style={styles.small}
                 >
-                  <SchoolIcon color={enableTraining ? lightGreenA700 : grey900} />
+                  <SchoolIcon color={enableTraining ? greenA700 : grey900} />
                 </IconButton>
-
-                {/* <Toggle
-                  style={{ width: 'auto' }}
-                  label="Enable Training"
-                  className={s.trainingToggle}
-                  labelStyle={toggleLabel}
-                  toggled={enableTraining}
-                  onClick={this.handleEnableTrainingToggle}
-                /> */}
               </div>
             </div>
 
