@@ -69,7 +69,7 @@ class BotsList extends Component {
     const { loading, data: { botsFeed } } = this.props;
     const { newAppModalIsOpen } = this.state;
 
-    if (loading) {
+    if (!botsFeed || loading) {
       return <BotsListLoader />;
     }
 

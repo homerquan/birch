@@ -30,8 +30,8 @@ export default {
       chunk: 'plugins',
       component: (
         <Layout>
-          <Plugins 
-           botId={params.id}
+          <Plugins
+            botId={params.id}
           />
         </Layout>
       ),
