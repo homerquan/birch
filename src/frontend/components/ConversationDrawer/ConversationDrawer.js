@@ -43,6 +43,43 @@ const conversationQuery = gql`
   }
 `;
 
+const conversationQueryLoadMore = gql`
+  query Conversation($conversationId: String, $after: String,){
+    conversation(conversationId: $conversationId){
+      id
+      messages(after: $after) {
+        edges {
+          node {
+            id
+            text
+            source
+          }
+        }
+        totalCount
+        pageInfo {
+          hasNextPage
+          endCursor
+        }
+      }
+    }
+  }
+`;
+
+const createMessage = gql`
+  mutation CreateMessage($input: MessageInput) {
+    createMessage(input: $input){
+      error {
+        code
+        message
+        detail
+      }
+      message {
+        id
+      }
+    }
+  }
+`;
+
 class ConversationDrawerTwo extends Component {
   constructor(props) {
     super(props);
@@ -60,6 +97,7 @@ class ConversationDrawerTwo extends Component {
     this.addMessage = this.addMessage.bind(this);
     this.handleEnableTrainingToggle = this.handleEnableTrainingToggle.bind(this);
     this.handleTrainingIsOpenToggle = this.handleTrainingIsOpenToggle.bind(this);
+    this.loadMoreMessages = this.loadMoreMessages.bind(this);
   }
 
   componentWillMount() {
@@ -192,6 +230,35 @@ class ConversationDrawerTwo extends Component {
       .then(this.setState({ currentMessage: '' }));
   }
 
+  loadMoreMessages() {
+    const { data, conversation } = this.props;
+
+    data.fetchMore({
+      query: conversationQueryLoadMore,
+      variables: {
+        conversationId: conversation.id,
+        after: data.conversation.messages.pageInfo.endCursor,
+      },
+      updateQuery: (previousResult, { fetchMoreResult }) => {
+        const previousEntry = previousResult.conversation.messages.edges;
+        const newMessages = fetchMoreResult.conversation.messages.edges;
+
+        return {
+          conversation: {
+            __typename: previousResult.conversation.__typename, // eslint-disable-line
+            id: previousResult.conversation.id,
+            messages: {
+              __typename: previousResult.conversation.messages.__typename, // eslint-disable-line
+              edges: [...newMessages, ...previousEntry],
+              pageInfo: fetchMoreResult.conversation.messages.pageInfo,
+              totalCount: [...newMessages, ...previousEntry].length,
+            },
+          },
+        };
+      },
+    });
+  }
+
   transform = data => (_.map(data, 'node'));
 
   render() {
@@ -303,8 +370,8 @@ class ConversationDrawerTwo extends Component {
 
               <MessagesContainer
                 messages={this.transform(conversation.messages.edges)}
+                loadMoreMessages={this.loadMoreMessages}
               />
-              
 
               <div className={s.chatBoxContainer}>
                 <ActionMenu plugins={fakeData.plugins} />
@@ -352,6 +419,9 @@ class ConversationDrawerTwo extends Component {
 }
 
 ConversationDrawerTwo.propTypes = {
+  conversation: PropTypes.shape({
+    id: PropTypes.string,
+  }).isRequired,
   data: PropTypes.shape({
     conversation: PropTypes.shape({
       messages: PropTypes.object,
@@ -368,21 +438,6 @@ ConversationDrawerTwo.propTypes = {
   closeDrawer: PropTypes.func.isRequired,
   width: PropTypes.number.isRequired,
 };
-
-const createMessage = gql`
-  mutation CreateMessage($input: MessageInput) {
-    createMessage(input: $input){
-      error {
-        code
-        message
-        detail
-      }
-      message {
-        id
-      }
-    }
-  }
-`;
 
 function selectProps(state) {
   return {

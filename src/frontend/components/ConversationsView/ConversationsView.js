@@ -142,7 +142,7 @@ class ConversationsView extends Component {
 
           {this.state.drawerIsOpen &&
             <ConversationDrawer
-              conversation={this.state.selectedConversation}
+              conversation={this.state.selectedConversation.node}
               clientId={this.props.clientId}
               isOpen={this.state.drawerIsOpen}
               closeDrawer={this.closeDrawer}

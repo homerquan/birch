@@ -1,3 +1,16 @@
+.toBottomWrapper {
+    display: none;
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    width: 56px;
+    height: 56px;
+}
+
+.toBottomActive {
+    display: block;
+}
+
 .messagesContainer {
     background-color: #f3f3f3;
     border-left: 1px solid lightgrey;
@@ -6,7 +19,8 @@
     display: flex;
     flex-direction: column;
     padding: 10px;
-    overflow: scroll;
+    overflow-y: scroll;
+    position: relative;
 }
 
 .messageIncoming {

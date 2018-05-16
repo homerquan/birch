@@ -5,9 +5,16 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import moment from 'moment';
 import classnames from 'classnames';
 import RaisedButton from 'material-ui/RaisedButton';
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+import DownArrowIcon from 'material-ui/svg-icons/hardware/keyboard-arrow-down';
+import Scroll from 'react-scroll';
+import _ from 'lodash';
 
 import s from './MessagesContainer.css';
 import { ACTION_TYPES } from '../../constants';
+
+const Element = Scroll.Element;
+const scroll = Scroll.animateScroll;
 
 class MessagesContainer extends Component {
   constructor(props) {
@@ -15,39 +22,82 @@ class MessagesContainer extends Component {
 
     this.state = {
       showLoadMoreMessages: false,
+      showScrollToBottom: false,
     };
+
+    this.listenScrollEvent = this.listenScrollEvent.bind(this);
   }
 
   componentDidMount() {
+    const messageContainer = document.getElementById('messageContainer');
+    messageContainer.addEventListener('scroll', _.throttle(this.listenScrollEvent, 250));
+
     const messageContainerInner = document.getElementById('messageContainerInner');
     messageContainerInner.scrollIntoView(false);
 
     // Show the load more messages button if messages are hidden in the
     // scroll
-    const messageContainer = document.getElementById('messageContainer');
     if (messageContainer.scrollTop > 50) {
-      this.setState({ showLoadMoreMessages: true });
+      this.setState({ showLoadMoreMessages: true }); // eslint-disable-line
     }
   }
 
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.listenScrollEvent);
+  }
+
+  listenScrollEvent() {
+    const messageContainer = document.getElementById('messageContainer');
+    const clientHeight = messageContainer.clientHeight;
+    const scrollHeight = messageContainer.scrollHeight;
+
+    if ((messageContainer.scrollTop + 100) < (scrollHeight - clientHeight)) {
+      this.setState({ showScrollToBottom: true });
+    } else {
+      this.setState({ showScrollToBottom: false });
+    }
+  }
+
+  scrollToBottom = () => {
+    scroll.scrollToBottom({
+      containerId: 'messageContainer',
+    });
+  }
+
   render() {
-    const { messages } = this.props;
+    const { messages, loadMoreMessages } = this.props;
+    const { showLoadMoreMessages, showScrollToBottom } = this.state;
 
     const messageNotRecievedOutgoing = classnames(
       [s.messageOutgoing],
-      { [s.messageNotRecieved]: true },
+      { [s.messageNotRecieved]: false },
+    );
+
+    const toBottomClass = classnames(
+      s.toBottomWrapper,
+      { [s.toBottomActive]: showScrollToBottom },
     );
 
     const showMoreButtonStyles = {
-      display: this.state.showLoadMoreMessages ? 'inline-block' : 'none',
+      display: showLoadMoreMessages ? 'inline-block' : 'none',
     };
 
     return (
-      <div id="messageContainer" className={s.messagesContainer}>
+      <Element id="messageContainer" className={s.messagesContainer}>
+        <div className={toBottomClass}>
+          <FloatingActionButton
+            style={{ position: 'fixed' }}
+            onClick={() => this.scrollToBottom()}
+          >
+            <DownArrowIcon />
+          </FloatingActionButton>
+        </div>
+
         <div id="messageContainerInner">
           <RaisedButton
             style={showMoreButtonStyles}
             label="Load More"
+            onClick={loadMoreMessages}
             fullWidth
             primary
           />
@@ -85,7 +135,7 @@ class MessagesContainer extends Component {
             </div>
           ))}
 
-          {/* <div className={messageNotRecievedOutgoing}>
+          <div className={messageNotRecievedOutgoing}>
             <div className={s.messageBody}>
               <div className={s.messageInfoBar}>
                 <img
@@ -96,11 +146,13 @@ class MessagesContainer extends Component {
                   alt="Visitor Icon"
                 />
                 <span className={s.messageType}>A.I.</span>
-                <span className={s.messageSent}>{moment('2018-04-27T21:02:26.294Z').startOf('day').fromNow()}</span>
+                <span className={s.messageSent}>
+                  {moment('2018-04-27T21:02:26.294Z').startOf('day').fromNow()}
+                </span>
               </div>
               <p className={s.message}>This message hasn&apos;t been recieved yet.</p>
             </div>
-          </div> */}
+          </div>
 
           {this.props.runtime[ACTION_TYPES.SHOW_CHAT_ERROR]
             ? (
@@ -125,7 +177,7 @@ class MessagesContainer extends Component {
           }
 
         </div>
-      </div>
+      </Element>
     );
   }
 }
@@ -143,6 +195,7 @@ MessagesContainer.propTypes = {
       text: PropTypes.string,
     }),
   ).isRequired,
+  loadMoreMessages: PropTypes.func.isRequired,
 };
 
 
