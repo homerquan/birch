@@ -9,7 +9,7 @@ import OnlineIcon from 'react-material-icons/icons/action/swap-horiz';
 import OffIcon from 'react-material-icons/icons/notification/sync-disabled';
 import MoreIcon from 'react-material-icons/icons/navigation/more-vert';
 import ChatIcon from 'react-material-icons/icons/communication/chat-bubble';
-import { grey500 } from 'material-ui/styles/colors';
+import { grey500, deepPurple500, deepPurple800, white } from 'material-ui/styles/colors';
 import Blockies from 'react-blockies';
 import moment from 'moment';
 import Toggle from 'material-ui/Toggle';
@@ -28,6 +28,8 @@ const styles = {
   chip: {
     margin: 2,
     display: 'inline-block',
+    backgroundColor: deepPurple500,
+    color: white,
   },
 };
 
@@ -80,23 +82,22 @@ const tableColumns = (addPinned, openDrawer) => ([
     key: 'intentions',
     label: 'Intentions',
     style: {
-      width: 40,
+      width: 100,
     },
     render: intentions => (
-      <div>
+      <div className="intentionsContainer" style={{ overflowX: 'scroll' }}>
         {intentions && intentions.length
           ? intentions.map((intention, index, array) => (
-            <span key={intention.id}>
-              <Chip
-                style={array.length === (index + 1) ? styles.chip : styles.chipDark}
-              >
-                {intention.name}
-              </Chip>
-              <br />
-            </span>
+            <Chip
+              key={intention.id}
+              style={array.length === (index + 1) ? styles.chip : styles.chipDark}
+              labelColor={array.length === (index + 1) ? white : ''}
+            >
+              {intention.name}
+            </Chip>
           ),
         ) : (
-          <span>waiting data</span>
+          <span>awaiting data</span>
         )}
       </div>
     ),
@@ -105,25 +106,27 @@ const tableColumns = (addPinned, openDrawer) => ([
     key: 'actions',
     label: 'Actions',
     style: {
-      width: 40,
+      width: 100,
     },
     render: actions => (
-      <div>
+      <div className="actionsContainer" style={{ overflowX: 'scroll' }}>
         {actions && actions.length ? (
-          actions.map(action => (
-            <span key={action.id}>
-              <Chip
-                style={styles.chip}
+          actions.map((action, index, array) => (
+            <Chip
+              key={action.id}
+              style={array.length === (index + 1) ? styles.chip : styles.chipDark}
+              labelColor={array.length === (index + 1) ? white : ''}
+            >
+              <Avatar
+                backgroundColor={array.length === (index + 1) ? deepPurple800 : ''}
+                size={32}
               >
-                <Avatar size={32}>
-                  {action.source.charAt(0)}
-                </Avatar> {action.name} { action.status === 'in-progress' && <img src="/images/loader.gif" alt="loading" /> }
-              </Chip>
-              <br />
-            </span>
+                {action.source.charAt(0)}
+              </Avatar> {action.name} { action.status === 'in-progress' && <img src="/images/loader.gif" alt="loading" /> }
+            </Chip>
           ))
         ) : (
-          <span>waiting actions</span>
+          <span>awaiting actions</span>
         )}
       </div>
     ),
@@ -199,6 +202,14 @@ class ConversationsTable extends Component {
     this.handleNextPageClick = this.handleNextPageClick.bind(this);
     this.handlePreviousPageClick = this.handlePreviousPageClick.bind(this);
     this.handleRowSizeChange = this.handleRowSizeChange.bind(this);
+  }
+
+  componentDidMount() {
+    const intentionsContainers = document.getElementsByClassName('intentionsContainer');
+    [...intentionsContainers].forEach(intention => intention.scrollLeft = 10000); // eslint-disable-line
+
+    const actionsContainers = document.getElementsByClassName('actionsContainer');
+    [...actionsContainers].forEach(action => action.scrollLeft = 10000); // eslint-disable-line
   }
 
   handleNextPageClick = () => {
