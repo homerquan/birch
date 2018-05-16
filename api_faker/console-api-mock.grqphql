@@ -14,7 +14,7 @@ type Error {
   message: String @examples(values: ["You got an error"])
   detail: String @examples(values: ["details about this error, only show in dev mode"])
 }
-
+    
 type Intention {
   id: String @fake(type:uuid)
   name: String @fake(type:lorem, options:{loremSize:word})
@@ -269,10 +269,17 @@ type ConversationEventFeed {
 
 input MessageInput {
   text: String!
-  command: String
   conversationId: String!
   userId: String!
   isLearning: Boolean! #once learning switch is on, this is ture.
+}
+
+input UploadFile {
+  id: String
+  filename: String
+  encoding: String
+  mimetype: String
+  path: String
 }
 
 type CreateMessageResponse  {
@@ -288,6 +295,7 @@ type Mutation {
   updateConversationPinToTop(conversationId:String!,pinToTop:Boolean!): Conversation
   changeAccountPassword(clientId:String!):User
   closeAccount(clientId: String!): User
+  uploadUserAvatar(file: UploadFile): User
 }
 
 type Subscription {
