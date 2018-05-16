@@ -1,4 +1,8 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import gql from 'graphql-tag';
+import _ from 'lodash';
+import { graphql, compose } from 'react-apollo';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
@@ -16,8 +20,26 @@ import lightTheme from '../theme';
 import s from './BotsList.css';
 import PrimaryText from './PrimaryText';
 import BotsListLoader from './BotsListLoader';
-import fakeData from './fakeData.json';
 import NewApp from '../NewApp/NewApp';
+
+const botsQuery = gql`
+  query BotsFeed($clientId: String!) {
+    botsFeed(clientId: $clientId) {
+      bots(first:1) {
+        totalCount
+        edges {
+          cursor,
+          node{
+            id,
+            name,
+            host
+            token
+          }
+        }
+      }
+    }
+  }
+`;
 
 const linkStyle = {
   color: deepPurple500,
@@ -31,31 +53,23 @@ class BotsList extends Component {
     super(props);
 
     this.state = {
-      isLoading: true,
-      data: [],
       newAppModalIsOpen: false,
     };
 
     this.closeNewAppModal = this.closeNewAppModal.bind(this);
   }
 
-  componentDidMount() {
-    setTimeout(() => {
-      this.setState({
-        data: fakeData.data,
-        isLoading: false,
-      });
-    }, 1000);
-  }
-
   closeNewAppModal() {
     this.setState({ newAppModalIsOpen: false });
   }
 
-  render() {
-    const { isLoading, newAppModalIsOpen } = this.state;
+  transform = data => (_.map(data, 'node'));
 
-    if (isLoading) {
+  render() {
+    const { loading, data: { botsFeed } } = this.props;
+    const { newAppModalIsOpen } = this.state;
+
+    if (loading) {
       return <BotsListLoader />;
     }
 
@@ -64,12 +78,12 @@ class BotsList extends Component {
         <Paper zDepth={2} className={s.paper}>
           <Subheader>Applications</Subheader>
           <List style={{ padding: 0 }}>
-            {this.state.data.map(application => (
+            {this.transform(botsFeed.bots.edges).map(application => (
               <div key={application.id}>
                 <ListItem
                   leftAvatar={<Avatar backgroundColor={deepPurple500} icon={<CodeIcon />} />}
-                  primaryText={<PrimaryText text={application.title} number={application.number} />}
-                  secondaryText={application.link}
+                  primaryText={<PrimaryText text={application.name} number={application.token} />}
+                  secondaryText={application.host}
                 />
                 <Divider />
               </div>
@@ -101,4 +115,20 @@ class BotsList extends Component {
   }
 }
 
-export default withStyles(s)(BotsList);
+BotsList.propTypes = {
+  clientId: PropTypes.string.isRequired,  // eslint-disable-line
+  loading: PropTypes.bool.isRequired,
+  data: PropTypes.shape({
+    botsFeed: PropTypes.object,
+  }).isRequired,
+};
+
+export default withStyles(s)(
+  compose(
+    graphql(botsQuery, {
+      options: props => ({
+        variables: { clientId: props.clientId },
+      }),
+    }),
+  )(BotsList),
+);

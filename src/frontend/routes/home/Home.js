@@ -8,6 +8,8 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { Page, Section, LayoutProvider } from 'react-page-layout';
 import grids from '../../components/Layout/grids';
 import Title from '../../components/Title';
@@ -23,7 +25,7 @@ class Home extends React.Component {
             <Title>Overview</Title>
           </Section>
           <Section slot="main">
-            <BotsList />
+            <BotsList clientId={this.props.session.userId} />
           </Section>
           <Section slot="right">
             <Activities />
@@ -34,4 +36,16 @@ class Home extends React.Component {
   }
 }
 
-export default Home;
+Home.propTypes = {
+  session: PropTypes.shape({
+    userId: PropTypes.string,
+  }).isRequired,
+};
+
+function selectProps(state) {
+  return {
+    session: state.session,
+  };
+}
+
+export default connect(selectProps, null)(Home);
