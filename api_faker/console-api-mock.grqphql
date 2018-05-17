@@ -37,6 +37,36 @@ type User {
   updatedAt: String @fake(type:pastDate,options:{dateFormat:""})
 }
 
+type Activity {
+  id: ID @fake(type:uuid)
+  bot: Bot
+  text: String @fake(type:lorem, options:{loremSize:words})
+  type: String @examples(values: ["success", "fail"])
+  linkLabel: String @examples(values: ["view logs"])
+  link: String @fake(type:url)
+}
+
+type ActivitiesConnection {
+  totalCount: Int @examples(values: [2, 3, 5])
+  pageInfo: PageInfo!
+  edges: [ActivitiesEdge ]
+}
+
+type ActivitiesEdge {
+  cursor: String! @examples(values: ["Y3Vyc29yMw=="])
+  node: Activity
+}
+
+type ActivitiesFeed {
+   activities(
+    first: Int,
+    after: String,
+    last: Int,
+    before: String
+  ): ActivitiesConnection 
+}
+
+
 type Conversation {
   id: String @fake(type:uuid)
   visitor: String
@@ -224,7 +254,7 @@ type PluginsEdge {
 }
 
 type PluginsFeed {
-   plugins(
+   bots(
     first: Int,
     after: String,
     last: Int,
@@ -250,6 +280,7 @@ type Query {
   messagesFeed(conversationId: String): MessagesFeed
   botsFeed(clientId: String): BotsFeed
   pluginsFeed(conversationId: String): PluginsFeed
+  ActivitiesFeed(clientId: String): ActivitiesFeed
   messages(conversationId: String, clientId: String): [Message] #this will be removed
   bots(clientId: String): [Bot] #this will be removed
   knowledge(clientId: String, botId: String): Knowledge #this will be removed
