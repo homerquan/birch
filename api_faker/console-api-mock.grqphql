@@ -224,7 +224,7 @@ type PluginsEdge {
 }
 
 type PluginsFeed {
-   bots(
+   plugins(
     first: Int,
     after: String,
     last: Int,

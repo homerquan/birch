@@ -31,7 +31,7 @@ export default {
       component: (
         <Layout>
           <Plugins
-            botId={params.id}
+            conversationId={params.id}
           />
         </Layout>
       ),

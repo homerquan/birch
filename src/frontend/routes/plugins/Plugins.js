@@ -8,13 +8,14 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Page, Section, LayoutProvider } from 'react-page-layout';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import Paper from 'material-ui/Paper';
-import themeWhite from '../../components/theme';
 
+import themeWhite from '../../components/theme';
 import grids from '../../components/Layout/grids';
 import Title from '../../components/Title';
 import Browse from '../../components/Plugins/Browse';
@@ -36,6 +37,8 @@ class AccountView extends React.Component {
   }
 
   render() {
+    const { conversationId } = this.props;
+
     return (
       <LayoutProvider layouts={grids}>
         <Page layout="grid-one-one">
@@ -50,10 +53,10 @@ class AccountView extends React.Component {
                   onChange={this.handleChange}
                 >
                   <Tab label="Plugins" value="plugins">
-                    <Browse />
+                    <Browse conversationId={conversationId} />
                   </Tab>
                   <Tab label="Installed" value="installed">
-                    <Installed />
+                    <Installed conversationId={conversationId} />
                   </Tab>
                 </Tabs>
               </Paper>
@@ -64,5 +67,9 @@ class AccountView extends React.Component {
     );
   }
 }
+
+AccountView.propTypes = {
+  conversationId: PropTypes.string.isRequired,
+};
 
 export default AccountView;

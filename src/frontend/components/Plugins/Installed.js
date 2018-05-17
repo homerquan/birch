@@ -1,4 +1,8 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import gql from 'graphql-tag';
+import { graphql, compose } from 'react-apollo';
+import _ from 'lodash';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -12,7 +16,34 @@ import Divider from 'material-ui/Divider';
 import TextField from 'material-ui/TextField';
 
 import s from './Browse.css';
-import fakeData from './fakeData.json';
+import installed from './Installed.css';
+
+const pluginsFeedQuery = gql`
+  query PluginsFeed($conversationId: String) {
+    pluginsFeed(conversationId: $conversationId) {
+      plugins(first:1){
+        totalCount,
+        pageInfo{
+          endCursor,
+          hasNextPage
+        }
+        edges {
+          cursor,
+          node {
+            id,
+            type
+            name
+            installed
+            image
+            description
+            createdAt
+            updatedAt
+          }
+        }
+      }
+    }
+  }
+`;
 
 class Installed extends Component {
   constructor(props) {
@@ -20,7 +51,7 @@ class Installed extends Component {
 
     this.state = {
       drawerIsOpen: false,
-      currentCategory: 'all',
+      currentType: 'all',
       selectedPlugin: {},
     };
 
@@ -30,22 +61,34 @@ class Installed extends Component {
   handleToggle = () => this.setState({ drawerIsOpen: !this.state.drawerIsOpen });
 
   openDrawer(pluginId) {
+    const { data: { pluginsFeed: { plugins } } } = this.props;
+
     this.setState({
-      selectedPlugin: fakeData.installed.find(plugin => plugin.id === pluginId),
+      selectedPlugin: this.transform(plugins.edges).find(plugin => plugin.id === pluginId),
       drawerIsOpen: true,
     });
   }
 
-  render() {
-    const { currentCategory } = this.state;
-    const refetch = () => ('');
+  transform = data => (_.map(data, 'node'));
 
-    const displayPlugins = fakeData.installed.filter((plugin) => {
-      if (currentCategory === 'all') {
+  render() {
+    const { loading, refetch, data: { pluginsFeed } } = this.props;
+    const { currentType } = this.state;
+
+    if (loading || !pluginsFeed) {
+      return 'Loading';
+    }
+
+    const displayPlugins = this.transform(pluginsFeed.plugins.edges).filter((plugin) => {
+      if (!plugin.installed) {
+        return false;
+      }
+
+      if (currentType === 'all') {
         return true;
       }
 
-      return plugin.category === currentCategory;
+      return plugin.type === currentType;
     });
 
     return (
@@ -53,14 +96,14 @@ class Installed extends Component {
         <Toolbar>
           <ToolbarGroup firstChild>
             <DropDownMenu
-              value={currentCategory}
-              onChange={(e, i, value) => this.setState({ currentCategory: value })}
+              value={currentType}
+              onChange={(e, i, value) => this.setState({ currentType: value })}
               anchorOrigin={{ vertical: 'top', horizontal: 'left' }}
             >
               <MenuItem value={'all'} primaryText="All" />
-              <MenuItem value={'data model'} primaryText="Data Model" />
+              <MenuItem value={'data'} primaryText="Data" />
               <MenuItem value={'action'} primaryText="Action" />
-              <MenuItem value={'knowledge'} primaryText="Knowledge" />
+              <MenuItem value={'model'} primaryText="Model" />
               <MenuItem value={'other'} primaryText="Other" />
             </DropDownMenu>
           </ToolbarGroup>
@@ -76,9 +119,9 @@ class Installed extends Component {
             <ul className={s.pluginList}>
               {displayPlugins.map(plugin => (
                 <li key={plugin.id}>
-                  <div className={s.imgPlaceholder} />
+                  <img src={plugin.image} className={s.image} alt="Plugin" />
                   <div className={s.content}>
-                    <h3>{plugin.name} <span>{plugin.category}</span></h3>
+                    <h3>{plugin.name} <span>{plugin.type}</span></h3>
                     <p className={s.by}>{plugin.author}</p>
                     <p className={s.text}>{plugin.description}</p>
                     <div>
@@ -100,7 +143,7 @@ class Installed extends Component {
                 </li>
               ))}
             </ul>
-          ) : <p className={s.noPluginsInstalled}>You have no Plugins installed.</p>}
+          ) : <p className={installed.noPluginsInstalled}>You have no Plugins installed.</p>}
 
         <Drawer
           docked={false}
@@ -111,7 +154,7 @@ class Installed extends Component {
           containerClassName={s.drawer}
         >
           <div className={s.sideBar}>
-            <div className={s.fakeImage} />
+            <img src={this.state.selectedPlugin.image} className={s.sideBarImage} alt="Plugin" />
             <RaisedButton
               label="Remove"
               secondary
@@ -124,13 +167,13 @@ class Installed extends Component {
             <p>{this.state.selectedPlugin.description}</p>
             <Divider />
             <h2>Options</h2>
-            <div className={s.formGroup}>
+            <div className={installed.formGroup}>
               <TextField
                 hintText="Hint Text"
                 floatingLabelText="Configuration Option One"
               />
             </div>
-            <div className={s.formGroup}>
+            <div className={installed.formGroup}>
               <TextField
                 hintText="Hint Text"
                 floatingLabelText="Configuration Option Two"
@@ -143,4 +186,20 @@ class Installed extends Component {
   }
 }
 
-export default withStyles(s)(Installed);
+Installed.propTypes = {
+  loading: PropTypes.bool.isRequired,
+  refetch: PropTypes.func.isRequired,
+  data: PropTypes.shape({
+    pluginsFeed: PropTypes.object,
+  }).isRequired,
+};
+
+export default withStyles(s, installed)(
+  compose(
+    graphql(pluginsFeedQuery, {
+      options: props => ({
+        variables: { conversationId: props.conversationid },
+      }),
+    }),
+  )(Installed),
+);

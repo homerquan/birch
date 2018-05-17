@@ -12,10 +12,9 @@
     padding: 20px;
 }
 
-.imgPlaceholder {
-    background-color: darkgray;
+.image {
     width: 200px;
-    height: 140px;
+    height: 100%;
 }
 
 .content {
@@ -72,13 +71,6 @@
     align-self: end;
 }
 
-.noPluginsInstalled {
-    text-align: center;
-    margin: 0;
-    padding: 40px;
-    font-size: 20px;
-}
-
 
 
 
@@ -95,18 +87,11 @@
     margin-top: 10px;
 }
 
-.fakeImage {
+.sideBarImage {
     width: 100%;
-    height: 150px;
-    background-color: darkgray;
 }
 
 .mainContainer {
     max-width: 500px;
     padding: 0 10px;
-}
-
-
-.formGroup {
-    display: block;
 }

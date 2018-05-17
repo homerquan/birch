@@ -1,0 +1,10 @@
+.noPluginsInstalled {
+    text-align: center;
+    margin: 0;
+    padding: 40px;
+    font-size: 20px;
+}
+
+.formGroup {
+    display: block;
+}
