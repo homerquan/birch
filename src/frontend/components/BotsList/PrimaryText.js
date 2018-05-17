@@ -5,7 +5,7 @@ import s from './PrimaryText.css';
 
 const PrimaryText = ({ text, number }) => (
   <p className={s.primaryText}>
-    {text}
+    <a href={`/${number}/conversations`}>{text}</a>      
     <span className={s.note}>{number}</span>
   </p>
 );

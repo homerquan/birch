@@ -84,7 +84,7 @@ class BotsList extends Component {
                   leftAvatar={<Avatar backgroundColor={deepPurple500} icon={<CodeIcon />} />}
                   primaryText={<PrimaryText text={application.name} number={application.token} />}
                   secondaryText={application.host}
-                />
+                ></ListItem>
                 <Divider />
               </div>
               ),
