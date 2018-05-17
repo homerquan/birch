@@ -95,7 +95,7 @@ class BotsList extends Component {
             <FlatButton
               label="View all Applications"
               labelStyle={linkStyle}
-              href="#"
+              href="/apps"
             />
             <RaisedButton
               onClick={() => this.setState({ newAppModalIsOpen: true })}
