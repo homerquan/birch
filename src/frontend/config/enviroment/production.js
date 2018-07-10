@@ -3,21 +3,25 @@
 // Production specific configuration
 // =================================
 module.exports = {
-  // Server IP
-  ip: process.env.OPENSHIFT_NODEJS_IP ||
-    process.env.IP ||
-    undefined,
-
-  // Server port
-  port: process.env.OPENSHIFT_NODEJS_PORT ||
-    process.env.PORT ||
-    8080,
-
   logLvl: 'error',
 
-  hashSalt: '4+GuD3~F9&Lt}S=.',
+  hashSalt: 'ilikeconvospot',
 
-  coresWhitelist: ['http://app.convospot.io', 'http://widget.convospot.io'],
+  amqpConn: 'amqp://guest:guest@localhost:5672/seneca',
 
-  postmarkToken: 'eae44408-39d1-44aa-a31b-59eb15d7da3e'
+  // Server port
+  port: process.env.PORT || 8802,
+
+  // Server IP
+  ip: process.env.IP || '0.0.0.0',
+
+  // API URL to be used in the client-side code
+  clientUrl: process.env.API_CLIENT_URL || `https://console-api.reflen.com`,
+  // API URL to be used in the server-side code
+  serverUrl: process.env.API_SERVER_URL || `https://console-api.reflen.com}`,
+
+  widgetUrl: 'https://widget.reflen.com/convospot.js',
+  
+  // API URL for graphql subscription ws
+  clientSubscriptionUrl: process.env.API_SUBSCRIPTION_URL || `wss://console-api.reflen.com`
 };
