@@ -2,7 +2,10 @@
 
 ## run birch
 
-Dev: `npm run dev`
+Dev: 
+1. Install babel-cli: `sudo npm i babel-cli -g`
+2. `npm run dev`
+
 Prod: `npm start`
 
 ## Mock API
