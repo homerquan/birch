@@ -1,5 +1,9 @@
 # convospot.io admin console
 
+## run birch
+
+Dev: `npm run dev`
+Prod: `npm start`
 
 ## Mock API
 
