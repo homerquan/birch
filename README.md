@@ -3,8 +3,9 @@
 ## run birch
 
 Dev: 
-1. Install babel-cli: `sudo npm i babel-cli -g`
-2. `npm run dev`
+1. Make sure you have nodejs, npm and enviroment setting: `export NODE_ENV='development'`
+2. Install babel-cli: `sudo npm i babel-cli -g`
+3. `npm run dev`
 
 Prod: `npm start`
 
