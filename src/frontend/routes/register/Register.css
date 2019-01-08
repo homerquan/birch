@@ -10,12 +10,41 @@
 @import '../../components/variables.css';
 
 .root {
-  padding-left: 20px;
-  padding-right: 20px;
+  display: flex;
 }
 
-.container {
+.marketingSide,
+.registerSide {
   margin: 0 auto;
-  padding: 0 0 40px;
+  padding: 0 20px 40px 20px;
+  height: 100vh;
   max-width: var(--max-content-width);
+  display: flex;
+  align-items: center;
+}
+
+.marketingSide {
+  display: flex;
+  justify-content: flex-end;
+  background-color: rgba(103,58,183,1);
+  width: 55%;
+  color: white;
+}
+
+.registerSide {
+  /* background-color: blue; */
+  flex-grow: 1;
+}
+
+@media only screen and (max-width: 768px) {
+  .root {
+    flex-direction: column;
+  }
+  
+  .marketingSide,
+  .registerSide {
+    height: auto;
+    width: 100%;
+    justify-content: center;
+  }
 }

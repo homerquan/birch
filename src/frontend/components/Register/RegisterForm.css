@@ -1,0 +1,11 @@
+@import '../../components/variables.css';
+
+.title {
+    font-size: 2em;
+    margin-block-end: .25em;
+}
+
+.formGroup {
+    margin-bottom: 15px;
+  }
+  

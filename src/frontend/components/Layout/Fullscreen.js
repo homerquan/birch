@@ -13,41 +13,21 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles';
 
 // external-global styles must be imported in your JS.
 import normalizeCss from 'normalize.css';
-import s from './Layout.css';
-import Sidebar from '../Sidebar';
-import Header from '../Header';
-import Footer from '../Footer';
+import LayoutCss from './Layout.css'; // Bring in same base styles as rest of app
+import s from './FullScreen.css';
 
 class Fullscreen extends React.Component {
   static propTypes = {
     children: PropTypes.node.isRequired,
   };
 
-  state = {
-    sideBarOpen: false,
-  };
-
-  toggleSidebar = () => {
-    this.setState({
-      sideBarOpen: !this.state.sideBarOpen,
-    });
-  };
-
-  closeSidebar = () => {
-    this.setState({
-      sideBarOpen: false,
-    });
-  };
-
   render() {
     return (
-      <div>
-        
+      <div className={s.root}>
         {this.props.children}
-       
       </div>
     );
   }
 }
 
-export default withStyles(normalizeCss, s)(Fullscreen);
+export default withStyles(normalizeCss, LayoutCss, s)(Fullscreen);

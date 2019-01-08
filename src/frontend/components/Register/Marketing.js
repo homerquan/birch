@@ -10,23 +10,16 @@
 import React from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 
-import s from './Register.css';
-import RegisterForm from '../../components/Register/RegisterForm';
-import Marketing from '../../components/Register/Marketing';
+import s from './Marketing.css';
 
-class Register extends React.Component {
+class Marketing extends React.Component {
   render() {
     return (
       <div className={s.root}>
-        <section className={s.marketingSide}>
-          <Marketing />
-        </section>
-        <section className={s.registerSide}>
-          <RegisterForm />
-        </section>
+        <p>Marketing Side.</p>
       </div>
     );
   }
 }
 
-export default withStyles(s)(Register);
+export default withStyles(s)(Marketing);

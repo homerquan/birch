@@ -8,7 +8,7 @@
  */
 
 import React from 'react';
-import Layout from '../../components/Layout';
+import FullScreen from '../../components/Layout/FullScreen';
 import Register from './Register';
 
 const title = 'New User Registration';
@@ -21,7 +21,7 @@ export default {
     return {
       title,
       chunk: 'register',
-      component: <Layout><Register title={title} /></Layout>,
+      component: <FullScreen><Register /></FullScreen>,
     };
   },
 
