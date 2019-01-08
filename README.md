@@ -231,6 +231,17 @@ In redux dev tool, dispatch events such as
 }
 ```
 
+Same as: BIRCH.SIMULATE(<command>,<payload>)
+
+```
+BIRCH.SIMULATE('SET_RUNTIME_VARIABLE',{
+        "name": "NOTIFICATIONS_COUNT",
+        "value": 1
+    })
+
+```
+
+
 ## Note
 
 * Using Apollo 1.x
