@@ -13,7 +13,7 @@
   --brand-color: #61dafb;
 }
 
-.root {
+/* .root {
   background: #373277;
   color: #fff;
 }
@@ -28,9 +28,9 @@
   color: color(var(--brand-color) lightness(+10%));
   text-decoration: none;
   font-size: 1.75em; /* ~28px */
-}
+/* } */
 
-.brandTxt {
+/* .brandTxt {
   margin-left: 10px;
 }
 
@@ -60,11 +60,11 @@
 .top-true {
   background: black;
 }
+  */
 
 
 
-
-.messageContainer {
+/* .messageContainer {
   position: absolute;
   z-index: 101;
   left: -32px;
@@ -74,4 +74,4 @@
 .list {
   padding: 0;
   color: white;
-}
+} */

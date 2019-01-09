@@ -231,6 +231,19 @@ In redux dev tool, dispatch events such as
 }
 ```
 
+```
+{
+    "type": "ADD_CORNER_NOTIFICATION",
+    "payload": {
+        "uid": 123,
+        "text": "test",
+        "level": "error",
+        "autoDismiss": 2,
+        "position": "tr",
+    }
+}
+```
+
 Same as: BIRCH.SIMULATE(<command>,<payload>)
 
 ```

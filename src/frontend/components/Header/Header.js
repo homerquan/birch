@@ -7,52 +7,53 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
-import React from "react";
-import withStyles from "isomorphic-style-loader/lib/withStyles";
-import AppBar from "material-ui/AppBar";
-import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
-import { white } from "material-ui/styles/colors";
-import getMuiTheme from "material-ui/styles/getMuiTheme";
-import themeDark from "../themeDark";
-import Loader from "../Loader";
-import GlobalNotice from "../GlobalNotice";
-import Sticky from "react-stickynode";
+import React from 'react';
+import PropTypes from 'prop-types';
+import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import AppBar from 'material-ui/AppBar';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import { white } from 'material-ui/styles/colors';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import Sticky from 'react-stickynode';
 import { connect } from 'react-redux';
+import NotificationSystem from 'react-notification-system';
+import _ from 'lodash';
 
-import s from "./Header.css";
+import themeDark from '../themeDark';
+import Loader from '../Loader';
+import GlobalNotice from '../GlobalNotice';
+import s from './Header.css';
 import Messages from './Messages';
 import Notifications from './Notifications';
+import { closeCornerNotification } from '../../actions/cornerNotifications';
+import { NOTIFICATION_TYPES } from '../../constants';
 
 const styles = {
   header: {
     backgroundColor: white,
-    boxShadow: 'none'
+    boxShadow: 'none',
   },
   stickyHeader: {
     backgroundColor: white,
-  }
-};
-
-const btnStyle = {
-  marginTop: '3px',
-};
-
-function LoadingIndicator(props) {
-  const loading = props.loading;
-  if (loading) {
-    return (<Loader />);
-  }
-  return null;
+  },
 };
 
 class Header extends React.Component {
+  static propTypes = {
+    onToggleChange: PropTypes.isRequired,
+    runtime: PropTypes.isRequired,
+    cornerNotifications: PropTypes.isRequired,
+    dispatch: PropTypes.isRequired,
+  }
+
   constructor(props) {
     super(props);
-    
+
     this.state = {
       loading: true,
     };
 
+    this.notificationSystem = React.createRef();
     this.handleToggleButtonTouchTap = this.handleToggleButtonTouchTap.bind(this);
   }
 
@@ -61,11 +62,36 @@ class Header extends React.Component {
     setTimeout(() => this.setState({ loading: false }), 1500); // simulates loading of data
   }
 
-  handleToggleButtonTouchTap = e => {
+  // Checks for updates to the cornerNotificatiosn prop to show/hide
+  // corner notifications.
+  componentDidUpdate(prevProps) {
+    const { cornerNotifications } = this.props;
+
+    if (!_.isEqual(cornerNotifications, prevProps.cornerNotifications)) {
+      if (cornerNotifications !== null) {
+        const { uid, text, level, autoDismiss, position } = cornerNotifications;
+
+        this.notificationSystem.current.addNotification({
+          uid,
+          message: text,
+          level,
+          autoDismiss,
+          position,
+          onRemove: (notification) => {
+            this.props.dispatch(closeCornerNotification({
+              uid: notification.uid,
+            }));
+          },
+        });
+      }
+    }
+  }
+
+  handleToggleButtonTouchTap = () => {
     this.props.onToggleChange();
   };
 
-  handleStickyChange = e => {
+  handleStickyChange = (e) => {
     if (e.status === Sticky.STATUS_FIXED) {
       this.setState({ sticky: true });
     } else {
@@ -73,15 +99,19 @@ class Header extends React.Component {
     }
   };
 
+  renderLoadingIndicator() {
+    return this.state.loading ? <Loader /> : null;
+  }
+
   render() {
     const selectedAppName = this.props.runtime && this.props.runtime.selectedApp ? this.props.runtime.selectedApp.name : '';
 
     return (
       <MuiThemeProvider muiTheme={getMuiTheme(themeDark)}>
-
         <div>
-          <LoadingIndicator loading={this.state.loading} />
+          {this.renderLoadingIndicator()}
           <GlobalNotice />
+          <NotificationSystem ref={this.notificationSystem} />
           <Sticky onStateChange={this.handleStickyChange} innerZ={100}>
             <AppBar
               title={selectedAppName}
@@ -104,7 +134,8 @@ class Header extends React.Component {
 
 function selectProps(state) {
   return {
-    runtime: state.runtime
+    runtime: state.runtime,
+    cornerNotifications: state.cornerNotifications,
   };
 }
 

@@ -1,10 +1,11 @@
 import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
+import { reducer as formReducer } from 'redux-form';
 import user from './user';
 import session from './session';
 import runtime from './runtime';
 import globalNotification from './globalNotification';
-import { reducer as formReducer } from 'redux-form';
+import cornerNotifications from './cornerNotifications';
 
 export default function createRootReducer({ apolloClient }) {
   return combineReducers({
@@ -14,6 +15,7 @@ export default function createRootReducer({ apolloClient }) {
     session,
     routing: routerReducer,
     globalNotification,
-    form: formReducer
+    cornerNotifications,
+    form: formReducer,
   });
 }
