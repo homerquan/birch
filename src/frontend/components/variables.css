@@ -9,10 +9,27 @@
 
 :root {
   /*
+   * Colors
+   * ======================================================================== */
+   
+   --primary-1-color: #673AB7;
+   --primary-2-color: #512DA8;
+   --primary-3-color: #757575;
+   --accent-1-color: #C8E6C9;
+   --accent-2-color: #F5F5F5;
+   --accent-3-color: #FF80AB;
+   --text-color: #000000;
+   
+  /*
+   * Base Styles
+   * ======================================================================== */
+   --border-radius: 2;
+   
+  /*
    * Typography
    * ======================================================================== */
 
-  --font-family-base: 'Segoe UI', 'HelveticaNeue-Light', sans-serif;
+  --font-family-base: 'Open Sans', 'Roboto', sans-serif;
 
   /*
    * Layout
