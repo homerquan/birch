@@ -16,7 +16,8 @@ import { white } from 'material-ui/styles/colors';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import Sticky from 'react-stickynode';
 import { connect } from 'react-redux';
-import CornerNotifications, { info } from 'react-notification-system-redux';
+import CornerNotifications from 'react-notification-system-redux';
+import { Alerts as SnackBarAlerts } from 'mui-redux-alerts-next';
 
 import themeDark from '../themeDark';
 import theme from '../theme';
@@ -25,7 +26,7 @@ import GlobalNotice from '../GlobalNotice';
 import s from './Header.css';
 import Messages from './Messages';
 import Notifications from './Notifications';
-import ReplyButtons from '../CornerNotifications/ReplyButtons';
+// import ReplyButtons from '../CornerNotifications/ReplyButtons';
 
 const styles = {
   header: {
@@ -63,6 +64,7 @@ class Header extends React.Component {
     onToggleChange: PropTypes.isRequired,
     runtime: PropTypes.isRequired,
     notifications: PropTypes.isRequired,
+    snackBarNotifications: PropTypes.isRequired,
   }
 
   constructor(props) {
@@ -109,6 +111,7 @@ class Header extends React.Component {
             notifications={this.props.notifications}
             style={notificationStyle}
           />
+          <SnackBarAlerts alerts={this.props.snackBarNotifications} />
           <Sticky onStateChange={this.handleStickyChange} innerZ={100}>
             <AppBar
               title={selectedAppName}
@@ -133,6 +136,7 @@ function selectProps(state) {
   return {
     runtime: state.runtime,
     notifications: state.notifications,
+    snackBarNotifications: state.snackBarNotifications,
   };
 }
 

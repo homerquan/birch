@@ -33,5 +33,10 @@ exports.default = {
     disabledColor: (0, _colorManipulator.fade)(_colors.fullWhite, 0.3),
     pickerHeaderColor: (0, _colorManipulator.fade)(_colors.fullWhite, 0.12),
     clockCircleColor: (0, _colorManipulator.fade)(_colors.fullWhite, 0.12)
-  }
+  },
+  snackbar: {
+    textColor: _colors.fullWhite,
+    backgroundColor: '#000',
+    actionColor: _colors.deepPurple500,
+  },
 };

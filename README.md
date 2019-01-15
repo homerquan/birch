@@ -242,6 +242,27 @@ In redux dev tool, dispatch events such as
 }
 ```
 
+```
+{
+  type: '@@mui-redux-alerts/OPEN_SNACKBAR',
+  payload: {
+    key: 'Snackbar_7',
+    props: {
+      message: 'I am a message',
+      timestamp: 1547518418316,
+      open: true
+    }
+  }
+}
+
+{
+  type: '@@mui-redux-alerts/CLOSE_SNACKBAR',
+  payload: {
+    key: 'Snackbar_7'
+  }
+}
+```
+
 Same as: BIRCH.SIMULATE(<command>,<payload>)
 
 ```

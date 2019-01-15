@@ -9,7 +9,7 @@ import HelpIcon from 'material-ui/svg-icons/action/help-outline';
 
 import s from './CopyCodeModal.css';
 
-const CodeModal = ({ close, code }) => (
+const CodeModal = ({ close, code, dipatchConfirm }) => (
   <div className={s.container}>
     <div className={s.background} onClick={close} />
     <div className={s.modalContainer}>
@@ -21,7 +21,9 @@ const CodeModal = ({ close, code }) => (
           <input value={code} />
           <CopyToClipboard
             text={code}
-          ><RaisedButton label="Copy" />
+            onCopy={dipatchConfirm}
+          >
+            <RaisedButton label="Copy" />
           </CopyToClipboard>
         </div>
 
@@ -45,6 +47,7 @@ const CodeModal = ({ close, code }) => (
 CodeModal.propTypes = {
   close: PropTypes.func.isRequired,
   code: PropTypes.string.isRequired,
+  dipatchConfirm: PropTypes.isRequired,
 };
 
 export default withStyles(s)(CodeModal);

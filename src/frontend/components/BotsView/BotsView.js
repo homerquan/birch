@@ -26,6 +26,7 @@ import {
   Toolbar,
   ToolbarGroup,
 } from 'material-ui/Toolbar';
+import { openSnackbar } from 'mui-redux-alerts-next';
 
 import datatableTheme from '../datatableTheme';
 import * as runtimeActions from '../../actions/runtime';
@@ -101,6 +102,8 @@ const tableColumns = (openCodeModal, selectBot) => ([
     ),
   },
 ]);
+
+const confirmCopy = { message: 'Embed code has been copied to your clipboard', autoHideDuration: 600000 };
 
 class BotsView extends React.Component {
   constructor(props) {
@@ -211,6 +214,7 @@ class BotsView extends React.Component {
           <CopyCodeModal
             close={this.closeCodeModal}
             code={codeModalCode}
+            dipatchConfirm={() => this.props.openSnackbar(confirmCopy)}
           />
         }
 
@@ -228,6 +232,7 @@ BotsView.propTypes = {
   actions: PropTypes.shape({
     setRuntimeVariable: PropTypes.func,
   }).isRequired,
+  dispatch: PropTypes.isRequired,
 };
 
 function selectProps(state) {
@@ -239,6 +244,7 @@ function selectProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators(runtimeActions, dispatch),
+    openSnackbar: bindActionCreators(openSnackbar, dispatch),
   };
 }
 
