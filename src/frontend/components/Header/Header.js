@@ -16,17 +16,16 @@ import { white } from 'material-ui/styles/colors';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import Sticky from 'react-stickynode';
 import { connect } from 'react-redux';
-import NotificationSystem from 'react-notification-system';
-import _ from 'lodash';
+import CornerNotifications, { info } from 'react-notification-system-redux';
 
 import themeDark from '../themeDark';
+import theme from '../theme';
 import Loader from '../Loader';
 import GlobalNotice from '../GlobalNotice';
 import s from './Header.css';
 import Messages from './Messages';
 import Notifications from './Notifications';
-import { closeCornerNotification } from '../../actions/cornerNotifications';
-import { NOTIFICATION_TYPES } from '../../constants';
+import ReplyButtons from '../CornerNotifications/ReplyButtons';
 
 const styles = {
   header: {
@@ -38,12 +37,32 @@ const styles = {
   },
 };
 
+
+const notificationStyle = {
+  NotificationItem: { // Override the notification item
+    DefaultStyle: { // Applied to every notification, regardless of the notification level
+      padding: '10px 10px 0px 10px',
+      height: 'auto',
+    },
+
+    MessageWrapper: {
+      DefaultStyle: {
+        // marginBottom: '10px',
+      },
+    },
+
+    info: {
+      borderTop: `2px solid ${theme.palette.primary1Color}`,
+      backgroundColor: 'white',
+    },
+  },
+};
+
 class Header extends React.Component {
   static propTypes = {
     onToggleChange: PropTypes.isRequired,
     runtime: PropTypes.isRequired,
-    cornerNotifications: PropTypes.isRequired,
-    dispatch: PropTypes.isRequired,
+    notifications: PropTypes.isRequired,
   }
 
   constructor(props) {
@@ -60,31 +79,6 @@ class Header extends React.Component {
   // after each refresh relogin using refresh token
   componentDidMount() {
     setTimeout(() => this.setState({ loading: false }), 1500); // simulates loading of data
-  }
-
-  // Checks for updates to the cornerNotificatiosn prop to show/hide
-  // corner notifications.
-  componentDidUpdate(prevProps) {
-    const { cornerNotifications } = this.props;
-
-    if (!_.isEqual(cornerNotifications, prevProps.cornerNotifications)) {
-      if (cornerNotifications !== null) {
-        const { uid, text, level, autoDismiss, position } = cornerNotifications;
-
-        this.notificationSystem.current.addNotification({
-          uid,
-          message: text,
-          level,
-          autoDismiss,
-          position,
-          onRemove: (notification) => {
-            this.props.dispatch(closeCornerNotification({
-              uid: notification.uid,
-            }));
-          },
-        });
-      }
-    }
   }
 
   handleToggleButtonTouchTap = () => {
@@ -111,7 +105,10 @@ class Header extends React.Component {
         <div>
           {this.renderLoadingIndicator()}
           <GlobalNotice />
-          <NotificationSystem ref={this.notificationSystem} />
+          <CornerNotifications
+            notifications={this.props.notifications}
+            style={notificationStyle}
+          />
           <Sticky onStateChange={this.handleStickyChange} innerZ={100}>
             <AppBar
               title={selectedAppName}
@@ -135,7 +132,7 @@ class Header extends React.Component {
 function selectProps(state) {
   return {
     runtime: state.runtime,
-    cornerNotifications: state.cornerNotifications,
+    notifications: state.notifications,
   };
 }
 

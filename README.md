@@ -233,14 +233,12 @@ In redux dev tool, dispatch events such as
 
 ```
 {
-    "type": "ADD_CORNER_NOTIFICATION",
-    "payload": {
-        "uid": 123,
-        "text": "test",
-        "level": "error",
-        "autoDismiss": 2,
-        "position": "tr",
-    }
+  "type": "RNS_SHOW_NOTIFICATION",
+  "title": "Hey, it\'s good to see you!",
+  "message": "Now you can see how easy it is to use notifications in React!",
+  "position": "tr",
+  "autoDismiss": 0,
+  "level" : "info"
 }
 ```
 
