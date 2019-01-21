@@ -12,7 +12,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Paper from 'material-ui/Paper';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import lightTheme from '../../components/theme';
-import FullScreen from '../../components/Layout/Fullscreen';
+import BlankScreen from '../../components/Layout/BlankScreen';
 import LoginView from '../../components/LoginView';
 import Background from './bg.svg';
 import { isLogin } from '../../utils';
@@ -53,7 +53,7 @@ export default {
       title,
       chunk: 'login',
       component: (
-        <FullScreen>
+        <BlankScreen>
           <MuiThemeProvider muiTheme={getMuiTheme(lightTheme)}>
             <div style={styles.loginScreen}>
               <Paper style={styles.loginPaper} zDepth={2}>
@@ -61,7 +61,7 @@ export default {
               </Paper>
             </div>
           </MuiThemeProvider>
-        </FullScreen>
+        </BlankScreen>
       ),
     };
   },

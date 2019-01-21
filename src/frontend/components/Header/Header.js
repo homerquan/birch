@@ -12,7 +12,6 @@ import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import AppBar from 'material-ui/AppBar';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import { white } from 'material-ui/styles/colors';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import Sticky from 'react-stickynode';
 import { connect } from 'react-redux';
@@ -26,18 +25,6 @@ import GlobalNotice from '../GlobalNotice';
 import s from './Header.css';
 import Messages from './Messages';
 import Notifications from './Notifications';
-// import ReplyButtons from '../CornerNotifications/ReplyButtons';
-
-const styles = {
-  header: {
-    backgroundColor: white,
-    boxShadow: 'none',
-  },
-  stickyHeader: {
-    backgroundColor: white,
-  },
-};
-
 
 const notificationStyle = {
   NotificationItem: { // Override the notification item
@@ -103,7 +90,7 @@ class Header extends React.Component {
     const selectedAppName = this.props.runtime && this.props.runtime.selectedApp ? this.props.runtime.selectedApp.name : '';
 
     return (
-      <MuiThemeProvider muiTheme={getMuiTheme(themeDark)}>
+      <MuiThemeProvider muiTheme={getMuiTheme(theme)}>
         <div>
           {this.renderLoadingIndicator()}
           <GlobalNotice />
@@ -115,8 +102,6 @@ class Header extends React.Component {
           <Sticky onStateChange={this.handleStickyChange} innerZ={100}>
             <AppBar
               title={selectedAppName}
-              className={this.state.headerClass}
-              style={this.state.sticky ? styles.stickyHeader : styles.header}
               onLeftIconButtonTouchTap={this.handleToggleButtonTouchTap}
               iconElementRight={
                 <div>

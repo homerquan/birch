@@ -1,30 +1,36 @@
 'use strict';
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
+const colors = require('material-ui/styles/colors');
+const spacing = require('material-ui/styles/spacing');
+
+function interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+const spacing2 = interopRequireDefault(spacing);
+
+
+Object.defineProperty(exports, '__esModule', {
+  value: true,
 });
 
-var _colors = require('material-ui/styles/colors');
-
-var _colorManipulator = require('material-ui/utils/colorManipulator');
-
-var _spacing = require('material-ui/styles/spacing');
-
-var _spacing2 = _interopRequireDefault(_spacing);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = {
-  spacing: _spacing2.default,
+  spacing: spacing2.default,
   fontFamily: 'Open Sans, Roboto, sans-serif',
   borderRadius: 2,
+  borderShadow: 'rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 1px 4px',
   palette: {
-    primary1Color: _colors.deepPurple500,
-    primary2Color: _colors.deepPurple700,
-    primary3Color: _colors.grey600,
-    accent1Color: _colors.green100,
-    accent2Color: _colors.grey100,
-    accent3Color: _colors.pinkA100,
-    textColor: _colors.darkBlack,
+    primary1Color: colors.deepPurple500,
+    primary2Color: colors.deepPurple700,
+    primary3Color: colors.grey600,
+    accent1Color: colors.green100,
+    accent2Color: colors.grey100,
+    accent3Color: colors.pinkA100,
+    textColor: colors.darkBlack,
+    textColorLight: colors.grey400,
+    borderColor: colors.grey300,
+  },
+
+  appBar: {
+    height: 48,
   },
 };

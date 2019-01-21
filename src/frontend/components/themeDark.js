@@ -34,6 +34,13 @@ exports.default = {
     pickerHeaderColor: (0, _colorManipulator.fade)(_colors.fullWhite, 0.12),
     clockCircleColor: (0, _colorManipulator.fade)(_colors.fullWhite, 0.12)
   },
+
+  appBar: {
+    height: 48,
+    textColor: '#fff',
+    titleFontWeight: 300,
+  },
+
   snackbar: {
     textColor: _colors.fullWhite,
     backgroundColor: '#000',

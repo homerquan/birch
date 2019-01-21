@@ -18,7 +18,7 @@ import { Page, Section, LayoutProvider } from 'react-page-layout';
 
 import s from './Bots.css';
 import grids from '../../components/Layout/grids';
-import Title from '../../components/Title';
+import TitleBar from '../../components/TitleBar';
 import BotsView from '../../components/BotsView';
 
 class Bots extends React.Component {
@@ -26,8 +26,8 @@ class Bots extends React.Component {
     return (
       <LayoutProvider layouts={grids}>
         <Page layout="grid-one-one">
-          <Section slot="top">
-            <Title>{this.props.title}</Title>
+          <Section slot="titleBar">
+            <TitleBar title={this.props.title} />
           </Section>
           <Section slot="main">
             <BotsView clientId={this.props.session.userId} />

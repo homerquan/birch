@@ -1,26 +1,28 @@
-import React, { Component } from 'react';
+import * as React from 'react';
 import PropTypes from 'prop-types';
-import gql from 'graphql-tag';
-import _ from 'lodash';
-import { graphql, compose } from 'react-apollo';
+import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import AppsIcon from 'material-ui/svg-icons/navigation/apps';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import ArrowForward from 'material-ui/svg-icons/navigation/arrow-forward';
+import MoreVert from 'material-ui/svg-icons/navigation/more-vert';
+import IconMenu from 'material-ui/IconMenu';
+import MenuItem from 'material-ui/MenuItem';
+import IconButton from 'material-ui/IconButton';
+import { black, deepPurple500 } from 'material-ui/styles/colors';
+import gql from 'graphql-tag';
+import { graphql, compose } from 'react-apollo';
 import { List, ListItem } from 'material-ui/List';
-import Divider from 'material-ui/Divider';
+import _ from 'lodash';
 import Avatar from 'material-ui/Avatar';
+import Divider from 'material-ui/Divider';
 import CodeIcon from 'material-ui/svg-icons/action/code';
-import { deepPurple500 } from 'material-ui/styles/colors';
-import RaisedButton from 'material-ui/RaisedButton';
-import FlatButton from 'material-ui/FlatButton';
-import Paper from 'material-ui/Paper';
-import Subheader from 'material-ui/Subheader';
 
+import { RCard, RCardHeader, RCardBody, RCardFooter } from '../styled/RCard';
+import PrimaryText from './PrimaryText';
 import lightTheme from '../theme';
 import s from './BotsList.css';
-import PrimaryText from './PrimaryText';
 import BotsListLoader from './BotsListLoader';
-import NewApp from '../NewApp/NewApp';
 
 const botsQuery = gql`
   query BotsFeed($clientId: String!) {
@@ -41,87 +43,69 @@ const botsQuery = gql`
   }
 `;
 
-const linkStyle = {
-  color: deepPurple500,
-  textTransform: 'none',
-  fontSize: '15px',
-  fontWeight: '400',
-};
+class BotListTwo extends React.Component {
+  static propTypes = {
+    data: PropTypes.isRequired,
+  };
 
-class BotsList extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      newAppModalIsOpen: false,
-    };
-
-    this.closeNewAppModal = this.closeNewAppModal.bind(this);
-  }
-
-  closeNewAppModal() {
-    this.setState({ newAppModalIsOpen: false });
+    console.log('BotsList Props: ', this.props);
   }
 
   transform = data => (_.map(data, 'node'));
 
   render() {
-    const { loading, data: { botsFeed } } = this.props;
-    const { newAppModalIsOpen } = this.state;
+    const { data: { botsFeed } } = this.props;
 
-    if (!botsFeed || loading) {
+    if (!botsFeed) {
       return <BotsListLoader />;
     }
 
     return (
       <MuiThemeProvider muiTheme={getMuiTheme(lightTheme)}>
-        <Paper zDepth={2} className={s.paper}>
-          <Subheader>Applications</Subheader>
-          <List style={{ padding: 0 }}>
-            {this.transform(botsFeed.bots.edges).map(application => (
-              <div key={application.id}>
-                <ListItem
-                  leftAvatar={<Avatar backgroundColor={deepPurple500} icon={<CodeIcon />} />}
-                  primaryText={<PrimaryText text={application.name} number={application.token} />}
-                  secondaryText={application.host}
-                ></ListItem>
-                <Divider />
-              </div>
-              ),
-            )}
-          </List>
-
-          <div className={s.footerContainer}>
-            <FlatButton
-              label="View all Applications"
-              labelStyle={linkStyle}
-              href="/apps"
-            />
-            <RaisedButton
-              onClick={() => this.setState({ newAppModalIsOpen: true })}
-              label="Create Application"
-              primary
-            />
-          </div>
-        </Paper>
-
-        {newAppModalIsOpen &&
-          <NewApp
-            close={this.closeNewAppModal}
-          />
-        }
+        <RCard>
+          <RCardHeader>
+            <div className="title-container">
+              <AppsIcon color={black} />
+              <h2>Applications</h2>
+            </div>
+            <div className="button-container">
+              <IconMenu
+                iconButtonElement={<IconButton><MoreVert /></IconButton>}
+                anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
+                targetOrigin={{ horizontal: 'left', vertical: 'top' }}
+              >
+                <MenuItem primaryText="Refresh" />
+                <MenuItem primaryText="Send feedback" />
+              </IconMenu>
+            </div>
+          </RCardHeader>
+          <RCardBody>
+            <List style={{ padding: 0 }}>
+              {this.transform(botsFeed.bots.edges).map((application, index, array) => (
+                <div key={application.id}>
+                  <ListItem
+                    leftAvatar={<Avatar backgroundColor={deepPurple500} icon={<CodeIcon />} />}
+                    primaryText={<PrimaryText text={application.name} number={application.token} />}
+                    secondaryText={application.host}
+                  />
+                  { (array.length - 1) !== index ? <Divider /> : '' }
+                </div>
+                ),
+              )}
+            </List>
+          </RCardBody>
+          <RCardFooter>
+            <ArrowForward color={black} />
+            <p className="link-text">View all applications</p>
+          </RCardFooter>
+        </RCard>
       </MuiThemeProvider>
     );
   }
 }
-
-BotsList.propTypes = {
-  clientId: PropTypes.string.isRequired,  // eslint-disable-line
-  loading: PropTypes.bool.isRequired,
-  data: PropTypes.shape({
-    botsFeed: PropTypes.object,
-  }).isRequired,
-};
 
 export default withStyles(s)(
   compose(
@@ -130,5 +114,5 @@ export default withStyles(s)(
         variables: { clientId: props.clientId },
       }),
     }),
-  )(BotsList),
+  )(BotListTwo),
 );

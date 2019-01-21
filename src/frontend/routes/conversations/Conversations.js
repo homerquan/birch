@@ -1,35 +1,34 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { Page, Section, LayoutProvider } from "react-page-layout";
-import withStyles from "isomorphic-style-loader/lib/withStyles";
-import MuiThemeProvider from "material-ui/styles/MuiThemeProvider"
+import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { Page, Section, LayoutProvider } from 'react-page-layout';
+import withStyles from 'isomorphic-style-loader/lib/withStyles';
 
-import s from "./Conversations.css";
-import Title from "../../components/Title";
-import grids from "../../components/Layout/grids";
+import s from './Conversations.css';
+import TitleBar from '../../components/TitleBar';
+import grids from '../../components/Layout/grids';
 import ConversationsView from '../../components/ConversationsView/ConversationsView';
 import fakeData from './fakeData.json';
 
 class Conversations extends React.Component {
-	render() {
-		return (
-			<LayoutProvider layouts={grids}>
-				<Page layout="grid-one-one">
-					<Section slot="top">
-						<Title>{this.props.title}</Title>
-					</Section>
-					<Section slot="main">
-						<ConversationsView
-                            clientId={this.props.session.userId}
-							botId={this.props.botId}
-							data={fakeData}
-						/>
-					</Section>
-				</Page>
-			</LayoutProvider>
-		);
-	}
+  render() {
+    return (
+      <LayoutProvider layouts={grids}>
+        <Page layout="grid-one-one">
+          <Section slot="titleBar">
+            <TitleBar title={this.props.title} />
+          </Section>
+          <Section slot="main">
+            <ConversationsView
+              clientId={this.props.session.userId}
+              botId={this.props.botId}
+              data={fakeData}
+            />
+          </Section>
+        </Page>
+      </LayoutProvider>
+    );
+  }
 }
 
 Conversations.propTypes = {
@@ -42,7 +41,7 @@ Conversations.propTypes = {
 
 function selectProps(state) {
   return {
-    session: state.session
+    session: state.session,
   };
 }
 

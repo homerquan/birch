@@ -17,7 +17,7 @@ import Paper from 'material-ui/Paper';
 
 import themeWhite from '../../components/theme';
 import grids from '../../components/Layout/grids';
-import Title from '../../components/Title';
+import TitleBar from '../../components/TitleBar';
 import Browse from '../../components/Plugins/Browse';
 import Installed from '../../components/Plugins/Installed';
 
@@ -42,8 +42,8 @@ class AccountView extends React.Component {
     return (
       <LayoutProvider layouts={grids}>
         <Page layout="grid-one-one">
-          <Section slot="top">
-            <Title>Plugins</Title>
+          <Section slot="titleBar">
+            <TitleBar title="Plugins" />
           </Section>
           <Section slot="main">
             <MuiThemeProvider muiTheme={getMuiTheme(themeWhite)}>

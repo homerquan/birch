@@ -8,24 +8,23 @@
  */
 
 import React from 'react';
-import NotFound from './NotFound';
-import BlankScreen from '../../components/Layout/BlankScreen';
-
-const title = 'Page Not Found';
+import StyleGuide from './StyleGuide';
+import Layout from '../../components/Layout';
 
 export default {
-  path: '*',
-  chunk: 'notFound',
+
+  path: '/style-guide',
+  chunk: 'style-guide',
   action() {
     return {
-      title,
-      chunk: 'notFound',
+      title: 'Reflen Style Guide',
+      chunk: 'style-guide',
       component: (
-        <BlankScreen>
-          <NotFound title={title} />
-        </BlankScreen>
+        <Layout>
+          <StyleGuide />
+        </Layout>
       ),
-      status: 404,
     };
   },
+
 };

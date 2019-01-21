@@ -10,7 +10,7 @@ import Badge from 'material-ui/Badge';
 import IconButton from 'material-ui/IconButton';
 import NotificationIcon from 'material-ui/svg-icons/social/notifications';
 import Paper from 'material-ui/Paper';
-import { deepPurple500, pink500 } from 'material-ui/styles/colors';
+import { deepPurple500, pink500, white } from 'material-ui/styles/colors';
 import { List, ListItem } from 'material-ui/List';
 import Avatar from 'material-ui/Avatar';
 import CodeIcon from 'material-ui/svg-icons/action/code';
@@ -47,13 +47,11 @@ const NotificationsFeed = gql`
 
 const styles = {
   badgeStyle: {
-    top: -4,
-    right: -4,
-    width: 21,
-    height: 20,
-    paddingTop: 1,
-    fontSize: 10,
-    border: '2px solid white',
+    top: 4,
+    right: 4,
+    width: 18,
+    height: 18,
+    fontSize: 9,
     zIndex: 1,
     backgroundColor: pink500,
     color: 'white',
@@ -151,7 +149,7 @@ class Notifications extends Component {
             className="notificationIcon"
             style={styles.btnStyle}
           >
-            <NotificationIcon color={deepPurple500} />
+            <NotificationIcon color={white} />
           </IconButton>
           <Paper style={isOpen ? styles.paperStyle : styles.hiddenStyle}>
             <div className={s.header}>

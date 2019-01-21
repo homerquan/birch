@@ -9,33 +9,24 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import { connect } from 'react-redux';
 import { Page, Section, LayoutProvider } from 'react-page-layout';
-
-import s from './Profile.css';
 import grids from '../../components/Layout/grids';
 import TitleBar from '../../components/TitleBar';
-import ProfileView from '../../components/ProfileView';
+import BotsList from '../../components/BotsList/BotsList';
+import Activities from '../../components/Activities/Activities';
 
-class Profile extends React.Component {
-  static propTypes = {
-    title: PropTypes.string.isRequired,
-  };
-
-  logoutHandler(event) {
-    event.preventDefault();
-    this.props.actions.logout();
-  }
-
+class Home extends React.Component {
   render() {
     return (
       <LayoutProvider layouts={grids}>
         <Page layout="grid-one-one">
           <Section slot="titleBar">
-            <TitleBar title={this.props.title} />
+            <TitleBar title="Style Guide" />
           </Section>
           <Section slot="main">
-            <ProfileView />
+            <BotsList clientId={this.props.session.userId} />
+            <Activities />
           </Section>
         </Page>
       </LayoutProvider>
@@ -43,4 +34,16 @@ class Profile extends React.Component {
   }
 }
 
-export default withStyles(s)(Profile);
+Home.propTypes = {
+  session: PropTypes.shape({
+    userId: PropTypes.string,
+  }).isRequired,
+};
+
+function selectProps(state) {
+  return {
+    session: state.session,
+  };
+}
+
+export default connect(selectProps, null)(Home);

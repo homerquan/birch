@@ -7,55 +7,56 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
-import React from "react";
-import PropTypes from "prop-types";
-import withStyles from "isomorphic-style-loader/lib/withStyles";
+import React from 'react';
+import PropTypes from 'prop-types';
+import withStyles from 'isomorphic-style-loader/lib/withStyles';
 
 // external-global styles must be imported in your JS.
-import normalizeCss from "normalize.css";
-import s from "./Layout.css";
-import Sidebar from "../Sidebar";
-import Header from "../Header";
-import Footer from "../Footer";
+import normalizeCss from 'normalize.css';
+import s from './Layout.css';
+import Sidebar from '../Sidebar';
+import Header from '../Header';
+import Footer from '../Footer';
 
 class Layout extends React.Component {
   static propTypes = {
-    children: PropTypes.node.isRequired
+    children: PropTypes.node.isRequired,
   };
 
   constructor(props) {
     super(props);
     this.state = {
       openSidebar: false,
-      loading: true
+      loading: true,
     };
   }
-
-  toggleSidebar = () => {
-    this.setState({
-      openSidebar: !this.state.openSidebar
-    });
-  };
 
   componentDidMount() {
     setTimeout(() => this.setState({ loading: false }), 1500); // simulates loading of data
   }
 
+  toggleSidebar = () => {
+    this.setState({
+      openSidebar: !this.state.openSidebar,
+    });
+  };
+
   closeSidebar = () => {
     this.setState({
-      openSidebar: false
+      openSidebar: false,
     });
   };
 
   render() {
     const loading = this.state.loading;
+
     return (
       <div>
         <Header onToggleChange={this.toggleSidebar} />
         <Sidebar open={this.state.openSidebar} onClose={this.closeSidebar} />
         {loading ? (
           <div className={s.loader}>
-            <img src="/images/loader.svg" />
+            <img src="/images/loader.svg" alt="loading" />
           </div>
         ) : (
           <div>{this.props.children}</div>

@@ -16,24 +16,21 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import { List } from 'material-ui/List';
 import Divider from 'material-ui/Divider';
-import { deepPurple500 } from 'material-ui/styles/colors';
-import Paper from 'material-ui/Paper';
-import Subheader from 'material-ui/Subheader';
-import FlatButton from 'material-ui/FlatButton';
+import { black } from 'material-ui/styles/colors';
+import NotificationsIcon from 'material-ui/svg-icons/social/notifications-active';
+import IconButton from 'material-ui/IconButton';
+import ArrowForward from 'material-ui/svg-icons/navigation/arrow-forward';
+import MoreVert from 'material-ui/svg-icons/navigation/more-vert';
+import IconMenu from 'material-ui/IconMenu';
+import MenuItem from 'material-ui/MenuItem';
 
+import { RCard, RCardHeader, RCardBody, RCardFooter } from '../styled/RCard';
 import lightTheme from '../theme';
 import s from './Activities.css';
 import fakeData from './fakeData.json';
 import MessageListItem from '../MessageListItem/MessageListItem';
 import NotificationListItem from '../NotificationListItem/NotificationListItem';
 import ActivitiesContentLoader from './ActivitiesContentLoader';
-
-const linkStyle = {
-  color: deepPurple500,
-  textTransform: 'none',
-  fontSize: '15px',
-  fontWeight: '400',
-};
 
 class Activities extends Component {
   constructor(props) {
@@ -63,38 +60,52 @@ class Activities extends Component {
 
     return (
       <MuiThemeProvider muiTheme={getMuiTheme(lightTheme)}>
-        <Paper zDepth={2} className={s.paper}>
-          <Subheader>Recent Activities</Subheader>
-          <List style={{ padding: 0 }}>
-            {this.state.data.map(application => (
-              <div key={application.id}>
-                {application.type === 'message'
-                  ? <MessageListItem
-                    application={application.application}
-                    text={application.text}
-                    time={application.time}
-                  />
-                  : <NotificationListItem
-                    application={application.application}
-                    text={application.text}
-                    time={application.time}
-                    link={application.link}
-                  />
-                }
-                <Divider />
-              </div>
-              ),
-            )}
-          </List>
-          <div className={s.footerContainer}>
-            <FlatButton
-              label="View all Activities"
-              labelStyle={linkStyle}
-              href="#"
-              fullWidth
-            />
-          </div>
-        </Paper>
+        <RCard>
+          <RCardHeader>
+            <div className="title-container">
+              <NotificationsIcon color={black} />
+              <h2>Activities</h2>
+            </div>
+            <div className="button-container">
+              <IconMenu
+                iconButtonElement={<IconButton><MoreVert /></IconButton>}
+                anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
+                targetOrigin={{ horizontal: 'left', vertical: 'top' }}
+              >
+                <MenuItem primaryText="Refresh" />
+                <MenuItem primaryText="Send feedback" />
+              </IconMenu>
+            </div>
+          </RCardHeader>
+          <RCardBody>
+
+            <List style={{ padding: 0 }}>
+              {this.state.data.map((application, index, array) => (
+                <div key={application.id}>
+                  {application.type === 'message'
+                    ? <MessageListItem
+                      application={application.application}
+                      text={application.text}
+                      time={application.time}
+                    />
+                    : <NotificationListItem
+                      application={application.application}
+                      text={application.text}
+                      time={application.time}
+                      link={application.link}
+                    />
+                  }
+                  { (array.length - 1) !== index ? <Divider /> : '' }
+                </div>
+                ),
+              )}
+            </List>
+          </RCardBody>
+          <RCardFooter>
+            <ArrowForward color={black} />
+            <p className="link-text">View all activities</p>
+          </RCardFooter>
+        </RCard>
       </MuiThemeProvider>
     );
   }

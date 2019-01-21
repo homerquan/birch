@@ -14,9 +14,9 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles';
 // external-global styles must be imported in your JS.
 import normalizeCss from 'normalize.css';
 import LayoutCss from './Layout.css'; // Bring in same base styles as rest of app
-import s from './FullScreen.css';
+import s from './BlankScreen.css';
 
-class Fullscreen extends React.Component {
+class BlankScreen extends React.Component {
   static propTypes = {
     children: PropTypes.node.isRequired,
   };
@@ -30,4 +30,4 @@ class Fullscreen extends React.Component {
   }
 }
 
-export default withStyles(normalizeCss, LayoutCss, s)(Fullscreen);
+export default withStyles(normalizeCss, LayoutCss, s)(BlankScreen);

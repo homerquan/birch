@@ -19,15 +19,15 @@
 .pageContainer {
 	display: flex;
 	flex: 1;
-	max-width: 1200px;
-	justify-content: center;
-	margin: 0 auto;
-	margin-top: 20px;
+	/* max-width: 1200px; */
+	/* justify-content: center; */
+	/* margin: 0 auto; */
+	/* margin-top: 20px; */
 }
 
-@media only screen and (max-width: 1199px) {
+/* @media only screen and (max-width: 1199px) {
 	.pageContainer {
 		margin-left: 20px;
 		margin-right: 20px;
 	}
-}
+} */

@@ -17,7 +17,7 @@ import Paper from 'material-ui/Paper';
 import themeWhite from '../../components/theme';
 
 import grids from '../../components/Layout/grids';
-import Title from '../../components/Title';
+import TitleBar from '../../components/TitleBar';
 import Notifications from '../../components/Notifications/Notifications';
 
 class NotificationsView extends Component {
@@ -25,8 +25,8 @@ class NotificationsView extends Component {
     return (
       <LayoutProvider layouts={grids}>
         <Page layout="grid-one-one">
-          <Section slot="top">
-            <Title>Notifications</Title>
+          <Section slot="titleBar">
+            <TitleBar title="Notifications" />
           </Section>
           <Section slot="main">
             <MuiThemeProvider muiTheme={getMuiTheme(themeWhite)}>

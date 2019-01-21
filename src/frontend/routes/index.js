@@ -24,6 +24,7 @@ export default {
     require('./account').default,
     require('./plugins').default,
     require('./notifications').default,
+    require('./styleGuide').default,
 
     // Wildcard routes, e.g. { path: '*', ... } (must go last)
     require('./notFound').default,

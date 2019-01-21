@@ -1,7 +1,8 @@
 /*
  * Copyright (C) Reflen Inc.
  *
- * This file is part of convospot-console. The codes can not be copied and/or distributed without permission
+ * This file is part of convospot-console. The codes can not be copied and/or
+ * distributed without permission
  *
  * @Author: homer
  * @Email: homer@convospot.io
@@ -12,10 +13,14 @@
 
 import GridOneOne from '../../components/Layout/GridOneOne';
 import GridOneTwo from '../../components/Layout/GridOneTwo';
+import GridOneThree from '../../components/Layout/GridOneThree';
+import Tabs from '../../components/Layout/Tabs';
 
 const grids = {
-	'grid-one-one': GridOneOne,
-	'grid-one-two': GridOneTwo,
+  'grid-one-one': GridOneOne,
+  'grid-one-two': GridOneTwo,
+  'grid-one-three': GridOneThree,
+  'tabs': Tabs,
 };
 
 export default grids;

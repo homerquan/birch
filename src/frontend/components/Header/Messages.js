@@ -6,7 +6,7 @@ import Badge from 'material-ui/Badge';
 import IconButton from 'material-ui/IconButton';
 import SMSIcon from 'material-ui/svg-icons/notification/sms';
 import Paper from 'material-ui/Paper';
-import { deepPurple500, pink500 } from 'material-ui/styles/colors';
+import { deepPurple500, pink500, white } from 'material-ui/styles/colors';
 import { List, ListItem } from 'material-ui/List';
 import Avatar from 'material-ui/Avatar';
 import CodeIcon from 'material-ui/svg-icons/action/code';
@@ -20,13 +20,11 @@ import s from './Messages.css';
 import fakeData from './fakeMessages.json';
 
 const badgeStyle = {
-  top: -4,
-  right: -4,
-  width: 21,
-  height: 20,
-  paddingTop: 1,
-  fontSize: 10,
-  border: '2px solid white',
+  top: 4,
+  right: 4,
+  width: 18,
+  height: 18,
+  fontSize: 9,
   zIndex: 1,
   backgroundColor: pink500,
   color: 'white',
@@ -139,7 +137,7 @@ class Messages extends Component {
             className="messageIcon"
             style={btnStyle}
           >
-            <SMSIcon color={deepPurple500} />
+            <SMSIcon color={white} />
           </IconButton>
           <Paper style={isOpen ? paperStyle : hiddenStyle}>
             <div className={s.header}>

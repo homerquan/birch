@@ -16,7 +16,7 @@ import Paper from 'material-ui/Paper';
 import datatableTheme from '../../components/datatableTheme';
 
 import grids from '../../components/Layout/grids';
-import Title from '../../components/Title';
+import TitleBar from '../../components/TitleBar';
 import Account from '../../components/Account/Account';
 import Billing from '../../components/Billing/Billing';
 
@@ -39,8 +39,8 @@ class AccountView extends React.Component {
     return (
       <LayoutProvider layouts={grids}>
         <Page layout="grid-one-one">
-          <Section slot="top">
-            <Title>Manage Account</Title>
+          <Section slot="titleBar">
+            <TitleBar title="Manage Account" />
           </Section>
           <Section slot="main">
             <MuiThemeProvider muiTheme={getMuiTheme(datatableTheme)}>
