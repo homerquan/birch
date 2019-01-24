@@ -263,6 +263,19 @@ In redux dev tool, dispatch events such as
 }
 ```
 
+```
+{
+  type: 'OPEN_CONSOLE',
+  payload: {
+    isOpen: true,
+  }
+}
+
+{
+  type: 'CLOSE_CONSOLE'
+}
+```
+
 Same as: BIRCH.SIMULATE(<command>,<payload>)
 
 ```

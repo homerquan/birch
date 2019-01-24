@@ -8,6 +8,7 @@ import user from './user';
 import session from './session';
 import runtime from './runtime';
 import globalNotification from './globalNotification';
+import console from './console';
 
 export default function createRootReducer({ apolloClient }) {
   return combineReducers({
@@ -19,6 +20,7 @@ export default function createRootReducer({ apolloClient }) {
     globalNotification,
     notifications,
     snackBarNotifications,
+    console,
     form: formReducer,
   });
 }

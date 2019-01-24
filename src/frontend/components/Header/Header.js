@@ -9,6 +9,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { bindActionCreators } from 'redux';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import AppBar from 'material-ui/AppBar';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -17,6 +18,9 @@ import Sticky from 'react-stickynode';
 import { connect } from 'react-redux';
 import CornerNotifications from 'react-notification-system-redux';
 import { Alerts as SnackBarAlerts } from 'mui-redux-alerts-next';
+import IconButton from 'material-ui/IconButton';
+import ActionHome from 'material-ui/svg-icons/action/home';
+import ArrowIcon from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
 
 import themeDark from '../themeDark';
 import theme from '../theme';
@@ -25,6 +29,7 @@ import GlobalNotice from '../GlobalNotice';
 import s from './Header.css';
 import Messages from './Messages';
 import Notifications from './Notifications';
+import { openConsole } from '../../actions/console';
 
 const notificationStyle = {
   NotificationItem: { // Override the notification item
@@ -52,6 +57,7 @@ class Header extends React.Component {
     runtime: PropTypes.isRequired,
     notifications: PropTypes.isRequired,
     snackBarNotifications: PropTypes.isRequired,
+    openConsole: PropTypes.func.isRequired,
   }
 
   constructor(props) {
@@ -105,6 +111,9 @@ class Header extends React.Component {
               onLeftIconButtonTouchTap={this.handleToggleButtonTouchTap}
               iconElementRight={
                 <div>
+                  <IconButton tooltip="Open Console">
+                    <ArrowIcon color="white" onClick={this.props.openConsole} />
+                  </IconButton>
                   <Messages />
                   <Notifications clientId={'asdf'} />
                 </div>
@@ -125,4 +134,8 @@ function selectProps(state) {
   };
 }
 
-export default withStyles(s)(connect(selectProps, null)(Header));
+const mapDispatchToProps = dispatch => ({
+  openConsole: bindActionCreators(openConsole, dispatch),
+});
+
+export default withStyles(s)(connect(selectProps, mapDispatchToProps)(Header));

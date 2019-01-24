@@ -17,6 +17,7 @@ import s from './Layout.css';
 import Sidebar from '../Sidebar';
 import Header from '../Header';
 import Footer from '../Footer';
+import Console from '../Console/Console';
 
 class Layout extends React.Component {
   static propTypes = {
@@ -62,6 +63,7 @@ class Layout extends React.Component {
           <div>{this.props.children}</div>
         )}
         {loading ? null : <Footer />}
+        <Console />
       </div>
     );
   }
