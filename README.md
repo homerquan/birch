@@ -216,6 +216,7 @@ In redux dev tool, dispatch events such as
 }
 ```
 
+Show/Hide Global (header) notification
 ```
 {
     "type": "ADD_GLOBAL_NOTIFICATION",
@@ -231,17 +232,26 @@ In redux dev tool, dispatch events such as
 }
 ```
 
+Show/Hide Corner notifications
 ```
 {
   "type": "RNS_SHOW_NOTIFICATION",
+  "uid": "123123",
   "title": "Hey, it\'s good to see you!",
   "message": "Now you can see how easy it is to use notifications in React!",
   "position": "tr",
   "autoDismiss": 0,
   "level" : "info"
 }
+
+{
+  "type": "RNS_HIDE_NOTIFICATION",
+  "uid": "123123",
+}
 ```
 
+
+Show/Hide Snackbar notifications
 ```
 {
   type: '@@mui-redux-alerts/OPEN_SNACKBAR',
@@ -263,6 +273,7 @@ In redux dev tool, dispatch events such as
 }
 ```
 
+Show/Hide Console
 ```
 {
   type: 'OPEN_CONSOLE',
