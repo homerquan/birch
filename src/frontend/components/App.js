@@ -22,15 +22,21 @@ const ContextType = {
   client: PropTypes.object.isRequired,
 };
 
-
 class App extends React.PureComponent {
-
   static propTypes = {
     context: PropTypes.shape(ContextType).isRequired,
     children: PropTypes.element.isRequired,
   };
 
   static childContextTypes = ContextType;
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      loading: true,
+    };
+  }
 
   getChildContext() {
     return this.props.context;
@@ -41,7 +47,6 @@ class App extends React.PureComponent {
     // please do that inside the Layout component.
     return React.Children.only(this.props.children);
   }
-
 }
 
 export default App;

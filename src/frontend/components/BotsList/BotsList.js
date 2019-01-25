@@ -48,12 +48,6 @@ class BotListTwo extends React.Component {
     data: PropTypes.isRequired,
   };
 
-  constructor(props) {
-    super(props);
-
-    console.log('BotsList Props: ', this.props);
-  }
-
   transform = data => (_.map(data, 'node'));
 
   render() {

@@ -37,18 +37,9 @@ class Activities extends Component {
     super(props);
 
     this.state = {
-      isLoading: true,
-      data: [],
+      isLoading: false,
+      data: fakeData.data,
     };
-  }
-
-  componentDidMount() {
-    setTimeout(() => {
-      this.setState({
-        data: fakeData.data,
-        isLoading: false,
-      });
-    }, 1000);
   }
 
   render() {

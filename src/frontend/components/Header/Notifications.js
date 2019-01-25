@@ -44,7 +44,6 @@ const NotificationsFeed = gql`
   }
 `;
 
-
 const styles = {
   badgeStyle: {
     top: 4,
@@ -94,6 +93,15 @@ const styles = {
 };
 
 class Notifications extends Component {
+  static propTypes = {
+    runtime: PropTypes.shape({
+      NOTIFICATIONS_COUNT: PropTypes.number,
+    }).isRequired,
+    data: PropTypes.shape({
+      notificationsFeed: PropTypes.object,
+    }).isRequired,
+  };
+
   constructor(props) {
     super(props);
 
@@ -132,7 +140,11 @@ class Notifications extends Component {
 
   render() {
     const { isOpen } = this.state;
-    const { runtime, data: { notificationsFeed } } = this.props;
+    const { runtime, data: { notificationsFeed, loading } } = this.props;
+
+    if (loading) {
+      return <div>loading</div>;
+    }
 
     return (
       <MuiThemeProvider muiTheme={getMuiTheme(lightTheme)}>
@@ -187,15 +199,6 @@ function selectProps(state) {
     runtime: state.runtime,
   };
 }
-
-Notifications.propTypes = {
-  runtime: PropTypes.shape({
-    NOTIFICATIONS_COUNT: PropTypes.number,
-  }).isRequired,
-  data: PropTypes.shape({
-    notificationsFeed: PropTypes.object,
-  }).isRequired,
-};
 
 export default withStyles(s)(
   compose(

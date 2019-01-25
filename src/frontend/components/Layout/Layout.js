@@ -32,8 +32,10 @@ class Layout extends React.Component {
     };
   }
 
+  // https://stackoverflow.com/questions/23734862/check-if-all-child-components-have-been-mounted
+  // All child components are loaded before parent componentDidMount is called.
   componentDidMount() {
-    setTimeout(() => this.setState({ loading: false }), 1500); // simulates loading of data
+    this.setState({ loading: false });
   }
 
   toggleSidebar = () => {
@@ -49,23 +51,41 @@ class Layout extends React.Component {
   };
 
   render() {
-    const loading = this.state.loading;
+    // const loading = this.state.loading;
+
+    if (this.state.loading) {
+      return (
+        <div className={s.loader}>
+          <img src="/images/loader.svg" alt="loading" />
+        </div>
+      );
+    }
 
     return (
       <div>
         <Header onToggleChange={this.toggleSidebar} />
         <Sidebar open={this.state.openSidebar} onClose={this.closeSidebar} />
-        {loading ? (
-          <div className={s.loader}>
-            <img src="/images/loader.svg" alt="loading" />
-          </div>
-        ) : (
-          <div>{this.props.children}</div>
-        )}
-        {loading ? null : <Footer />}
+        <div>{this.props.children}</div>
+        <Footer />
         <Console />
       </div>
     );
+
+    // return (
+    //   <div>
+    //     <Header onToggleChange={this.toggleSidebar} />
+    //     <Sidebar open={this.state.openSidebar} onClose={this.closeSidebar} />
+    //     {loading ? (
+    //       <div className={s.loader}>
+    //         <img src="/images/loader.svg" alt="loading" />
+    //       </div>
+    //     ) : (
+    //       <div>{this.props.children}</div>
+    //     )}
+    //     {loading ? null : <Footer />}
+    //     <Console />
+    //   </div>
+    // );
   }
 }
 
