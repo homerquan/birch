@@ -18,6 +18,7 @@ import Sidebar from '../Sidebar';
 import Header from '../Header';
 import Footer from '../Footer';
 import Console from '../Console/Console';
+import AppLoading from '../AppLoading';
 
 class Layout extends React.Component {
   static propTypes = {
@@ -51,14 +52,8 @@ class Layout extends React.Component {
   };
 
   render() {
-    // const loading = this.state.loading;
-
     if (this.state.loading) {
-      return (
-        <div className={s.loader}>
-          <img src="/images/loader.svg" alt="loading" />
-        </div>
-      );
+      return <AppLoading />;
     }
 
     return (
@@ -70,22 +65,6 @@ class Layout extends React.Component {
         <Console />
       </div>
     );
-
-    // return (
-    //   <div>
-    //     <Header onToggleChange={this.toggleSidebar} />
-    //     <Sidebar open={this.state.openSidebar} onClose={this.closeSidebar} />
-    //     {loading ? (
-    //       <div className={s.loader}>
-    //         <img src="/images/loader.svg" alt="loading" />
-    //       </div>
-    //     ) : (
-    //       <div>{this.props.children}</div>
-    //     )}
-    //     {loading ? null : <Footer />}
-    //     <Console />
-    //   </div>
-    // );
   }
 }
 

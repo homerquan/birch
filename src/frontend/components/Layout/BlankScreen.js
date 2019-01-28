@@ -13,21 +13,33 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles';
 
 // external-global styles must be imported in your JS.
 import normalizeCss from 'normalize.css';
-import LayoutCss from './Layout.css'; // Bring in same base styles as rest of app
-import s from './BlankScreen.css';
+import LayoutCSS from './Layout.css';
+import AppLoading from '../AppLoading';
 
 class BlankScreen extends React.Component {
   static propTypes = {
     children: PropTypes.node.isRequired,
   };
 
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      loading: true,
+    };
+  }
+
+  componentDidMount() {
+    this.setState({ loading: false });
+  }
+
   render() {
-    return (
-      <div className={s.root}>
-        {this.props.children}
-      </div>
-    );
+    if (this.state.loading) {
+      return <AppLoading />;
+    }
+
+    return this.props.children;
   }
 }
 
-export default withStyles(normalizeCss, LayoutCss, s)(BlankScreen);
+export default withStyles(normalizeCss, LayoutCSS)(BlankScreen);

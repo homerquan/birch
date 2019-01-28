@@ -25,6 +25,8 @@ export default {
     require('./plugins').default,
     require('./notifications').default,
     require('./styleGuide').default,
+    require('./forgotPassword').default,
+    require('./resetPassword').default,
 
     // Wildcard routes, e.g. { path: '*', ... } (must go last)
     require('./notFound').default,

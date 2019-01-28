@@ -14,12 +14,12 @@ import * as sessionActions from "../../actions/session";
 
 class LoginView extends React.Component {
   static propTypes = {
-    title: PropTypes.string.isRequired
+    title: PropTypes.string.isRequired,
   };
 
   constructor(props) {
     super(props);
-    this.state = { credentials: { email: "", password: "" } };
+    this.state = { credentials: { email: '', password: '' } };
     this.onChange = this.onChange.bind(this);
     this.loginHandler = this.loginHandler.bind(this);
   }
@@ -85,16 +85,16 @@ class LoginView extends React.Component {
 
 function selectProps(state) {
   return {
-    session: state.session
+    session: state.session,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(sessionActions, dispatch)
+    actions: bindActionCreators(sessionActions, dispatch),
   };
 }
 
 export default withStyles(s)(
-  connect(selectProps, mapDispatchToProps)(LoginView)
+  connect(selectProps, mapDispatchToProps)(LoginView),
 );

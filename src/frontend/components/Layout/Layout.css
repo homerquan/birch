@@ -25,24 +25,18 @@ html {
   font-size: 1em; /* ~16px; */
   font-family: var(--font-family-base);
   line-height: 1.375; /* ~22px */  
+  height: 100%;
 }
 
 body {
   margin: 0;
   background-color: #fafafa;
   overflow-y: hidden;
+  height: 100%;
 }
 
 a {
   color: #0074c2;
-}
-
-
-.loader {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
 }
 
 /*
