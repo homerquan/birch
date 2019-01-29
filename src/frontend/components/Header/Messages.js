@@ -129,7 +129,7 @@ class Messages extends Component {
     return (
       <MuiThemeProvider muiTheme={getMuiTheme(lightTheme)}>
         <Badge
-          badgeContent={messages.length}
+          badgeContent={messages.length ? messages.length : 0 }
           badgeStyle={messages.length ? badgeStyle : hiddenStyle}
           style={badgeRootStyle}
         >

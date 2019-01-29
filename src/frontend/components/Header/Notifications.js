@@ -149,7 +149,7 @@ class Notifications extends Component {
     return (
       <MuiThemeProvider muiTheme={getMuiTheme(lightTheme)}>
         <Badge
-          badgeContent={runtime[ACTION_TYPES.NOTIFICATIONS_COUNT]}
+          badgeContent={runtime[ACTION_TYPES.NOTIFICATIONS_COUNT] ? runtime[ACTION_TYPES.NOTIFICATIONS_COUNT] : 0}
           badgeStyle={
             runtime[ACTION_TYPES.NOTIFICATIONS_COUNT] > 0
             ? styles.badgeStyle

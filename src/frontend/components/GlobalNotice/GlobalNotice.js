@@ -12,6 +12,7 @@
  */
 import React from 'react';
 import PropTypes from 'prop-types';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import IconButton from 'material-ui/IconButton';
@@ -39,15 +40,19 @@ const styles = {
 
 class GlobalNotice extends React.Component {
   static propTypes = {
-    dispatch: PropTypes.node.isRequired,
-    globalNotification: PropTypes.isRequired,
+    globalNotification: PropTypes.object,
+    ignoreGlobalNotification: PropTypes.func.isRequired,
   };
 
+  static defaultProps = {
+    globalNotification: {},
+  }
+
   handleClose = () => {
-    this.props.dispatch(ignoreGlobalNotification({
+    this.props.ignoreGlobalNotification({
       name: 'IGNORE_GLOBAL_NOTIFICATION',
       value: {},
-    }));
+    });
   }
 
   render() {
@@ -75,4 +80,8 @@ function selectProps(state) {
   };
 }
 
-export default withStyles(s)(connect(selectProps, null)(GlobalNotice));
+const mapDispatchToProps = dispatch => ({
+  ignoreGlobalNotification: bindActionCreators(ignoreGlobalNotification, dispatch),
+});
+
+export default withStyles(s)(connect(selectProps, mapDispatchToProps)(GlobalNotice));

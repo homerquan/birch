@@ -19,10 +19,8 @@ import { connect } from 'react-redux';
 import CornerNotifications from 'react-notification-system-redux';
 import { Alerts as SnackBarAlerts } from 'mui-redux-alerts-next';
 import IconButton from 'material-ui/IconButton';
-import ActionHome from 'material-ui/svg-icons/action/home';
 import ArrowIcon from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
 
-import themeDark from '../themeDark';
 import theme from '../theme';
 import Loader from '../Loader';
 import GlobalNotice from '../GlobalNotice';
@@ -53,10 +51,10 @@ const notificationStyle = {
 
 class Header extends React.Component {
   static propTypes = {
-    onToggleChange: PropTypes.isRequired,
-    runtime: PropTypes.isRequired,
-    notifications: PropTypes.isRequired,
-    snackBarNotifications: PropTypes.isRequired,
+    onToggleChange: PropTypes.func.isRequired,
+    runtime: PropTypes.object.isRequired,
+    notifications: PropTypes.array.isRequired,
+    snackBarNotifications: PropTypes.object.isRequired,
     openConsole: PropTypes.func.isRequired,
   }
 

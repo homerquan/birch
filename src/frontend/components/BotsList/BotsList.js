@@ -43,9 +43,9 @@ const botsQuery = gql`
   }
 `;
 
-class BotListTwo extends React.Component {
+class BotList extends React.Component {
   static propTypes = {
-    data: PropTypes.isRequired,
+    data: PropTypes.object.isRequired,
   };
 
   transform = data => (_.map(data, 'node'));
@@ -108,5 +108,5 @@ export default withStyles(s)(
         variables: { clientId: props.clientId },
       }),
     }),
-  )(BotListTwo),
+  )(BotList),
 );
