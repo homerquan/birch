@@ -27,7 +27,7 @@ import GlobalNotice from '../GlobalNotice';
 import s from './Header.css';
 import Messages from './Messages';
 import Notifications from './Notifications';
-import { openConsole } from '../../actions/console';
+import { openConsole, closeConsole } from '../../actions/console';
 
 const notificationStyle = {
   NotificationItem: { // Override the notification item
@@ -56,6 +56,10 @@ class Header extends React.Component {
     notifications: PropTypes.array.isRequired,
     snackBarNotifications: PropTypes.object.isRequired,
     openConsole: PropTypes.func.isRequired,
+    closeConsole: PropTypes.func.isRequired,
+    console: PropTypes.shape({
+      isOpen: PropTypes.bool.isRequired,
+    }).isRequired,
   }
 
   constructor(props) {
@@ -67,6 +71,7 @@ class Header extends React.Component {
 
     this.notificationSystem = React.createRef();
     this.handleToggleButtonTouchTap = this.handleToggleButtonTouchTap.bind(this);
+    this.toggleConsole = this.toggleConsole.bind(this);
   }
 
   // after each refresh relogin using refresh token
@@ -90,6 +95,14 @@ class Header extends React.Component {
     return this.state.loading ? <Loader /> : null;
   }
 
+  toggleConsole() {
+    if (this.props.console.isOpen) {
+      this.props.closeConsole();
+    } else {
+      this.props.openConsole();
+    }
+  }
+
   render() {
     const selectedAppName = this.props.runtime && this.props.runtime.selectedApp ? this.props.runtime.selectedApp.name : '';
 
@@ -110,7 +123,7 @@ class Header extends React.Component {
               iconElementRight={
                 <div>
                   <IconButton tooltip="Open Console">
-                    <ArrowIcon color="white" onClick={this.props.openConsole} />
+                    <ArrowIcon color="white" onClick={this.toggleConsole} />
                   </IconButton>
                   <Messages />
                   <Notifications clientId={'asdf'} />
@@ -129,11 +142,13 @@ function selectProps(state) {
     runtime: state.runtime,
     notifications: state.notifications,
     snackBarNotifications: state.snackBarNotifications,
+    console: state.console,
   };
 }
 
 const mapDispatchToProps = dispatch => ({
   openConsole: bindActionCreators(openConsole, dispatch),
+  closeConsole: bindActionCreators(closeConsole, dispatch),
 });
 
 export default withStyles(s)(connect(selectProps, mapDispatchToProps)(Header));
