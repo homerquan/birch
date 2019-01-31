@@ -4,14 +4,24 @@ import _ from 'lodash';
 import { graphql, compose } from 'react-apollo';
 import gql from 'graphql-tag';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import { List, ListItem } from 'material-ui/List';
 import Divider from 'material-ui/Divider';
-import { deepPurple500 } from 'material-ui/styles/colors';
+import { deepPurple500, black } from 'material-ui/styles/colors';
 import Avatar from 'material-ui/Avatar';
 import CodeIcon from 'material-ui/svg-icons/action/code';
 import RaisedButton from 'material-ui/RaisedButton';
+import AppsIcon from 'material-ui/svg-icons/navigation/apps';
+import IconMenu from 'material-ui/IconMenu';
+import IconButton from 'material-ui/IconButton';
+import MoreVert from 'material-ui/svg-icons/navigation/more-vert';
+import MenuItem from 'material-ui/MenuItem';
 
 import s from './Notifications.css';
+
+import { RCard, RCardHeader, RCardBody, RCardFooter } from '../styled/RCard';
+import lightTheme from '../theme';
 
 const NotificationsFeed = gql`
   query NotificationsFeed($clientId: String) {
@@ -116,31 +126,54 @@ class Notifications extends Component {
     }
 
     return (
-      <div>
-        <List style={styles.listStyle}>
-          {notificationsFeed.notifications.edges
-            ? (
-              this.transform(notificationsFeed.notifications.edges).map((message, index) => (
-                <div key={message.id}>
-                  {index > 0 ? <Divider /> : ''}
-                  <ListItem
-                    leftAvatar={<Avatar backgroundColor={deepPurple500} icon={<CodeIcon />} />}
-                    secondaryText={<p>{message.text}</p>}
-                    secondaryTextLines={2}
-                  />
-                </div>
-              ))
-            ) : 'Loading...'
-          }
-        </List>
-        <RaisedButton
-          label="Load More"
-          primary
-          fullWidth
-          disabled={!notificationsFeed.notifications.pageInfo.hasNextPage}
-          onClick={this.loadMore}
-        />
-      </div>
+      <MuiThemeProvider muiTheme={getMuiTheme(lightTheme)}>
+        <RCard>
+          <RCardHeader>
+            <div className="title-container">
+              <AppsIcon color={black} />
+              <h2>Applications</h2>
+            </div>
+            <div className="button-container">
+              <IconMenu
+                iconButtonElement={<IconButton><MoreVert /></IconButton>}
+                anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
+                targetOrigin={{ horizontal: 'left', vertical: 'top' }}
+              >
+                <MenuItem primaryText="Refresh" />
+                <MenuItem primaryText="Send feedback" />
+              </IconMenu>
+            </div>
+          </RCardHeader>
+          <RCardBody>
+            <List style={styles.listStyle}>
+              {notificationsFeed.notifications.edges
+                ? (
+                  this.transform(notificationsFeed.notifications.edges).map((message, index) => (
+                    <div key={message.id}>
+                      {index > 0 ? <Divider /> : ''}
+                      <ListItem
+                        leftAvatar={<Avatar backgroundColor={deepPurple500} icon={<CodeIcon />} />}
+                        secondaryText={<p>{message.text}</p>}
+                        secondaryTextLines={2}
+                      />
+                    </div>
+                  ))
+                ) : 'Loading...'
+              }
+            </List>
+            <RCardFooter >
+              <RaisedButton
+                label="Load More"
+                styled={{ paddingBottom: 0 }}
+                primary
+                fullWidth
+                disabled={!notificationsFeed.notifications.pageInfo.hasNextPage}
+                onClick={this.loadMore}
+              />
+            </RCardFooter>
+          </RCardBody>
+        </RCard>
+      </MuiThemeProvider>
     );
   }
 }

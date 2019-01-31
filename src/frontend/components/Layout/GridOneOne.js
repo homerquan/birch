@@ -24,8 +24,11 @@ class GridOneOne extends React.Component {
   render() {
     return (
       <ThemeProvider theme={standard}>
-        <div className={s.pageContainer}>
-          <Slot name="main" tabs />
+        <div>
+          <Slot name="titleBar" />
+          <div className={s.pageContainer}>
+            <Slot name="main" />
+          </div>
         </div>
       </ThemeProvider>
     );

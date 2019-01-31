@@ -11,10 +11,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Page, Section, LayoutProvider } from 'react-page-layout';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import Paper from 'material-ui/Paper';
-import themeWhite from '../../components/theme';
 
 import grids from '../../components/Layout/grids';
 import TitleBar from '../../components/TitleBar';
@@ -24,16 +20,12 @@ class NotificationsView extends Component {
   render() {
     return (
       <LayoutProvider layouts={grids}>
-        <Page layout="grid-one-one">
+        <Page layout="grid-one-three">
           <Section slot="titleBar">
             <TitleBar title="Notifications" />
           </Section>
-          <Section slot="main">
-            <MuiThemeProvider muiTheme={getMuiTheme(themeWhite)}>
-              <Paper>
-                <Notifications clientId={this.props.session.userId} />
-              </Paper>
-            </MuiThemeProvider>
+          <Section slot="col-1">
+            <Notifications clientId={this.props.session.userId} />
           </Section>
         </Page>
       </LayoutProvider>
