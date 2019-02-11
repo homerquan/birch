@@ -16,10 +16,13 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import { List } from 'material-ui/List';
 import Divider from 'material-ui/Divider';
-import { deepPurple500 } from 'material-ui/styles/colors';
-import Paper from 'material-ui/Paper';
+import { deepPurple500, black } from 'material-ui/styles/colors';
 import FlatButton from 'material-ui/FlatButton';
-import Subheader from 'material-ui/Subheader';
+import AppsIcon from 'material-ui/svg-icons/navigation/apps';
+import IconButton from 'material-ui/IconButton';
+import MoreVert from 'material-ui/svg-icons/navigation/more-vert';
+import IconMenu from 'material-ui/IconMenu';
+import MenuItem from 'material-ui/MenuItem';
 
 import lightTheme from '../theme';
 import s from './ConversationDetailsActivity.css';
@@ -27,6 +30,7 @@ import fakeData from './fakeData.json';
 import MessageListItem from '../MessageListItem/MessageListItem';
 import NotificationListItem from '../NotificationListItem/NotificationListItem';
 import ConversationDetailsLoader from './ConversationDetailsLoader';
+import { RCard, RCardHeader, RCardBody, RCardFooter } from '../styled/RCard';
 
 const linkStyle = {
   color: deepPurple500,
@@ -63,38 +67,55 @@ class ConversationDetailsActivity extends Component {
 
     return (
       <MuiThemeProvider muiTheme={getMuiTheme(lightTheme)}>
-        <Paper zDepth={2} className={s.paper}>
-          <Subheader>Recent Activities</Subheader>
-          <List style={{ padding: 0 }}>
-            {this.state.data.map(application => (
-              <div key={application.id}>
-                {application.type === 'message'
-                  ? <MessageListItem
-                    application={application.application}
-                    text={application.text}
-                    time={application.time}
-                  />
-                  : <NotificationListItem
-                    application={application.application}
-                    text={application.text}
-                    time={application.time}
-                    link={application.link}
-                  />
-                }
-                <Divider />
-              </div>
-              ),
-            )}
-          </List>
-          <div className={s.footerContainer}>
+        <RCard>
+          <RCardHeader>
+            <div className="title-container">
+              <AppsIcon color={black} />
+              <h2>Recent Activities</h2>
+            </div>
+            <div className="button-container">
+              <IconMenu
+                iconButtonElement={<IconButton><MoreVert /></IconButton>}
+                anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
+                targetOrigin={{ horizontal: 'left', vertical: 'top' }}
+              >
+                <MenuItem primaryText="Refresh" />
+                <MenuItem primaryText="Send feedback" />
+              </IconMenu>
+            </div>
+          </RCardHeader>
+          <RCardBody>
+            <List style={{ padding: 0 }}>
+              {this.state.data.map((application, index, array) => (
+                <div key={application.id}>
+                  {application.type === 'message'
+                    ? <MessageListItem
+                      application={application.application}
+                      text={application.text}
+                      time={application.time}
+                    />
+                    : <NotificationListItem
+                      application={application.application}
+                      text={application.text}
+                      time={application.time}
+                      link={application.link}
+                    />
+                  }
+                  { array.length === (index + 1) ? '' : <Divider /> }
+                </div>
+                ),
+              )}
+            </List>
+          </RCardBody>
+          <RCardFooter>
             <FlatButton
               label="View all Conversations"
               labelStyle={linkStyle}
               href="#"
               fullWidth
             />
-          </div>
-        </Paper>
+          </RCardFooter>
+        </RCard>
       </MuiThemeProvider>
     );
   }

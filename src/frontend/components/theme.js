@@ -20,6 +20,7 @@ exports.default = {
   borderShadow: 'rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 1px 4px',
   palette: {
     primary1Color: colors.deepPurple500,
+    primary1Highlight: colors.deepPurple400,
     primary2Color: colors.deepPurple700,
     primary3Color: colors.grey600,
     accent1Color: colors.green100,

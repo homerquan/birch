@@ -11,7 +11,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import AppBar from 'material-ui/AppBar';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import Sticky from 'react-stickynode';
@@ -20,6 +19,10 @@ import CornerNotifications from 'react-notification-system-redux';
 import { Alerts as SnackBarAlerts } from 'mui-redux-alerts-next';
 import IconButton from 'material-ui/IconButton';
 import ArrowIcon from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
+import HamburgerIcon from 'material-ui/svg-icons/image/dehaze';
+
+import { white } from 'material-ui/styles/colors';
+
 
 import theme from '../theme';
 import Loader from '../Loader';
@@ -28,6 +31,8 @@ import s from './Header.css';
 import Messages from './Messages';
 import Notifications from './Notifications';
 import { openConsole, closeConsole } from '../../actions/console';
+import SearchBox from './SearchBox';
+import { HeaderContainer, HeaderTitle } from '../styled/Header';
 
 const notificationStyle = {
   NotificationItem: { // Override the notification item
@@ -91,16 +96,16 @@ class Header extends React.Component {
     }
   };
 
-  renderLoadingIndicator() {
-    return this.state.loading ? <Loader /> : null;
-  }
-
   toggleConsole() {
     if (this.props.console.isOpen) {
       this.props.closeConsole();
     } else {
       this.props.openConsole();
     }
+  }
+
+  renderLoadingIndicator() {
+    return this.state.loading ? <Loader /> : null;
   }
 
   render() {
@@ -116,21 +121,24 @@ class Header extends React.Component {
             style={notificationStyle}
           />
           <SnackBarAlerts alerts={this.props.snackBarNotifications} />
-          <Sticky onStateChange={this.handleStickyChange} innerZ={100}>
-            <AppBar
-              title={selectedAppName}
-              onLeftIconButtonTouchTap={this.handleToggleButtonTouchTap}
-              iconElementRight={
-                <div>
-                  <IconButton tooltip="Open Console">
-                    <ArrowIcon color="white" onClick={this.toggleConsole} />
-                  </IconButton>
-                  <Messages />
-                  <Notifications clientId={'asdf'} />
-                </div>
-              }
-            />
-          </Sticky>
+          {/* <Sticky onStateChange={this.handleStickyChange} innerZ={100}> */}
+          <HeaderContainer>
+            <IconButton onClick={this.handleToggleButtonTouchTap}>
+              <HamburgerIcon color={white} />
+            </IconButton>
+            <HeaderTitle>{selectedAppName}</HeaderTitle>
+
+            <SearchBox />
+
+            <div>
+              <IconButton tooltip="Open Console">
+                <ArrowIcon color={white} onClick={this.toggleConsole} />
+              </IconButton>
+              <Messages />
+              <Notifications clientId={'asdf'} />
+            </div>
+          </HeaderContainer>
+          {/* </Sticky> */}
         </div>
       </MuiThemeProvider>
     );
