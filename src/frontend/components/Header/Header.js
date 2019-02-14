@@ -20,9 +20,7 @@ import { Alerts as SnackBarAlerts } from 'mui-redux-alerts-next';
 import IconButton from 'material-ui/IconButton';
 import ArrowIcon from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
 import HamburgerIcon from 'material-ui/svg-icons/image/dehaze';
-
 import { white } from 'material-ui/styles/colors';
-
 
 import theme from '../theme';
 import Loader from '../Loader';

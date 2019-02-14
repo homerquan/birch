@@ -14,12 +14,14 @@
 import GridOneOne from '../../components/Layout/GridOneOne';
 import GridOneTwo from '../../components/Layout/GridOneTwo';
 import GridOneThree from '../../components/Layout/GridOneThree';
+import GridOneFull from './GridOneFull';
 import Tabs from '../../components/Layout/Tabs';
 
 const grids = {
   'grid-one-one': GridOneOne,
   'grid-one-two': GridOneTwo,
   'grid-one-three': GridOneThree,
+  'grid-one-full': GridOneFull,
   'tabs': Tabs,
 };
 

@@ -1,54 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import styled from 'styled-components';
-import theme from '../theme';
-import { white } from 'material-ui/styles/colors';
+import FlatButton from 'material-ui/FlatButton';
+import EditIcon from 'material-ui/svg-icons/image/edit';
 
-import s from './TitleBar.css';
-
-const { borderShadow, palette } = theme;
-
-const TitleContainer = styled.div`
-    padding: 15px 20px;
-    box-shadow: ${borderShadow};
-    background-color: ${white};
-`;
-
-const Breadcrumbs = styled.ul`
-  display: flex;
-  padding: 0;
-  list-style-type: none;
-  margin: 0;
-
-  li {
-    a, h3 {
-      font-size: 16px;
-    }
-
-    a {
-      color: ${palette.textColor};
-      text-decoration: none;
-      font-weight: 600;
-      transition: 0.03s;
-
-      &:hover {
-        color: ${palette.primary1Color};
-      }
-    }
-
-    .separator {
-      margin: 0 5px;
-    }
-
-    h3 {
-      margin: 0;
-      color: ${palette.textColorLight};
-      font-weight: 400;
-    }
-  }
-`;
-
+import { TitleContainer, Breadcrumbs } from '../styled/TitleBar';
 
 class Title extends React.Component {
   static propTypes = {
@@ -66,9 +21,18 @@ class Title extends React.Component {
             <h3>{this.props.title}</h3>
           </li>
         </Breadcrumbs>
+        <div>
+          <FlatButton
+            label="Do Action"
+            primary
+            icon={<EditIcon style={{ width: '16px', height: '16px' }} />}
+            style={{ height: '32px', lineHeight: '32px' }}
+            labelStyle={{ fontSize: '12px' }}
+          />
+        </div>
       </TitleContainer>
     );
   }
 }
 
-export default withStyles(s)(Title);
+export default Title;

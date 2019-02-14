@@ -19,7 +19,7 @@ class Footer extends React.Component {
         <div className={s.container}>
           <span className={s.text}>© Reflen Inc</span>
           <span className={s.spacer}>·</span>
-          <Link className={s.link} to="/">2017</Link>
+          <Link className={s.link} to="/">{new Date().getFullYear()}</Link>
         </div>
       </div>
     );

@@ -210,6 +210,10 @@ const clientConfig = {
   },
 
   plugins: [
+    new webpack.ProvidePlugin({
+      $storm: 'storm-react-diagrams',
+    }),
+
     // Define free variables
     // https://webpack.github.io/docs/list-of-plugins.html#defineplugin
     new webpack.DefinePlugin({

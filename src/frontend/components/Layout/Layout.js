@@ -57,10 +57,12 @@ class Layout extends React.Component {
     }
 
     return (
-      <div>
+      <div style={{ height: '100%' }}>
         <Header onToggleChange={this.toggleSidebar} />
         <Sidebar open={this.state.openSidebar} onClose={this.closeSidebar} />
-        <div>{this.props.children}</div>
+
+        {this.props.children}
+      
         <Footer />
         <Console />
       </div>

@@ -5,69 +5,70 @@
  *
  */
 
-import React from "react";
-import cx from "classnames";
-import withStyles from "isomorphic-style-loader/lib/withStyles";
-import s from "./Sidebar.css";
-import Drawer from "material-ui/Drawer";
-import { List, ListItem } from "material-ui/List";
-import Divider from "material-ui/Divider";
-import ActionInfo from "material-ui/svg-icons/action/info";
-import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
-import getMuiTheme from "material-ui/styles/getMuiTheme";
-import themeDark from "../themeDark";
-import { spacing, typography, zIndex } from "material-ui/styles";
-import logoUrl from "./logo.png";
-import logoMinUrl from "./logo-min.png";
-import { deepPurple500, white } from "material-ui/styles/colors";
-import IconButton from "material-ui/IconButton";
-import HelpIcon from "react-material-icons/icons/action/help-outline";
-import AccountIcon from "react-material-icons/icons/action/account-circle";
-import AddIcon from "react-material-icons/icons/content/add";
-import AppsIcon from "react-material-icons/icons/action/list";
-import CloseIcon from "react-material-icons/icons/navigation/chevron-left";
-import ListIcon from "react-material-icons/icons/action/list";
-import MoreIcon from "react-icons/lib/md/more-vert";
-import ConversationIcon from "react-material-icons/icons/communication/chat";
-import ConversationsIcon from "react-icons/lib/md/chat";
-import PluginsIcon from "react-icons/lib/md/developer-board";
-import KnowledgeIcon from "react-icons/lib/md/grain";
-import { connect } from "react-redux";
+import React from 'react';
+// import cx from 'classnames';
+import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import Drawer from 'material-ui/Drawer';
+import { List, ListItem } from 'material-ui/List';
+import Divider from 'material-ui/Divider';
+// import ActionInfo from 'material-ui/svg-icons/action/info';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import { spacing } from 'material-ui/styles';
+import { deepPurple500, white } from 'material-ui/styles/colors';
+import IconButton from 'material-ui/IconButton';
+import HelpIcon from 'react-material-icons/icons/action/help-outline';
+import AccountIcon from 'react-material-icons/icons/action/account-circle';
+import AddIcon from 'react-material-icons/icons/content/add';
+import AppsIcon from 'react-material-icons/icons/action/list';
+// import CloseIcon from 'react-material-icons/icons/navigation/chevron-left';
+import ListIcon from 'react-material-icons/icons/action/list';
+import MoreIcon from 'react-icons/lib/md/more-vert';
+// import ConversationIcon from 'react-material-icons/icons/communication/chat';
+import ConversationsIcon from 'react-icons/lib/md/chat';
+import PluginsIcon from 'react-icons/lib/md/developer-board';
+import ExperienceIcon from 'react-icons/lib/md/grain';
+import { connect } from 'react-redux';
+
+import s from './Sidebar.css';
+import logoUrl from './logo.png';
+import themeDark from '../themeDark';
+import logoMinUrl from './logo-min.png';
 
 const styles = {
   logo: {
-    cursor: "pointer",
+    cursor: 'pointer',
     paddingLeft: spacing.desktopGutter,
     marginTop: 24,
-    marginBottom: 8
+    marginBottom: 8,
   },
   fixedMenu: {
-    backgroundColor: deepPurple500
+    backgroundColor: deepPurple500,
   },
   drawer: {
-    width: 320
+    width: 320,
   },
   version: {
     paddingLeft: spacing.desktopGutterLess,
-    fontSize: 16
+    fontSize: 16,
   },
   large: {
     width: 60,
     height: 60,
-    padding: 0
+    padding: 0,
   },
   largeIcon: {
     width: 48,
-    height: 48
+    height: 48,
   },
   darkLink: {
-    color: "#757575",
-    fontWeight: "600",
-    paddingLeft: 10
+    color: '#757575',
+    fontWeight: '600',
+    paddingLeft: 10,
   },
   iconItem: {
-    paddingLeft: 10
-  }
+    paddingLeft: 10,
+  },
 };
 
 class Sidebar extends React.Component {
@@ -106,7 +107,7 @@ class Sidebar extends React.Component {
               </IconButton>
             </div>
             <div className={s.fixedButton}>
-              <IconButton tooltip="Add a app"  href="/new_app">
+              <IconButton tooltip="Add a app" href="/new_app">
                 <AddIcon />
               </IconButton>
             </div>
@@ -155,8 +156,8 @@ class Sidebar extends React.Component {
                   <ListItem leftIcon={<PluginsIcon color={white} style={styles.iconItem} />}>
                      <a className={s.link} href={`/${selectedApp.id}/plugins`}>Plugins</a>
                   </ListItem>
-                  <ListItem leftIcon={<KnowledgeIcon color={white} style={styles.iconItem} />}>
-                     <a className={s.link} href={`/${selectedApp.id}/knowledge`}>Knowledge</a>
+                  <ListItem leftIcon={<ExperienceIcon color={white} style={styles.iconItem} />}>
+                     <a className={s.link} href={`/${selectedApp.id}/experience_editor`}>Experience</a>
                   </ListItem>
                 </List>
               </div>
