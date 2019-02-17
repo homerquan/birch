@@ -11,8 +11,6 @@
  * @Last Modified time: 2017-04-24 17:55:06
  */
 import React, { Component } from 'react';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import { List } from 'material-ui/List';
 import Divider from 'material-ui/Divider';
@@ -24,7 +22,6 @@ import MoreVert from 'material-ui/svg-icons/navigation/more-vert';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 
-import lightTheme from '../theme';
 import s from './ConversationDetailsActivity.css';
 import fakeData from './fakeData.json';
 import MessageListItem from '../MessageListItem/MessageListItem';
@@ -66,57 +63,54 @@ class ConversationDetailsActivity extends Component {
     }
 
     return (
-      <MuiThemeProvider muiTheme={getMuiTheme(lightTheme)}>
-        <RCard>
-          <RCardHeader>
-            <div className="title-container">
-              <AppsIcon color={black} />
-              <h2>Recent Activities</h2>
-            </div>
-            <div className="button-container">
-              <IconMenu
-                iconButtonElement={<IconButton><MoreVert /></IconButton>}
-                anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
-                targetOrigin={{ horizontal: 'left', vertical: 'top' }}
-              >
-                <MenuItem primaryText="Refresh" />
-                <MenuItem primaryText="Send feedback" />
-              </IconMenu>
-            </div>
-          </RCardHeader>
-          <RCardBody>
-            <List style={{ padding: 0 }}>
-              {this.state.data.map((application, index, array) => (
-                <div key={application.id}>
-                  {application.type === 'message'
-                    ? <MessageListItem
-                      application={application.application}
-                      text={application.text}
-                      time={application.time}
-                    />
-                    : <NotificationListItem
-                      application={application.application}
-                      text={application.text}
-                      time={application.time}
-                      link={application.link}
-                    />
-                  }
-                  { array.length === (index + 1) ? '' : <Divider /> }
-                </div>
-                ),
-              )}
-            </List>
-          </RCardBody>
-          <RCardFooter>
-            <FlatButton
-              label="View all Conversations"
-              labelStyle={linkStyle}
-              href="#"
-              fullWidth
-            />
-          </RCardFooter>
-        </RCard>
-      </MuiThemeProvider>
+      <RCard>
+        <RCardHeader>
+          <div className="title-container">
+            <AppsIcon color={black} />
+            <h2>Recent Activities</h2>
+          </div>
+          <div className="button-container">
+            <IconMenu
+              iconButtonElement={<IconButton><MoreVert /></IconButton>}
+              anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
+              targetOrigin={{ horizontal: 'left', vertical: 'top' }}
+            >
+              <MenuItem primaryText="Refresh" />
+              <MenuItem primaryText="Send feedback" />
+            </IconMenu>
+          </div>
+        </RCardHeader>
+        <RCardBody>
+          <List style={{ padding: 0 }}>
+            {this.state.data.map((application, index, array) => (
+              <div key={application.id}>
+                {application.type === 'message'
+                  ? <MessageListItem
+                    application={application.application}
+                    text={application.text}
+                    time={application.time}
+                  />
+                  : <NotificationListItem
+                    application={application.application}
+                    text={application.text}
+                    time={application.time}
+                    link={application.link}
+                  />
+                }
+                { array.length === (index + 1) ? '' : <Divider /> }
+              </div>
+              ),
+            )}
+          </List>
+        </RCardBody>
+        <RCardFooter>
+          <FlatButton
+            label="View all Conversations"
+            labelStyle={linkStyle}
+            fullWidth
+          />
+        </RCardFooter>
+      </RCard>
     );
   }
 }

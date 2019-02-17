@@ -72,22 +72,24 @@ const styles = {
 class Home extends React.Component {
   render() {
     return (
-      <LayoutProvider layouts={grids}>
-        <Page layout="grid-one-three">
-          <Section slot="titleBar">
-            <TitleBar title="Dashboard" />
-          </Section>
-          <Section slot="col-1">
-            <BotsList clientId={this.props.session.userId} />
-          </Section>
-          <Section slot="col-2">
-            <BotsList clientId={this.props.session.userId} />
-          </Section>
-          <Section slot="col-3">
-            <Activities />
-          </Section>
-        </Page>
-      </LayoutProvider>
+      <MuiThemeProvider muiTheme={getMuiTheme(lightTheme)}>
+        <LayoutProvider layouts={grids}>
+          <Page layout="grid-one-three">
+            <Section slot="titleBar">
+              <TitleBar title="Dashboard" />
+            </Section>
+            <Section slot="col-1">
+              <BotsList clientId={this.props.session.userId} />
+            </Section>
+            <Section slot="col-2">
+              <BotsList clientId={this.props.session.userId} />
+            </Section>
+            <Section slot="col-3">
+              <Activities />
+            </Section>
+          </Page>
+        </LayoutProvider>
+      </MuiThemeProvider>
     );
   }
 }

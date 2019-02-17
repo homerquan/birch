@@ -10,7 +10,10 @@ import PropTypes from 'prop-types';
 import { compose } from 'react-apollo';
 import { connect } from 'react-redux';
 import { Page, Section, LayoutProvider } from 'react-page-layout';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
+import lightTheme from '../../components/theme';
 import TitleBar from '../../components/TitleBar';
 import grids from '../../components/Layout/grids';
 import NewBotView from '../../components/NewBotView';
@@ -31,18 +34,20 @@ class NewBot extends React.Component {
 
   render() {
     return (
-      <LayoutProvider layouts={grids}>
-        <Page layout="grid-one-one">
-          <Section slot="titleBar">
-            <TitleBar title={this.props.title} />
-          </Section>
-          <Section slot="main">
-            <NewBotView
-              clientId={this.props.session.userId}
-            />
-          </Section>
-        </Page>
-      </LayoutProvider>
+      <MuiThemeProvider muiTheme={getMuiTheme(lightTheme)}>
+        <LayoutProvider layouts={grids}>
+          <Page layout="grid-one-one">
+            <Section slot="titleBar">
+              <TitleBar title={this.props.title} />
+            </Section>
+            <Section slot="main">
+              <NewBotView
+                clientId={this.props.session.userId}
+              />
+            </Section>
+          </Page>
+        </LayoutProvider>
+      </MuiThemeProvider>
     );
   }
 }

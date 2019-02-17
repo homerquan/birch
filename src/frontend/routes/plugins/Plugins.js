@@ -15,7 +15,7 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import Paper from 'material-ui/Paper';
 
-import themeWhite from '../../components/theme';
+import lightTheme from '../../components/theme';
 import grids from '../../components/Layout/grids';
 import TitleBar from '../../components/TitleBar';
 import Browse from '../../components/Plugins/Browse';
@@ -40,30 +40,32 @@ class AccountView extends React.Component {
     const { conversationId } = this.props;
 
     return (
-      <LayoutProvider layouts={grids}>
-        <Page layout="grid-one-one">
-          <Section slot="titleBar">
-            <TitleBar title="Plugins" />
-          </Section>
-          <Section slot="main">
-            <MuiThemeProvider muiTheme={getMuiTheme(themeWhite)}>
-              <Paper>
-                <Tabs
-                  value={this.state.value}
-                  onChange={this.handleChange}
-                >
-                  <Tab label="Plugins" value="plugins">
-                    <Browse conversationId={conversationId} />
-                  </Tab>
-                  <Tab label="Installed" value="installed">
-                    <Installed conversationId={conversationId} />
-                  </Tab>
-                </Tabs>
-              </Paper>
-            </MuiThemeProvider>
-          </Section>
-        </Page>
-      </LayoutProvider>
+      <MuiThemeProvider muiTheme={getMuiTheme(lightTheme)}>
+        <LayoutProvider layouts={grids}>
+          <Page layout="grid-one-one">
+            <Section slot="titleBar">
+              <TitleBar title="Plugins" />
+            </Section>
+            <Section slot="main">
+              <MuiThemeProvider muiTheme={getMuiTheme(lightTheme)}>
+                <Paper>
+                  <Tabs
+                    value={this.state.value}
+                    onChange={this.handleChange}
+                  >
+                    <Tab label="Plugins" value="plugins">
+                      <Browse conversationId={conversationId} />
+                    </Tab>
+                    <Tab label="Installed" value="installed">
+                      <Installed conversationId={conversationId} />
+                    </Tab>
+                  </Tabs>
+                </Paper>
+              </MuiThemeProvider>
+            </Section>
+          </Page>
+        </LayoutProvider>
+      </MuiThemeProvider>
     );
   }
 }

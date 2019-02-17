@@ -13,10 +13,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import { Page, Section, LayoutProvider } from 'react-page-layout';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
+import lightTheme from '../../components/theme';
 import s from './ConversationDetailsView.css';
 import grids from '../../components/Layout/grids';
-import Title from '../../components/Title';
+import TitleBar from '../../components/TitleBar';
 import ConversationDetails from '../../components/ConversationDetails/ConversationDetails';
 import ConversationDetailsActivity from '../../components/ConversationDetails/ConversationDetailsActivity';
 
@@ -49,19 +52,21 @@ class ConversationDetailsView extends React.Component {
 
   render() {
     return (
-      <LayoutProvider layouts={grids}>
-        <Page layout="grid-one-two">
-          <Section slot="top">
-            <Title>{this.props.title}</Title>
-          </Section>
-          <Section slot="main">
-            <ConversationDetails conversation={fakeConversation} />
-          </Section>
-          <Section slot="right">
-            <ConversationDetailsActivity />
-          </Section>
-        </Page>
-      </LayoutProvider>
+      <MuiThemeProvider muiTheme={getMuiTheme(lightTheme)}>
+        <LayoutProvider layouts={grids}>
+          <Page layout="grid-one-two">
+            <Section slot="titleBar">
+              <TitleBar title={this.props.title} />
+            </Section>
+            <Section slot="main">
+              <ConversationDetails conversation={fakeConversation} />
+            </Section>
+            <Section slot="right">
+              <ConversationDetailsActivity />
+            </Section>
+          </Page>
+        </LayoutProvider>
+      </MuiThemeProvider>
     );
   }
 }

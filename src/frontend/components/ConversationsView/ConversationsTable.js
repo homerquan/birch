@@ -89,7 +89,7 @@ const tableColumns = (addPinned, openDrawer) => ([
         {intentions && intentions.length
           ? intentions.map((intention, index, array) => (
             <Chip
-              key={intention.id}
+              key={intention.name}
               style={array.length === (index + 1) ? styles.chip : styles.chipDark}
               labelColor={array.length === (index + 1) ? white : ''}
             >

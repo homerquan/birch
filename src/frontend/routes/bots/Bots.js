@@ -15,7 +15,10 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import { Page, Section, LayoutProvider } from 'react-page-layout';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
+import lightTheme from '../../components/theme';
 import s from './Bots.css';
 import grids from '../../components/Layout/grids';
 import TitleBar from '../../components/TitleBar';
@@ -24,16 +27,18 @@ import BotsView from '../../components/BotsView';
 class Bots extends React.Component {
   render() {
     return (
-      <LayoutProvider layouts={grids}>
-        <Page layout="grid-one-one">
-          <Section slot="titleBar">
-            <TitleBar title={this.props.title} />
-          </Section>
-          <Section slot="main">
-            <BotsView clientId={this.props.session.userId} />
-          </Section>
-        </Page>
-      </LayoutProvider>
+      <MuiThemeProvider muiTheme={getMuiTheme(lightTheme)}>
+        <LayoutProvider layouts={grids}>
+          <Page layout="grid-one-one">
+            <Section slot="titleBar">
+              <TitleBar title={this.props.title} />
+            </Section>
+            <Section slot="main">
+              <BotsView clientId={this.props.session.userId} />
+            </Section>
+          </Page>
+        </LayoutProvider>
+      </MuiThemeProvider>
     );
   }
 }

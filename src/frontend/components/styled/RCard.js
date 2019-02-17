@@ -9,6 +9,7 @@ export const RCard = styled.div`
   background-color: ${white};
   box-shadow: ${borderShadow};
   margin-bottom: 20px;
+  width: 100%;
 `;
 
 export const RCardHeader = styled.div`

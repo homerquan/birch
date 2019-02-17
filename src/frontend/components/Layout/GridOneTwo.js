@@ -12,39 +12,59 @@
  */
 
 import React from 'react';
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import { compose } from 'react-apollo';
-import { Grid, Col, Row } from 'react-styled-flexboxgrid';
 import { Slot } from 'react-page-layout';
-import { ThemeProvider } from 'styled-components';
+import styled, { ThemeProvider } from 'styled-components';
 
 import { standard } from './theme';
-import s from './GridOneTwo.css';
+
+const ContentContainer = styled.div`
+  display: flex; 
+  margin: 0 20px;
+  margin-top: 20px;
+
+  @media (max-width: 850px) {
+    flex-direction: column;
+  }
+`;
+
+const MainContent = styled.div`
+  display: flex;
+  flex: 2;
+  margin-right: 10px;
+
+  @media (max-width: 850px) {
+    margin-right: 0px;
+  }
+`;
+
+const Aside = styled.div`
+  display: flex;
+  flex: 1;
+  margin-left: 10px;
+
+  @media (max-width: 850px) {
+    margin-left: 0px;
+  }
+`;
 
 class GridOneTwo extends React.Component {
   render() {
     return (
       <ThemeProvider theme={standard}>
-        <Grid className={s.grid} fluid>
-          <Row>
-            <Col xs={12} md={12}>
-              <Slot name="top" />
-            </Col>
-          </Row>
-          <Row>
-            <Col xs={12} md={8}>
-              <Slot name="main" className={s.mainSlot} />
-            </Col>
-            <Col xs={12} md={4}>
-              <Slot name="right" />
-            </Col>
-          </Row>
-        </Grid>
+        <div>
+          <Slot name="titleBar" />
+          <ContentContainer>
+            <MainContent>
+              <Slot name="main" style={{ width: '100%' }} />
+            </MainContent>
+            <Aside>
+              <Slot name="right" style={{ width: '100%' }} />
+            </Aside>
+          </ContentContainer>
+        </div>
       </ThemeProvider>
     );
   }
 }
 
-export default compose(
-  withStyles(s),
-)(GridOneTwo);
+export default GridOneTwo;
