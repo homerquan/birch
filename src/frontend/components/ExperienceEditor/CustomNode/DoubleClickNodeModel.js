@@ -1,11 +1,13 @@
-import { NodeModel } from 'storm-react-diagrams';
-import { DoubleClickPortModel } from './DoubleClickPortModel';
+import * as SRD from 'storm-react-diagrams';
+// import { DoubleClickPortModel } from './DoubleClickPortModel';
 
-export class DoubleClickNodeModel extends NodeModel {
+// const Storm = $storm;
+
+export class DoubleClickNodeModel extends SRD.NodeModel {
   constructor() {
     super('doubleClick');
 
-    this.addPort(new DoubleClickPortModel('in'));
-    this.addPort(new DoubleClickPortModel('out'));
+    // this.addPort(new DoubleClickPortModel('in'));
+    // this.addPort(new DoubleClickPortModel('out'));
   }
 }

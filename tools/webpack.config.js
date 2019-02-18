@@ -201,6 +201,7 @@ const clientConfig = {
 
   entry: {
     client: ['babel-polyfill', './src/frontend/client.js'],
+    // doubleClick: ['babel-polyfill', './src/frontend/components/ExperienceEditor/CustomNode/DoubleClickNodeModel'],
   },
 
   output: {
@@ -210,6 +211,7 @@ const clientConfig = {
   },
 
   plugins: [
+
     new webpack.ProvidePlugin({
       $storm: 'storm-react-diagrams',
     }),

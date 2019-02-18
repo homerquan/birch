@@ -6,7 +6,7 @@ import { DoubleClickNodeModel } from './DoubleClickNodeModel';
 
 export class DoubleClickNodeFactory extends SRD.AbstractNodeFactory {
   constructor() {
-    super('diamond');
+    super('doubleClick');
   }
 
   generateReactWidget(diagramEngine, node) {
