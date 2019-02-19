@@ -1,4 +1,5 @@
 import * as React from 'react';
+
 // import { DiamondNodeModel } from './DiamondNodeModel';
 import { PortWidget } from 'storm-react-diagrams';
 

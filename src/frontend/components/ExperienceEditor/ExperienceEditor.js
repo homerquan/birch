@@ -1,4 +1,6 @@
 import * as React from 'react';
+import NoSSR from 'react-no-ssr';
+
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import RaisedButton from 'material-ui/RaisedButton';
 import storm from 'storm-react-diagrams/dist/style.min.css';
@@ -11,10 +13,7 @@ import {
   EditorOptions,
 } from '../styled/ExperienceEditor';
 
-// import { DoubleClickNodeModel } from './CustomNode/DoubleClickNodeModel';
-// import { DoubleClickNodeFactory } from './CustomNode/DoubleClickNodeFactory';
-// import { SimplePortFactory } from './CustomNode/SimplePortFactory';
-// import { DoubleClickPortModel } from './CustomNode/DoubleClickPortModel';
+
 
 class ExperienceEditor extends React.Component {
   constructor(props) {
@@ -144,6 +143,14 @@ class ExperienceEditor extends React.Component {
   }
 
   componentDidMount() {
+
+
+    //For Client side rendering Add cliend side component after mount
+    let DoubleClickNodeModel = require('./CustomNode/DoubleClickNodeModel');
+    let DoubleClickNodeFactory = require('./CustomNode/DoubleClickNodeFactory');
+    let SimplePortFactory = require('./CustomNode/SimplePortFactory');
+    let DoubleClickPortModel= require('./CustomNode/DoubleClickPortModel');
+
     console.log('$storm Here: ', $storm);
     // console.log('client Here: ', context.client);
 
@@ -205,6 +212,7 @@ class ExperienceEditor extends React.Component {
     const { SRD, graphLoaded, engine } = this.state;
 
     return (
+    <NoSSR>    
       <ExperienceEditorContainer>
         <Sidebar>
           <h3>Cards</h3>
@@ -237,6 +245,7 @@ class ExperienceEditor extends React.Component {
           }
         </Editor>
       </ExperienceEditorContainer>
+    </NoSSR>   
     );
   }
 }

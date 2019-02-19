@@ -1,4 +1,6 @@
+import NoSSR from 'react-no-ssr';
 import * as _ from 'lodash';
+
 import { PortModel, DefaultLinkModel } from 'storm-react-diagrams';
 
 export class DoubleClickPortModel extends PortModel {
