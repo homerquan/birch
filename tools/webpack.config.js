@@ -12,12 +12,12 @@ import webpack from 'webpack';
 import AssetsPlugin from 'assets-webpack-plugin';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import pkg from '../package.json';
-import root from 'window-or-global';
+// import root from 'window-or-global';
 
 const isDebug = !process.argv.includes('--release');
 const isVerbose = process.argv.includes('--verbose');
 const isAnalyze = process.argv.includes('--analyze') || process.argv.includes('--analyse');
-const isClient = typeof window !== 'undefined';
+// const isClient = typeof window !== 'undefined';
 
 //
 // Common configuration chunk to be used for both

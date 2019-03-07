@@ -1,19 +1,69 @@
 import * as React from 'react';
 import NoSSR from 'react-no-ssr';
-
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import RaisedButton from 'material-ui/RaisedButton';
 import storm from 'storm-react-diagrams/dist/style.min.css';
-import { List, ListItem } from 'material-ui/List';
 
 import {
   ExperienceEditorContainer,
+  Header,
   Sidebar,
+  SidebarHeader,
   Editor,
   EditorOptions,
 } from '../styled/ExperienceEditor';
+import ExperienceCard from './ExperienceCard';
 
+const fakeData = [
+  {
+    id: 'asfdsdaf',
+    type: 'import',
+    position: {
+      x: 100,
+      y: 100,
+    },
+    links: {
+      out: 'kfjdkfdjf',
+    },
+  },
+  {
+    id: 'kfjdkfdjf',
+    type: 'card',
+    title: 'Conversational Form',
+    position: {
+      x: 350,
+      y: 100,
+    },
+  },
+  {
+    id: 'dfdfdfd3dds',
+    type: 'export',
+    position: {
+      x: 550,
+      y: 100,
+    },
+  },
+];
 
+const fakeDataTwo = [
+  {
+    id: 'fdfdfd',
+    type: 'import',
+    position: {
+      x: 100,
+      y: 100,
+    },
+  },
+  {
+    id: 'asdffdfdfdfdd',
+    type: 'card',
+    title: 'Conversational Form',
+    position: {
+      x: 350,
+      y: 100,
+    },
+  },
+];
 
 class ExperienceEditor extends React.Component {
   constructor(props) {
@@ -24,101 +74,98 @@ class ExperienceEditor extends React.Component {
       DoubleClickNodeModel: null,
       graphLoaded: false,
       engine: null,
+      userSimulator: false,
+      inNestedScreen: false,
+      data: fakeData,
     };
 
     this.addNode = this.addNode.bind(this);
-    // this.renderGraph = this.renderGraph.bind(this);
+    this.addExperienceCard = this.addExperienceCard.bind(this);
+    this.addContextImport = this.addContextImport.bind(this);
+    this.addContextExport = this.addContextExport.bind(this);
+    this.back = this.back.bind(this);
   }
 
-  // componentDidMount() {
-    // let DoubleClickNodeModel = null;
-    // let DoubleClickNodeFactory = null;
-    // let SimplePortFactory = null;
-    // let DoubleClickPortModel = null;
+  componentDidMount() {
+    const graphBase = this.buildGraph(fakeData);
 
-    // console.log('$storm Here: ', $storm);
+    this.setState({
+      graphLoaded: true,
+      ...graphBase,
+    });
+  }
 
-    // import('./CustomNode/DoubleClickNodeModel').then((module) => {
-    //   // this.setState({ doubleClickNodeModel: DoubleClickNodeModel });
-    //   console.log('what is DoubleClickNodeModel?: ', module);
-    //   console.log('what is DoubleClickNodeModel deafult?: ', module.default);
-    //   console.log('what is DoubleClickNodeModel? DoubleClickNodeModel: ', module.DoubleClickNodeModel);
-    //   DoubleClickNodeModel = module.DoubleClickNodeModel;
-    // });
-    // import('./CustomNode/DoubleClickNodeFactory').then((module) => {
-    //   // this.setState({ doubleClickNodeFactory: DoubleClickNodeFactory });
-    //   console.log('what is DoubleClickNodeFactory?: ', module);
-    //   // console.log('what is DoubleClickNodeFactory?: ', DoubleClickNodeFactory.DoubleClickNodeFactory);
-    //   DoubleClickNodeFactory = module.DoubleClickNodeFactory;
-    // });
-    // import('./CustomNode/SimplePortFactory').then((module) => {
-    //   // this.setState({ simplePortFactory: SimplePortFactory });
-    //   SimplePortFactory = module.SimplePortFactory;
-    // });
-    // import('./CustomNode/DoubleClickPortModel').then((module) => {
-    //   // this.setState({ doubleClickPortModel: DoubleClickPortModel });
-    //   DoubleClickPortModel = module.DoubleClickPortModel;
-    // });
+  buildGraph(data) {
+    const SRD = require('storm-react-diagrams');
 
-  //   return import(/* webpackChunkName: "storm-react-diagrams" */ 'storm-react-diagrams').then((SRD) => {
-  //     const engine = new SRD.DiagramEngine();
-  //     engine.installDefaultFactories();
+    const CardNodeFactory = require('./CardNode/CardNodeFactory').default;
+    const ContextImportNodeFactory = require('./ContextImportNode/ContextImportNodeFactory').default;
+    const ContextExportNodeFactory = require('./ContextExportNode/ContextExportNodeFactory').default;
+    const ConditionNodeFactory = require('./ConditionNode/ConditionNodeFactory').default;
 
-  //     console.log('made it here?', DoubleClickNodeModel);
+    const engine = new SRD.DiagramEngine();
+    engine.installDefaultFactories();
 
-  //     // engine.registerPortFactory(new SimplePortFactory('doubleClick', config => new DoubleClickPortModel()));
-  //     // engine.registerNodeFactory(new DoubleClickNodeFactory());
+    engine.registerNodeFactory(new CardNodeFactory());
+    engine.registerNodeFactory(new ContextImportNodeFactory());
+    engine.registerNodeFactory(new ContextExportNodeFactory());
+    engine.registerNodeFactory(new ConditionNodeFactory());
 
-  //     console.log('created engine stuff?');
+    // 2) setup the diagram model
+    const model = new SRD.DiagramModel();
 
-  //     // 2) setup the diagram model
-  //     const model = new SRD.DiagramModel();
-  //     model.addListener({
-  //       selectionChanged: (e) => {
-  //         console.log('selection changed: ', e);
-  //       },
-  //     });
+    const nodesObject = [];
+    data.forEach((node) => {
+      switch (node.type) {
+        case 'import': {
+          const newNode = this.contextImportInit(engine, node);
+          nodesObject.push({ id: node.id, node: newNode });
+          break;
+        }
+        case 'export': {
+          const newNode = this.contextExportInit(engine, node);
+          nodesObject.push({ id: node.id, node: newNode });
+          break;
+        }
+        case 'card': {
+          const newNode = this.experienceCardInit(engine, node);
+          nodesObject.push({ id: node.id, node: newNode });
+          break;
+        }
+        default:
+          break;
+      }
+    });
 
-  //     // 3) create a default node
-  //     const nodeOne = new SRD.DefaultNodeModel('Node One', 'rgb(0,192,255)');
-  //     const nodeOneOut = nodeOne.addOutPort('Out');
-  //     const nodeOneIn = nodeOne.addInPort('In');
-  //     nodeOneOut.maximumLinks = 1;
-  //     nodeOneIn.maximumLinks = 1;
-  //     nodeOne.setPosition(100, 0);
+    const nodes = nodesObject.map(nodeObject => nodeObject.node);
+    const models = model.addAll(...nodes);
 
-  //     // 4) create another default node
-  //     const nodeTwo = new SRD.DefaultNodeModel('Node Two', 'rgb(192,255,0)');
-  //     const nodeTwoOut = nodeTwo.addOutPort('Out');
-  //     const nodeTwoIn = nodeTwo.addInPort('In');
-  //     nodeTwoOut.maximumLinks = 1;
-  //     nodeTwoIn.maximumLinks = 1;
-  //     nodeTwo.setPosition(400, 100);
+    models.forEach((item) => {
+      item.addListener({
+        selectionChanged: (e) => {
+          if (this.state.userSimulator && !this.state.inNestedScreen) {
+            e.stopPropagation();
 
-  //     const nodeThree = new SRD.DefaultNodeModel('Node 3', 'rgb(192,255,0)');
-  //     const nodeThreeOut = nodeThree.addOutPort('Out');
-  //     const nodeThreeIn = nodeThree.addInPort('In');
-  //     nodeThreeOut.maximumLinks = 1;
-  //     nodeThreeIn.maximumLinks = 1;
-  //     nodeThree.setPosition(400, 300);
+            const graphBase = this.buildGraph(fakeDataTwo);
+            this.setState({
+              data: fakeDataTwo,
+              userSimulator: false,
+              inNestedScreen: true,
+              ...graphBase,
+            });
+          }
+        },
+      });
+    });
 
-  //     // const node2 = new doubleClickNodeModel();
-  //     // node2.setPosition(250, 108);
+    engine.setDiagramModel(model);
+    engine.repaintCanvas();
 
-  //     const nodeOneToNodeTwo = nodeOneOut.link(nodeTwoIn);
-
-  //     // model.addAll(nodeOne, nodeTwo, nodeOneToNodeTwo, nodeThree, node2);
-  //     model.addAll(nodeOne, nodeTwo, nodeOneToNodeTwo, nodeThree);
-  //     engine.setDiagramModel(model);
-  //     engine.repaintCanvas();
-
-  //     this.setState({
-  //       SRD,
-  //       engine,
-  //     });
-  //   })
-  //   .catch(() => 'An error occurred while loading the component');
-  // }
+    return {
+      SRD,
+      engine,
+    };
+  }
 
   addNode() {
     const { SRD, engine } = this.state;
@@ -127,14 +174,69 @@ class ExperienceEditor extends React.Component {
     const nodeCount = Object.keys(model.getNodes()).length + 1;
 
     const node = new SRD.DefaultNodeModel(`Node ${nodeCount}`, 'rgb(0,192,255)');
-    const inPort = node.addInPort('In');
-    const outPort = node.addOutPort('Out');
-    inPort.maximumLinks = 1;
-    outPort.maximumLinks = 1;
+    node.addInPort('In');
+    node.addOutPort('Out');
     node.setPosition(300, 300);
+
+    model.addNode(node);
+    this.forceUpdate();
+  }
+
+  experienceCardInit(engine, nodeData) {
+    const CardNodeModel = require('./CardNode/CardNodeModel').default;
+
+    const node = new CardNodeModel(nodeData.title);
+    const nodeOut = node.addOutPort('Out');
+    const nodeIn = node.addInPort('In');
+    nodeOut.maximumLinks = 1;
+    nodeIn.maximumLinks = 1;
+    node.setPosition(nodeData.position.x, nodeData.position.y);
+
+    return node;
+  }
+
+  contextImportInit(engine, nodeData) {
+    const ContextImportNodeModel = require('./ContextImportNode/ContextImportNodeModel').default;
+
+    const node = new ContextImportNodeModel();
+    const nodeOut = node.addOutPort('Out');
+    nodeOut.maximumLinks = 1;
+    node.setPosition(nodeData.position.x, nodeData.position.y);
+
+    return node;
+  }
+
+  contextExportInit(engine, nodeData) {
+    const ContextExportNodeModel = require('./ContextExportNode/ContextExportNodeModel').default;
+
+    const node = new ContextExportNodeModel();
+    const nodeIn = node.addInPort('In');
+    nodeIn.maximumLinks = 1;
+    node.setPosition(nodeData.position.x, nodeData.position.y);
+
+    return node;
+  }
+
+  addExperienceCard(title) {
+    const CardNodeModel = require('./CardNode/CardNodeModel').default;
+    const { engine } = this.state;
+    const model = engine.getDiagramModel();
+
+    const node = new CardNodeModel(title);
+    const nodeOut = node.addOutPort('Out');
+    const nodeIn = node.addInPort('In');
+    nodeOut.maximumLinks = 1;
+    nodeIn.maximumLinks = 1;
+    node.setPosition(100, 200);
+
     node.addListener({
       selectionChanged: (e) => {
-        console.log('selection Changed on node: ', e);
+        console.log('experience card: ', e);
+
+        if (this.state.userSimulator) {
+          e.stopPropagation();
+          console.log('go!');
+        }
       },
     });
 
@@ -142,110 +244,122 @@ class ExperienceEditor extends React.Component {
     this.forceUpdate();
   }
 
-  componentDidMount() {
+  addContextImport() {
+    const ContextImportNodeModel = require('./ContextImportNode/ContextImportNodeModel').default;
+    const { engine } = this.state;
+    const model = engine.getDiagramModel();
 
+    const node = new ContextImportNodeModel();
+    const nodeOut = node.addOutPort('Out');
+    nodeOut.maximumLinks = 1;
+    node.setPosition(100, 200);
 
-    //For Client side rendering Add cliend side component after mount
-    let DoubleClickNodeModel = require('./CustomNode/DoubleClickNodeModel');
-    let DoubleClickNodeFactory = require('./CustomNode/DoubleClickNodeFactory');
-    let SimplePortFactory = require('./CustomNode/SimplePortFactory');
-    let DoubleClickPortModel= require('./CustomNode/DoubleClickPortModel');
+    model.addNode(node);
+    this.forceUpdate();
+  }
 
-    console.log('$storm Here: ', $storm);
-    // console.log('client Here: ', context.client);
+  addContextExport(engine) {
+    const ContextExportNodeModel = require('./ContextExportNode/ContextExportNodeModel').default;
+    // const { engine } = this.state;
+    const model = engine.getDiagramModel();
 
-    const engine = new $storm.DiagramEngine();
-    engine.installDefaultFactories();
+    const node = new ContextExportNodeModel();
+    const nodeIn = node.addInPort('In');
+    nodeIn.maximumLinks = 1;
+    node.setPosition(100, 200);
 
-    // engine.registerPortFactory(new SimplePortFactory('doubleClick', config => new DoubleClickPortModel()));
-    // engine.registerNodeFactory(new DoubleClickNodeFactory());
+    model.addNode(node);
+    this.forceUpdate();
+  }
 
-    // // 2) setup the diagram model
-    const model = new $storm.DiagramModel();
-    // model.addListener({
-    //   selectionChanged: (e) => {
-    //     console.log('selection changed: ', e);
-    //   },
-    // });
-
-    // 3) create a default node
-    const nodeOne = new $storm.DefaultNodeModel('Node One', 'rgb(0,192,255)');
-    const nodeOneOut = nodeOne.addOutPort('Out');
-    const nodeOneIn = nodeOne.addInPort('In');
-    nodeOneOut.maximumLinks = 1;
-    nodeOneIn.maximumLinks = 1;
-    nodeOne.setPosition(100, 0);
-
-    // 4) create another default node
-    const nodeTwo = new $storm.DefaultNodeModel('Node Two', 'rgb(192,255,0)');
-    const nodeTwoOut = nodeTwo.addOutPort('Out');
-    const nodeTwoIn = nodeTwo.addInPort('In');
-    nodeTwoOut.maximumLinks = 1;
-    nodeTwoIn.maximumLinks = 1;
-    nodeTwo.setPosition(400, 100);
-
-    const nodeThree = new $storm.DefaultNodeModel('Node 3', 'rgb(192,255,0)');
-    const nodeThreeOut = nodeThree.addOutPort('Out');
-    const nodeThreeIn = nodeThree.addInPort('In');
-    nodeThreeOut.maximumLinks = 1;
-    nodeThreeIn.maximumLinks = 1;
-    nodeThree.setPosition(400, 300);
-
-    // // const node2 = new doubleClickNodeModel();
-    // // node2.setPosition(250, 108);
-
-    const nodeOneToNodeTwo = nodeOneOut.link(nodeTwoIn);
-
-    // model.addAll(nodeOne, nodeTwo, nodeOneToNodeTwo, nodeThree, node2);
-    model.addAll(nodeOne, nodeTwo, nodeOneToNodeTwo, nodeThree);
-    engine.setDiagramModel(model);
-    engine.repaintCanvas();
-
+  back() {
+    const graphBase = this.buildGraph(fakeData);
     this.setState({
-      graphLoaded: true,
-      engine,
-      SRD: $storm,
+      data: fakeData,
+      inNestedScreen: false,
+      ...graphBase,
     });
   }
 
   render() {
     const { SRD, graphLoaded, engine } = this.state;
+    const experienceCards = this.state.data.filter(node => node.type === 'card');
 
     return (
-    <NoSSR>    
-      <ExperienceEditorContainer>
-        <Sidebar>
-          <h3>Cards</h3>
-          <List style={{ width: '100%' }}>
-            <ListItem primaryText="Inbox" />
-            <ListItem primaryText="Starred" />
-            <ListItem primaryText="Sent mail" />
-            <ListItem primaryText="Drafts" />
-            <ListItem primaryText="Inbox" />
-          </List>
-        </Sidebar>
-        <Editor>
-          <EditorOptions>
-            <RaisedButton
-              label="Add Node"
-              primary
-              onClick={this.addNode}
-            />
-          </EditorOptions>
+      <NoSSR>
+        <Header>
+          <RaisedButton
+            label="User Simulator"
+            onClick={() => this.setState({ userSimulator: !this.state.userSimulator })}
+            style={{ marginRight: '5px' }}
+            backgroundColor={this.state.userSimulator ? 'green' : 'white'}
+          />
+          <RaisedButton
+            label="Close"
+            style={{ marginRight: '5px' }}
+          />
+        </Header>
+        <ExperienceEditorContainer>
+          <Sidebar>
+            <SidebarHeader>
+              <h3>Cards</h3>
 
-          {graphLoaded
-            ? (
-              <SRD.DiagramWidget
-                style={{ height: '100%' }}
-                diagramEngine={engine}
-                allowLooseLinks={false}
-                maxNumberPointsPerLink={0}
+              {this.state.inNestedScreen
+                ? (
+                  <RaisedButton
+                    label="Back"
+                    onClick={this.back}
+                    primary
+                  />
+                )
+                : ''
+              }
+            </SidebarHeader>
+            {experienceCards.map(card => (
+              <ExperienceCard
+                headerTitle={card.title}
+                limitToOne={false}
+                onClick={() => this.addExperienceCard(card.title)}
               />
-            ) : 'Diagram is loading'
-          }
-        </Editor>
-      </ExperienceEditorContainer>
-    </NoSSR>   
+            ))}
+          </Sidebar>
+          <Editor>
+            <EditorOptions>
+              <RaisedButton
+                label="Context Import Node"
+                onClick={this.addContextImport}
+                style={{ marginRight: '5px' }}
+              />
+              <RaisedButton
+                label="Condition Node"
+                onClick={this.addNode}
+                style={{ marginLeft: '5px', marginRight: '5px' }}
+              />
+              <RaisedButton
+                label="Context Export Node"
+                onClick={this.addContextExport}
+                style={{ marginLeft: '5px', marginRight: '5px' }}
+              />
+              <RaisedButton
+                label="Plugin Node"
+                onClick={this.addNode}
+                style={{ marginLeft: '5px' }}
+              />
+            </EditorOptions>
+
+            {graphLoaded
+              ? (
+                <SRD.DiagramWidget
+                  style={{ height: '100%' }}
+                  diagramEngine={engine}
+                  allowLooseLinks={false}
+                  maxNumberPointsPerLink={0}
+                />
+              ) : 'Diagram is loading'
+            }
+          </Editor>
+        </ExperienceEditorContainer>
+      </NoSSR>
     );
   }
 }

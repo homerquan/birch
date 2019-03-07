@@ -1,12 +1,19 @@
 import styled from 'styled-components';
 import theme from '../theme';
 
-const { borderRadius, borderShadow } = theme;
+const { palette, borderRadius, borderShadow } = theme;
 
 export const ExperienceEditorContainer = styled.div`
   display: flex;
   flex-direction: row;
   height: 100%;
+`;
+
+export const Header = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  background-color: ${palette.primary1Color};
+  padding: 10px;
 `;
 
 export const Sidebar = styled.div`
@@ -18,6 +25,14 @@ export const Sidebar = styled.div`
   height: 100%;
   align-items: baseline;
   padding: 20px 10px;
+  padding-top: 0;
+`;
+
+export const SidebarHeader = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
 `;
 
 export const Editor = styled.div`
@@ -52,11 +67,12 @@ export const Editor = styled.div`
 `;
 
 export const EditorOptions = styled.div`
+  background-color: ${palette.primary1Color};
   position: absolute;
   top: 10px;
   left: 20px;
   right: 20px;
-  background-color: white;
-  border-radius: ${borderRadius}px;
+  border-radius: 4px;
   box-shadow: ${borderShadow};
+  padding: 10px;
 `;
