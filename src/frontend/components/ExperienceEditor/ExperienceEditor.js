@@ -3,6 +3,7 @@ import NoSSR from 'react-no-ssr';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import RaisedButton from 'material-ui/RaisedButton';
 import storm from 'storm-react-diagrams/dist/style.min.css';
+import _ from 'lodash';
 
 import {
   ExperienceEditorContainer,
@@ -47,20 +48,29 @@ const fakeData = [
 
 const fakeDataTwo = [
   {
-    id: 'fdfdfd',
-    type: 'import',
+    id: 'dfdfdfdfdfdd3dds',
+    type: 'condition',
     position: {
-      x: 100,
+      x: 150,
       y: 100,
     },
   },
   {
     id: 'asdffdfdfdfdd',
     type: 'card',
-    title: 'Conversational Form',
+    title: 'Message Card',
     position: {
-      x: 350,
-      y: 100,
+      x: 300,
+      y: 40,
+    },
+  },
+  {
+    id: 'asdffdfdfdfdd',
+    type: 'card',
+    title: 'Message Card',
+    position: {
+      x: 300,
+      y: 160,
     },
   },
 ];
@@ -83,6 +93,8 @@ class ExperienceEditor extends React.Component {
     this.addExperienceCard = this.addExperienceCard.bind(this);
     this.addContextImport = this.addContextImport.bind(this);
     this.addContextExport = this.addContextExport.bind(this);
+    this.addConditionNode = this.addConditionNode.bind(this);
+    this.deleteNode = this.deleteNode.bind(this);
     this.back = this.back.bind(this);
   }
 
@@ -129,6 +141,11 @@ class ExperienceEditor extends React.Component {
         }
         case 'card': {
           const newNode = this.experienceCardInit(engine, node);
+          nodesObject.push({ id: node.id, node: newNode });
+          break;
+        }
+        case 'condition': {
+          const newNode = this.conditionNodeInit(engine, node);
           nodesObject.push({ id: node.id, node: newNode });
           break;
         }
@@ -217,6 +234,19 @@ class ExperienceEditor extends React.Component {
     return node;
   }
 
+  conditionNodeInit(engine, nodeData) {
+    const ConditionNodeModal = require('./ConditionNode/ConditionNodeModal').default;
+
+    const node = new ConditionNodeModal();
+    node.addOutPort('Out');
+
+    const nodeIn = node.addInPort('In');
+    nodeIn.maximumLinks = 1;
+    node.setPosition(nodeData.position.x, nodeData.position.y);
+
+    return node;
+  }
+
   addExperienceCard(title) {
     const CardNodeModel = require('./CardNode/CardNodeModel').default;
     const { engine } = this.state;
@@ -258,9 +288,9 @@ class ExperienceEditor extends React.Component {
     this.forceUpdate();
   }
 
-  addContextExport(engine) {
+  addContextExport() {
     const ContextExportNodeModel = require('./ContextExportNode/ContextExportNodeModel').default;
-    // const { engine } = this.state;
+    const { engine } = this.state;
     const model = engine.getDiagramModel();
 
     const node = new ContextExportNodeModel();
@@ -269,6 +299,33 @@ class ExperienceEditor extends React.Component {
     node.setPosition(100, 200);
 
     model.addNode(node);
+    this.forceUpdate();
+  }
+
+  addConditionNode() {
+    const ConditionNodeModal = require('./ConditionNode/ConditionNodeModal').default;
+    const { engine } = this.state;
+    const model = engine.getDiagramModel();
+
+    const node = new ConditionNodeModal();
+    node.addOutPort('Out');
+
+    const nodeIn = node.addInPort('In');
+    nodeIn.maximumLinks = 1;
+    node.setPosition(200, 200);
+
+    model.addNode(node);
+    this.forceUpdate();
+  }
+
+  deleteNode() {
+    const { engine } = this.state;
+    const model = engine.getDiagramModel();
+
+    _.forEach(model.getSelectedItems(), (item) => {
+      item.remove();
+    });
+
     this.forceUpdate();
   }
 
@@ -295,7 +352,8 @@ class ExperienceEditor extends React.Component {
             backgroundColor={this.state.userSimulator ? 'green' : 'white'}
           />
           <RaisedButton
-            label="Close"
+            label="delete"
+            onClick={this.deleteNode}
             style={{ marginRight: '5px' }}
           />
         </Header>
@@ -332,7 +390,7 @@ class ExperienceEditor extends React.Component {
               />
               <RaisedButton
                 label="Condition Node"
-                onClick={this.addNode}
+                onClick={this.addConditionNode}
                 style={{ marginLeft: '5px', marginRight: '5px' }}
               />
               <RaisedButton
