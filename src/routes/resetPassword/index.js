@@ -15,8 +15,8 @@ import Paper from 'material-ui/Paper';
 
 import lightTheme from '../../components/theme';
 import BlankScreen from '../../components/Layout/BlankScreen';
-import Background from '../../../../public/images/bg.svg';
-import ForgotPassword from '../../components/ForgotPassword';
+import Background from '../../../public/images/bg.svg';
+import ResetPassword from '../../components/ResetPassword';
 
 const Container = styled.div`
   background-image: url(${Background});
@@ -38,8 +38,8 @@ const ContentContainer = styled(Paper)`
 `;
 
 export default {
-  path: '/forgot-password',
-  chunk: 'forgotPassword',
+  path: '/reset-password',
+  chunk: 'resetPassword',
   action() {
     return {
       component: (
@@ -47,7 +47,7 @@ export default {
           <MuiThemeProvider muiTheme={getMuiTheme(lightTheme)}>
             <Container>
               <ContentContainer>
-                <ForgotPassword />
+                <ResetPassword />
               </ContentContainer>
             </Container>
           </MuiThemeProvider>

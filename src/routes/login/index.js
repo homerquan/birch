@@ -14,7 +14,7 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import lightTheme from '../../components/theme';
 import BlankScreen from '../../components/Layout/BlankScreen';
 import LoginView from '../../components/LoginView';
-import Background from '../../../../public/images/bg.svg';
+import Background from '../../../public/images/bg.svg';
 import { isLogin } from '../../utils';
 
 const title = 'Log In';

@@ -31,10 +31,10 @@ global.navigator.userAgent = global.navigator.userAgent || 'all';
 
 const frontend = (app) => {
 
-  app.get('/hello', async (req, res) => {
-    res.send('helo world');
-        // or res.sendFile(....);
-  });
+  // app.get('/hello', async (req, res) => {
+  //   res.send('helo world');
+  //       // or res.sendFile(....);
+  // });
 
   //
   // Register server-side rendering middleware

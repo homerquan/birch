@@ -6,7 +6,7 @@ yarn-debug.log*
 yarn-error.log*
 
 # generated shared config
-/src/frontend/config/enviroment/shared.js
+/src/config/enviroment/shared.js
 
 # Runtime data
 pids

@@ -18,8 +18,8 @@ import React from 'react';
 import ReactDOM from 'react-dom/server';
 import { getDataFromTree } from 'react-apollo';
 import PrettyError from 'pretty-error';
-import config from './frontend/config';
-import frontendServer from './frontend';
+import config from './config';
+import frontendServer from '.';
 
 const app = express();
 const server = http.createServer(app);

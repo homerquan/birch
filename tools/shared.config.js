@@ -6,7 +6,7 @@
  */
 const fs = require('fs');
 const path = require('path');
-const configPath = path.join(__dirname, '..', 'src', 'frontend', 'config', 'enviroment');
+const configPath = path.join(__dirname, '..', 'src', 'config', 'enviroment');
 const config = require(path.join(configPath, process.env.NODE_ENV));
 const replaceConfig = require('./replaceConfig');
 

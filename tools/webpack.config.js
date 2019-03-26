@@ -202,8 +202,8 @@ const clientConfig = {
   target: 'web',
 
   entry: {
-    client: ['babel-polyfill', './src/frontend/client.js'],
-    // doubleClick: ['babel-polyfill', './src/frontend/components/ExperienceEditor/CustomNode/DoubleClickNodeModel'],
+    client: ['babel-polyfill', './src/client.js'],
+    // doubleClick: ['babel-polyfill', './src/components/ExperienceEditor/CustomNode/DoubleClickNodeModel'],
   },
 
   output: {
