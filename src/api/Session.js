@@ -1,5 +1,6 @@
 import fetch from 'isomorphic-fetch';
 import config from '../config';
+import { Query } from "react-apollo";
 
 class Session {  
   static login(credentials) {
