@@ -10,7 +10,7 @@ module.exports = {
   amqpConn: 'amqp://guest:guest@localhost:5672/seneca',
 
   // Server port
-  port: process.env.PORT || 8802,
+  port: process.env.PORT || 8080,
 
   // Server IP
   ip: process.env.IP || '0.0.0.0',

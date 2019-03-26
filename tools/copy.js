@@ -29,6 +29,7 @@ async function copy() {
       },
     }, null, 2)),
     copyFile('LICENSE.txt', 'build/LICENSE.txt'),
+    copyFile('deploy/app.yaml', 'build/app.yaml'),
     copyDir('public', 'build/public'),
   ]);
 
