@@ -29,7 +29,7 @@ import apolloClient from './core/apolloClient';
 global.navigator = global.navigator || {};
 global.navigator.userAgent = global.navigator.userAgent || 'all';
 
-const frontend = (app) => {
+const server = (app) => {
 
   // app.get('/hello', async (req, res) => {
   //   res.send('helo world');
@@ -160,4 +160,4 @@ const frontend = (app) => {
   });
 };
 
-export default frontend;
+export default server;

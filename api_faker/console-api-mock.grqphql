@@ -318,6 +318,11 @@ type CreateMessageResponse  {
   message: Message
 }
 
+type SessionToken {
+  token: String  @fake(type:uuid)
+  refreshToken: String  @fake(type:uuid)
+}
+
 type Mutation {
   updateConversation(conversationId: String!): Conversation
   createMessage(input: MessageInput): CreateMessageResponse
@@ -327,6 +332,8 @@ type Mutation {
   changeAccountPassword(clientId:String!):User
   closeAccount(clientId: String!): User
   uploadUserAvatar(file: UploadFile): User
+  getSessionToken(username: String!, password: String!): SessionToken
+  refreshSessionToken(refreshToken: String!): SessionToken
 }
 
 type Subscription {

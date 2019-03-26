@@ -19,7 +19,7 @@ import ReactDOM from 'react-dom/server';
 import { getDataFromTree } from 'react-apollo';
 import PrettyError from 'pretty-error';
 import config from './config';
-import frontendServer from '.';
+import reactServer from '.';
 
 const app = express();
 const server = http.createServer(app);
@@ -33,20 +33,22 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(favicon(path.join(__dirname,'..','public','favicon','favicon.ico')));
 
-
-if (__DEV__) {
-  app.enable('trust proxy');
-}
+// TODO: favicon in Gcloud has issue
+// if (__DEV__) {
+//   app.use(favicon(path.join(__dirname,'..','public','favicon','favicon.ico')));
+//   app.enable('trust proxy');
+// } else {
+//   app.use(favicon(path.join(__dirname,'public','favicon','favicon.ico')));
+// }
 
 // Load frontend (react)
 // -----------------------------------------------------------------------------
-frontendServer(app);
+reactServer(app);
 
 //
 // Launch the server
 // -----------------------------------------------------------------------------
 server.listen(config.port, config.ip, () => {
-    console.info(`The server is running at http://localhost:${config.port}/`);
+    console.info(`The server is running at http://${config.ip}:${config.port}/`);
 });
