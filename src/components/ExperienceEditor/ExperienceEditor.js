@@ -101,13 +101,22 @@ class ExperienceEditor extends React.Component {
   componentDidMount() {
     const graphBase = this.buildGraph(fakeData);
 
+    // if (this.state.engine !== null) {
+    //   // this.state.engine.clearSelection();
+    //   this.state.engine.diagramModel.clearSelection();
+    // }
+    
     this.setState({
       graphLoaded: true,
       ...graphBase,
     });
   }
 
+  buildCount = 0;
+
   buildGraph(data) {
+    this.buildCount = this.buildCount + 1;
+
     const SRD = require('storm-react-diagrams'); // eslint-disable-line global-require
     const SimplePortFactory = require('./SimplePortFactory'); // eslint-disable-line global-require
     const ContextImportPortModel = require('./ContextImportNode/ContextImportPortModel'); // eslint-disable-line global-require
@@ -166,9 +175,18 @@ class ExperienceEditor extends React.Component {
     models.forEach((item) => {
       item.addListener({
         selectionChanged: (e) => {
-          console.log('event here: ', e);
+          // console.log('event here: ', e);
           if (this.state.userSimulator && !this.state.inNestedScreen) {
             e.stopPropagation();
+
+            // Remove all nodes/links
+            _.forEach(model.getNodes(), (node) => {
+              node.remove();
+            });
+
+            _.forEach(model.getLinks(), (node) => {
+              node.remove();
+            });
 
             const graphBase = this.buildGraph(fakeDataTwo);
             this.setState({
@@ -183,7 +201,6 @@ class ExperienceEditor extends React.Component {
     });
 
     engine.setDiagramModel(model);
-    engine.repaintCanvas();
 
     return {
       SRD,
@@ -401,8 +418,6 @@ class ExperienceEditor extends React.Component {
                 <SRD.DiagramWidget
                   style={{ height: '100%' }}
                   diagramEngine={engine}
-                  allowLooseLinks={false}
-                  maxNumberPointsPerLink={0}
                 />
               ) : 'Diagram is loading'
             }
