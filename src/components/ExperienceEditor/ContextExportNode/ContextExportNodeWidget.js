@@ -1,14 +1,13 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import _ from 'lodash';
 import * as SRD from 'storm-react-diagrams';
 import { white } from 'material-ui/styles/colors';
 import ChevronLeft from 'material-ui/svg-icons/navigation/chevron-left';
 
-import theme from '../../theme';
+// import theme from '../../theme';
 
-const { palette } = theme;
+// const { palette } = theme;
 
 export const Container = styled.div`
   width: 100%;
@@ -39,18 +38,15 @@ class ContextExportNodeWidget extends SRD.BaseWidget {
     super(props);
     this.state = {};
 
-    console.log('ContextExport props here: ', this.props);
-  }
-
-  generatePort(port) {
-    return <SRD.DefaultPortLabel model={port} key={port.id} />;
+    // console.log('ContextExport props here: ', this.props);
   }
 
   render() {
     return (
       <Container>
         <PortContainer>
-          {_.map(this.props.node.getInPorts(), this.generatePort.bind(this))}
+          <SRD.PortWidget name="in" node={this.props.node} />
+          <p>In</p>
           <ChevronLeft color="black" />
         </PortContainer>
         <p>Context Export</p>

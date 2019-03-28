@@ -57,12 +57,7 @@ class CardNodeWidget extends SRD.BaseWidget {
     this.state = {};
   }
 
-  generatePort(port) {
-    return <SRD.DefaultPortLabel model={port} key={port.id} />;
-  }
-
   render() {
-    console.log('CardNodeWidget props in render here: ', this.props);
     return (
       <Container>
         <Header>
@@ -70,10 +65,12 @@ class CardNodeWidget extends SRD.BaseWidget {
         </Header>
         <Body>
           <PortContainer>
-            {_.map(this.props.node.getInPorts(), this.generatePort.bind(this))}
+            <SRD.PortWidget name="in" node={this.props.node} />
+            <p>In</p>
           </PortContainer>
           <PortContainer>
-            {_.map(this.props.node.getOutPorts(), this.generatePort.bind(this))}
+            <p>Out</p>
+            <SRD.PortWidget name="out" node={this.props.node} />
           </PortContainer>
         </Body>
       </Container>

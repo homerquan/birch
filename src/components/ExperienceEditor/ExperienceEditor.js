@@ -47,14 +47,14 @@ const fakeData = [
 ];
 
 const fakeDataTwo = [
-  {
-    id: 'dfdfdfdfdfdd3dds',
-    type: 'condition',
-    position: {
-      x: 150,
-      y: 100,
-    },
-  },
+  // {
+  //   id: 'dfdfdfdfdfdd3dds',
+  //   type: 'condition',
+  //   position: {
+  //     x: 150,
+  //     y: 100,
+  //   },
+  // },
   {
     id: 'asdffdfdfdfdd',
     type: 'card',
@@ -93,7 +93,7 @@ class ExperienceEditor extends React.Component {
     this.addExperienceCard = this.addExperienceCard.bind(this);
     this.addContextImport = this.addContextImport.bind(this);
     this.addContextExport = this.addContextExport.bind(this);
-    this.addConditionNode = this.addConditionNode.bind(this);
+    // this.addConditionNode = this.addConditionNode.bind(this);
     this.deleteNode = this.deleteNode.bind(this);
     this.back = this.back.bind(this);
   }
@@ -108,20 +108,26 @@ class ExperienceEditor extends React.Component {
   }
 
   buildGraph(data) {
-    const SRD = require('storm-react-diagrams');
-
-    const CardNodeFactory = require('./CardNode/CardNodeFactory').default;
-    const ContextImportNodeFactory = require('./ContextImportNode/ContextImportNodeFactory').default;
-    const ContextExportNodeFactory = require('./ContextExportNode/ContextExportNodeFactory').default;
-    const ConditionNodeFactory = require('./ConditionNode/ConditionNodeFactory').default;
+    const SRD = require('storm-react-diagrams'); // eslint-disable-line global-require
+    const SimplePortFactory = require('./SimplePortFactory'); // eslint-disable-line global-require
+    const ContextImportPortModel = require('./ContextImportNode/ContextImportPortModel'); // eslint-disable-line global-require
+    const ContextExportPortModel = require('./ContextExportNode/ContextExportPortModel'); // eslint-disable-line global-require
+    const CardPortModel = require('./CardNode/CardPortModel'); // eslint-disable-line global-require
+    const CardNodeFactory = require('./CardNode/CardNodeFactory').default; // eslint-disable-line global-require
+    const ContextImportNodeFactory = require('./ContextImportNode/ContextImportNodeFactory').default; // eslint-disable-line global-require
+    const ContextExportNodeFactory = require('./ContextExportNode/ContextExportNodeFactory').default; // eslint-disable-line global-require
+    // const ConditionNodeFactory = require('./ConditionNode/ConditionNodeFactory').default; // eslint-disable-line global-require
 
     const engine = new SRD.DiagramEngine();
     engine.installDefaultFactories();
 
+    // engine.registerPortFactory(new SimplePortFactory('ContextImportNode', config => new ContextImportPortModel()));
+    // engine.registerPortFactory(new SimplePortFactory('contextExport', config => new ContextExportPortModel()));
+    // engine.registerPortFactory(new SimplePortFactory('card', config => new CardPortModel()));
     engine.registerNodeFactory(new CardNodeFactory());
     engine.registerNodeFactory(new ContextImportNodeFactory());
     engine.registerNodeFactory(new ContextExportNodeFactory());
-    engine.registerNodeFactory(new ConditionNodeFactory());
+    // engine.registerNodeFactory(new ConditionNodeFactory());
 
     // 2) setup the diagram model
     const model = new SRD.DiagramModel();
@@ -144,11 +150,11 @@ class ExperienceEditor extends React.Component {
           nodesObject.push({ id: node.id, node: newNode });
           break;
         }
-        case 'condition': {
-          const newNode = this.conditionNodeInit(engine, node);
-          nodesObject.push({ id: node.id, node: newNode });
-          break;
-        }
+        // case 'condition': {
+        //   const newNode = this.conditionNodeInit(engine, node);
+        //   nodesObject.push({ id: node.id, node: newNode });
+        //   break;
+        // }
         default:
           break;
       }
@@ -160,6 +166,7 @@ class ExperienceEditor extends React.Component {
     models.forEach((item) => {
       item.addListener({
         selectionChanged: (e) => {
+          console.log('event here: ', e);
           if (this.state.userSimulator && !this.state.inNestedScreen) {
             e.stopPropagation();
 
@@ -203,10 +210,6 @@ class ExperienceEditor extends React.Component {
     const CardNodeModel = require('./CardNode/CardNodeModel').default;
 
     const node = new CardNodeModel(nodeData.title);
-    const nodeOut = node.addOutPort('Out');
-    const nodeIn = node.addInPort('In');
-    nodeOut.maximumLinks = 1;
-    nodeIn.maximumLinks = 1;
     node.setPosition(nodeData.position.x, nodeData.position.y);
 
     return node;
@@ -216,8 +219,6 @@ class ExperienceEditor extends React.Component {
     const ContextImportNodeModel = require('./ContextImportNode/ContextImportNodeModel').default;
 
     const node = new ContextImportNodeModel();
-    const nodeOut = node.addOutPort('Out');
-    nodeOut.maximumLinks = 1;
     node.setPosition(nodeData.position.x, nodeData.position.y);
 
     return node;
@@ -227,25 +228,23 @@ class ExperienceEditor extends React.Component {
     const ContextExportNodeModel = require('./ContextExportNode/ContextExportNodeModel').default;
 
     const node = new ContextExportNodeModel();
-    const nodeIn = node.addInPort('In');
-    nodeIn.maximumLinks = 1;
     node.setPosition(nodeData.position.x, nodeData.position.y);
 
     return node;
   }
 
-  conditionNodeInit(engine, nodeData) {
-    const ConditionNodeModal = require('./ConditionNode/ConditionNodeModal').default;
+  // conditionNodeInit(engine, nodeData) {
+  //   const ConditionNodeModal = require('./ConditionNode/ConditionNodeModal').default;
 
-    const node = new ConditionNodeModal();
-    node.addOutPort('Out');
+  //   const node = new ConditionNodeModal();
+  //   node.addOutPort('Out');
 
-    const nodeIn = node.addInPort('In');
-    nodeIn.maximumLinks = 1;
-    node.setPosition(nodeData.position.x, nodeData.position.y);
+  //   const nodeIn = node.addInPort('In');
+  //   nodeIn.maximumLinks = 1;
+  //   node.setPosition(nodeData.position.x, nodeData.position.y);
 
-    return node;
-  }
+  //   return node;
+  // }
 
   addExperienceCard(title) {
     const CardNodeModel = require('./CardNode/CardNodeModel').default;
@@ -253,10 +252,6 @@ class ExperienceEditor extends React.Component {
     const model = engine.getDiagramModel();
 
     const node = new CardNodeModel(title);
-    const nodeOut = node.addOutPort('Out');
-    const nodeIn = node.addInPort('In');
-    nodeOut.maximumLinks = 1;
-    nodeIn.maximumLinks = 1;
     node.setPosition(100, 200);
 
     node.addListener({
@@ -280,8 +275,6 @@ class ExperienceEditor extends React.Component {
     const model = engine.getDiagramModel();
 
     const node = new ContextImportNodeModel();
-    const nodeOut = node.addOutPort('Out');
-    nodeOut.maximumLinks = 1;
     node.setPosition(100, 200);
 
     model.addNode(node);
@@ -294,29 +287,27 @@ class ExperienceEditor extends React.Component {
     const model = engine.getDiagramModel();
 
     const node = new ContextExportNodeModel();
-    const nodeIn = node.addInPort('In');
-    nodeIn.maximumLinks = 1;
     node.setPosition(100, 200);
 
     model.addNode(node);
     this.forceUpdate();
   }
 
-  addConditionNode() {
-    const ConditionNodeModal = require('./ConditionNode/ConditionNodeModal').default;
-    const { engine } = this.state;
-    const model = engine.getDiagramModel();
+  // addConditionNode() {
+  //   const ConditionNodeModal = require('./ConditionNode/ConditionNodeModal').default;
+  //   const { engine } = this.state;
+  //   const model = engine.getDiagramModel();
 
-    const node = new ConditionNodeModal();
-    node.addOutPort('Out');
+  //   const node = new ConditionNodeModal();
+  //   node.addOutPort('Out');
 
-    const nodeIn = node.addInPort('In');
-    nodeIn.maximumLinks = 1;
-    node.setPosition(200, 200);
+  //   const nodeIn = node.addInPort('In');
+  //   nodeIn.maximumLinks = 1;
+  //   node.setPosition(200, 200);
 
-    model.addNode(node);
-    this.forceUpdate();
-  }
+  //   model.addNode(node);
+  //   this.forceUpdate();
+  // }
 
   deleteNode() {
     const { engine } = this.state;
@@ -388,11 +379,11 @@ class ExperienceEditor extends React.Component {
                 onClick={this.addContextImport}
                 style={{ marginRight: '5px' }}
               />
-              <RaisedButton
+              {/* <RaisedButton
                 label="Condition Node"
                 onClick={this.addConditionNode}
                 style={{ marginLeft: '5px', marginRight: '5px' }}
-              />
+              /> */}
               <RaisedButton
                 label="Context Export Node"
                 onClick={this.addContextExport}

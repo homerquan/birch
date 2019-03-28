@@ -1,10 +1,11 @@
 import * as React from 'react';
 import * as SRD from 'storm-react-diagrams';
 import CardNodeWidget from './CardNodeWidget';
+import CardNodeModel from './CardNodeModel';
 
 export default class CardNodeFactory extends SRD.AbstractNodeFactory {
   constructor() {
-    super('default');
+    super('card');
   }
 
   generateReactWidget(diagramEngine, node) {
@@ -12,6 +13,6 @@ export default class CardNodeFactory extends SRD.AbstractNodeFactory {
   }
 
   getNewInstance() {
-    return new SRD.DefaultNodeModel();
+    return new CardNodeModel();
   }
 }

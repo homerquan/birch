@@ -1,31 +1,13 @@
 import * as SRD from 'storm-react-diagrams';
-import _ from 'lodash';
+import ContextExportPortModel from './ContextExportPortModel';
 
-export default class ContextExportNodeModel extends SRD.NodeModel {
+class ContextExportNodeModel extends SRD.NodeModel {
   constructor() {
     super('contextExport');
 
     this.name = name;
-  }
-
-  addInPort(label) {
-    return this.addPort(new SRD.DefaultPortModel(true, SRD.Toolkit.UID(), label));
-  }
-
-  deSerialize(object, engine) {
-    super.deSerialize(object, engine);
-    this.name = object.name;
-  }
-
-  serialize() {
-    return _.merge(super.serialize(), {
-      name: this.name,
-    });
-  }
-
-  getInPorts() {
-    return _.filter(this.ports, portModel => {
-      return portModel.in;
-    });
+    this.addPort(new ContextExportPortModel('in'));
   }
 }
+
+export default ContextExportNodeModel;
