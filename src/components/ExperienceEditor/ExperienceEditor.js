@@ -47,14 +47,14 @@ const fakeData = [
 ];
 
 const fakeDataTwo = [
-  // {
-  //   id: 'dfdfdfdfdfdd3dds',
-  //   type: 'condition',
-  //   position: {
-  //     x: 150,
-  //     y: 100,
-  //   },
-  // },
+  {
+    id: 'dfdfdfdfdfdd3dds',
+    type: 'condition',
+    position: {
+      x: 150,
+      y: 100,
+    },
+  },
   {
     id: 'asdffdfdfdfdd',
     type: 'card',
@@ -93,7 +93,7 @@ class ExperienceEditor extends React.Component {
     this.addExperienceCard = this.addExperienceCard.bind(this);
     this.addContextImport = this.addContextImport.bind(this);
     this.addContextExport = this.addContextExport.bind(this);
-    // this.addConditionNode = this.addConditionNode.bind(this);
+    this.addConditionNode = this.addConditionNode.bind(this);
     this.deleteNode = this.deleteNode.bind(this);
     this.back = this.back.bind(this);
   }
@@ -101,42 +101,48 @@ class ExperienceEditor extends React.Component {
   componentDidMount() {
     const graphBase = this.buildGraph(fakeData);
 
-    // if (this.state.engine !== null) {
-    //   // this.state.engine.clearSelection();
-    //   this.state.engine.diagramModel.clearSelection();
-    // }
-    
     this.setState({
       graphLoaded: true,
       ...graphBase,
     });
   }
 
-  buildCount = 0;
+  handleSelectionChanged(e, model) {
+    if (this.state.userSimulator && !this.state.inNestedScreen) {
+      e.stopPropagation();
+
+      // Remove all nodes/links
+      _.forEach(model.getNodes(), (node) => {
+        node.remove();
+      });
+
+      _.forEach(model.getLinks(), (node) => {
+        node.remove();
+      });
+
+      const graphBase = this.buildGraph(fakeDataTwo);
+      this.setState({
+        data: fakeDataTwo,
+        userSimulator: false,
+        inNestedScreen: true,
+        ...graphBase,
+      });
+    }
+  }
 
   buildGraph(data) {
-    this.buildCount = this.buildCount + 1;
-
     const SRD = require('storm-react-diagrams'); // eslint-disable-line global-require
-    const SimplePortFactory = require('./SimplePortFactory'); // eslint-disable-line global-require
-    const ContextImportPortModel = require('./ContextImportNode/ContextImportPortModel'); // eslint-disable-line global-require
-    const ContextExportPortModel = require('./ContextExportNode/ContextExportPortModel'); // eslint-disable-line global-require
-    const CardPortModel = require('./CardNode/CardPortModel'); // eslint-disable-line global-require
     const CardNodeFactory = require('./CardNode/CardNodeFactory').default; // eslint-disable-line global-require
     const ContextImportNodeFactory = require('./ContextImportNode/ContextImportNodeFactory').default; // eslint-disable-line global-require
     const ContextExportNodeFactory = require('./ContextExportNode/ContextExportNodeFactory').default; // eslint-disable-line global-require
-    // const ConditionNodeFactory = require('./ConditionNode/ConditionNodeFactory').default; // eslint-disable-line global-require
+    const ConditionNodeFactory = require('./ConditionNode/ConditionNodeFactory').default; // eslint-disable-line global-require
 
     const engine = new SRD.DiagramEngine();
     engine.installDefaultFactories();
-
-    // engine.registerPortFactory(new SimplePortFactory('ContextImportNode', config => new ContextImportPortModel()));
-    // engine.registerPortFactory(new SimplePortFactory('contextExport', config => new ContextExportPortModel()));
-    // engine.registerPortFactory(new SimplePortFactory('card', config => new CardPortModel()));
     engine.registerNodeFactory(new CardNodeFactory());
     engine.registerNodeFactory(new ContextImportNodeFactory());
     engine.registerNodeFactory(new ContextExportNodeFactory());
-    // engine.registerNodeFactory(new ConditionNodeFactory());
+    engine.registerNodeFactory(new ConditionNodeFactory());
 
     // 2) setup the diagram model
     const model = new SRD.DiagramModel();
@@ -159,11 +165,11 @@ class ExperienceEditor extends React.Component {
           nodesObject.push({ id: node.id, node: newNode });
           break;
         }
-        // case 'condition': {
-        //   const newNode = this.conditionNodeInit(engine, node);
-        //   nodesObject.push({ id: node.id, node: newNode });
-        //   break;
-        // }
+        case 'condition': {
+          const newNode = this.conditionNodeInit(engine, node);
+          nodesObject.push({ id: node.id, node: newNode });
+          break;
+        }
         default:
           break;
       }
@@ -174,29 +180,7 @@ class ExperienceEditor extends React.Component {
 
     models.forEach((item) => {
       item.addListener({
-        selectionChanged: (e) => {
-          // console.log('event here: ', e);
-          if (this.state.userSimulator && !this.state.inNestedScreen) {
-            e.stopPropagation();
-
-            // Remove all nodes/links
-            _.forEach(model.getNodes(), (node) => {
-              node.remove();
-            });
-
-            _.forEach(model.getLinks(), (node) => {
-              node.remove();
-            });
-
-            const graphBase = this.buildGraph(fakeDataTwo);
-            this.setState({
-              data: fakeDataTwo,
-              userSimulator: false,
-              inNestedScreen: true,
-              ...graphBase,
-            });
-          }
-        },
+        selectionChanged: e => this.handleSelectionChanged(e, model),
       });
     });
 
@@ -224,7 +208,7 @@ class ExperienceEditor extends React.Component {
   }
 
   experienceCardInit(engine, nodeData) {
-    const CardNodeModel = require('./CardNode/CardNodeModel').default;
+    const CardNodeModel = require('./CardNode/CardNodeModel').default; // eslint-disable-line global-require
 
     const node = new CardNodeModel(nodeData.title);
     node.setPosition(nodeData.position.x, nodeData.position.y);
@@ -250,18 +234,14 @@ class ExperienceEditor extends React.Component {
     return node;
   }
 
-  // conditionNodeInit(engine, nodeData) {
-  //   const ConditionNodeModal = require('./ConditionNode/ConditionNodeModal').default;
+  conditionNodeInit(engine, nodeData) {
+    const ConditionNodeModal = require('./ConditionNode/ConditionNodeModal').default;
 
-  //   const node = new ConditionNodeModal();
-  //   node.addOutPort('Out');
+    const node = new ConditionNodeModal();
+    node.setPosition(nodeData.position.x, nodeData.position.y);
 
-  //   const nodeIn = node.addInPort('In');
-  //   nodeIn.maximumLinks = 1;
-  //   node.setPosition(nodeData.position.x, nodeData.position.y);
-
-  //   return node;
-  // }
+    return node;
+  }
 
   addExperienceCard(title) {
     const CardNodeModel = require('./CardNode/CardNodeModel').default;
@@ -269,18 +249,8 @@ class ExperienceEditor extends React.Component {
     const model = engine.getDiagramModel();
 
     const node = new CardNodeModel(title);
+    node.addListener({ selectionChanged: e => this.handleSelectionChanged(e, model) });
     node.setPosition(100, 200);
-
-    node.addListener({
-      selectionChanged: (e) => {
-        console.log('experience card: ', e);
-
-        if (this.state.userSimulator) {
-          e.stopPropagation();
-          console.log('go!');
-        }
-      },
-    });
 
     model.addNode(node);
     this.forceUpdate();
@@ -292,6 +262,9 @@ class ExperienceEditor extends React.Component {
     const model = engine.getDiagramModel();
 
     const node = new ContextImportNodeModel();
+    node.addListener({
+      selectionChanged: e => this.handleSelectionChanged(e, model),
+    });
     node.setPosition(100, 200);
 
     model.addNode(node);
@@ -304,27 +277,27 @@ class ExperienceEditor extends React.Component {
     const model = engine.getDiagramModel();
 
     const node = new ContextExportNodeModel();
+    node.addListener({
+      selectionChanged: e => this.handleSelectionChanged(e, model),
+    });
     node.setPosition(100, 200);
 
     model.addNode(node);
     this.forceUpdate();
   }
 
-  // addConditionNode() {
-  //   const ConditionNodeModal = require('./ConditionNode/ConditionNodeModal').default;
-  //   const { engine } = this.state;
-  //   const model = engine.getDiagramModel();
+  addConditionNode() {
+    const ConditionNodeModal = require('./ConditionNode/ConditionNodeModal').default;
+    const { engine } = this.state;
+    const model = engine.getDiagramModel();
 
-  //   const node = new ConditionNodeModal();
-  //   node.addOutPort('Out');
+    const node = new ConditionNodeModal();
+    node.addListener({ selectionChanged: e => this.handleSelectionChanged(e, model) });
+    node.setPosition(200, 200);
 
-  //   const nodeIn = node.addInPort('In');
-  //   nodeIn.maximumLinks = 1;
-  //   node.setPosition(200, 200);
-
-  //   model.addNode(node);
-  //   this.forceUpdate();
-  // }
+    model.addNode(node);
+    this.forceUpdate();
+  }
 
   deleteNode() {
     const { engine } = this.state;
@@ -418,6 +391,7 @@ class ExperienceEditor extends React.Component {
                 <SRD.DiagramWidget
                   style={{ height: '100%' }}
                   diagramEngine={engine}
+                  allowLooseLinks={false}
                 />
               ) : 'Diagram is loading'
             }

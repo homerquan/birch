@@ -1,6 +1,7 @@
 import * as React from 'react';
 import * as SRD from 'storm-react-diagrams';
 import ConditionNodeWidget from './ConditionNodeWidget';
+import ConditionNodeModel from './ConditionNodeModal';
 
 export default class ConditionNodeFactory extends SRD.AbstractNodeFactory {
   constructor() {
@@ -12,6 +13,6 @@ export default class ConditionNodeFactory extends SRD.AbstractNodeFactory {
   }
 
   getNewInstance() {
-    return new SRD.DefaultNodeModel();
+    return new ConditionNodeModel();
   }
 }

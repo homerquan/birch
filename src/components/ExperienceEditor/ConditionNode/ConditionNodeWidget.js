@@ -1,24 +1,43 @@
 import * as React from 'react';
 import * as SRD from 'storm-react-diagrams';
-import _ from 'lodash';
 import styled from 'styled-components';
 
+import theme from '../../theme';
+
+const { palette } = theme;
+
 const Container = styled.div`
-  background-color: red;
-  width: 50px;
-  height: 50px;
+  background-color: ${palette.primary1Color};
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: space-between;
+`;
+
+const PortContainer = styled.div`
+  display: flex;
+  align-items: center;
+  align-self: center;
+
+  p {
+    color: white;
+    margin: 0%;
+  }
 `;
 
 class ConditionNodeWidget extends SRD.BaseWidget {
-  generatePort(port) {
-    return <SRD.DefaultPortLabel model={port} key={port.id} />;
-  }
-
   render() {
     return (
       <Container>
-        {_.map(this.props.node.getInPorts(), this.generatePort.bind(this))}
-        {_.map(this.props.node.getOutPorts(), this.generatePort.bind(this))}
+        <PortContainer>
+          <SRD.PortWidget name="in" node={this.props.node} />
+          <p>In</p>
+        </PortContainer>
+        <PortContainer>
+          <p>Out</p>
+          <SRD.PortWidget name="out" node={this.props.node} />
+        </PortContainer>
       </Container>
     );
   }
