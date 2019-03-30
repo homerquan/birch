@@ -1,7 +1,8 @@
 {
-  "name": "convospot-console",
-  "version": "0.4.1",
-  "private": true,
+  "name": "birch",
+  "title": "birch",
+  "description": "The management console of reflen",
+  "version": "3.0.0",
   "engines": {
     "node": ">=10.0.0",
     "npm": ">=6.0.0"
@@ -12,6 +13,8 @@
     "Firefox ESR",
     "not ie < 9"
   ],
+  "license": "UNLICENSED",
+  "private": true,
   "dependencies": {
     "add": "^2.0.6",
     "apollo-client": "1.9.3",
@@ -34,6 +37,7 @@
     "fastclick": "^1.0.6",
     "graphiql": "^0.13.0",
     "graphql": "^0.12.0",
+    "graphql-request": "^1.8.2",
     "graphql-server-express": "^0.8.0",
     "graphql-subscriptions": "^0.5.8",
     "graphql-tag": "^2.10.1",

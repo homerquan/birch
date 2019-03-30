@@ -16,12 +16,12 @@ module.exports = {
   ip: process.env.IP || '0.0.0.0',
 
   // API URL to be used in the client-side code
-  clientUrl: process.env.API_CLIENT_URL || `https://console-api.reflen.com`,
+  clientUrl: process.env.API_CLIENT_URL || `https://console-api.rl.business`,
   // API URL to be used in the server-side code
-  serverUrl: process.env.API_SERVER_URL || `https://console-api.reflen.com}`,
+  serverUrl: process.env.API_SERVER_URL || `https://console-api.rl.business}`,
 
-  widgetUrl: 'https://widget.reflen.com/convospot.js',
+  widgetUrl: 'https://widget.rl.business/convospot.js',
   
   // API URL for graphql subscription ws
-  clientSubscriptionUrl: process.env.API_SUBSCRIPTION_URL || `wss://console-api.reflen.com`
+  clientSubscriptionUrl: process.env.API_SUBSCRIPTION_URL || `wss://console-api.rl.business`
 };
