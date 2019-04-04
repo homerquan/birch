@@ -19,6 +19,7 @@ import Header from '../Header';
 import Footer from '../Footer';
 import Console from '../Console/Console';
 import AppLoading from '../AppLoading';
+import ErrorBoundry from '../ErrorBoundary';
 
 class Layout extends React.Component {
   static propTypes = {
@@ -58,13 +59,15 @@ class Layout extends React.Component {
 
     return (
       <div style={{ height: '100%' }}>
-        <Header onToggleChange={this.toggleSidebar} />
-        <Sidebar open={this.state.openSidebar} onClose={this.closeSidebar} />
+        <ErrorBoundry>
+          <Header onToggleChange={this.toggleSidebar} />
+          <Sidebar open={this.state.openSidebar} onClose={this.closeSidebar} />
 
-        {this.props.children}
-      
-        <Footer />
-        <Console />
+          {this.props.children}
+
+          <Footer />
+          <Console />
+        </ErrorBoundry>
       </div>
     );
   }
