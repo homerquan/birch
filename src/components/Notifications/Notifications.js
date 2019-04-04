@@ -131,7 +131,7 @@ class Notifications extends Component {
           <RCardHeader>
             <div className="title-container">
               <AppsIcon color={black} />
-              <h2>Applications</h2>
+              <h2>Notifications</h2>
             </div>
             <div className="button-container">
               <IconMenu

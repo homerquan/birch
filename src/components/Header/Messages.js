@@ -83,6 +83,7 @@ class Messages extends Component {
     };
 
     this.handleEventListener = this.handleEventListener.bind(this);
+    this.mouseLeftMessagesContainer = this.mouseLeftMessagesContainer.bind(this);
   }
 
   componentDidMount() {
@@ -123,6 +124,14 @@ class Messages extends Component {
     this.setState({ isOpen: false });
   }
 
+  mouseLeftMessagesContainer() {
+    setTimeout(() => {
+      if (this.state.isOpen) {
+        this.setState({ isOpen: false });
+      }
+    }, 1500);
+  }
+
   render() {
     const { isLoading, messages, isOpen } = this.state;
 
@@ -139,7 +148,10 @@ class Messages extends Component {
           >
             <SMSIcon color={white} />
           </IconButton>
-          <Paper style={isOpen ? paperStyle : hiddenStyle}>
+          <Paper
+            onMouseLeave={this.mouseLeftMessagesContainer}
+            style={isOpen ? paperStyle : hiddenStyle}
+          >
             <div className={s.header}>
               <p className={s.headerTitle}>Messages</p>
             </div>

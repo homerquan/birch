@@ -110,6 +110,7 @@ class Notifications extends Component {
     };
 
     this.handleEventListener = this.handleEventListener.bind(this);
+    this.mouseLeftNotificationsContainer = this.mouseLeftNotificationsContainer.bind(this);
   }
 
   componentDidMount() {
@@ -134,6 +135,14 @@ class Notifications extends Component {
     this.setState({ isOpen: false });
   }
 
+  mouseLeftNotificationsContainer() {
+    setTimeout(() => {
+      if (this.state.isOpen) {
+        this.setState({ isOpen: false });
+      }
+    }, 1500);
+  }
+
   transform = data => (
     _.map(data, 'node') // eslint-disable-line
   );
@@ -149,7 +158,11 @@ class Notifications extends Component {
     return (
       <MuiThemeProvider muiTheme={getMuiTheme(lightTheme)}>
         <Badge
-          badgeContent={runtime[ACTION_TYPES.NOTIFICATIONS_COUNT] ? runtime[ACTION_TYPES.NOTIFICATIONS_COUNT] : 0}
+          badgeContent={
+            runtime[ACTION_TYPES.NOTIFICATIONS_COUNT]
+              ? runtime[ACTION_TYPES.NOTIFICATIONS_COUNT]
+              : 0
+          }
           badgeStyle={
             runtime[ACTION_TYPES.NOTIFICATIONS_COUNT] > 0
             ? styles.badgeStyle
@@ -163,7 +176,10 @@ class Notifications extends Component {
           >
             <NotificationIcon color={white} />
           </IconButton>
-          <Paper style={isOpen ? styles.paperStyle : styles.hiddenStyle}>
+          <Paper
+            onMouseLeave={this.mouseLeftNotificationsContainer}
+            style={isOpen ? styles.paperStyle : styles.hiddenStyle}
+          >
             <div className={s.header}>
               <p className={s.headerTitle}>Notifications</p>
             </div>
