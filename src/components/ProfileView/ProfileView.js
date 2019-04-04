@@ -1,14 +1,15 @@
-import React from "react";
-import PropTypes from "prop-types";
-import withStyles from "isomorphic-style-loader/lib/withStyles";
-import s from "./ProfileView.css";
-import RaisedButton from "material-ui/RaisedButton";
-import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
-import getMuiTheme from "material-ui/styles/getMuiTheme";
-import theme from "../theme";
-import { bindActionCreators } from "redux";
-import { connect } from "react-redux";
-import * as sessionActions from "../../actions/session";
+import React from 'react';
+import PropTypes from 'prop-types';
+import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import RaisedButton from 'material-ui/RaisedButton';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+
+import * as sessionActions from '../../actions/session';
+import theme from '../theme';
+import s from './ProfileView.css';
 
 class ProfileView extends React.Component {
   static propTypes = {
@@ -23,7 +24,7 @@ class ProfileView extends React.Component {
   logoutHandler(event) {
     event.preventDefault();
     this.props.actions.logout();
-    window.location.replace("/login"); 
+    window.location.replace('/login');
   }
 
   render() {
@@ -43,16 +44,16 @@ class ProfileView extends React.Component {
 
 function selectProps(state) {
   return {
-    session: state.session
+    session: state.session,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(sessionActions, dispatch)
+    actions: bindActionCreators(sessionActions, dispatch),
   };
 }
 
 export default withStyles(s)(
-  connect(selectProps, mapDispatchToProps)(ProfileView)
+  connect(selectProps, mapDispatchToProps)(ProfileView),
 );

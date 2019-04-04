@@ -9,10 +9,11 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import { Page, Section, LayoutProvider } from 'react-page-layout';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
-import s from './Profile.css';
+import lightTheme from '../../components/theme';
 import grids from '../../components/Layout/grids';
 import TitleBar from '../../components/TitleBar';
 import ProfileView from '../../components/ProfileView';
@@ -20,6 +21,9 @@ import ProfileView from '../../components/ProfileView';
 class Profile extends React.Component {
   static propTypes = {
     title: PropTypes.string.isRequired,
+    actions: PropTypes.shape({
+      logout: PropTypes.func.isRequired,
+    }).isRequired,
   };
 
   logoutHandler(event) {
@@ -29,18 +33,20 @@ class Profile extends React.Component {
 
   render() {
     return (
-      <LayoutProvider layouts={grids}>
-        <Page layout="grid-one-one">
-          <Section slot="titleBar">
-            <TitleBar title={this.props.title} />
-          </Section>
-          <Section slot="main">
-            <ProfileView />
-          </Section>
-        </Page>
-      </LayoutProvider>
+      <MuiThemeProvider muiTheme={getMuiTheme(lightTheme)}>
+        <LayoutProvider layouts={grids}>
+          <Page layout="grid-one-one">
+            <Section slot="titleBar">
+              <TitleBar title={this.props.title} />
+            </Section>
+            <Section slot="main">
+              <ProfileView />
+            </Section>
+          </Page>
+        </LayoutProvider>
+      </MuiThemeProvider>
     );
   }
 }
 
-export default withStyles(s)(Profile);
+export default Profile;
