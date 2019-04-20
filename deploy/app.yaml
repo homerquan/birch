@@ -1,7 +1,9 @@
-service: console
 runtime: nodejs10
+service: console
 env_variables:
   node_env: production
 handlers:
 - url: /.*
   script: auto
+  secure: always
+  redirect_http_response_code: 301

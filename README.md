@@ -23,6 +23,8 @@ Prod: `npm start`
 
 Edit in `http://localhost:8084/editor/`
 
+## Auth
+Using graphql-request (break the apollo rules) to get session token
 
 ```
 An example with variable:
