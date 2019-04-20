@@ -99,33 +99,17 @@
     "redux-persist": "^5.10.0",
     "redux-session": "^1.0.5",
     "redux-sessionstorage": "^0.4.0",
-<<<<<<< HEAD
-    "redux-thunk": "^2.2.0",
-    "rx": "^4.1.0",
-    "rxjs": "^5.4.3",
-    "seneca": "^3.3.0",
-    "seneca-amqp-transport": "^2.1.0",
-    "seneca-mesh": "^0.10.0",
-    "sequelize": "^3.30.4",
-    "serialize-javascript": "^1.3.0",
-    "serve-favicon": "^2.4.5",
-=======
     "redux-thunk": "^2.3.0",
     "serialize-javascript": "^1.6.1",
     "serve-favicon": "^2.5.0",
->>>>>>> remotes/origin/update-but-keep-apollo-1
     "socketio-jwt": "^4.5.0",
     "source-map-support": "^0.4.14",
     "storm-react-diagrams": "^5.2.1",
     "styled-components": "^2.4.1",
     "subscriptions-transport-ws": "0.8",
     "universal-router": "^3.1.0",
-<<<<<<< HEAD
-    "winston": "^2.3.1"
-=======
     "webpack-node-externals": "^1.7.2",
     "winston": "^2.4.4"
->>>>>>> remotes/origin/update-but-keep-apollo-1
   },
   "devDependencies": {
     "assets-webpack-plugin": "^3.5.1",
