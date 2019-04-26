@@ -7,7 +7,7 @@ if (process.env.BROWSER) {
 } else {
   const envConfig = require('./enviroment');
   // Using RC to read settings in /etc/appnamerc
-  config = require('rc')(process.env.npm_package_name || 'convospot-console', envConfig);
+  config = require('rc')(process.env.npm_package_name || 'reflen-console', envConfig);
 }
 
 export default config;

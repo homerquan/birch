@@ -43,7 +43,7 @@ const AddCreditCard = ({
           </TableRow>
           <TableRow>
             <TableRowColumn>0002</TableRowColumn>
-            <TableRowColumn>ConvoSpot</TableRowColumn>
+            <TableRowColumn>reflen</TableRowColumn>
             <TableRowColumn style={rowRight}><ViewIcon color={green500} /></TableRowColumn>
           </TableRow>
           <TableRow>

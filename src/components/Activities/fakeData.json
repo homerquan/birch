@@ -11,18 +11,18 @@
         {
             "id": "25325",
             "type": "message",
-            "application": "ConvoSpot",
+            "application": "reflen",
             "text": "It's awesome",
             "time": "1 day ago",
-            "link": "http://www.convospot.com"
+            "link": "http://www.reflen.com"
         },
         {
             "id": "904082",
             "type": "notification",
-            "application": "ConvoSpot",
+            "application": "reflen",
             "text": "Training Succeeded",
             "time": "20 days ago",
-            "link": "http://www.convospot.com"
+            "link": "http://www.reflen.com"
         }
     ]
 }

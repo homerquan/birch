@@ -1,14 +1,14 @@
 /*
  * Copyright (C) Reflen Inc.
  *
- * This file is part of convospot-console. The codes can not
+ * This file is part of reflen-console. The codes can not
  * be copiedand/or distributed without permission
  *
  * @Author: Michael
- * @Email: homer@convospot.io
+ * @Email: dev@reflen.com
  * @Date:   2017-11-05 19:36:24
- * @Last Modified by:   Michael
- * @Last Modified time: 2018-05-04
+ * @Last Modified by:   homer
+ * @Last Modified time: 2019-04-26 13:21:05
  */
 import React from 'react';
 import Plugins from './Plugins';

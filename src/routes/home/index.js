@@ -20,7 +20,7 @@ export default {
   // return { redirect: "/apps" };
 
     return {
-      title: 'convospot dashboard',
+      title: 'reflen dashboard',
       chunk: 'home',
       component: (
         <Layout>

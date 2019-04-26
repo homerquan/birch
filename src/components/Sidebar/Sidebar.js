@@ -137,7 +137,7 @@ class Sidebar extends React.Component {
               style={styles.logo}
               onTouchTap={this.handleCloseButtonTouchTap}
             >
-              <img src={logoUrl} alt="convospot" />
+              <img src={logoUrl} alt="reflen" />
             </div>
             {selectedApp ? (
               <div>

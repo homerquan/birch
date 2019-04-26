@@ -1,8 +1,8 @@
 /*
  * @Author: Homer
  * @Date:   2017-12-29 17:47:30
- * @Last Modified by:   Homer
- * @Last Modified time: 2018-01-01 00:33:01
+ * @Last Modified by:   homer
+ * @Last Modified time: 2019-04-26 13:27:36
  */
 'use strict';
 
@@ -12,7 +12,7 @@ module.exports = {
 
 	logLvl: 'debug',
 
-	hashSalt: 'ilikeconvospot',
+	hashSalt: 'ilikereflen',
 
 	amqpConn: 'amqp://guest:guest@localhost:5672/seneca',
 
@@ -27,7 +27,7 @@ module.exports = {
 	// API URL to be used in the server-side code
 	serverUrl: process.env.API_SERVER_URL || `http://console-api.stage.reflen.com}`,
 
-	widgetUrl: 'http://widget.stage.reflen.com/convospot.js',
+	widgetUrl: 'http://widget.stage.reflen.com/index.js',
 	
 	// API URL for graphql subscription ws
 	clientSubscriptionUrl: process.env.API_SUBSCRIPTION_URL || `ws://console-api.stage.reflen.com`

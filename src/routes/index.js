@@ -37,7 +37,7 @@ export default {
     const route = await next();
 
     // Provide default values for title, description etc.
-    route.title = `${route.title || 'convospot dashboard'}`;
+    route.title = `${route.title || 'reflen dashboard'}`;
     route.description = route.description || '';
 
     return route;

@@ -1,14 +1,14 @@
 /*
  * Copyright (C) Reflen Inc.
  *
- * This file is part of convospot-console. The codes
+ * This file is part of reflen-console. The codes
  * can not be copied and/or distributed without permission
  *
  * @Author: homer
- * @Email: homer@convospot.io
+ * @Email: dev@reflen.com
  * @Date:   2017-11-05 19:34:16
- * @Last Modified by:   Michael
- * @Last Modified time: 2017-05-11
+ * @Last Modified by:   homer
+ * @Last Modified time: 2019-04-26 13:21:01
  */
 import React from 'react';
 import PropTypes from 'prop-types';

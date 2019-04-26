@@ -5,7 +5,7 @@
 module.exports = {
 	logLvl: "debug",
 
-	hashSalt: "ilikeconvospot",
+	hashSalt: "ilikereflen",
 
 	amqpConn: "amqp://guest:guest@localhost:5672/seneca",
 
@@ -26,7 +26,7 @@ module.exports = {
 		process.env.API_SUBSCRIPTION_URL ||
 		`ws://localhost:${process.env.PORT || 8003}`,
 
-	widgetUrl: "http://localhost:8005/convospot.js",
+	widgetUrl: "http://localhost:8005/index.js",
 
 	// API URL to be used in the server-side code
 	serverUrl:

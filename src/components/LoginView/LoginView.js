@@ -42,7 +42,7 @@ class LoginView extends React.Component {
         <div className={s.root}>
           <div className={s.container}>
             <h2 className={s.title}>{this.props.title}</h2>
-            <p className={s.lead}>to continue to convospot</p>
+            <p className={s.lead}>to continue to reflen</p>
             <p>{this.props.session.statusText}</p>
             <form>
               <div className={s.formGroup}>

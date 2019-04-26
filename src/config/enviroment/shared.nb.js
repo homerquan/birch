@@ -2,11 +2,11 @@
 
 //shared setting for FE and BE
 module.exports = {
-	appName: 'convospot-console',
-	tokenName: 'convospot-token',
+	appName: 'reflen-console',
+	tokenName: 'reflen-token',
 	sessionCookieName: 'convopsot-session-cookie',
 	runtimeCookieName: 'convopsot-runtime-cookie',
-	refreshTokenName: 'convospot-refresh-token',
+	refreshTokenName: 'reflen-refresh-token',
 	pollInterval: 3000,
 	userRoles: ['guest', 'user', 'admin'],
 	clientUrl: '__clientUrl',

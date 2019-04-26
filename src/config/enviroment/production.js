@@ -5,7 +5,7 @@
 module.exports = {
   logLvl: 'error',
 
-  hashSalt: 'ilikeconvospot',
+  hashSalt: 'ilikereflen',
 
   amqpConn: 'amqp://guest:guest@localhost:5672/seneca',
 
@@ -20,7 +20,7 @@ module.exports = {
   // API URL to be used in the server-side code
   serverUrl: process.env.API_SERVER_URL || `https://console-api.rl.business}`,
 
-  widgetUrl: 'https://widget.rl.business/convospot.js',
+  widgetUrl: 'https://widget.rl.business/index.js',
   
   // API URL for graphql subscription ws
   clientSubscriptionUrl: process.env.API_SUBSCRIPTION_URL || `wss://console-api.rl.business`
