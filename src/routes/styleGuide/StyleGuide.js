@@ -13,7 +13,7 @@ import { connect } from 'react-redux';
 import { Page, Section, LayoutProvider } from 'react-page-layout';
 import grids from '../../components/Layout/grids';
 import TitleBar from '../../components/TitleBar';
-import BotsList from '../../components/BotsList/BotsList';
+import AppsList from '../../components/AppsList/AppsList';
 import Activities from '../../components/Activities/Activities';
 
 class Home extends React.Component {
@@ -25,7 +25,7 @@ class Home extends React.Component {
             <TitleBar title="Style Guide" />
           </Section>
           <Section slot="main">
-            <BotsList clientId={this.props.session.userId} />
+            <AppsList clientId={this.props.session.userId} />
             <Activities />
           </Section>
         </Page>

@@ -8,7 +8,7 @@
  * @Email: dev@reflen.com
  * @Date:   2017-11-04 19:48:49
  * @Last Modified by:   homer
- * @Last Modified time: 2019-04-26 13:20:47
+ * @Last Modified time: 2019-05-01 10:11:34
  */
 
 import React from 'react';
@@ -55,10 +55,10 @@ class GridOneTwo extends React.Component {
           <Slot name="titleBar" />
           <ContentContainer>
             <MainContent>
-              <Slot name="main" style={{ width: '100%' }} />
+              <Slot name="col-1" style={{ width: '100%' }} />
             </MainContent>
             <Aside>
-              <Slot name="right" style={{ width: '100%' }} />
+              <Slot name="col-2" style={{ width: '100%' }} />
             </Aside>
           </ContentContainer>
         </div>

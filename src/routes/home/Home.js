@@ -19,7 +19,7 @@ import Slider from 'material-ui/Slider';
 
 import grids from '../../components/Layout/grids';
 import TitleBar from '../../components/TitleBar';
-import BotsList from '../../components/BotsList/BotsList';
+import AppsList from '../../components/AppsList/AppsList';
 import Activities from '../../components/Activities/Activities';
 
 import lightTheme from '../../components/theme';
@@ -39,52 +39,19 @@ const styles = {
   },
 };
 
-// class Home extends React.Component {
-//   render() {
-//     return (
-//       <MuiThemeProvider muiTheme={getMuiTheme(lightTheme)}>
-//         <LayoutProvider layouts={grids}>
-//           <Page layout="tabs">
-//             <Section slot="main">
-//               <Tabs>
-//                 <Tab label="Applications" style={{ backgroundColor: 'white', color: 'black' }}>
-//                   <div style={styles.container}>
-//                     <div style={styles.col}>
-//                       <BotsList clientId={this.props.session.userId} />
-//                     </div>
-//                   </div>
-//                 </Tab>
-//                 <Tab label="Activities" style={{ backgroundColor: 'white', color: 'black' }}>
-//                   <div style={styles.container}>
-//                     <div style={styles.col}>
-//                       <Activities />
-//                     </div>
-//                   </div>
-//                 </Tab>
-//               </Tabs>
-//             </Section>
-//           </Page>
-//         </LayoutProvider>
-//       </MuiThemeProvider>
-//     );
-//   }
-// }
 class Home extends React.Component {
   render() {
     return (
       <MuiThemeProvider muiTheme={getMuiTheme(lightTheme)}>
         <LayoutProvider layouts={grids}>
-          <Page layout="grid-one-three">
+          <Page layout="grid-one-two">
             <Section slot="titleBar">
               <TitleBar title="Dashboard" />
             </Section>
             <Section slot="col-1">
-              <BotsList clientId={this.props.session.userId} />
+              <AppsList clientId={this.props.session.userId} />
             </Section>
             <Section slot="col-2">
-              <BotsList clientId={this.props.session.userId} />
-            </Section>
-            <Section slot="col-3">
               <Activities />
             </Section>
           </Page>

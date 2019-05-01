@@ -21,10 +21,10 @@ import CodeIcon from 'material-ui/svg-icons/action/code';
 import { RCard, RCardHeader, RCardBody, RCardFooter } from '../styled/RCard';
 import PrimaryText from './PrimaryText';
 import lightTheme from '../theme';
-import s from './BotsList.css';
-import BotsListLoader from './BotsListLoader';
+import s from './AppsList.css';
+import AppsListLoader from './AppsListLoader';
 
-const botsQuery = gql`
+const appsListQuery = gql`
   query BotsFeed($clientId: String!) {
     botsFeed(clientId: $clientId) {
       bots(first:1) {
@@ -43,7 +43,7 @@ const botsQuery = gql`
   }
 `;
 
-class BotList extends React.Component {
+class AppsList extends React.Component {
   static propTypes = {
     data: PropTypes.object.isRequired,
   };
@@ -54,7 +54,7 @@ class BotList extends React.Component {
     const { data: { botsFeed } } = this.props;
 
     if (!botsFeed) {
-      return <BotsListLoader />;
+      return <AppsListLoader />;
     }
 
     return (
@@ -103,10 +103,10 @@ class BotList extends React.Component {
 
 export default withStyles(s)(
   compose(
-    graphql(botsQuery, {
+    graphql(appsListQuery, {
       options: props => ({
         variables: { clientId: props.clientId },
       }),
     }),
-  )(BotList),
+  )(AppsList),
 );
