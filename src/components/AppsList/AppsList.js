@@ -93,7 +93,7 @@ class AppsList extends React.Component {
           </RCardBody>
           <RCardFooter>
             <ArrowForward color={black} />
-            <p className="link-text">View all applications</p>
+            <a className="link-text" href="/apps">View all applications</a>
           </RCardFooter>
         </RCard>
       </MuiThemeProvider>

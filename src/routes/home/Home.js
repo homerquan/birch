@@ -7,36 +7,38 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
-import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { Page, Section, LayoutProvider } from 'react-page-layout';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import React from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { Page, Section, LayoutProvider } from "react-page-layout";
+import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
+import getMuiTheme from "material-ui/styles/getMuiTheme";
 
-import {Tabs, Tab} from 'material-ui/Tabs';
-import Slider from 'material-ui/Slider';
+import { Tabs, Tab } from "material-ui/Tabs";
+import Slider from "material-ui/Slider";
+import FlatButton from 'material-ui/FlatButton';
+import EditIcon from 'material-ui/svg-icons/image/edit';
 
-import grids from '../../components/Layout/grids';
-import TitleBar from '../../components/TitleBar';
-import AppsList from '../../components/AppsList/AppsList';
-import Activities from '../../components/Activities/Activities';
+import grids from "../../components/Layout/grids";
+import TitleBar from "../../components/TitleBar";
+import AppsList from "../../components/AppsList/AppsList";
+import Activities from "../../components/Activities/Activities";
 
-import lightTheme from '../../components/theme';
-import { RCard, RCardBody } from '../../components/styled/RCard';
+import lightTheme from "../../components/theme";
+import { RCard, RCardBody } from "../../components/styled/RCard";
 
 const styles = {
   container: {
-    maxWidth: '1200px',
-    margin: '0 auto',
-    marginTop: '20px',
+    maxWidth: "1200px",
+    margin: "0 auto",
+    marginTop: "20px"
   },
   col: {
     flex: 1,
     // maxWidth: '450px',
-    marginLeft: '8px',
-    marginRight: '8px',
-  },
+    marginLeft: "8px",
+    marginRight: "8px"
+  }
 };
 
 class Home extends React.Component {
@@ -46,7 +48,15 @@ class Home extends React.Component {
         <LayoutProvider layouts={grids}>
           <Page layout="grid-one-two">
             <Section slot="titleBar">
-              <TitleBar title="Dashboard" />
+              <TitleBar title="Dashboard">
+                <FlatButton
+                  label="Put Actions here"
+                  primary
+                  icon={<EditIcon style={{ width: "16px", height: "16px" }} />}
+                  style={{ height: "32px", lineHeight: "32px" }}
+                  labelStyle={{ fontSize: "12px" }}
+                />
+              </TitleBar>
             </Section>
             <Section slot="col-1">
               <AppsList clientId={this.props.session.userId} />
@@ -63,14 +73,17 @@ class Home extends React.Component {
 
 Home.propTypes = {
   session: PropTypes.shape({
-    userId: PropTypes.string,
-  }).isRequired,
+    userId: PropTypes.string
+  }).isRequired
 };
 
 function selectProps(state) {
   return {
-    session: state.session,
+    session: state.session
   };
 }
 
-export default connect(selectProps, null)(Home);
+export default connect(
+  selectProps,
+  null
+)(Home);

@@ -1,7 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import FlatButton from 'material-ui/FlatButton';
-import EditIcon from 'material-ui/svg-icons/image/edit';
 
 import { TitleContainer, Breadcrumbs } from '../styled/TitleBar';
 
@@ -22,13 +20,7 @@ class Title extends React.Component {
           </li>
         </Breadcrumbs>
         <div>
-          <FlatButton
-            label="Do Action"
-            primary
-            icon={<EditIcon style={{ width: '16px', height: '16px' }} />}
-            style={{ height: '32px', lineHeight: '32px' }}
-            labelStyle={{ fontSize: '12px' }}
-          />
+          {this.props.children}
         </div>
       </TitleContainer>
     );
