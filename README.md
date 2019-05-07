@@ -307,3 +307,4 @@ BIRCH.SIMULATE('SET_RUNTIME_VARIABLE',{
 * Server side rendering
 * Universal router
   * https://github.com/erikras/react-redux-universal-hot-example
+* Make an ad-hoc request e.g., login by graphql-request https://github.com/prisma/graphql-request
