@@ -1,8 +1,9 @@
-import React, { Component } from 'react';
+import _ from 'lodash';
+import React from 'react';
+import BaseComponent from '../BaseComponent';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { graphql, compose } from 'react-apollo';
-import _ from 'lodash';
 import gql from 'graphql-tag';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
@@ -18,30 +19,28 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Divider from 'material-ui/Divider';
 import Subheader from 'material-ui/Subheader';
 import Link from '../Link/Link';
-
 import lightTheme from '../theme';
 import s from './Notifications.css';
 import { ACTION_TYPES } from '../../constants';
 
 const NotificationsFeed = gql`
-  query NotificationsFeed($clientId: String) {
-    notificationsFeed(clientId: $clientId){
-      notifications(first:1, filter:["status=unread"]){
-        totalCount
-        edges {
-          node {
-            id
-            text
-            status
-          }
-        }
-        pageInfo{
-        hasNextPage
+query Notifications($userId: String) {
+  notificationConnection(first:10,filter:{_owner:$userId}) {
+     count
+      pageInfo {
+        startCursor
         endCursor
+      }
+      edges {
+        node {
+          _id
+          text
+          updatedAt
+          _owner
         }
       }
-    }
-  }
+  } 
+}
 `;
 
 const styles = {
@@ -92,13 +91,14 @@ const styles = {
   },
 };
 
-class Notifications extends Component {
+class Notifications extends BaseComponent {
+  
   static propTypes = {
     runtime: PropTypes.shape({
       NOTIFICATIONS_COUNT: PropTypes.number,
     }).isRequired,
     data: PropTypes.shape({
-      notificationsFeed: PropTypes.object,
+      notificationsConnection: PropTypes.object,
     }).isRequired,
   };
 
@@ -143,18 +143,15 @@ class Notifications extends Component {
     }, 1500);
   }
 
-  transform = data => (
-    _.map(data, 'node') // eslint-disable-line
-  );
-
   render() {
     const { isOpen } = this.state;
-    const { runtime, data: { notificationsFeed, loading } } = this.props;
-
+    const { runtime, data: { notificationConnection, loading } } = this.props;
+    
     if (loading) {
       return <div>loading</div>;
     }
 
+    // TBD: add grace error if notifications are empty
     return (
       <MuiThemeProvider muiTheme={getMuiTheme(lightTheme)}>
         <Badge
@@ -185,19 +182,19 @@ class Notifications extends Component {
             </div>
             <List style={styles.listStyle}>
               <Subheader style={styles.subHeaderStyle}>Recent</Subheader>
-              {notificationsFeed.notifications.edges
+               {notificationConnection.edges.length
                 ? (
-                  this.transform(notificationsFeed.notifications.edges).map((message, index) => (
-                    <div key={message.id}>
+                  this.transformConnectionNode(notificationConnection.edges).map((item, index) => (
+                    <div key={item.id}>
                       {index > 0 ? <Divider /> : ''}
                       <ListItem
                         leftAvatar={<Avatar backgroundColor={deepPurple500} icon={<CodeIcon />} />}
-                        secondaryText={<p>{message.text}</p>}
+                        secondaryText={<p>{item.text}</p>}
                         secondaryTextLines={2}
                       />
                     </div>
                   ))
-                ) : 'Loading...'
+                ) : 'No notification'
               }
             </List>
             <div className={s.footer}>
@@ -220,7 +217,7 @@ export default withStyles(s)(
   compose(
     graphql(NotificationsFeed, {
       options: props => ({
-        variables: { clientId: props.clientId },
+        variables: { userId: "507f1f77bcf86cd799439011"},
       }),
     }),
     connect(selectProps, null),
