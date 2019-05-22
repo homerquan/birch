@@ -21,8 +21,8 @@ import EditIcon from 'material-ui/svg-icons/image/edit';
 
 import grids from "../../components/Layout/grids";
 import TitleBar from "../../components/TitleBar";
-import AppsList from "../../components/AppsList/AppsList";
-import Activities from "../../components/Activities/Activities";
+import AppsList from "../../components/AppsList";
+import Activities from "../../components/Activities";
 
 import lightTheme from "../../components/theme";
 import { RCard, RCardBody } from "../../components/styled/RCard";
@@ -49,13 +49,6 @@ class Home extends React.Component {
           <Page layout="grid-one-two">
             <Section slot="titleBar">
               <TitleBar title="Dashboard">
-                <FlatButton
-                  label="Put Actions here"
-                  primary
-                  icon={<EditIcon style={{ width: "16px", height: "16px" }} />}
-                  style={{ height: "32px", lineHeight: "32px" }}
-                  labelStyle={{ fontSize: "12px" }}
-                />
               </TitleBar>
             </Section>
             <Section slot="col-1">

@@ -1,5 +1,5 @@
 import {createReducer} from '../utils';
-import {ACTION_TYPES} from '../constants';
+import CONSTANTS from '../constants';
 import jwtDecode from 'jwt-decode';
 import { Cookies } from 'react-cookie';
 import config from '../config';
@@ -18,12 +18,12 @@ const initialState = {
 
 export default function session(state = initialState, action) {
   switch(action.type) {
-    case ACTION_TYPES.LOGIN_USER_REQUEST:
+    case CONSTANTS.loginUserRequest:
   	  return Object.assign({}, state, {
             'isAuthenticating': true,
             'statusText': null
         });
-    case ACTION_TYPES.LOGIN_USER_SUCCESS:
+    case CONSTANTS.loginUserSuccess:
       const newState =  {
             'isAuthenticating': false,
             'isAuthenticated': true,
@@ -35,7 +35,7 @@ export default function session(state = initialState, action) {
       };
       cookies.set(config.sessionCookieName, JSON.stringify(newState), { path: '/', expires: 0 });
       return Object.assign({}, state, newState);
-    case ACTION_TYPES.LOGIN_USER_FAILURE:
+    case CONSTANTS.loginUserFailure:
       return Object.assign({}, state, {
             'isAuthenticating': false,
             'isAuthenticated': false,
@@ -45,7 +45,7 @@ export default function session(state = initialState, action) {
             'userRole': null,
             'statusText': `Authentication Error: ${action.payload.status} ${action.payload.statusText}`
         });
-    case ACTION_TYPES.LOGOUT_USER:
+    case CONSTANTS.logoutUser:
       cookies.remove(config.sessionCookieName);
       return Object.assign({}, state, {
             'isAuthenticated': false,

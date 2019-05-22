@@ -1,8 +1,8 @@
 /*
 * @Author: Homer
 * @Date:   2017-12-17 23:50:40
-* @Last Modified by:   Homer
-* @Last Modified time: 2018-01-05 23:39:55
+* @Last Modified by:   homer
+* @Last Modified time: 2019-05-22 17:47:57
 */
 
 import React from "react";
@@ -23,7 +23,7 @@ import {
   ToolbarSeparator,
   ToolbarTitle
 } from "material-ui/Toolbar";
-import s from "./KnowledgeView.css";
+import s from "./style.css";
 
 const knowledgeQuery = gql`
   query knowledgeQuery($clientId: String!, $botId: String!) {

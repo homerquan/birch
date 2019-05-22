@@ -17,8 +17,8 @@ import datatableTheme from '../../components/datatableTheme';
 
 import grids from '../../components/Layout/grids';
 import TitleBar from '../../components/TitleBar';
-import Account from '../../components/Account/Account';
-import Billing from '../../components/Billing/Billing';
+import Account from '../../components/Account';
+import Billing from '../../components/Billing';
 
 class AccountView extends React.Component {
   constructor(props) {

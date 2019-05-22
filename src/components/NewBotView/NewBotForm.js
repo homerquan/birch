@@ -4,7 +4,6 @@ import { RaisedButton } from 'material-ui';
 
 import { RCard, RCardBody } from '../styled/RCard';
 import { FormGroup } from '../styled/Forms';
-import RenderTextInput from '../Forms/RenderTextInput';
 
 class NewBotForm extends React.Component {
   render() {
@@ -26,8 +25,7 @@ class NewBotForm extends React.Component {
               <Field
                 name="url"
                 hintText="URL"
-                component={RenderTextInput}
-              />
+               />
             </FormGroup>
 
             <div>

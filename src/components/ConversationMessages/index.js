@@ -2,12 +2,12 @@
 * @Author: Homer
 * @Date:   2017-12-24 22:51:29
 * @Last Modified by:   homer
-* @Last Modified time: 2019-04-26 13:20:45
+* @Last Modified time: 2019-05-22 17:35:26
 */
 
-import React from "react";
+import BaseComponent from '../BaseComponent';
 
-class ConversationDrawer extends React.Component {
+class ConversationDrawer extends BaseComponent {
 
 	render() {
 		const { conversation, messages } = this.props;

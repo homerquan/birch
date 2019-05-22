@@ -15,7 +15,6 @@ import moment from 'moment';
 import Toggle from 'material-ui/Toggle';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-
 import s from './ConversationsTable.css';
 import datatableTheme from '../datatableTheme';
 

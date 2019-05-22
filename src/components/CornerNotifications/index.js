@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import FlatButton from 'material-ui/FlatButton';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 
-import s from './ReplyButtons.css';
+import s from './style.css';
 
 const ReplyButtons = ({ reply, archive }) => (
   <div className={s.notificationsButtonContainer}>

@@ -1,38 +1,39 @@
-import fetch from 'isomorphic-fetch';
+import { request } from 'graphql-request';
 import config from '../config';
-import { Query } from "react-apollo";
 
-class Session {  
+
+class Session {
   static login(credentials) {
-    const request = new Request(config.clientUrl+'/auth/local', {
-      method: 'POST',
-      headers: new Headers({
-        'Content-Type': 'application/json'
-      }), 
-      body: JSON.stringify(credentials)
-    });
-    
-    return fetch(request).then(response => {
-      return response.json();
-    }).catch(e => {
+    const query = `
+    mutation login($username:String!, $password: String!) {
+      login (username:$username,password:$password) {
+       token
+       refreshToken
+      }
+    }
+    `;
+    return request(config.clientUrl, query, credentials).then(
+      response => response.login,
+    ).catch((e) => {
       console.error(e);
     });
-  } 
+  }
 
   static refresh(refreshToken) {
-    const request = new Request(config.clientUrl+'/auth/local_refresh', {
-      method: 'POST',
-      headers: new Headers({
-        'Content-Type': 'application/json'
-      }), 
-      body: JSON.stringify({refreshToken})
+    const query = `
+    mutation refresh($refreshToken:String!) {
+      refresh (refreshToken:$refreshToken) {
+       token
+       refreshToken
+      }
+    }
+    `;
+    return request(config.clientUrl, query, {refreshToken}).then(
+      response => response.refresh,
+    ).catch((e) => {
+      console.error(e);
     });
-
-
-    return fetch(request).then(response => {
-      return response.json();
-    });
-  } 
+  }
 }
 
 export default Session;

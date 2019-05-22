@@ -7,7 +7,7 @@
  * @Email: dev@reflen.com
  * @Date:   2017-11-05 19:34:16
  * @Last Modified by:   homer
- * @Last Modified time: 2019-04-26 13:21:02
+ * @Last Modified time: 2019-05-22 18:13:21
  */
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -15,13 +15,12 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import { Page, Section, LayoutProvider } from 'react-page-layout';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-
 import lightTheme from '../../components/theme';
-import s from './ConversationDetailsView.css';
 import grids from '../../components/Layout/grids';
 import TitleBar from '../../components/TitleBar';
-import ConversationDetails from '../../components/ConversationDetails/ConversationDetails';
+import ConversationDetails from '../../components/ConversationDetails';
 import ConversationDetailsActivity from '../../components/ConversationDetails/ConversationDetailsActivity';
+import s from './style.css';
 
 const fakeConversation = {
   id: 'ddcd39c9-dcbc-4a26-bcf7-525d77c12d54',

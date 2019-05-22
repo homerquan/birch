@@ -2,7 +2,7 @@ import * as React from 'react';
 import NoSSR from 'react-no-ssr';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import RaisedButton from 'material-ui/RaisedButton';
-import storm from 'storm-react-diagrams/dist/style.min.css';
+import s from 'storm-react-diagrams/dist/style.min.css';
 import _ from 'lodash';
 
 import {
@@ -402,4 +402,4 @@ class ExperienceEditor extends React.Component {
   }
 }
 
-export default withStyles(storm)(ExperienceEditor);
+export default withStyles(s)(ExperienceEditor);

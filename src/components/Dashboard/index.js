@@ -7,7 +7,7 @@
  * @Email: dev@reflen.com
  * @Date:   2017-11-05 17:00:20
  * @Last Modified by:   homer
- * @Last Modified time: 2019-04-26 13:20:46
+ * @Last Modified time: 2019-05-22 17:40:51
  */
 import React from 'react';
 import { graphql, compose } from 'react-apollo';
@@ -16,7 +16,7 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import lightTheme from '../theme';
 import Paper from 'material-ui/Paper';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import s from './Dashboard.css';
+import s from './style.css';
 
 class Dashboard extends React.Component {
   render() {

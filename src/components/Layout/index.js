@@ -10,16 +10,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-
 // external-global styles must be imported in your JS.
 import normalizeCss from 'normalize.css';
-import s from './Layout.css';
 import Sidebar from '../Sidebar';
 import Header from '../Header';
 import Footer from '../Footer';
-import Console from '../Console/Console';
+import Console from '../Console';
 import AppLoading from '../AppLoading';
 import ErrorBoundry from '../ErrorBoundary';
+import s from './style.css';
 
 class Layout extends React.Component {
   static propTypes = {

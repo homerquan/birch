@@ -1,4 +1,5 @@
-import * as React from 'react';
+import React from 'react';
+import BaseComponent from '../BaseComponent';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -7,7 +8,6 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import { white, black, grey400, grey800 } from 'material-ui/styles/colors';
 import ArrowIcon from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
-
 import theme from '../theme';
 import { closeConsole } from '../../actions/console';
 
@@ -74,7 +74,7 @@ const Input = styled.input`
     }
 `;
 
-class Console extends React.Component {
+class Console extends BaseComponent {
   static propTypes = {
     isOpen: PropTypes.bool.isRequired,
     closeConsole: PropTypes.func.isRequired,

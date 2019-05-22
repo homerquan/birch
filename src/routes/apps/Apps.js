@@ -8,7 +8,7 @@
  * @Email: dev@reflen.com
  * @Date:   2017-11-05 19:34:16
  * @Last Modified by:   homer
- * @Last Modified time: 2019-04-26 13:21:01
+ * @Last Modified time: 2019-05-17 00:28:27
  */
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -19,12 +19,12 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
 import lightTheme from '../../components/theme';
-import s from './Bots.css';
+import s from './Apps.css';
 import grids from '../../components/Layout/grids';
 import TitleBar from '../../components/TitleBar';
-import BotsView from '../../components/BotsView';
+import AppsView from '../../components/AppsView';
 
-class Bots extends React.Component {
+class Apps extends React.Component {
   render() {
     return (
       <MuiThemeProvider muiTheme={getMuiTheme(lightTheme)}>
@@ -34,7 +34,7 @@ class Bots extends React.Component {
               <TitleBar title={this.props.title} />
             </Section>
             <Section slot="main">
-              <BotsView clientId={this.props.session.userId} />
+              <AppsView userId={this.props.session.userId} />
             </Section>
           </Page>
         </LayoutProvider>
@@ -43,7 +43,7 @@ class Bots extends React.Component {
   }
 }
 
-Bots.propTypes = {
+Apps.propTypes = {
   title: PropTypes.string.isRequired,
   session: PropTypes.shape({
     userId: PropTypes.string,
@@ -56,4 +56,4 @@ function selectProps(state) {
   };
 }
 
-export default withStyles(s)(connect(selectProps, null)(Bots));
+export default withStyles(s)(connect(selectProps, null)(Apps));

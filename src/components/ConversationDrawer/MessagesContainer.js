@@ -11,7 +11,7 @@ import Scroll from 'react-scroll';
 import _ from 'lodash';
 
 import s from './MessagesContainer.css';
-import { ACTION_TYPES } from '../../constants';
+import CONSTANTS from '../../constants';
 
 const Element = Scroll.Element;
 const scroll = Scroll.animateScroll;
@@ -154,7 +154,7 @@ class MessagesContainer extends Component {
             </div>
           </div>
 
-          {this.props.runtime[ACTION_TYPES.SHOW_CHAT_ERROR]
+          {this.props.runtime[CONSTANTS.showChatError]
             ? (
               <div className={s.messageErrorContainer}>
                 <p className={s.messageError}>
@@ -166,7 +166,7 @@ class MessagesContainer extends Component {
             ) : ''
           }
 
-          {this.props.runtime[ACTION_TYPES.SHOW_CHAT_BUBBLE]
+          {this.props.runtime[CONSTANTS.showChatBubble]
             ? (
               <img
                 className={s.messageTyping}

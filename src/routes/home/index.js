@@ -10,14 +10,18 @@
 import React from 'react';
 import Home from './Home';
 import Layout from '../../components/Layout';
+import { isLogin } from '../../utils';
 
 export default {
 
   path: '/',
   chunk: 'home',
-  action() {
-  // TODO: for MVP, add home overview later
-  // return { redirect: "/apps" };
+  action({ store, path }) {
+    const login = isLogin(store.getState());
+
+    if (!login) {
+      return { redirect: `/login?redirect=${path}` };
+    }
 
     return {
       title: 'reflen dashboard',

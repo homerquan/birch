@@ -19,7 +19,7 @@ class LoginView extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = { credentials: { email: '', password: '' } };
+    this.state = { credentials: { username: '', password: '' } };
     this.onChange = this.onChange.bind(this);
     this.loginHandler = this.loginHandler.bind(this);
   }
@@ -49,9 +49,9 @@ class LoginView extends React.Component {
                 <TextField
                   hintText="Username or email"
                   type="text"
-                  name="email"
+                  name="username"
                   autoFocus
-                  value={this.state.credentials.email}
+                  value={this.state.credentials.username}
                   onChange={this.onChange}
                 />
               </div>

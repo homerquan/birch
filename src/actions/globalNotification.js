@@ -1,8 +1,8 @@
-import { NOTIFICATION_TYPES } from '../constants';
+import CONSTANTS from '../constants';
 
 export function addGlobalNotification({ id, type, data }) {
   return {
-    type: NOTIFICATION_TYPES.ADD_GLOBAL_NOTIFICATION,
+    type: CONSTANTS.addGlobalNotification,
     payload: {
       id,
       type,
@@ -14,7 +14,7 @@ export function addGlobalNotification({ id, type, data }) {
 
 export function ignoreGlobalNotification({ id }) {
   return {
-    type: NOTIFICATION_TYPES.IGNORE_GLOBAL_NOTIFICATION,
+    type: CONSTANTS.ignoreGlobalNotification,
     payload: {
       id,
     },

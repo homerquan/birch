@@ -8,7 +8,7 @@
  * @Email: dev@reflen.com
  * @Date:   2017-11-05 17:00:20
  * @Last Modified by:   homer
- * @Last Modified time: 2019-04-26 13:20:39
+ * @Last Modified time: 2019-05-22 17:23:47
  */
 import React, { Component } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -23,10 +23,9 @@ import ArrowForward from 'material-ui/svg-icons/navigation/arrow-forward';
 import MoreVert from 'material-ui/svg-icons/navigation/more-vert';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
-
 import { RCard, RCardHeader, RCardBody, RCardFooter } from '../styled/RCard';
 import lightTheme from '../theme';
-import s from './Activities.css';
+import s from './style.css';
 import fakeData from './fakeData.json';
 import MessageListItem from '../MessageListItem/MessageListItem';
 import NotificationListItem from '../NotificationListItem/NotificationListItem';

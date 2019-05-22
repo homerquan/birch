@@ -1,7 +1,7 @@
 import * as React from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 
-import s from './AppLoading.css';
+import s from './style.css';
 
 const AppLoading = () => (
   <div className={s.loader}>

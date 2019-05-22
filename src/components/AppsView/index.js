@@ -1,11 +1,12 @@
 /*
 * @Author: Homer
 * @Date:   2017-12-17 23:50:40
-* @Last Modified by:   Homer
-* @Last Modified time: 2018-01-01 00:34:13
+* @Last Modified by:   homer
+* @Last Modified time: 2019-05-17 01:02:50
 */
 
 import React from 'react';
+import BaseComponent from '../BaseComponent';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -31,32 +32,32 @@ import { openSnackbar } from 'mui-redux-alerts-next';
 import datatableTheme from '../datatableTheme';
 import * as runtimeActions from '../../actions/runtime';
 import lightTheme from '../theme';
-import s from './BotsView.css';
+import s from './style.css';
 import NewApp from '../NewApp/NewApp';
 import CopyCodeModal from './CopyCodeModal';
 
-const botsQuery = gql`
-  query BotsFeed($clientId: String!) {
-    botsFeed(clientId: $clientId) {
-      bots(first:1) {
-        totalCount
-        edges {
-          cursor,
-          node{
-            id,
-            name,
-            host
-            embedCode,
-            mode,
-            updatedAt
-          }
+const appsQuery = gql`
+query Apps($userId: String) {
+  appConnection(first:10,filter:{_owner:$userId}) {
+     count
+      pageInfo {
+        startCursor
+        endCursor
+      }
+      edges {
+        node {
+          _id
+          name
+          token
+          updatedAt
+          _owner
         }
       }
-    }
-  }
+  } 
+}
 `;
 
-const tableColumns = (openCodeModal, selectBot) => ([
+const tableColumns = (openCodeModal, selectApp) => ([
   {
     key: 'name',
     label: 'Name',
@@ -84,7 +85,7 @@ const tableColumns = (openCodeModal, selectBot) => ([
     key: 'id',
     label: 'View',
     render: id => (
-      <IconButton onClick={() => selectBot(id)}>
+      <IconButton onClick={() => selectApp(id)}>
         <EyeIcon />
       </IconButton>
     ),
@@ -105,7 +106,7 @@ const tableColumns = (openCodeModal, selectBot) => ([
 
 const confirmCopy = { message: 'Embed code has been copied to your clipboard', autoHideDuration: 600000 };
 
-class BotsView extends React.Component {
+class AppsView extends BaseComponent {
   constructor(props) {
     super(props);
 
@@ -123,7 +124,7 @@ class BotsView extends React.Component {
     this.closeCodeModal = this.closeCodeModal.bind(this);
   }
 
-  selectBot = (conversationId) => {
+  selectApp = (conversationId) => {
     const conversations = this.transform(this.props.data.botsFeed.bots.edges);
     const selected = conversations.find(convo => convo.id === conversationId);
 
@@ -157,11 +158,9 @@ class BotsView extends React.Component {
     this.setState({ newAppModalIsOpen: true });
   }
 
-  transform = data => (_.map(data, 'node'));
-
   render() {
     const { newAppModalIsOpen, codeModalIsOpen, codeModalCode } = this.state;
-    const { botsFeed, loading, refetch } = this.props.data;
+    const { appConnection, loading, refetch } = this.props.data;
 
     if (loading) return <h1>Loading</h1>;
 
@@ -180,14 +179,14 @@ class BotsView extends React.Component {
             </ToolbarGroup>
           </Toolbar>
 
-          {botsFeed.bots && botsFeed.bots.totalCount > 0 ? (
+          {appConnection.edges.length && appConnection.count > 0 ? (
             <MuiThemeProvider muiTheme={getMuiTheme(datatableTheme)}>
               <DataTables
                 height={'auto'}
                 selectable={false}
                 showRowHover
-                columns={tableColumns(this.openCodeModal, this.selectBot)}
-                data={this.transform(botsFeed.bots.edges)}
+                columns={tableColumns(this.openCodeModal, this.selectApp)}
+                data={this.transformConnectionNode(appConnection.edges)}
                 showCheckboxes={false}
                 page={1}
                 count={100}
@@ -223,7 +222,7 @@ class BotsView extends React.Component {
   }
 }
 
-BotsView.propTypes = {
+AppsView.propTypes = {
   data: PropTypes.shape({
     loading: PropTypes.bool,
     refetch: PropTypes.func,
@@ -250,10 +249,11 @@ function mapDispatchToProps(dispatch) {
 
 export default withStyles(s)(
   compose(
-    graphql(botsQuery, {
+    graphql(appsQuery, {
       options: props => ({
-        variables: { clientId: props.clientId },
+        // variables: { userId: props.userId },
+        variables: { userId: '507f1f77bcf86cd799439011' },
       }),
     }),
-  )(connect(selectProps, mapDispatchToProps)(BotsView)),
+  )(connect(selectProps, mapDispatchToProps)(AppsView)),
 );

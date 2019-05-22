@@ -14,9 +14,8 @@ import Subheader from 'material-ui/Subheader';
 import { blue200, blue500, black } from 'material-ui/styles/colors';
 import AppsIcon from 'material-ui/svg-icons/navigation/apps';
 import IconButton from 'material-ui/IconButton';
-
-import s from './ConversationDetails.css';
 import { RCard, RCardHeader, RCardBody, RCardFooter } from '../styled/RCard';
+import s from './style.css';
 
 class ConversationDetails extends Component {
   render() {

@@ -21,7 +21,7 @@ import Subheader from 'material-ui/Subheader';
 import Link from '../Link/Link';
 import lightTheme from '../theme';
 import s from './Notifications.css';
-import { ACTION_TYPES } from '../../constants';
+import CONSTANTS from '../../constants';
 
 const NotificationsFeed = gql`
 query Notifications($userId: String) {
@@ -156,12 +156,12 @@ class Notifications extends BaseComponent {
       <MuiThemeProvider muiTheme={getMuiTheme(lightTheme)}>
         <Badge
           badgeContent={
-            runtime[ACTION_TYPES.NOTIFICATIONS_COUNT]
-              ? runtime[ACTION_TYPES.NOTIFICATIONS_COUNT]
+            runtime[CONSTANTS.notificationsCount]
+              ? runtime[CONSTANTS.notificationsCount]
               : 0
           }
           badgeStyle={
-            runtime[ACTION_TYPES.NOTIFICATIONS_COUNT] > 0
+            runtime[CONSTANTS.notificationsCount] > 0
             ? styles.badgeStyle
             : styles.hiddenStyle
           }

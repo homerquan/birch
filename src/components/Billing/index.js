@@ -9,10 +9,9 @@ import {
   TableRow,
   TableRowColumn,
 } from 'material-ui/Table';
-
-import s from './Billing.css';
 import AddCreditCardDialog from './AddCreditCardDialog';
 import InvoicesDialog from './InvoicesDialog';
+import s from './style.css';
 
 class Billing extends Component {
   constructor(props) {

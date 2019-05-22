@@ -1,4 +1,5 @@
-import * as React from 'react';
+import React from 'react';
+import BaseComponent from '../BaseComponent';
 import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import AppsIcon from 'material-ui/svg-icons/navigation/apps';
@@ -17,43 +18,42 @@ import _ from 'lodash';
 import Avatar from 'material-ui/Avatar';
 import Divider from 'material-ui/Divider';
 import CodeIcon from 'material-ui/svg-icons/action/code';
-
 import { RCard, RCardHeader, RCardBody, RCardFooter } from '../styled/RCard';
 import PrimaryText from './PrimaryText';
 import lightTheme from '../theme';
-import s from './AppsList.css';
 import AppsListLoader from './AppsListLoader';
+import s from './style.css';
 
 const appsListQuery = gql`
-  query BotsFeed($clientId: String!) {
-    botsFeed(clientId: $clientId) {
-      bots(first:1) {
-        totalCount
-        edges {
-          cursor,
-          node{
-            id,
-            name,
-            host
-            token
-          }
+query Apps($userId: String) {
+  appConnection(first:10,filter:{_owner:$userId}) {
+     count
+      pageInfo {
+        startCursor
+        endCursor
+      }
+      edges {
+        node {
+          _id
+          name
+          token
+          updatedAt
+          _owner
         }
       }
-    }
-  }
+  } 
+}
 `;
 
-class AppsList extends React.Component {
+class AppsList extends BaseComponent {
   static propTypes = {
     data: PropTypes.object.isRequired,
   };
 
-  transform = data => (_.map(data, 'node'));
-
   render() {
-    const { data: { botsFeed } } = this.props;
+    const { data: { appConnection, loading } } = this.props;
 
-    if (!botsFeed) {
+    if (!appConnection) {
       return <AppsListLoader />;
     }
 
@@ -78,12 +78,12 @@ class AppsList extends React.Component {
           </RCardHeader>
           <RCardBody>
             <List style={{ padding: 0 }}>
-              {this.transform(botsFeed.bots.edges).map((application, index, array) => (
-                <div key={application.id}>
+              {this.transformConnectionNode(appConnection.edges).map((item, index, array) => (
+                <div key={item.id}>
                   <ListItem
                     leftAvatar={<Avatar backgroundColor={deepPurple500} icon={<CodeIcon />} />}
-                    primaryText={<PrimaryText text={application.name} number={application.token} />}
-                    secondaryText={application.host}
+                    primaryText={<PrimaryText text={item.name} number={item.token} />}
+                    secondaryText={item.host}
                   />
                   { (array.length - 1) !== index ? <Divider /> : '' }
                 </div>
@@ -105,7 +105,7 @@ export default withStyles(s)(
   compose(
     graphql(appsListQuery, {
       options: props => ({
-        variables: { clientId: props.clientId },
+        variables: { userId: "507f1f77bcf86cd799439011" },
       }),
     }),
   )(AppsList),

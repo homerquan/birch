@@ -8,7 +8,7 @@
  * @Email: dev@reflen.com
  * @Date:   2017-11-05 17:00:20
  * @Last Modified by:   homer
- * @Last Modified time: 2019-04-26 13:20:46
+ * @Last Modified time: 2019-05-22 17:46:22
  */
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -23,7 +23,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import { ignoreGlobalNotification } from '../../actions/globalNotification';
 import lightTheme from '../theme';
-import s from './GlobalNotice.css';
+import s from './style.css';
 
 const styles = {
   noticeIcon: {

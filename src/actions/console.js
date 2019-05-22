@@ -1,8 +1,8 @@
-import { CONSOLE_TYPES } from '../constants';
+import CONSTANTS from '../constants';
 
 export function openConsole() {
   return {
-    type: CONSOLE_TYPES.OPEN_CONSOLE,
+    type: CONSTANTS.openConsole,
     payload: {
       isOpen: true,
     },
@@ -11,6 +11,6 @@ export function openConsole() {
 
 export function closeConsole() {
   return {
-    type: CONSOLE_TYPES.CLOSE_CONSOLE,
+    type: CONSTANTS.closeConsole,
   };
 }

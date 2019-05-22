@@ -4,7 +4,6 @@ import { RaisedButton } from 'material-ui';
 import styled from 'styled-components';
 
 import { FormGroup } from '../styled/Forms';
-import RenderTextInput from '../Forms/RenderTextInput';
 
 const Container = styled.div`
   display: flex;
@@ -30,7 +29,6 @@ const ResetPasswordForm = ({ handleSubmit, pristine, submitting, submit }) => (
           name="confirmPassword"
           hintText="Confirm Password"
           type="password"
-          component={RenderTextInput}
         />
       </FormGroup>
       <FormGroup>

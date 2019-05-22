@@ -1,8 +1,8 @@
 /*
 * @Author: Homer
 * @Date:   2017-12-17 23:50:40
-* @Last Modified by:   Homer
-* @Last Modified time: 2018-01-07 21:35:03
+* @Last Modified by:   homer
+* @Last Modified time: 2019-05-22 17:42:42
 */
 
 import React from "react";
@@ -11,8 +11,8 @@ import Paper from "material-ui/Paper";
 import { connect } from 'react-redux';
 import withStyles from "isomorphic-style-loader/lib/withStyles";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
-import s from "./Debug.css";
 import gql from "graphql-tag";
+import s from "./style.css";
 
 const allConversations = gql`
   query {

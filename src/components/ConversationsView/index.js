@@ -1,8 +1,8 @@
 /*
 * @Author: Homer
 * @Date:   2017-12-17 23:50:40
-* @Last Modified by:   Michael
-* @Last Modified time: 2018-05-09
+* @Last Modified by:   homer
+* @Last Modified time: 2019-05-22 18:03:26
 */
 
 import React, { Component } from 'react';
@@ -18,10 +18,10 @@ import IconButton from 'material-ui/IconButton';
 import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
 
 import lightTheme from '../theme';
-import s from './ConversationsView.css';
+import s from './style.css';
 // import config from '../../config';
 import ConversationsTable from './ConversationsTable';
-import ConversationDrawer from '../ConversationDrawer/ConversationDrawer';
+import ConversationDrawer from '../ConversationDrawer';
 
 const conversationsQuery = gql`
   query ConversationsQuery($clientId : String, $botId: String){

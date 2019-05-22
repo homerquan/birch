@@ -21,16 +21,15 @@ import IconButton from 'material-ui/IconButton';
 import ArrowIcon from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
 import HamburgerIcon from 'material-ui/svg-icons/image/dehaze';
 import { white } from 'material-ui/styles/colors';
-
 import theme from '../theme';
 import Loader from '../Loader';
 import GlobalNotice from '../GlobalNotice';
-import s from './Header.css';
 import Messages from './Messages';
 import Notifications from './Notifications';
 import { openConsole, closeConsole } from '../../actions/console';
 import SearchBox from './SearchBox';
 import { HeaderContainer, HeaderTitle } from '../styled/Header';
+import s from './style.css';
 
 const notificationStyle = {
   NotificationItem: { // Override the notification item

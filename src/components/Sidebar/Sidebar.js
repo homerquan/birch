@@ -33,7 +33,6 @@ import { connect } from 'react-redux';
 import s from './Sidebar.css';
 import logoUrl from './logo.png';
 import themeDark from '../themeDark';
-import logoMinUrl from './logo-min.png';
 
 const styles = {
   logo: {
@@ -98,7 +97,7 @@ class Sidebar extends React.Component {
                 style={styles.large}
                 onTouchTap={this.handleCloseButtonTouchTap}
               >
-                <img src={logoMinUrl} alt="logo" />
+                <img src={logoUrl} alt="logo" />
               </IconButton>
             </div>
             <div className={s.fixedButton}>
@@ -137,7 +136,7 @@ class Sidebar extends React.Component {
               style={styles.logo}
               onTouchTap={this.handleCloseButtonTouchTap}
             >
-              <img src={logoUrl} alt="reflen" />
+              <h2 className={s.logoText}>Platform Console</h2>
             </div>
             {selectedApp ? (
               <div>

@@ -1,12 +1,12 @@
-import { SET_RUNTIME_VARIABLE } from '../constants';
 import { Cookies } from 'react-cookie';
 import config from '../config';
+import CONSTANTS from '../constants';
 
 const cookies = new Cookies();
 
 export default function runtime(state = {}, action) {
   switch (action.type) {
-    case SET_RUNTIME_VARIABLE:
+    case CONSTANTS.setRuntimeVariable:
       const newState = {
         ...state,
         [action.payload.name]: action.payload.value,

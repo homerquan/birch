@@ -8,10 +8,10 @@
  * @Email: dev@reflen.com
  * @Date:   2017-11-05 19:36:24
  * @Last Modified by:   homer
- * @Last Modified time: 2019-04-26 13:21:02
+ * @Last Modified time: 2019-05-17 00:22:12
  */
 import React from 'react';
-import Bots from './Bots';
+import Apps from './Apps';
 import Layout from '../../components/Layout';
 import { isLogin } from '../../utils';
 
@@ -19,7 +19,7 @@ const title = 'Properties & Apps';
 
 export default {
   path: '/apps',
-  chunk: 'bots',
+  chunk: 'apps',
   action({ store, path }) {
     const login = isLogin(store.getState());
 
@@ -29,10 +29,10 @@ export default {
 
     return {
       title,
-      chunk: 'bots',
+      chunk: 'apps',
       component: (
         <Layout>
-          <Bots title={title} />
+          <Apps title={title} />
         </Layout>
       ),
     };

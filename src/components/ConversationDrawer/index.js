@@ -11,15 +11,14 @@ import SendIcon from 'material-ui/svg-icons/content/send';
 import { greenA700, grey900, white } from 'material-ui/styles/colors';
 import SchoolIcon from 'material-ui/svg-icons/social/school';
 import withWidth, { LARGE } from 'material-ui/utils/withWidth';
-
-import s from './ConversationDrawer.css';
 import MessagesContainer from './MessagesContainer';
 import ActionMenu from './ActionMenu';
 import CommandsList from './CommandList';
 import Training from '../Training/Training';
 import DecisionSupport from './DecisionSupport';
 import fakeData from './fakeData.json';
-import { ACTION_TYPES } from '../../constants';
+import CONSTANTS from '../../constants';
+import s from './style.css';
 
 const conversationQuery = gql`
   query Conversation($conversationId: String){
@@ -363,7 +362,7 @@ class ConversationDrawerTwo extends Component {
 
             <div style={styles.conversationContainer}>
               <DecisionSupport
-                isOpen={this.props.runtime[ACTION_TYPES.OPEN_DECISION_SUPPORT]}
+                isOpen={this.props.runtime[CONSTANTS.openDecisionSupport]}
                 enableTraining={this.state.enableTraining}
                 openTraining={this.handleTrainingIsOpenToggle}
               />

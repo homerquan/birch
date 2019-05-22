@@ -1,21 +1,21 @@
-import { ACTION_TYPES } from "../constants";
-import jwtDecode from "jwt-decode";
-import fetch from "isomorphic-fetch";
-import SessionApi from "../api/Session";
-import { checkHttpStatus, parseJSON } from "../utils";
+import jwtDecode from 'jwt-decode';
+import fetch from 'isomorphic-fetch';
+import SessionApi from '../api/Session';
+import { checkHttpStatus, parseJSON } from '../utils';
 import config from '../config';
+import CONSTANTS from '../constants';
 
-export function loginUserSuccess(token,refreshToken, userId, userRole) {
+export function loginUserSuccess(token, refreshToken, userId, userRole) {
   sessionStorage.setItem(config.tokenName, token);
   sessionStorage.setItem(config.refreshTokenName, refreshToken);
   return {
-    type: ACTION_TYPES.LOGIN_USER_SUCCESS,
+    type: CONSTANTS.loginUserSuccess,
     payload: {
       token,
       refreshToken,
       userId,
       userRole,
-    }
+    },
   };
 }
 
@@ -23,17 +23,17 @@ export function loginUserFailure(error) {
   sessionStorage.removeItem(config.tokenName);
   sessionStorage.removeItem(config.refreshTokenName);
   return {
-    type: ACTION_TYPES.LOGIN_USER_FAILURE,
+    type: CONSTANTS.loginUserFailure,
     payload: {
       status: error.response.status,
-      statusText: error.response.statusText
-    }
+      statusText: error.response.statusText,
+    },
   };
 }
 
 export function loginUserRequest() {
   return {
-    type: ACTION_TYPES.LOGIN_USER_REQUEST
+    type: CONSTANTS.loginUserRequest,
   };
 }
 
@@ -41,48 +41,48 @@ export function logout() {
   sessionStorage.removeItem(config.tokenName);
   sessionStorage.removeItem(config.refreshTokenName);
   return {
-    type: ACTION_TYPES.LOGOUT_USER
+    type: CONSTANTS.logoutUser,
   };
 }
 
 export function logoutAndRedirect() {
   return (dispatch, state) => {
     dispatch(logout());
-    window.location.replace("/login"); 
+    window.location.replace('/login');
   };
 }
 
-export function loginUser(credentials, redirect = "/") {
-  return function(dispatch) {
+export function loginUser(credentials, redirect = '/') {
+  return function (dispatch) {
     dispatch(loginUserRequest());
     return SessionApi.login(credentials)
-      .then(response => {
+      .then((response) => {
         try {
           const decoded = jwtDecode(response.token);
           dispatch(loginUserSuccess(response.token, response.refreshToken, decoded._id, decoded.role));
-          window.location.replace(redirect); 
+          window.location.replace(redirect);
         } catch (e) {
           dispatch(
             loginUserFailure({
               response: {
                 status: 403,
-                statusText: "Invalid token"
-              }
-            })
+                statusText: 'Invalid token',
+              },
+            }),
           );
         }
       })
-      .catch(error => {
+      .catch((error) => {
         dispatch(loginUserFailure(error));
       });
   };
 }
 
 export function refreshLogin(refreshToken) {
-  return function(dispatch) {
+  return function (dispatch) {
     dispatch(loginUserRequest());
     return SessionApi.refresh(refreshToken)
-      .then(response => {
+      .then((response) => {
         try {
           const decoded = jwtDecode(response.token);
           dispatch(loginUserSuccess(response.token, response.refreshToken, decoded._id, decoded.role));
@@ -91,13 +91,13 @@ export function refreshLogin(refreshToken) {
             loginUserFailure({
               response: {
                 status: 403,
-                statusText: "Invalid token"
-              }
-            })
+                statusText: 'Invalid token',
+              },
+            }),
           );
         }
       })
-      .catch(error => {
+      .catch((error) => {
         dispatch(loginUserFailure(error));
       });
   };
@@ -105,16 +105,16 @@ export function refreshLogin(refreshToken) {
 
 export function receiveProtectedData(data) {
   return {
-    type: ACTION_TYPES.RECEIVE_PROTECTED_DATA,
+    type: CONSTANTS.receiveProtectedData,
     payload: {
-      data
-    }
+      data,
+    },
   };
 }
 
 export function fetchProtectedDataRequest() {
   return {
-    type: ACTION_TYPES.FETCH_PROTECTED_DATA_REQUEST
+    type: CONSTANTS.fetchProtectedDataRequest,
   };
 }
 

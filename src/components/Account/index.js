@@ -4,8 +4,7 @@ import TextField from 'material-ui/TextField';
 import Avatar from 'material-ui/Avatar';
 import RaisedButton from 'material-ui/RaisedButton';
 import Divider from 'material-ui/Divider';
-
-import s from './Account.css';
+import s from './style.css';
 
 const profileInputStyle = {
   display: 'block',

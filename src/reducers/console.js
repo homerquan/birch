@@ -1,4 +1,4 @@
-import { CONSOLE_TYPES } from '../constants';
+import CONSTANTS from '../constants';
 
 const initialState = {
   isOpen: false,
@@ -6,9 +6,9 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case CONSOLE_TYPES.OPEN_CONSOLE:
+    case CONSTANTS.openConsole:
       return action.payload;
-    case CONSOLE_TYPES.CLOSE_CONSOLE:
+    case CONSTANTS.closeConsole:
       return { isOpen: false };
     default:
       return state;
