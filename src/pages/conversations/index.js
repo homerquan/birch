@@ -33,14 +33,6 @@ class ConversationsPage extends React.Component {
   }
 }
 
-ConversationsPage.propTypes = {
-  title: PropTypes.string.isRequired,
-  appId: PropTypes.string.isRequired,
-  session: PropTypes.shape({
-    userId: PropTypes.string,
-  }).isRequired,
-};
-
 function selectProps(state) {
   return {
     session: state.session,

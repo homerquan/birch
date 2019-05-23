@@ -8,7 +8,7 @@
  * @Email: dev@reflen.com
  * @Date:   2017-11-05 19:34:16
  * @Last Modified by:   homer
- * @Last Modified time: 2019-05-23 02:57:11
+ * @Last Modified time: 2019-05-23 03:13:14
  */
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -42,12 +42,6 @@ class Apps extends React.Component {
     );
   }
 }
-
-Apps.propTypes = {
-  session: PropTypes.shape({
-    userId: PropTypes.string,
-  }).isRequired,
-};
 
 function selectProps(state) {
   return {

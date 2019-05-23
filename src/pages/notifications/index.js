@@ -38,12 +38,6 @@ class NotificationsPage extends Component {
   }
 }
 
-NotificationsPage.propTypes = {
-  session: PropTypes.shape({
-    userId: PropTypes.string,
-  }).isRequired,
-};
-
 function selectProps(state) {
   return {
     session: state.session,
