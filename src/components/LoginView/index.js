@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import withStyles from "isomorphic-style-loader/lib/withStyles";
-import s from "./LoginView.css";
 import TextField from "material-ui/TextField";
 import RaisedButton from "material-ui/RaisedButton";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
@@ -11,6 +10,7 @@ import theme from "../theme";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import * as sessionActions from "../../actions/session";
+import s from "./style.css";
 
 class LoginView extends React.Component {
   static propTypes = {

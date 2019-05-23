@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { compose } from 'react-apollo';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 
-import s from './Title.css';
+import s from './style.css';
 
 class Title extends React.Component {
   static propTypes = {

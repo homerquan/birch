@@ -2,7 +2,7 @@
 * @Author: Homer
 * @Date:   2017-12-17 23:50:40
 * @Last Modified by:   homer
-* @Last Modified time: 2019-05-17 01:02:50
+* @Last Modified time: 2019-05-23 01:26:21
 */
 
 import React from 'react';
@@ -28,12 +28,11 @@ import {
   ToolbarGroup,
 } from 'material-ui/Toolbar';
 import { openSnackbar } from 'mui-redux-alerts-next';
-
 import datatableTheme from '../datatableTheme';
 import * as runtimeActions from '../../actions/runtime';
 import lightTheme from '../theme';
 import s from './style.css';
-import NewApp from '../NewApp/NewApp';
+import NewApp from '../NewApp';
 import CopyCodeModal from './CopyCodeModal';
 
 const appsQuery = gql`
@@ -251,8 +250,7 @@ export default withStyles(s)(
   compose(
     graphql(appsQuery, {
       options: props => ({
-        // variables: { userId: props.userId },
-        variables: { userId: '507f1f77bcf86cd799439011' },
+        variables: { userId: props.userId },
       }),
     }),
   )(connect(selectProps, mapDispatchToProps)(AppsView)),

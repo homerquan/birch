@@ -17,9 +17,9 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import lightTheme from '../../components/theme';
 import grids from '../../components/Layout/grids';
 import TitleBar from '../../components/TitleBar';
-import Notifications from '../../components/Notifications/Notifications';
+import NotificationsView from '../../components/NotificationsView';
 
-class NotificationsView extends Component {
+class NotificationsPage extends Component {
   render() {
     return (
       <MuiThemeProvider muiTheme={getMuiTheme(lightTheme)}>
@@ -29,7 +29,7 @@ class NotificationsView extends Component {
               <TitleBar title="Notifications" />
             </Section>
             <Section slot="col-1">
-              <Notifications clientId={this.props.session.userId} />
+              <NotificationsView clientId={this.props.session.userId} />
             </Section>
           </Page>
         </LayoutProvider>
@@ -38,7 +38,7 @@ class NotificationsView extends Component {
   }
 }
 
-NotificationsView.propTypes = {
+NotificationsPage.propTypes = {
   session: PropTypes.shape({
     userId: PropTypes.string,
   }).isRequired,
@@ -50,4 +50,4 @@ function selectProps(state) {
   };
 }
 
-export default connect(selectProps, null)(NotificationsView);
+export default connect(selectProps, null)(NotificationsPage);

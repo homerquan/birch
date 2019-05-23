@@ -9,7 +9,7 @@
 
 import React from 'react';
 import BlankScreen from '../../components/Layout/BlankScreen';
-import Register from './Register';
+import Register from '../../pages/register';
 
 const title = 'New User Registration';
 

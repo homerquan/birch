@@ -17,11 +17,9 @@ import IconMenu from 'material-ui/IconMenu';
 import IconButton from 'material-ui/IconButton';
 import MoreVert from 'material-ui/svg-icons/navigation/more-vert';
 import MenuItem from 'material-ui/MenuItem';
-
-import s from './Notifications.css';
-
 import { RCard, RCardHeader, RCardBody, RCardFooter } from '../styled/RCard';
 import lightTheme from '../theme';
+import s from './style.css';
 
 const NotificationsFeed = gql`
   query NotificationsFeed($clientId: String) {

@@ -2,7 +2,7 @@
 * @Author: Homer
 * @Date:   2017-12-17 23:50:40
 * @Last Modified by:   homer
-* @Last Modified time: 2019-05-22 18:03:26
+* @Last Modified time: 2019-05-22 23:51:57
 */
 
 import React, { Component } from 'react';
@@ -16,16 +16,15 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import ReloadIcon from 'react-material-icons/icons/action/cached';
 import IconButton from 'material-ui/IconButton';
 import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
-
 import lightTheme from '../theme';
 import s from './style.css';
-// import config from '../../config';
+import config from '../../config';
 import ConversationsTable from './ConversationsTable';
 import ConversationDrawer from '../ConversationDrawer';
 
 const conversationsQuery = gql`
-  query ConversationsQuery($clientId : String, $botId: String){
-    conversationsFeed(clientId : $clientId, botId: $botId) {
+  query ConversationsQuery($clientId : String, $appId: String){
+    conversationsFeed(clientId : $clientId, appId: $appId) {
       conversations(first:1){
         edges {
           cursor
@@ -179,8 +178,8 @@ export default withStyles(s)(
     graphql(updateConversationPinToTop),
     graphql(conversationsQuery, {
       options: props => ({
-        variables: { clientId: props.clientId, botId: props.botId },
-        // pollInterval: config.pollInterval
+        variables: { clientId: props.clientId, appId: props.appId },
+        pollInterval: config.pollInterval
       }),
     }),
   )(ConversationsView),

@@ -2,5 +2,5 @@
   "name": "NewBotView",
   "version": "0.0.0",
   "private": true,
-  "main": "./NewBotView.js"
+  "main": "./index.js"
 }

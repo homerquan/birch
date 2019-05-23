@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 
 import * as sessionActions from '../../actions/session';
 import theme from '../theme';
-import s from './ProfileView.css';
+import s from './style.css';
 
 class ProfileView extends React.Component {
   static propTypes = {

@@ -13,8 +13,7 @@ import CodeIcon from 'material-ui/svg-icons/action/code';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Divider from 'material-ui/Divider';
 import Subheader from 'material-ui/Subheader';
-import Link from '../Link/Link';
-
+import Link from '../Link';
 import lightTheme from '../theme';
 import s from './Messages.css';
 import fakeData from './fakeMessages.json';

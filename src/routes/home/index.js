@@ -8,7 +8,7 @@
  */
 
 import React from 'react';
-import Home from './Home';
+import Home from '../../pages/home';
 import Layout from '../../components/Layout';
 import { isLogin } from '../../utils';
 

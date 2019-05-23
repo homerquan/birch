@@ -6,13 +6,12 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import lightTheme from '../../components/theme';
-import s from './Conversations.css';
 import TitleBar from '../../components/TitleBar';
 import grids from '../../components/Layout/grids';
 import ConversationsView from '../../components/ConversationsView';
-import fakeData from './fakeData.json';
+import s from './style.css';
 
-class Conversations extends React.Component {
+class ConversationsPage extends React.Component {
   render() {
     return (
       <MuiThemeProvider muiTheme={getMuiTheme(lightTheme)}>
@@ -24,8 +23,7 @@ class Conversations extends React.Component {
             <Section slot="main">
               <ConversationsView
                 clientId={this.props.session.userId}
-                botId={this.props.botId}
-                data={fakeData}
+                appId={this.props.appId}
               />
             </Section>
           </Page>
@@ -35,9 +33,9 @@ class Conversations extends React.Component {
   }
 }
 
-Conversations.propTypes = {
+ConversationsPage.propTypes = {
   title: PropTypes.string.isRequired,
-  botId: PropTypes.string.isRequired,
+  appId: PropTypes.string.isRequired,
   session: PropTypes.shape({
     userId: PropTypes.string,
   }).isRequired,
@@ -49,4 +47,4 @@ function selectProps(state) {
   };
 }
 
-export default withStyles(s)(connect(selectProps, null)(Conversations));
+export default withStyles(s)(connect(selectProps, null)(ConversationsPage));

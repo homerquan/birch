@@ -8,7 +8,7 @@
  * @Email: dev@reflen.com
  * @Date:   2017-11-05 19:34:16
  * @Last Modified by:   homer
- * @Last Modified time: 2019-05-17 00:28:27
+ * @Last Modified time: 2019-05-23 01:33:58
  */
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -17,15 +17,16 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import { Page, Section, LayoutProvider } from 'react-page-layout';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-
 import lightTheme from '../../components/theme';
-import s from './Apps.css';
 import grids from '../../components/Layout/grids';
 import TitleBar from '../../components/TitleBar';
 import AppsView from '../../components/AppsView';
+import s from './style.css';
 
 class Apps extends React.Component {
+
   render() {
+    const userId = this.props.session.userId;
     return (
       <MuiThemeProvider muiTheme={getMuiTheme(lightTheme)}>
         <LayoutProvider layouts={grids}>
@@ -34,7 +35,7 @@ class Apps extends React.Component {
               <TitleBar title={this.props.title} />
             </Section>
             <Section slot="main">
-              <AppsView userId={this.props.session.userId} />
+              <AppsView userId={userId} />
             </Section>
           </Page>
         </LayoutProvider>

@@ -21,7 +21,7 @@ export default {
       chunk: 'knowledge',
       component: (
         <Layout>
-          <Knowledge title={title} botId={params.id} />
+          <Knowledge title={title} appId={params.id} />
         </Layout>
       ),
     };

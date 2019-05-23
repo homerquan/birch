@@ -8,7 +8,7 @@
  */
 
 import React from 'react';
-import Notifications from './Notifications';
+import Notifications from '../../pages/notifications';
 import Layout from '../../components/Layout';
 import { isLogin } from '../../utils';
 

@@ -1,17 +1,17 @@
 /*
 * @Author: Homer
 * @Date:   2017-12-31 16:47:27
-* @Last Modified by:   Homer
-* @Last Modified time: 2018-01-01 00:38:16
+* @Last Modified by:   homer
+* @Last Modified time: 2019-05-22 23:19:30
 */
 
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import s from './NewBotView.css';
 import { graphql, compose, withApollo } from 'react-apollo';
 import gql from 'graphql-tag';
 import NewBotForm from './NewBotForm';
+import s from './style.css';
 
 const createBotQuery = gql`
   mutation createBotQuery($clientId: String!, $name: String!, $url: String!) {

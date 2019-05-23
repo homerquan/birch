@@ -104,8 +104,8 @@ class AppsList extends BaseComponent {
 export default withStyles(s)(
   compose(
     graphql(appsListQuery, {
-      options: props => ({
-        variables: { userId: "507f1f77bcf86cd799439011" },
+      options: (props) => ({
+        variables: { userId: props.userId },
       }),
     }),
   )(AppsList),

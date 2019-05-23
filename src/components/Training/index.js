@@ -5,7 +5,7 @@ import classnames from 'classnames';
 import RaisedButton from 'material-ui/RaisedButton';
 import storm from 'storm-react-diagrams/dist/style.min.css';
 
-import s from './Training.css';
+import s from './style.css';
 
 class Training extends Component {
   constructor(props) {
@@ -122,22 +122,3 @@ Training.propTypes = {
 };
 
 export default withStyles(storm, s)(Training);
-
-
-// “query {
-//   ConversationsFeed(clientId:“abc”,botId:“123") {
-//     conversations(first:1,last:10){
-//       totalCount
-//       edges{
-//         node {
-//           id
-//           client
-//         }
-//       }
-//   pageInfo{
-//   hasNextPage
-//   endCursor
-//   }
-//   }
-//   }
-//   }”

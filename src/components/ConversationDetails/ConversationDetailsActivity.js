@@ -8,7 +8,7 @@
  * @Email: dev@reflen.com
  * @Date:   2017-11-05 17:00:20
  * @Last Modified by:   homer
- * @Last Modified time: 2019-04-26 13:20:43
+ * @Last Modified time: 2019-05-22 23:10:51
  */
 import React, { Component } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
@@ -24,8 +24,8 @@ import MenuItem from 'material-ui/MenuItem';
 
 import s from './ConversationDetailsActivity.css';
 import fakeData from './fakeData.json';
-import MessageListItem from '../MessageListItem/MessageListItem';
-import NotificationListItem from '../NotificationListItem/NotificationListItem';
+import MessageListItem from '../MessageListItem';
+import NotificationListItem from '../NotificationListItem';
 import ConversationDetailsLoader from './ConversationDetailsLoader';
 import { RCard, RCardHeader, RCardBody, RCardFooter } from '../styled/RCard';
 

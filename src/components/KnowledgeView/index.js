@@ -2,7 +2,7 @@
 * @Author: Homer
 * @Date:   2017-12-17 23:50:40
 * @Last Modified by:   homer
-* @Last Modified time: 2019-05-22 17:47:57
+* @Last Modified time: 2019-05-22 23:41:40
 */
 
 import React from "react";
@@ -26,8 +26,8 @@ import {
 import s from "./style.css";
 
 const knowledgeQuery = gql`
-  query knowledgeQuery($clientId: String!, $botId: String!) {
-    knowledge(clientId: $clientId, botId: $botId) {
+  query knowledgeQuery($clientId: String!, $appId: String!) {
+    knowledge(clientId: $clientId, appId: $appId) {
       id
       raw
       text
@@ -42,9 +42,9 @@ const updateKnowledgeQuery = gql`
   mutation updateKnowledgeQuery(
     $text: String!
     $clientId: String!
-    $botId: String!
+    $appId: String!
   ) {
-    updateKnowledge(text: $text, clientId: $clientId, botId: $botId) {
+    updateKnowledge(text: $text, clientId: $clientId, appId: $appId) {
       id
       raw
       text
@@ -67,7 +67,7 @@ class KnowledgeView extends React.Component {
     mutate({
       variables: {
         clientId: this.props.clientId,
-        botId: this.props.botId,
+        appId: this.props.appId,
         text: this.state.knowledgeText
       }
     });
@@ -115,7 +115,7 @@ export default withStyles(s)(
   compose(
     graphql(knowledgeQuery, {
       options: props => ({
-        variables: { clientId: props.clientId, botId: props.botId }
+        variables: { clientId: props.clientId, appId: props.appId }
       })
     }),
     graphql(updateKnowledgeQuery, {

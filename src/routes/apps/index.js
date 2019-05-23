@@ -8,10 +8,10 @@
  * @Email: dev@reflen.com
  * @Date:   2017-11-05 19:36:24
  * @Last Modified by:   homer
- * @Last Modified time: 2019-05-17 00:22:12
+ * @Last Modified time: 2019-05-23 01:28:06
  */
 import React from 'react';
-import Apps from './Apps';
+import Apps from '../../pages/apps';
 import Layout from '../../components/Layout';
 import { isLogin } from '../../utils';
 

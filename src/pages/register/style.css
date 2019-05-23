@@ -48,3 +48,14 @@
     justify-content: center;
   }
 }
+
+.marketing {
+    width: 75%;
+}
+
+
+@media only screen and (max-width: 768px) {
+    .marketing {
+      width: 100%;
+    }
+  }

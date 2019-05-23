@@ -13,7 +13,7 @@ import KnowledgeView from '../../components/KnowledgeView';
 class Knowledge extends React.Component {
   static propTypes = {
     title: PropTypes.string.isRequired,
-    botId: PropTypes.string.isRequired,
+    appId: PropTypes.string.isRequired,
     session: PropTypes.shape({
       isAuthenticated: PropTypes.bool.isRequired,
       isAuthenticating: PropTypes.bool.isRequired,
@@ -35,7 +35,7 @@ class Knowledge extends React.Component {
           <Section slot="main">
             <KnowledgeView
               clientId={this.props.session.userId}
-              botId={this.props.botId}
+              appId={this.props.appId}
             />
           </Section>
         </Page>

@@ -1,5 +1,5 @@
 import React from 'react';
-import Conversations from './Conversations';
+import Conversations from '../../pages/conversations';
 import Layout from '../../components/Layout';
 import { isLogin } from '../../utils';
 
@@ -22,7 +22,7 @@ export default {
         <Layout>
           <Conversations
             title={title}
-            botId={params.id}
+            appId={params.id}
           />
         </Layout>
       ),

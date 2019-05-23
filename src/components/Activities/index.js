@@ -8,7 +8,7 @@
  * @Email: dev@reflen.com
  * @Date:   2017-11-05 17:00:20
  * @Last Modified by:   homer
- * @Last Modified time: 2019-05-22 17:23:47
+ * @Last Modified time: 2019-05-22 22:57:10
  */
 import React, { Component } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -27,8 +27,8 @@ import { RCard, RCardHeader, RCardBody, RCardFooter } from '../styled/RCard';
 import lightTheme from '../theme';
 import s from './style.css';
 import fakeData from './fakeData.json';
-import MessageListItem from '../MessageListItem/MessageListItem';
-import NotificationListItem from '../NotificationListItem/NotificationListItem';
+import MessageListItem from '../MessageListItem';
+import NotificationListItem from '../NotificationListItem';
 import ActivitiesContentLoader from './ActivitiesContentLoader';
 
 class Activities extends Component {

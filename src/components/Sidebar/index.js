@@ -29,10 +29,9 @@ import ConversationsIcon from 'react-icons/lib/md/chat';
 import PluginsIcon from 'react-icons/lib/md/developer-board';
 import ExperienceIcon from 'react-icons/lib/md/grain';
 import { connect } from 'react-redux';
-
-import s from './Sidebar.css';
 import logoUrl from './logo.png';
 import themeDark from '../themeDark';
+import s from './style.css';
 
 const styles = {
   logo: {

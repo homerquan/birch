@@ -5,7 +5,7 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 
-import s from './RegisterForm.css';
+import s from './style.css';
 import theme from '../theme';
 
 class Register extends React.Component {

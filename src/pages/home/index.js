@@ -13,19 +13,15 @@ import { connect } from "react-redux";
 import { Page, Section, LayoutProvider } from "react-page-layout";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import getMuiTheme from "material-ui/styles/getMuiTheme";
-
 import { Tabs, Tab } from "material-ui/Tabs";
 import Slider from "material-ui/Slider";
 import FlatButton from 'material-ui/FlatButton';
 import EditIcon from 'material-ui/svg-icons/image/edit';
-
 import grids from "../../components/Layout/grids";
 import TitleBar from "../../components/TitleBar";
 import AppsList from "../../components/AppsList";
 import Activities from "../../components/Activities";
-
 import lightTheme from "../../components/theme";
-import { RCard, RCardBody } from "../../components/styled/RCard";
 
 const styles = {
   container: {
@@ -41,7 +37,7 @@ const styles = {
   }
 };
 
-class Home extends React.Component {
+class HomePage extends React.Component {
   render() {
     return (
       <MuiThemeProvider muiTheme={getMuiTheme(lightTheme)}>
@@ -52,7 +48,7 @@ class Home extends React.Component {
               </TitleBar>
             </Section>
             <Section slot="col-1">
-              <AppsList clientId={this.props.session.userId} />
+              <AppsList userId={this.props.session.userId} />
             </Section>
             <Section slot="col-2">
               <Activities />
@@ -64,7 +60,7 @@ class Home extends React.Component {
   }
 }
 
-Home.propTypes = {
+HomePage.propTypes = {
   session: PropTypes.shape({
     userId: PropTypes.string
   }).isRequired
@@ -79,4 +75,4 @@ function selectProps(state) {
 export default connect(
   selectProps,
   null
-)(Home);
+)(HomePage);

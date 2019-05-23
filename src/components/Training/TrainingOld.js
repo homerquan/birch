@@ -102,22 +102,3 @@ Training.propTypes = {
 };
 
 export default withStyles(storm, s)(Training);
-
-
-// “query {
-//   ConversationsFeed(clientId:“abc”,botId:“123") {
-//     conversations(first:1,last:10){
-//       totalCount
-//       edges{
-//         node {
-//           id
-//           client
-//         }
-//       }
-//   pageInfo{
-//   hasNextPage
-//   endCursor
-//   }
-//   }
-//   }
-//   }”

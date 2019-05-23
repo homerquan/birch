@@ -5,11 +5,10 @@ import { List, ListItem } from 'material-ui/List';
 import CheckCircleIcon from 'material-ui/svg-icons/action/check-circle';
 import RadioButtonChecked from 'material-ui/svg-icons/toggle/radio-button-checked';
 import RadioButtonUnchecked from 'material-ui/svg-icons/toggle/radio-button-unchecked';
-
-import s from './NewApp.css';
 import Info from './Info';
 import Properties from './Properties';
 import Finish from './Finish';
+import s from './style.css';
 
 class NewApp extends Component {
   constructor(props) {

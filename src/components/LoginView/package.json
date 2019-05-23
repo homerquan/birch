@@ -2,5 +2,5 @@
   "name": "LoginView",
   "version": "0.0.0",
   "private": true,
-  "main": "./LoginView.js"
+  "main": "./index.js"
 }

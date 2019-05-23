@@ -14,7 +14,7 @@ import withWidth, { LARGE } from 'material-ui/utils/withWidth';
 import MessagesContainer from './MessagesContainer';
 import ActionMenu from './ActionMenu';
 import CommandsList from './CommandList';
-import Training from '../Training/Training';
+import Training from '../Training';
 import DecisionSupport from './DecisionSupport';
 import fakeData from './fakeData.json';
 import CONSTANTS from '../../constants';
