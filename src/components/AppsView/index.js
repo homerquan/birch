@@ -2,7 +2,7 @@
 * @Author: Homer
 * @Date:   2017-12-17 23:50:40
 * @Last Modified by:   homer
-* @Last Modified time: 2019-05-23 01:26:21
+* @Last Modified time: 2019-05-23 02:52:28
 */
 
 import React from 'react';
@@ -225,7 +225,7 @@ AppsView.propTypes = {
   data: PropTypes.shape({
     loading: PropTypes.bool,
     refetch: PropTypes.func,
-    botsFeed: PropTypes.object,
+    appConnection: PropTypes.object,
   }).isRequired,
   actions: PropTypes.shape({
     setRuntimeVariable: PropTypes.func,

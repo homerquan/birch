@@ -22,9 +22,9 @@ import s from './style.css';
 class Loader extends React.Component {
   render() {
     return (
-      <MuiThemeProvider muiTheme={getMuiTheme(lightTheme)}>	
-     <LinearProgress mode="indeterminate" />
-    </MuiThemeProvider>
+      <MuiThemeProvider muiTheme={getMuiTheme(lightTheme)}>
+        <LinearProgress mode="indeterminate" />
+      </MuiThemeProvider>
     );
   }
 }

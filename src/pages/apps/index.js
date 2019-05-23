@@ -8,7 +8,7 @@
  * @Email: dev@reflen.com
  * @Date:   2017-11-05 19:34:16
  * @Last Modified by:   homer
- * @Last Modified time: 2019-05-23 01:33:58
+ * @Last Modified time: 2019-05-23 02:57:11
  */
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -26,7 +26,6 @@ import s from './style.css';
 class Apps extends React.Component {
 
   render() {
-    const userId = this.props.session.userId;
     return (
       <MuiThemeProvider muiTheme={getMuiTheme(lightTheme)}>
         <LayoutProvider layouts={grids}>
@@ -35,7 +34,7 @@ class Apps extends React.Component {
               <TitleBar title={this.props.title} />
             </Section>
             <Section slot="main">
-              <AppsView userId={userId} />
+              <AppsView userId={this.props.session.userId} />
             </Section>
           </Page>
         </LayoutProvider>
@@ -45,7 +44,6 @@ class Apps extends React.Component {
 }
 
 Apps.propTypes = {
-  title: PropTypes.string.isRequired,
   session: PropTypes.shape({
     userId: PropTypes.string,
   }).isRequired,

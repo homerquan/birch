@@ -217,7 +217,7 @@ export default withStyles(s)(
   compose(
     graphql(NotificationsFeed, {
       options: props => ({
-        variables: { userId: "507f1f77bcf86cd799439011"},
+        variables: { userId: props.userId },
       }),
     }),
     connect(selectProps, null),

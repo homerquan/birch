@@ -132,7 +132,7 @@ class Header extends React.Component {
                 <ArrowIcon color={white} onClick={this.toggleConsole} />
               </IconButton>
               <Messages />
-              <Notifications clientId={'asdf'} />
+              <Notifications userId={this.props.session.userId} />
             </div>
           </HeaderContainer>
           {/* </Sticky> */}
@@ -142,12 +142,19 @@ class Header extends React.Component {
   }
 }
 
+Header.propTypes = {
+  session: PropTypes.shape({
+    userId: PropTypes.string,
+  }).isRequired,
+};
+
 function selectProps(state) {
   return {
     runtime: state.runtime,
     notifications: state.notifications,
     snackBarNotifications: state.snackBarNotifications,
     console: state.console,
+    session: state.session,
   };
 }
 
