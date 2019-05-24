@@ -22,7 +22,7 @@ class SessionsPage extends React.Component {
             </Section>
             <Section slot="main">
               <SessionsView
-                clientId={this.props.session.userId}
+                userId={this.props.session.userId}
                 appId={this.props.appId}
               />
             </Section>

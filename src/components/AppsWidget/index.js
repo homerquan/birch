@@ -83,7 +83,7 @@ class AppsList extends BaseComponent {
                 <div key={item.id}>
                   <ListItem
                     leftAvatar={<Avatar icon={<CodeIcon />} />}
-                    primaryText={<PrimaryText text={item.name} number={item.token} />}
+                    primaryText={<PrimaryText text={item.name} number={item._id} />}
                     secondaryText={item.host}
                   />
                   { (array.length - 1) !== index ? <Divider /> : '' }

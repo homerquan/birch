@@ -1,14 +1,14 @@
 /*
 * @Author: Homer
 * @Date:   2017-12-26 21:21:15
-* @Last Modified by:   Homer
-* @Last Modified time: 2017-12-30 22:56:34
+* @Last Modified by:   homer
+* @Last Modified time: 2019-05-24 11:08:17
 */
 
 import React from 'react';
 import { isLogin } from '../../utils';
 
-// a redirect route, for bot overview later
+// a redirect route, for app overview later
 export default {
   path: '/:id',
   action({ store, params, query, path }) {

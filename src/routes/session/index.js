@@ -7,7 +7,7 @@
  * @Email: dev@reflen.com
  * @Date:   2017-11-05 19:36:24
  * @Last Modified by:   homer
- * @Last Modified time: 2019-05-23 21:32:01
+ * @Last Modified time: 2019-05-24 11:09:17
  */
 import React from 'react';
 import ConversationDetailsView from './ConversationDetailsView';
@@ -31,7 +31,7 @@ export default {
       chunk: 'bots',
       component: (
         <Layout>
-          <ConversationDetailsView title={title} />
+          <ConversationDetailsView title={title} appId={params.aid} sessionId={params.sid}/>
         </Layout>
       ),
     };
