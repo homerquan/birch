@@ -1,9 +1,11 @@
 /*
 * @Author: Homer
 * @Date:   2017-12-17 23:50:53
-* @Last Modified by:   Homer
-* @Last Modified time: 2017-12-28 11:17:33
+* @Last Modified by:   homer
+* @Last Modified time: 2019-05-24 14:12:26
 */
+
+@import '../../components/variables.css';
 
 .nothing {
 	height: 400px;

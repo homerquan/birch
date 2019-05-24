@@ -35,12 +35,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // TODO: favicon in Gcloud has issue
-// if (__DEV__) {
-//   app.use(favicon(path.join(__dirname,'..','public','favicon','favicon.ico')));
-//   app.enable('trust proxy');
-// } else {
-//   app.use(favicon(path.join(__dirname,'public','favicon','favicon.ico')));
-// }
+if (config.env === 'development') {
+  app.use(favicon(path.join(__dirname,'..','public','favicon','favicon.ico')));
+} else {
+  app.use(favicon(path.join(__dirname,'public','favicon','favicon.ico')));
+}
 
 // Load frontend (react)
 // -----------------------------------------------------------------------------

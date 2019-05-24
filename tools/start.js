@@ -62,18 +62,17 @@ async function start() {
       // For other settings see
       // https://webpack.github.io/docs/webpack-dev-middleware
     });
+    
     const hotMiddleware = webpackHotMiddleware(bundler.compilers[0]);
-
-
-
+    
     let handleBundleComplete = async () => {
       
       const server = await runServer();
       const bs = browserSync.create();
-
+     
       bs.init({
         ...isDebug ? {} : { notify: false, ui: false },
-
+        open: false,
         proxy: {
           target: server.host,
           middleware: [wpMiddleware, hotMiddleware],

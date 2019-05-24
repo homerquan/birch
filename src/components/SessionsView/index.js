@@ -2,7 +2,7 @@
 * @Author: Homer
 * @Date:   2017-12-17 23:50:40
 * @Last Modified by:   homer
-* @Last Modified time: 2019-05-23 22:04:14
+* @Last Modified time: 2019-05-24 15:22:34
 */
 
 import React from 'react';
@@ -10,7 +10,6 @@ import BaseComponent from '../BaseComponent';
 import PropTypes from 'prop-types';
 import { graphql, compose } from 'react-apollo';
 import _ from 'lodash';
-import gql from 'graphql-tag';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
@@ -18,39 +17,12 @@ import ReloadIcon from 'react-material-icons/icons/action/cached';
 import IconButton from 'material-ui/IconButton';
 import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
 import lightTheme from '../theme';
-import s from './style.css';
 import config from '../../config';
-import ConversationsTable from './ConversationsTable';
-import ConversationDrawer from '../ConversationDrawer';
+import SessionsTable from '../SessionsTable';
+import ConversationDrawer from '../SessionMonitor';
+import s from './style.css';
+import { sessionsQuery, updateConversationPinToTop } from './graphql';
 
-const conversationsQuery = gql`
-query Sessions($userId: String, $appId: String) {
-  sessionConnection(first: 10, filter: {_owner: $userId, _app: $appId}) {
-    count
-    pageInfo {
-      startCursor
-      endCursor
-    }
-    edges {
-      node {
-        _id
-        updatedAt
-        _app
-        _owner
-      }
-    }
-  }
-}
-`;
-
-// const subscriptionConversationQuery = gql`
-//   subscription onUpdateConversation($clientId:String) {
-//     updateConversation(clientId:$clientId) {
-//       id
-//       status
-//     }
-//   }
-// `;
 
 class SessionsView extends BaseComponent {
 
@@ -96,7 +68,9 @@ class SessionsView extends BaseComponent {
   render() {
     const { sessionConnection, loading, refetch } = this.props.data;
 
-    if (loading) return <h1>Loading</h1>;
+    if (loading) return (
+      <h1>Loading</h1>
+    );
 
     return (
       <MuiThemeProvider muiTheme={getMuiTheme(lightTheme)}>
@@ -113,8 +87,8 @@ class SessionsView extends BaseComponent {
           {sessionConnection.edges && sessionConnection.edges.length
             ? (
               <div>
-                <ConversationsTable
-                  conversations={this.transformConnectionNode(sessionConnection.edges)}
+                <SessionsTable
+                  items={this.transformConnectionNode(sessionConnection.edges)}
                   openDrawer={this.openDrawer}
                   addPinned={this.addPinned}
                 />
@@ -145,22 +119,13 @@ class SessionsView extends BaseComponent {
   }
 }
 
-const updateConversationPinToTop = gql`
-  mutation UpdateConversationPinToTop($conversationId: String!, $pinToTop: Boolean!)  {
-    updateConversationPinToTop(conversationId:$conversationId, pinToTop: $pinToTop) {
-      id
-      pinToTop
-    }
-  }
-`;
-
 export default withStyles(s)(
   compose(
     graphql(updateConversationPinToTop),
-    graphql(conversationsQuery, {
+    graphql(sessionsQuery, {
       options: props => ({
         variables: { userId: props.userId, appId: props.appId },
-        //pollInterval: config.pollInterval,
+        // pollInterval: config.pollInterval,
       }),
     }),
   )(SessionsView),

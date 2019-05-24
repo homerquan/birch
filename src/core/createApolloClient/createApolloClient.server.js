@@ -6,8 +6,8 @@ import ApolloClient, { createNetworkInterface } from "apollo-client";
 import config from '../../config';
 import ws from "ws";
 
-const httpUri = config.clientUrl+"/graphql";
-const wsUri = config.clientSubscriptionUrl + "/graphql-subscriptions";
+const httpUri = config.clientUrl;
+const wsUri = config.clientSubscriptionUrl;
 
 const networkInterface = createNetworkInterface({
     uri: httpUri // Your GraphQL endpoint

@@ -50,19 +50,17 @@ function runServer() {
       silent: false
     });
 
-    if (pending) {
-      
+    if (pending) { 
       // A fix of bug: It will stop lunching Browsersync.
-
-      // setTimeout(function() {
-      //   server.once("exit", (code, signal) => {
-      //     if (pending) {
-      //       throw new Error(
-      //         `Server terminated unexpectedly with code: ${code} signal: ${signal}`
-      //       );
-      //     }
-      //   });
-      // }, 3000);
+      setTimeout(function() {
+        server.once("exit", (code, signal) => {
+          if (pending) {
+            throw new Error(
+              `Server terminated unexpectedly with code: ${code} signal: ${signal}`
+            );
+          }
+        });
+      }, 3000);
     }
 
     server.stdout.on("data", onStdOut);
