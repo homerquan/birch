@@ -1,0 +1,163 @@
+{
+    "plugins": [
+        {
+            "name": "Google Calendar",
+            "sub": [
+                {
+                    "name": "Create an Event"
+                },
+                {
+                    "name": "Cancel Event"
+                }
+            ]
+        },
+        {
+            "name": "Other Plugin",
+            "sub": [
+                {
+                    "name": "An Event!"
+                }
+            ]
+        }
+    ],
+    "messages": [
+        {
+            "id": "adsfasf",
+            "typeIncoming": true,
+            "sent": "2018-04-27T21:02:26.294Z",
+            "message": "I have a few questions about your product"
+        },
+        {
+            "id": "adsssffasf",
+            "typeIncoming": false,
+            "sent": "2018-04-29T08:15:26.294Z",
+            "message": "No problem! How can I help?"
+        },
+        {
+            "id": "a23423dsfasf",
+            "typeIncoming": true,
+            "sent": "2018-04-04T21:02:26.294Z",
+            "message": "What is reflen?"
+        },
+        {
+            "id": "adaaasfasf",
+            "typeIncoming": true,
+            "sent": "2018-04-04T21:02:26.294Z",
+            "message": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tempor mauris enim, eget feugiat tortor ultricies elementum. Nunc commodo placerat lectus in pretium."
+        },
+        {
+            "id": "qweadsfasf",
+            "typeIncoming": true,
+            "sent": "2018-04-04T21:02:26.294Z",
+            "message": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tempor mauris enim, eget feugiat tortor ultricies elementum. Nunc commodo placerat lectus in pretium."
+        },
+        {
+            "id": "adsfatertersf",
+            "typeIncoming": true,
+            "sent": "2018-04-04T21:02:26.294Z",
+            "message": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tempor mauris enim, eget feugiat tortor ultricies elementum. Nunc commodo placerat lectus in pretium."
+        },
+        {
+            "id": "890adsfasf",
+            "typeIncoming": true,
+            "sent": "2018-04-04T21:02:26.294Z",
+            "message": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tempor mauris enim, eget feugiat tortor ultricies elementum. Nunc commodo placerat lectus in pretium."
+        },
+        {
+            "id": "234adsfasf",
+            "typeIncoming": true,
+            "sent": "2018-04-04T21:02:26.294Z",
+            "message": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tempor mauris enim, eget feugiat tortor ultricies elementum. Nunc commodo placerat lectus in pretium."
+        },
+        {
+            "id": "ads453fasf",
+            "typeIncoming": true,
+            "sent": "2018-04-27T21:02:26.294Z",
+            "message": "I have a few questions about your product"
+        },
+        {
+            "id": "345345",
+            "typeIncoming": false,
+            "sent": "2018-04-29T08:15:26.294Z",
+            "message": "No problem! How can I help?"
+        },
+        {
+            "id": "adsaf43fasf",
+            "typeIncoming": true,
+            "sent": "2018-04-04T21:02:26.294Z",
+            "message": "What is reflen?"
+        }
+    ],
+    "commands": [
+        {
+            "id": "dafsdfasdf-32saf",
+            "command": "/commandName",
+            "helper": "commandHelper",
+            "description": "This is s description for the command",
+            "active": false
+        },
+        {
+            "id": "dafsdfasdf-32sfdsafaf",
+            "command": "/one",
+            "helper": "commandHelper",
+            "description": "This is s description for the command",
+            "active": false
+        },
+        {
+            "id": "dafsdfasdf-32sasdfaf",
+            "command": "/two",
+            "helper": "commandHelper",
+            "description": "This is s description for the command",
+            "active": false
+        },
+        {
+            "id": "dafsdfasdf-24",
+            "command": "/three",
+            "helper": "commandHelper",
+            "description": "This is s description for the command",
+            "active": false
+        },
+        {
+            "id": "dafsdfasdf-32as3dfsaf",
+            "command": "/threeTwo",
+            "helper": "commandHelper",
+            "description": "This is s description for the command",
+            "active": false
+        },
+        {
+            "id": "dafsdfasdf-ass",
+            "command": "/test",
+            "helper": "commandHelper",
+            "description": "This is s description for the command",
+            "active": false
+        },
+        {
+            "id": "dafsdfasdf-fdsfdfd",
+            "command": "/hey",
+            "helper": "commandHelper",
+            "description": "This is s description for the command",
+            "active": false
+        },
+        {
+            "id": "dafsasfdfasdf-32saf",
+            "command": "/hello",
+            "helper": "commandHelper",
+            "description": "This is s description for the command",
+            "active": false
+        },
+        {
+            "id": "dafsdfasdf-asfsadf",
+            "command": "/help",
+            "helper": "commandHelper",
+            "description": "This is s description for the command",
+            "active": false
+        },
+        {
+            "id": "dafsdfasdf-534534",
+            "command": "/fasdf",
+            "helper": "commandHelper",
+            "description": "This is s description for the command",
+            "active": false
+        }
+    ]
+}

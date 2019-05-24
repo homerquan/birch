@@ -1,0 +1,112 @@
+.toBottomWrapper {
+    display: none;
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    width: 56px;
+    height: 56px;
+}
+
+.toBottomActive {
+    display: block;
+}
+
+.messagesContainer {
+    background-color: #f3f3f3;
+    border-left: 1px solid lightgrey;
+    border-right: 1px solid lightgrey;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    overflow-y: scroll;
+    position: relative;
+}
+
+.messageIncoming {
+    margin-top: 14px;
+    width: auto;
+    margin-right: 10%;
+}
+
+.messageOutgoing {
+    margin-top: 14px;
+    margin-left: 10%;
+    text-align: right;
+}
+
+.messageBody {
+    background-color: white;
+    display: inline-block;
+    padding: 10px;
+    border-radius: 6px;
+}
+
+.messageInfoBar {
+    margin-bottom: 5px;
+}
+
+.messageAvatar {
+    margin-right: 5px;
+}
+
+.messageType {
+    background-color: rgb(103, 58, 183);
+    font-size: 10px;
+    color: white;
+    padding: 2px 4px;
+    border-radius: 4px;
+    margin-right: 5px;
+}
+
+.messageSent {
+    font-size: 14px;
+}
+
+.message {
+    padding: 0;
+    margin: 0;
+}
+
+.messageNotRecieved {
+    opacity: .25;
+}
+
+.messageErrorContainer {
+    display: flex;
+    align-content: center;
+    background-color: lightyellow;
+    padding: 10px;
+    margin-top: 14px;
+}
+
+.messageError {
+    flex: 1;
+    margin: 0;
+}
+
+.messageErrorTitle {
+    font-weight: bold;
+}
+
+.messageErrorRetry {
+    color: rgb(103, 58, 183);
+    font-weight: bold;
+    margin: 0 10px;
+    cursor: pointer;
+}
+
+.messageErrorCancel {
+    margin: 0 10px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+
+
+
+
+.messageTyping {
+    width: 75px;
+    margin-top: 14px;
+}
