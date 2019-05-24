@@ -19,7 +19,7 @@ import FlatButton from 'material-ui/FlatButton';
 import EditIcon from 'material-ui/svg-icons/image/edit';
 import grids from "../../components/Layout/grids";
 import TitleBar from "../../components/TitleBar";
-import AppsList from "../../components/AppsList";
+import AppsWidget from "../../components/AppsWidget";
 import Activities from "../../components/Activities";
 import lightTheme from "../../components/theme";
 
@@ -48,7 +48,7 @@ class HomePage extends React.Component {
               </TitleBar>
             </Section>
             <Section slot="col-1">
-              <AppsList userId={this.props.session.userId} />
+              <AppsWidget userId={this.props.session.userId} />
             </Section>
             <Section slot="col-2">
               <Activities />

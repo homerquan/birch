@@ -21,7 +21,7 @@ import CodeIcon from 'material-ui/svg-icons/action/code';
 import { RCard, RCardHeader, RCardBody, RCardFooter } from '../styled/RCard';
 import PrimaryText from './PrimaryText';
 import lightTheme from '../theme';
-import AppsListLoader from './AppsListLoader';
+import Loader from './Loader';
 import s from './style.css';
 
 const appsListQuery = gql`
@@ -46,6 +46,7 @@ query Apps($userId: String) {
 `;
 
 class AppsList extends BaseComponent {
+  
   static propTypes = {
     data: PropTypes.object.isRequired,
   };
@@ -54,7 +55,7 @@ class AppsList extends BaseComponent {
     const { data: { appConnection, loading } } = this.props;
 
     if (!appConnection) {
-      return <AppsListLoader />;
+      return <Loader />;
     }
 
     return (
@@ -81,7 +82,7 @@ class AppsList extends BaseComponent {
               {this.transformConnectionNode(appConnection.edges).map((item, index, array) => (
                 <div key={item.id}>
                   <ListItem
-                    leftAvatar={<Avatar backgroundColor={deepPurple500} icon={<CodeIcon />} />}
+                    leftAvatar={<Avatar icon={<CodeIcon />} />}
                     primaryText={<PrimaryText text={item.name} number={item.token} />}
                     secondaryText={item.host}
                   />

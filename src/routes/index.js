@@ -8,8 +8,8 @@ export default {
   // Keep in mind, routes are evaluated in order
   children: [
     require('./home').default,
-    require('./conversations').default,
-    require('./conversationDetails').default,
+    require('./sessions').default,
+    require('./session').default,
     require('./apps').default,
     require('./app').default,
     require('./newBot').default,

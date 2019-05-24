@@ -1,13 +1,14 @@
 import React from 'react';
-import Conversations from '../../pages/conversations';
+import Sessions from '../../pages/sessions';
 import Layout from '../../components/Layout';
 import { isLogin } from '../../utils';
 
-const title = 'Live Conversations';
+const title = 'Live Sessions';
+const chunk = 'sessions';
 
 export default {
-  path: '/:id/conversations',
-  chunk: 'conversations',
+  path: '/:aid/sessions',
+  chunk,
   action({ store, params, path }) {
     const login = isLogin(store.getState());
 
@@ -17,12 +18,12 @@ export default {
 
     return {
       title,
-      chunk: 'conversations',
+      chunk,
       component: (
         <Layout>
-          <Conversations
+          <Sessions
             title={title}
-            appId={params.id}
+            appId={params.aid}
           />
         </Layout>
       ),

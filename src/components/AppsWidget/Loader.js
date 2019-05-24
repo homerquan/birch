@@ -1,7 +1,7 @@
 import React from 'react';
 import ContentLoader from 'react-content-loader';
 
-const BotsListLoader = () => {
+const Loader = () => {
   return (
     <ContentLoader
       height={200}
@@ -22,4 +22,4 @@ const BotsListLoader = () => {
   );
 };
 
-export default BotsListLoader;
+export default Loader;

@@ -7,7 +7,7 @@
  * @Email: dev@reflen.com
  * @Date:   2017-11-05 19:36:24
  * @Last Modified by:   homer
- * @Last Modified time: 2019-04-26 13:21:03
+ * @Last Modified time: 2019-05-23 21:32:01
  */
 import React from 'react';
 import ConversationDetailsView from './ConversationDetailsView';
@@ -17,8 +17,8 @@ import { isLogin } from '../../utils';
 const title = 'Conversation Details';
 
 export default {
-  path: '/conversation-details',
-  chunk: 'conversation-details',
+  path: '/:aid/session/:sid',
+  chunk: 'session',
   action({ store, path }) {
     const login = isLogin(store.getState());
 

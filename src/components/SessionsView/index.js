@@ -2,10 +2,11 @@
 * @Author: Homer
 * @Date:   2017-12-17 23:50:40
 * @Last Modified by:   homer
-* @Last Modified time: 2019-05-22 23:51:57
+* @Last Modified time: 2019-05-23 22:04:14
 */
 
-import React, { Component } from 'react';
+import React from 'react';
+import BaseComponent from '../BaseComponent';
 import PropTypes from 'prop-types';
 import { graphql, compose } from 'react-apollo';
 import _ from 'lodash';
@@ -23,38 +24,23 @@ import ConversationsTable from './ConversationsTable';
 import ConversationDrawer from '../ConversationDrawer';
 
 const conversationsQuery = gql`
-  query ConversationsQuery($clientId : String, $appId: String){
-    conversationsFeed(clientId : $clientId, appId: $appId) {
-      conversations(first:1){
-        edges {
-          cursor
-          node{
-            id
-            visitor
-            client
-            intentions {
-              name
-              score
-            }
-            actions {
-              id
-              source
-              name
-              status
-            }
-            pinToTop
-            mode
-            updatedAt
-          }
-        }
-        pageInfo{
-          hasNextPage
-          endCursor
-        }
-        totalCount
+query Sessions($userId: String, $appId: String) {
+  sessionConnection(first: 10, filter: {_owner: $userId, _app: $appId}) {
+    count
+    pageInfo {
+      startCursor
+      endCursor
+    }
+    edges {
+      node {
+        _id
+        updatedAt
+        _app
+        _owner
       }
     }
   }
+}
 `;
 
 // const subscriptionConversationQuery = gql`
@@ -66,7 +52,14 @@ const conversationsQuery = gql`
 //   }
 // `;
 
-class ConversationsView extends Component {
+class SessionsView extends BaseComponent {
+
+  static propTypes = {
+    userId: PropTypes.string.isRequired,
+    data: PropTypes.object.isRequired,
+    mutate: PropTypes.func.isRequired,
+  };
+
   constructor(props) {
     super(props);
 
@@ -100,10 +93,8 @@ class ConversationsView extends Component {
       .then(() => this.props.data.refetch());
   }
 
-  transform = data => (_.map(data, 'node'));
-
   render() {
-    const { conversationsFeed, loading, refetch } = this.props.data;
+    const { sessionConnection, loading, refetch } = this.props.data;
 
     if (loading) return <h1>Loading</h1>;
 
@@ -119,11 +110,11 @@ class ConversationsView extends Component {
             </ToolbarGroup>
           </Toolbar>
 
-          {conversationsFeed.conversations.edges && conversationsFeed.conversations.edges.length
+          {sessionConnection.edges && sessionConnection.edges.length
             ? (
               <div>
                 <ConversationsTable
-                  conversations={this.transform(conversationsFeed.conversations.edges)}
+                  conversations={this.transformConnectionNode(sessionConnection.edges)}
                   openDrawer={this.openDrawer}
                   addPinned={this.addPinned}
                 />
@@ -154,16 +145,6 @@ class ConversationsView extends Component {
   }
 }
 
-ConversationsView.propTypes = {
-  clientId: PropTypes.string.isRequired,
-  data: PropTypes.shape({
-    conversationsFeed: PropTypes.object,
-    loading: PropTypes.bool,
-    refetch: PropTypes.func,
-  }).isRequired,
-  mutate: PropTypes.func.isRequired,
-};
-
 const updateConversationPinToTop = gql`
   mutation UpdateConversationPinToTop($conversationId: String!, $pinToTop: Boolean!)  {
     updateConversationPinToTop(conversationId:$conversationId, pinToTop: $pinToTop) {
@@ -178,9 +159,9 @@ export default withStyles(s)(
     graphql(updateConversationPinToTop),
     graphql(conversationsQuery, {
       options: props => ({
-        variables: { clientId: props.clientId, appId: props.appId },
-        pollInterval: config.pollInterval
+        variables: { userId: props.userId, appId: props.appId },
+        //pollInterval: config.pollInterval,
       }),
     }),
-  )(ConversationsView),
+  )(SessionsView),
 );

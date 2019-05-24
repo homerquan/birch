@@ -8,10 +8,10 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import lightTheme from '../../components/theme';
 import TitleBar from '../../components/TitleBar';
 import grids from '../../components/Layout/grids';
-import ConversationsView from '../../components/ConversationsView';
+import SessionsView from '../../components/SessionsView';
 import s from './style.css';
 
-class ConversationsPage extends React.Component {
+class SessionsPage extends React.Component {
   render() {
     return (
       <MuiThemeProvider muiTheme={getMuiTheme(lightTheme)}>
@@ -21,7 +21,7 @@ class ConversationsPage extends React.Component {
               <TitleBar title={this.props.title} />
             </Section>
             <Section slot="main">
-              <ConversationsView
+              <SessionsView
                 clientId={this.props.session.userId}
                 appId={this.props.appId}
               />
@@ -39,4 +39,4 @@ function selectProps(state) {
   };
 }
 
-export default withStyles(s)(connect(selectProps, null)(ConversationsPage));
+export default withStyles(s)(connect(selectProps, null)(SessionsPage));
