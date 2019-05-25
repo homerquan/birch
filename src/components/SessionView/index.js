@@ -17,7 +17,7 @@ import IconButton from 'material-ui/IconButton';
 import { RCard, RCardHeader, RCardBody, RCardFooter } from '../styled/RCard';
 import s from './style.css';
 
-class ConversationDetails extends Component {
+class SessionView extends Component {
   render() {
     const { conversation } = this.props;
 
@@ -26,7 +26,7 @@ class ConversationDetails extends Component {
         <RCardHeader>
           <div className="title-container">
             <AppsIcon color={black} />
-            <h2>Conversation</h2>
+            <h2>Session</h2>
           </div>
           <div className="button-container">
             <IconMenu
@@ -96,7 +96,7 @@ class ConversationDetails extends Component {
   }
 }
 
-ConversationDetails.propTypes = {
+SessionView.propTypes = {
   conversation: PropTypes.shape({
     id: PropTypes.string,
     createdAt: PropTypes.string,
@@ -104,4 +104,4 @@ ConversationDetails.propTypes = {
   }).isRequired,
 };
 
-export default withStyles(s)(ConversationDetails);
+export default withStyles(s)(SessionView);

@@ -53,7 +53,7 @@ const tableColumns = (addPinned, openDrawer) => ([
   },
   {
     key: 'id',
-    label: 'from',
+    label: 'From',
     style: {
       width: 160,
     },
@@ -178,7 +178,7 @@ const tableColumns = (addPinned, openDrawer) => ([
     render: () => (
       <div>
         <IconButton
-          href="/conversation-details"
+          href= "./session/{id}"
           tooltip="More"
         >
           <MoreIcon />

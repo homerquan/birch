@@ -2,7 +2,7 @@
 * @Author: Homer
 * @Date:   2017-12-17 23:50:40
 * @Last Modified by:   homer
-* @Last Modified time: 2019-05-24 15:22:34
+* @Last Modified time: 2019-05-24 17:48:57
 */
 
 import React from 'react';
@@ -19,7 +19,7 @@ import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
 import lightTheme from '../theme';
 import config from '../../config';
 import SessionsTable from '../SessionsTable';
-import ConversationDrawer from '../SessionMonitor';
+import SessionMonitor from '../SessionMonitor';
 import s from './style.css';
 import { sessionsQuery, updateConversationPinToTop } from './graphql';
 
@@ -33,11 +33,12 @@ class SessionsView extends BaseComponent {
   };
 
   constructor(props) {
+    
     super(props);
 
     this.state = {
       drawerIsOpen: false,
-      selectedConversation: { messages: [] },
+      selectedSessionId: null,
     };
 
     this.addPinned = this.addPinned.bind(this);
@@ -49,13 +50,12 @@ class SessionsView extends BaseComponent {
     this.setState({ drawerIsOpen: false });
   }
 
-  openDrawer(convoId) {
+  openDrawer(sid) {
     const { data: { conversationsFeed } } = this.props;
-    const selected = conversationsFeed.conversations.edges.find(convo => convo.node.id === convoId);
 
     this.setState({
       drawerIsOpen: true,
-      selectedConversation: selected,
+      selectedSessionId: sid,
     });
   }
 
@@ -105,9 +105,10 @@ class SessionsView extends BaseComponent {
           }
 
           {this.state.drawerIsOpen &&
-            <ConversationDrawer
-              conversation={this.state.selectedConversation.node}
-              clientId={this.props.clientId}
+            <SessionMonitor
+              sessionId={this.state.selectedSessionId}
+              userId={this.props.userId}
+              appId={this.props.appId}
               isOpen={this.state.drawerIsOpen}
               closeDrawer={this.closeDrawer}
             />

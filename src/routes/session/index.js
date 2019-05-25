@@ -7,18 +7,19 @@
  * @Email: dev@reflen.com
  * @Date:   2017-11-05 19:36:24
  * @Last Modified by:   homer
- * @Last Modified time: 2019-05-24 11:09:17
+ * @Last Modified time: 2019-05-24 16:15:48
  */
 import React from 'react';
-import ConversationDetailsView from './ConversationDetailsView';
+import Session from '../../pages/session';
 import Layout from '../../components/Layout';
 import { isLogin } from '../../utils';
 
 const title = 'Conversation Details';
+const chunk = 'session';
 
 export default {
   path: '/:aid/session/:sid',
-  chunk: 'session',
+  chunk,
   action({ store, path }) {
     const login = isLogin(store.getState());
 
@@ -28,7 +29,7 @@ export default {
 
     return {
       title,
-      chunk: 'bots',
+      chunk,
       component: (
         <Layout>
           <ConversationDetailsView title={title} appId={params.aid} sessionId={params.sid}/>

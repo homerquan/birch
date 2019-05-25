@@ -2,15 +2,16 @@ import React from 'react';
 import ExperienceEditorView from './ExperienceEditorView';
 import Layout from '../../components/Layout';
 
-const title = 'Experience Editor';
+const title = 'Experience';
+const chunk = '/experienceEditor';
 
 export default {
-  path: '/:id/experience_editor',
-  chunk: '/experienceEditor',
+  path: '/:id/experience',
+  chunk,
   action() {
     return {
       title,
-      chunk: 'experienceEditor',
+      chunk,
       component: (
         <Layout>
           <ExperienceEditorView title={title} />

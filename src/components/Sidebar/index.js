@@ -149,13 +149,13 @@ class Sidebar extends React.Component {
                 <Divider />
                 <List>
                   <ListItem leftIcon={<ConversationsIcon color={white} style={styles.iconItem} />}>
-                    <a className={s.link} href={`/${selectedApp.id}/conversations`}>Conversations</a>
+                    <a className={s.link} href={`/${selectedApp.id}/sessions`}>Conversations</a>
                   </ListItem>
                   <ListItem leftIcon={<PluginsIcon color={white} style={styles.iconItem} />}>
                      <a className={s.link} href={`/${selectedApp.id}/plugins`}>Plugins</a>
                   </ListItem>
                   <ListItem leftIcon={<ExperienceIcon color={white} style={styles.iconItem} />}>
-                     <a className={s.link} href={`/${selectedApp.id}/experience_editor`}>Experience</a>
+                     <a className={s.link} href={`/${selectedApp.id}/experience`}>Experience</a>
                   </ListItem>
                 </List>
               </div>

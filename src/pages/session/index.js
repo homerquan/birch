@@ -7,7 +7,7 @@
  * @Email: dev@reflen.com
  * @Date:   2017-11-05 19:34:16
  * @Last Modified by:   homer
- * @Last Modified time: 2019-05-22 18:13:21
+ * @Last Modified time: 2019-05-24 16:05:56
  */
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -18,8 +18,8 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import lightTheme from '../../components/theme';
 import grids from '../../components/Layout/grids';
 import TitleBar from '../../components/TitleBar';
-import ConversationDetails from '../../components/ConversationDetails';
-import ConversationDetailsActivity from '../../components/ConversationDetails/ConversationDetailsActivity';
+import SessionView from '../../components/SessionView';
+import SessionActivitiesView from '../../components/SessionActivitiesView';
 import s from './style.css';
 
 const fakeConversation = {
@@ -44,7 +44,8 @@ const fakeConversation = {
   pinned: false,
 };
 
-class ConversationDetailsView extends React.Component {
+class SessionPage extends React.Component {
+  
   static propTypes = {
     title: PropTypes.string.isRequired,
   }
@@ -58,10 +59,10 @@ class ConversationDetailsView extends React.Component {
               <TitleBar title={this.props.title} />
             </Section>
             <Section slot="main">
-              <ConversationDetails conversation={fakeConversation} />
+              <SessionView conversation={fakeConversation} />
             </Section>
             <Section slot="right">
-              <ConversationDetailsActivity />
+              <SessionActivitiesView />
             </Section>
           </Page>
         </LayoutProvider>
@@ -70,4 +71,4 @@ class ConversationDetailsView extends React.Component {
   }
 }
 
-export default withStyles(s)(ConversationDetailsView);
+export default withStyles(s)(SessionPage);

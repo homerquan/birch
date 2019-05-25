@@ -8,7 +8,7 @@
  * @Email: dev@reflen.com
  * @Date:   2017-11-05 17:00:20
  * @Last Modified by:   homer
- * @Last Modified time: 2019-05-22 23:10:51
+ * @Last Modified time: 2019-05-24 16:22:04
  */
 import React, { Component } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
@@ -21,13 +21,12 @@ import IconButton from 'material-ui/IconButton';
 import MoreVert from 'material-ui/svg-icons/navigation/more-vert';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
-
-import s from './ConversationDetailsActivity.css';
 import fakeData from './fakeData.json';
 import MessageListItem from '../MessageListItem';
 import NotificationListItem from '../NotificationListItem';
-import ConversationDetailsLoader from './ConversationDetailsLoader';
+import Loader from './Loader';
 import { RCard, RCardHeader, RCardBody, RCardFooter } from '../styled/RCard';
+import s from './style.css';
 
 const linkStyle = {
   color: deepPurple500,
@@ -36,7 +35,7 @@ const linkStyle = {
   fontWeight: '400',
 };
 
-class ConversationDetailsActivity extends Component {
+class SessionActivitiesView extends Component {
   constructor(props) {
     super(props);
 
@@ -59,7 +58,7 @@ class ConversationDetailsActivity extends Component {
     const { isLoading } = this.state;
 
     if (isLoading) {
-      return <ConversationDetailsLoader />;
+      return <Loader />;
     }
 
     return (
@@ -115,4 +114,4 @@ class ConversationDetailsActivity extends Component {
   }
 }
 
-export default withStyles(s)(ConversationDetailsActivity);
+export default withStyles(s)(SessionActivitiesView);
