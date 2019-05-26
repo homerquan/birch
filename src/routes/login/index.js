@@ -48,7 +48,7 @@ export default {
     if (login) {
       return { redirect: '/profile' };
     }
-
+    
     return {
       title,
       chunk: 'login',

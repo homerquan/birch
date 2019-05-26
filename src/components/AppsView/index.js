@@ -2,7 +2,7 @@
 * @Author: Homer
 * @Date:   2017-12-17 23:50:40
 * @Last Modified by:   homer
-* @Last Modified time: 2019-05-23 02:52:28
+* @Last Modified time: 2019-05-25 21:10:06
 */
 
 import React from 'react';
@@ -13,6 +13,7 @@ import { bindActionCreators } from 'redux';
 import { graphql, compose } from 'react-apollo';
 import gql from 'graphql-tag';
 import _ from 'lodash';
+import { redirect } from '../../utils';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import DataTables from 'material-ui-datatables';
@@ -47,6 +48,7 @@ query Apps($userId: String) {
         node {
           _id
           name
+          hostname
           token
           updatedAt
           _owner
@@ -81,7 +83,7 @@ const tableColumns = (openCodeModal, selectApp) => ([
     ),
   },
   {
-    key: 'id',
+    key: '_id',
     label: 'View',
     render: id => (
       <IconButton onClick={() => selectApp(id)}>
@@ -123,16 +125,8 @@ class AppsView extends BaseComponent {
     this.closeCodeModal = this.closeCodeModal.bind(this);
   }
 
-  selectApp = (conversationId) => {
-    const conversations = this.transform(this.props.data.botsFeed.bots.edges);
-    const selected = conversations.find(convo => convo.id === conversationId);
-
-    this.props.actions.setRuntimeVariable({
-      name: 'selectedApp',
-      value: selected,
-    });
-
-    window.location.replace(`/${selected.id}/conversations`);
+  selectApp = (appId) => {
+    redirect(`/${appId}/sessions`);
   };
 
   closeNewAppModal() {

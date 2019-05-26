@@ -12,20 +12,24 @@ import Home from '../../pages/home';
 import Layout from '../../components/Layout';
 import { isLogin } from '../../utils';
 
+
+const title = 'Reflen dashboard';
+const chunk = 'home';
+
 export default {
 
   path: '/',
-  chunk: 'home',
+  chunk,
   action({ store, path }) {
     const login = isLogin(store.getState());
-
+    
     if (!login) {
       return { redirect: `/login?redirect=${path}` };
     }
 
     return {
-      title: 'reflen dashboard',
-      chunk: 'home',
+      title,
+      chunk,
       component: (
         <Layout>
           <Home />

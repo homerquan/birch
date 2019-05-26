@@ -7,6 +7,7 @@ export default {
 
   // Keep in mind, routes are evaluated in order
   children: [
+    require('./login').default,
     require('./home').default,
     require('./sessions').default,
     require('./session').default,
@@ -15,7 +16,6 @@ export default {
     require('./newBot').default,
     require('./knowledge').default,
     require('./profile').default,
-    require('./login').default,
     require('./register').default,
     require('./help').default,
     require('./privacy').default,
@@ -36,7 +36,7 @@ export default {
     const route = await next();
 
     // Provide default values for title, description etc.
-    route.title = `${route.title || 'reflen dashboard'}`;
+    route.title = `${route.title || 'Reflen console'}`;
     route.description = route.description || '';
 
     return route;

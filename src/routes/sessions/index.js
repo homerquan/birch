@@ -3,7 +3,7 @@ import Sessions from '../../pages/sessions';
 import Layout from '../../components/Layout';
 import { isLogin } from '../../utils';
 
-const title = 'Live Sessions';
+const title = 'Live sessions';
 const chunk = 'sessions';
 
 export default {

@@ -7,14 +7,14 @@
  * @Email: dev@reflen.com
  * @Date:   2017-11-05 19:36:24
  * @Last Modified by:   homer
- * @Last Modified time: 2019-05-24 16:15:48
+ * @Last Modified time: 2019-05-25 20:06:23
  */
 import React from 'react';
 import Session from '../../pages/session';
 import Layout from '../../components/Layout';
 import { isLogin } from '../../utils';
 
-const title = 'Conversation Details';
+const title = 'Session Details';
 const chunk = 'session';
 
 export default {
