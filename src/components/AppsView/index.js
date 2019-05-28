@@ -2,18 +2,14 @@
 * @Author: Homer
 * @Date:   2017-12-17 23:50:40
 * @Last Modified by:   homer
-* @Last Modified time: 2019-05-25 21:10:06
+* @Last Modified time: 2019-05-26 15:49:29
 */
 
 import React from 'react';
-import BaseComponent from '../BaseComponent';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { graphql, compose } from 'react-apollo';
-import gql from 'graphql-tag';
-import _ from 'lodash';
-import { redirect } from '../../utils';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import DataTables from 'material-ui-datatables';
@@ -29,34 +25,15 @@ import {
   ToolbarGroup,
 } from 'material-ui/Toolbar';
 import { openSnackbar } from 'mui-redux-alerts-next';
+import BaseComponent from '../BaseComponent';
+import { redirect } from '../../utils';
 import datatableTheme from '../datatableTheme';
 import * as runtimeActions from '../../actions/runtime';
 import lightTheme from '../theme';
-import s from './style.css';
 import NewApp from '../NewApp';
 import CopyCodeModal from './CopyCodeModal';
-
-const appsQuery = gql`
-query Apps($userId: String) {
-  appConnection(first:10,filter:{_owner:$userId}) {
-     count
-      pageInfo {
-        startCursor
-        endCursor
-      }
-      edges {
-        node {
-          _id
-          name
-          hostname
-          token
-          updatedAt
-          _owner
-        }
-      }
-  } 
-}
-`;
+import { appsQuery } from './graphql';
+import s from './style.css';
 
 const tableColumns = (openCodeModal, selectApp) => ([
   {

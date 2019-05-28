@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 import { connect } from 'react-redux';
 import { graphql, compose } from 'react-apollo';
-import gql from 'graphql-tag';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import CloseIcon from 'material-ui/svg-icons/navigation/close';
 import IconButton from 'material-ui/IconButton';
@@ -19,67 +18,30 @@ import DecisionSupport from './DecisionSupport';
 import fakeData from './fakeData.json';
 import CONSTANTS from '../../constants';
 import s from './style.css';
+import { sessionQuery, conversationQueryLoadMore, createMessage } from './graphql';
 
-const conversationQuery = gql`
-  query Conversation($conversationId: String){
-    conversation(conversationId: $conversationId){
-      id
-      messages(first:1) {
-        edges {
-          node {
-            id
-            text
-            source
-          }
-        }
-        totalCount
-        pageInfo {
-          hasNextPage
-          endCursor
-        }
-      }
-    }
-  }
-`;
 
-const conversationQueryLoadMore = gql`
-  query Conversation($conversationId: String, $after: String,){
-    conversation(conversationId: $conversationId){
-      id
-      messages(after: $after) {
-        edges {
-          node {
-            id
-            text
-            source
-          }
-        }
-        totalCount
-        pageInfo {
-          hasNextPage
-          endCursor
-        }
-      }
-    }
-  }
-`;
+class SessionMonitor extends Component {
 
-const createMessage = gql`
-  mutation CreateMessage($input: MessageInput) {
-    createMessage(input: $input){
-      error {
-        code
-        message
-        detail
-      }
-      message {
-        id
-      }
-    }
-  }
-`;
+  static propTypes = {
+    data: PropTypes.shape({
+      conversation: PropTypes.shape({
+        messages: PropTypes.object,
+      }),
+    }).isRequired,
+    mutate: PropTypes.func.isRequired,
+    session: PropTypes.shape({
+      id: PropTypes.string,
+      _owner: PropTypes.string,
+    }).isRequired,
+    runtime: PropTypes.shape({
+      openDecisionSupport: PropTypes.number,
+    }).isRequired,
+    isOpen: PropTypes.bool.isRequired,
+    closeDrawer: PropTypes.func.isRequired,
+    width: PropTypes.number.isRequired,
+  };
 
-class ConversationDrawerTwo extends Component {
   constructor(props) {
     super(props);
 
@@ -417,26 +379,6 @@ class ConversationDrawerTwo extends Component {
   }
 }
 
-ConversationDrawerTwo.propTypes = {
-  conversation: PropTypes.shape({
-    id: PropTypes.string,
-  }).isRequired,
-  data: PropTypes.shape({
-    conversation: PropTypes.shape({
-      messages: PropTypes.object,
-    }),
-  }).isRequired,
-  mutate: PropTypes.func.isRequired,
-  session: PropTypes.shape({
-    userId: PropTypes.string,
-  }).isRequired,
-  runtime: PropTypes.shape({
-    openDecisionSupport: PropTypes.number,
-  }).isRequired,
-  isOpen: PropTypes.bool.isRequired,
-  closeDrawer: PropTypes.func.isRequired,
-  width: PropTypes.number.isRequired,
-};
 
 function selectProps(state) {
   return {
@@ -448,11 +390,11 @@ function selectProps(state) {
 export default withWidth()(withStyles(s)(
   compose(
     graphql(createMessage),
-    graphql(conversationQuery, {
+    graphql(sessionQuery, {
       options: props => ({
-        variables: { conversationId: props.clientId },
+        variables: { sessionId: props.sessionId },
       }),
     }),
     connect(selectProps, null),
-  )(ConversationDrawerTwo),
+  )(SessionMonitor),
 ));
