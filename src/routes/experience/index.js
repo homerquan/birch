@@ -6,7 +6,7 @@ const title = 'Experience';
 const chunk = '/experienceEditor';
 
 export default {
-  path: '/:id/experience',
+  path: '/app/:id/experience',
   chunk,
   action() {
     return {
