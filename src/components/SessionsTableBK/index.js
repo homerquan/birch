@@ -1,18 +1,23 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import moment from 'moment';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import MUIDataTable from "mui-datatables";
+import DataTables from 'material-ui-datatables';
 import Avatar from '@material-ui/core/Avatar';
 import Chip from '@material-ui/core/Chip';
-import { ThemeProvider } from '@material-ui/styles';
 import IconButton from '@material-ui/core/IconButton';
-import Toggle from '@material-ui/core/Switch';
-import { FiCloud as OnlineIcon, FiCloudOff as OffIcon, FiMoreVertical as MoreIcon, FiEye as MonitorIcon } from 'react-icons/fi';
+import OnlineIcon from 'react-material-icons/icons/action/swap-horiz';
+import OffIcon from 'react-material-icons/icons/notification/sync-disabled';
+import MoreIcon from 'react-material-icons/icons/navigation/more-vert';
+import ChatIcon from 'react-material-icons/icons/communication/chat-bubble';
 import { grey500, deepPurple500, deepPurple800, white } from '@material-ui/core/colors';
 import Blockies from 'react-blockies';
-import theme from '../theme';
+import moment from 'moment';
+import Toggle from '@material-ui/core/Switch';
+import { ThemeProvider } from '@material-ui/styles';
+import { createMuiTheme } from '@material-ui/core/styles';
+
 import s from './style.css';
+import datatableTheme from '../datatableTheme';
 
 const styles = {
   chipDark: {
@@ -157,7 +162,7 @@ const tableColumns = (addPinned, openDrawer) => ([
         tooltip="Open"
         onClick={() => openDrawer(item._id)}
       >
-        <MonitorIcon color={grey500} />
+        <ChatIcon color={grey500} />
       </IconButton>
     ),
   },
@@ -261,8 +266,8 @@ class SessionsTable extends Component {
     const displayData = data.slice(rowSize * (page - 1), rowSize * page);
 
     return (
-      <ThemeProvider theme={theme}>
-        <MUIDataTable
+      <ThemeProvider theme={createMuiTheme(datatableTheme)}>
+        <DataTables
           height="auto"
           selectable={false}
           showRowHover

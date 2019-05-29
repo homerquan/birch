@@ -2,36 +2,28 @@
 * @Author: Homer
 * @Date:   2017-12-17 23:50:40
 * @Last Modified by:   homer
-* @Last Modified time: 2019-05-29 13:47:05
+* @Last Modified time: 2019-05-29 19:22:38
 */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { graphql, compose } from 'react-apollo';
-import { ThemeProvider } from '@material-ui/styles';
-import { createMuiTheme } from '@material-ui/core/styles';
-
-import DataTables from 'material-ui-datatables';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import MUIDataTable from 'mui-datatables';
+import { ThemeProvider } from '@material-ui/styles';
 import IconButton from '@material-ui/core/IconButton';
-import ReloadIcon from 'react-material-icons/icons/action/cached';
-import AddIcon from 'react-material-icons/icons/content/add';
-import { FaBeer } from 'react-icons/fa';
-import {
-  Toolbar,
-  ToolbarGroup,
-} from '@material-ui/core/Toolbar';
+import Toolbar from '@material-ui/core/Toolbar';
+import { FiPlus as AddIcon, FiRefreshCcw as ReloadIcon } from 'react-icons/fi';
 import { openSnackbar } from 'mui-redux-alerts-next';
 import BaseComponent from '../BaseComponent';
 import { redirect } from '../../utils';
-import datatableTheme from '../datatableTheme';
 import * as runtimeActions from '../../actions/runtime';
 import theme from '../theme';
 import CreateAppWizard from '../CreateAppWizard';
 import CopyCodeModal from './CopyCodeModal';
 import { appsQuery } from './graphql';
-import { tableColumns } from './datatable';
+import { columns } from './datatable';
 import s from './style.css';
 
 const confirmCopy = { message: 'Embed code has been copied to your clipboard', autoHideDuration: 600000 };
@@ -62,7 +54,8 @@ class AppsView extends BaseComponent {
     this.setState({ newAppModalIsOpen: false });
   }
 
-  openCodeModal(code) {
+  openCodeModal(code, event) {
+    event.stopPropagation();
     this.setState({
       codeModalIsOpen: true,
       codeModalCode: code,
@@ -91,36 +84,32 @@ class AppsView extends BaseComponent {
     const { newAppModalIsOpen, codeModalIsOpen, codeModalCode } = this.state;
     const { appConnection, loading, refetch } = this.props.data;
 
+    const options = {
+      count: appConnection ? appConnection.count : 0,
+      onRowClick: (rowData: string[], rowMeta: { dataIndex: number, rowIndex: number }) => {
+        this.selectApp(rowData[1]);
+      },
+    };
+
     if (loading) return <h1>Loading</h1>;
 
     return (
       <ThemeProvider theme={theme}>
         <div>
           <Toolbar>
-            <ToolbarGroup firstChild />
-            <ToolbarGroup>
-              <IconButton tooltip="Add" onClick={this.openNewAppModal}>
-                <FaBeer />
-              </IconButton>
-              <IconButton tooltip="Reload" onTouchTap={() => refetch()}>
-                <ReloadIcon />
-              </IconButton>
-            </ToolbarGroup>
+            <IconButton tooltip="Add" onClick={this.openNewAppModal}>
+              <AddIcon />
+            </IconButton>
+            <IconButton tooltip="Reload" onTouchTap={() => refetch()}>
+              <ReloadIcon />
+            </IconButton>
           </Toolbar>
-
           {appConnection.edges.length && appConnection.count > 0 ? (
-            <ThemeProvider theme={createMuiTheme(datatableTheme)}>
-              <DataTables
-                height={'auto'}
-                selectable={false}
-                showRowHover
-                columns={tableColumns(this.openCodeModal, this.selectApp)}
-                data={this.transformConnectionNode(appConnection.edges)}
-                showCheckboxes={false}
-                page={1}
-                count={appConnection.count}
-              />
-            </ThemeProvider>
+            <MUIDataTable
+              columns={columns(this.openCodeModal,this.selectApp)}
+              data={this.transformConnectionNode(appConnection.edges)}
+              options={options}
+            />
           ) : (
             <div>
               <div className={s.nothing}>

@@ -2,21 +2,18 @@
 * @Author: Homer
 * @Date:   2017-12-17 23:50:40
 * @Last Modified by:   homer
-* @Last Modified time: 2019-05-29 13:47:01
+* @Last Modified time: 2019-05-29 16:14:03
 */
 
 import React from 'react';
-import BaseComponent from '../BaseComponent';
 import PropTypes from 'prop-types';
 import { graphql, compose } from 'react-apollo';
-import _ from 'lodash';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import { ThemeProvider } from '@material-ui/styles';
-import { createMuiTheme } from '@material-ui/core/styles';
-
-import ReloadIcon from 'react-material-icons/icons/action/cached';
+import { FiRefreshCcw as ReloadIcon } from 'react-icons/fi';
 import IconButton from '@material-ui/core/IconButton';
-import { Toolbar, ToolbarGroup } from '@material-ui/core/Toolbar';
+import Toolbar from '@material-ui/core/Toolbar';
+import BaseComponent from '../BaseComponent';
 import theme from '../theme';
 import config from '../../config';
 import SessionsTable from '../SessionsTable';
@@ -75,13 +72,10 @@ class SessionsView extends BaseComponent {
     return (
       <ThemeProvider theme={theme}>
         <div>
-          <Toolbar>
-            <ToolbarGroup firstChild />
-            <ToolbarGroup>
+          <Toolbar>    
               <IconButton tooltip="Reload" onTouchTap={() => refetch()}>
                 <ReloadIcon />
               </IconButton>
-            </ToolbarGroup>
           </Toolbar>
 
           {sessionConnection.edges && sessionConnection.edges.length
@@ -126,7 +120,7 @@ export default withStyles(s)(
     graphql(sessionsQuery, {
       options: props => ({
         variables: { userId: props.userId, appId: props.appId },
-        // pollInterval: config.pollInterval,
+        pollInterval: config.pollInterval,
       }),
     }),
   )(SessionsView),
