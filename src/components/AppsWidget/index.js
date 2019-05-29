@@ -12,12 +12,13 @@ import MenuItem from '@material-ui/core/MenuItem';
 import IconButton from '@material-ui/core/IconButton';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import ListItemText from '@material-ui/core/ListItemText';
 import Avatar from '@material-ui/core/Avatar';
 import Divider from '@material-ui/core/Divider';
-import { FiPlay as ArrowForward, FiMoreVertical as MoreVert, FiList as AppsIcon, FiCode as CodeIcon } from 'react-icons/fi';
+import { FiArrowRight as ArrowForward, FiMoreVertical as MoreVert, FiList as AppsIcon, FiCode as CodeIcon } from 'react-icons/fi';
 import { RCard, RCardHeader, RCardBody, RCardFooter } from '../styled/RCard';
+import ListItemLink from '../share/ListItemLink';
 import PrimaryText from './PrimaryText';
 import theme from '../theme';
 import Loader from './Loader';
@@ -75,12 +76,18 @@ class AppsList extends BaseComponent {
           <RCardBody>
             <List style={{ padding: 0 }}>
               {this.transformConnectionNode(appConnection.edges).map((item, index, array) => (
-                <div key={item.id}>
-                  <ListItem
-                    leftAvatar={<Avatar icon={<CodeIcon />} />}
-                    primaryText={<PrimaryText text={item.name} number={item._id} />}
-                    secondaryText={item.host}
-                  />
+                <div key={item._id}>
+                  <ListItemLink href={`/app/${item._id}/sessions`} button>
+                    <ListItemAvatar>
+                      <Avatar>
+                        <CodeIcon />
+                      </Avatar>
+                    </ListItemAvatar>
+                    <ListItemText
+                      primary={<PrimaryText text={item.name} number={item._id} />}
+                      secondary={item.hostname}
+                    />
+                  </ListItemLink>
                   { (array.length - 1) !== index ? <Divider /> : '' }
                 </div>
                 ),

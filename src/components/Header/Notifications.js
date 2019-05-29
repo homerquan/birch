@@ -20,7 +20,7 @@ import { ThemeProvider } from '@material-ui/styles';
 import { createMuiTheme } from '@material-ui/core/styles';
 import Divider from '@material-ui/core/Divider';
 import ListSubheader from '@material-ui/core/ListSubheader';
-import Link from '../Link';
+import Link from '../share/Link';
 import theme from '../theme';
 import s from './Notifications.css';
 import CONSTANTS from '../../constants';

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 import theme from '../theme';
-import Link from '../Link';
+import Link from '../share/Link';
 
 export default styled(Link)`
   color: ${theme.palette.primary1Color};

@@ -7,7 +7,7 @@ import { white, grey500 } from '@material-ui/core/colors';
 import { FiSearch as SearchIcon } from 'react-icons/fi';
 import Divider from '@material-ui/core/Divider';
 
-import Link from '../Link';
+import Link from '../share/Link';
 import {
   SearchContainer,
   SearchResultsContainer,
