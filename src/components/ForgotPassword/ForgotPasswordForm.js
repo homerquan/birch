@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Field, propTypes } from 'redux-form';
-import { RaisedButton } from 'material-ui';
+import { Button } from 'material-ui';
 import styled from 'styled-components';
 
 import { FormGroup } from '../styled/Forms';
@@ -23,7 +23,7 @@ const ForgotPasswordForm = ({ handleSubmit, pristine, submitting, submit }) => (
         />
       </FormGroup>
       <FormGroup>
-        <RaisedButton
+        <Button variant="contained"
           type="submit"
           label="Submit"
           primary

@@ -2,8 +2,8 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import * as SRD from 'storm-react-diagrams';
-import { white } from 'material-ui/styles/colors';
-import ChevronLeft from 'material-ui/svg-icons/navigation/chevron-left';
+import { white } from '@material-ui/core/colors';
+import { FiChevronLeft as ChevronLeft } from 'react-icons/fi';
 
 // import theme from '../../theme';
 

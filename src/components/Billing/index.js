@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import RaisedButton from 'material-ui/RaisedButton';
-import FlatButton from 'material-ui/FlatButton';
-import Divider from 'material-ui/Divider';
+import Button from '@material-ui/core/Button';
+import Divider from '@material-ui/core/Divider';
 import {
   Table,
   TableBody,
   TableRow,
   TableRowColumn,
-} from 'material-ui/Table';
+} from '@material-ui/core/Table';
 import AddCreditCardDialog from './AddCreditCardDialog';
 import InvoicesDialog from './InvoicesDialog';
 import s from './style.css';
@@ -53,12 +52,12 @@ class Billing extends Component {
   
   render() {
     const creditCardActions = [
-      <FlatButton label="Save" onClick={this.handleAddCreditCard} />,
-      <FlatButton label="Cancel" secondary onClick={this.handleCCDialogClose} />,
+      <Button label="Save" onClick={this.handleAddCreditCard} />,
+      <Button label="Cancel" secondary onClick={this.handleCCDialogClose} />,
     ];
 
     const invoicesActions = [
-      <FlatButton label="Close" onClick={this.handleInvoicesDialogClose} />,
+      <Button label="Close" onClick={this.handleInvoicesDialogClose} />,
     ];
 
     return (
@@ -69,7 +68,7 @@ class Billing extends Component {
 
         <div>
           <p className={s.noCCText}>This account does not have a credit card.</p>
-          <RaisedButton
+          <Button variant="contained"
             primary
             label="Add Credit Card"
             onClick={this.handleCCDialogOpen}
@@ -97,7 +96,7 @@ class Billing extends Component {
           <h3 className={s.sectionTitle}>Invoices</h3>
         </div>
         <div>
-          <RaisedButton
+          <Button variant="contained"
             label="View Invoices"
             onClick={this.handleInvoicesDialogOpen}
           />

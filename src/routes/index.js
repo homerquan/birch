@@ -14,7 +14,7 @@ export default {
     require('./apps').default,
     require('./app').default,
     require('./createApp').default,
-    require('./knowledge').default,
+    //require('./knowledge').default,
     require('./profile').default,
     require('./register').default,
     require('./help').default,

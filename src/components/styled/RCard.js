@@ -1,4 +1,4 @@
-import { white, grey100 } from 'material-ui/styles/colors';
+import { white, grey100 } from '@material-ui/core/colors';
 
 import styled from 'styled-components';
 import theme from '../theme';

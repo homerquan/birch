@@ -8,15 +8,15 @@
  * @Email: dev@reflen.com
  * @Date:   2017-11-05 19:34:16
  * @Last Modified by:   homer
- * @Last Modified time: 2019-05-28 20:57:39
+ * @Last Modified time: 2019-05-29 01:20:40
  */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import { Page, Section, LayoutProvider } from 'react-page-layout';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+
 import lightTheme from '../../components/theme';
 import grids from '../../components/Layout/grids';
 import TitleBar from '../../components/TitleBar';
@@ -27,7 +27,7 @@ class AppsPage extends React.Component {
 
   render() {
     return (
-      <MuiThemeProvider muiTheme={getMuiTheme(lightTheme)}>
+      <MuiThemeProvider muiTheme={createMuiTheme(lightTheme)}>
         <LayoutProvider layouts={grids}>
           <Page layout="grid-one-one">
             <Section slot="titleBar">

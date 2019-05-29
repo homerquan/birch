@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import RaisedButton from 'material-ui/RaisedButton';
-import SelectField from 'material-ui/SelectField';
-import MenuItem from 'material-ui/MenuItem';
+import Button from '@material-ui/core/Button';
+import SelectField from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
 
 import s from './Info.css';
 
@@ -37,12 +37,12 @@ class Properties extends Component {
           </SelectField>
         </div>
         <div className={s.footer}>
-          <RaisedButton
+          <Button variant="contained"
             style={{ marginRight: '14px' }}
             label="Back"
             onClick={back}
           />
-          <RaisedButton
+          <Button variant="contained"
             label="Next"
             onClick={next}
           />

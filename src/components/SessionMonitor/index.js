@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { graphql, compose } from 'react-apollo';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import CloseIcon from 'material-ui/svg-icons/navigation/close';
-import IconButton from 'material-ui/IconButton';
-import SendIcon from 'material-ui/svg-icons/content/send';
-import { greenA700, grey900, white } from 'material-ui/styles/colors';
-import SchoolIcon from 'material-ui/svg-icons/social/school';
-import withWidth, { LARGE } from 'material-ui/utils/withWidth';
+import IconButton from '@material-ui/core/IconButton';
+import { greenA700, grey900, white } from '@material-ui/core/colors';
+import { FiSend as SendIcon} from 'react-icons/fi';
+import { FiX as CloseIcon} from 'react-icons/fi';
+import { FiZap as SupportIcon} from 'react-icons/fi';
+import withWidth, { LARGE } from '@material-ui/core/withWidth';
 import BaseComponent from '../BaseComponent';
 import MessagesContainer from './MessagesContainer';
 import ActionMenu from './ActionMenu';
@@ -309,7 +309,7 @@ class SessionMonitor extends BaseComponent {
                   iconStyle={styles.smallIcon}
                   style={styles.small}
                 >
-                  <SchoolIcon color={enableTraining ? greenA700 : grey900} />
+                  <SupportIcon color={enableTraining ? greenA700 : grey900} />
                 </IconButton>
               </div>
             </div>

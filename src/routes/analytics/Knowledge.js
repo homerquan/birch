@@ -11,10 +11,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { graphql, compose } from 'react-apollo';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider'
+
 import lightTheme from '../theme';
-import FlatButton from 'material-ui/FlatButton';
+import Button from '@material-ui/core/Button';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import s from './Knowledge.css';
 import KnowledgeApi from '../../api/Knowledge';
@@ -45,10 +45,10 @@ class Knowledge extends React.Component {
 
   render() {
     return (
-      <MuiThemeProvider muiTheme={getMuiTheme(lightTheme)}>
+      <MuiThemeProvider muiTheme={createMuiTheme(lightTheme)}>
       <div>
         <textarea id="demoKB" class="knowledge" defaultValue={this.state.knowledge} />
-        <FlatButton label="Change" fullWidth={true} onClick={this.onSave} />
+        <Button label="Change" fullWidth={true} onClick={this.onSave} />
       </div>  
       </MuiThemeProvider>
     );

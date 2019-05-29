@@ -8,28 +8,25 @@
  * @Email: dev@reflen.com
  * @Date:   2017-11-05 17:00:20
  * @Last Modified by:   homer
- * @Last Modified time: 2019-05-22 22:57:10
+ * @Last Modified time: 2019-05-29 02:51:37
  */
 import React, { Component } from 'react';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import { List } from 'material-ui/List';
-import Divider from 'material-ui/Divider';
-import { black } from 'material-ui/styles/colors';
-import NotificationsIcon from 'material-ui/svg-icons/social/notifications-active';
-import IconButton from 'material-ui/IconButton';
-import ArrowForward from 'material-ui/svg-icons/navigation/arrow-forward';
-import MoreVert from 'material-ui/svg-icons/navigation/more-vert';
-import IconMenu from 'material-ui/IconMenu';
-import MenuItem from 'material-ui/MenuItem';
+import { List } from '@material-ui/core/List';
+import Divider from '@material-ui/core/Divider';
+import { black } from '@material-ui/core/colors';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import { FiRadio as NotificationsIcon, FiArrowRight as ArrowForward } from 'react-icons/fi';
 import { RCard, RCardHeader, RCardBody, RCardFooter } from '../styled/RCard';
 import lightTheme from '../theme';
-import s from './style.css';
 import fakeData from './fakeData.json';
 import MessageListItem from '../MessageListItem';
 import NotificationListItem from '../NotificationListItem';
 import ActivitiesContentLoader from './ActivitiesContentLoader';
+import s from './style.css';
 
 class Activities extends Component {
   constructor(props) {
@@ -49,7 +46,7 @@ class Activities extends Component {
     }
 
     return (
-      <MuiThemeProvider muiTheme={getMuiTheme(lightTheme)}>
+      <MuiThemeProvider muiTheme={createMuiTheme(lightTheme)}>
         <RCard>
           <RCardHeader>
             <div className="title-container">
@@ -57,14 +54,10 @@ class Activities extends Component {
               <h2>Activities</h2>
             </div>
             <div className="button-container">
-              <IconMenu
-                iconButtonElement={<IconButton><MoreVert /></IconButton>}
-                anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
-                targetOrigin={{ horizontal: 'left', vertical: 'top' }}
-              >
+              <Menu>
                 <MenuItem primaryText="Refresh" />
                 <MenuItem primaryText="Send feedback" />
-              </IconMenu>
+              </Menu>
             </div>
           </RCardHeader>
           <RCardBody>

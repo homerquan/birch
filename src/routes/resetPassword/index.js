@@ -8,34 +8,10 @@
  */
 
 import React from 'react';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import styled from 'styled-components';
-import Paper from 'material-ui/Paper';
-
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import lightTheme from '../../components/theme';
 import BlankScreen from '../../components/Layout/BlankScreen';
-import Background from '../../../public/images/bg.svg';
 import ResetPassword from '../../components/ResetPassword';
-
-const Container = styled.div`
-  background-image: url(${Background});
-  background-repeat: no-repeat;
-  background-size: cover;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-`;
-
-const ContentContainer = styled(Paper)`
-  min-height: 200px;
-  min-width: 450px;
-  padding: 20px 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
 
 export default {
   path: '/reset-password',
@@ -44,12 +20,10 @@ export default {
     return {
       component: (
         <BlankScreen>
-          <MuiThemeProvider muiTheme={getMuiTheme(lightTheme)}>
-            <Container>
-              <ContentContainer>
-                <ResetPassword />
-              </ContentContainer>
-            </Container>
+          <MuiThemeProvider muiTheme={createMuiTheme(lightTheme)}>
+            <div>
+              <ResetPassword />
+            </div>
           </MuiThemeProvider>
         </BlankScreen>
       ),

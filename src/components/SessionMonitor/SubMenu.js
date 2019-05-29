@@ -1,9 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Popup from 'reactjs-popup';
-import { List, ListItem } from 'material-ui/List';
-import ChevronRight from 'material-ui/svg-icons/navigation/chevron-right';
-import PermContactIcon from 'material-ui/svg-icons/action/perm-contact-calendar';
+import { List, ListItem } from '@material-ui/core/List';
+import { FiChevronRight as ChevronRight, FiTruck as PermContactIcon } from 'react-icons/fi';
 
 const styles = {
   popupStyle: {

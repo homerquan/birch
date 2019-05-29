@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import RaisedButton from 'material-ui/RaisedButton';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import Button from '@material-ui/core/Button';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
@@ -29,9 +29,9 @@ class ProfileView extends React.Component {
 
   render() {
     return (
-      <MuiThemeProvider muiTheme={getMuiTheme(theme)}>
+      <MuiThemeProvider muiTheme={createMuiTheme(theme)}>
         <div>
-          <RaisedButton
+          <Button variant="contained"
             label="Logout"
             primary
             onClick={this.logoutHandler}

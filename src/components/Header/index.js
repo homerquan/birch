@@ -11,16 +11,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+
 import Sticky from 'react-stickynode';
 import { connect } from 'react-redux';
 import CornerNotifications from 'react-notification-system-redux';
 import { Alerts as SnackBarAlerts } from 'mui-redux-alerts-next';
-import IconButton from 'material-ui/IconButton';
-import ArrowIcon from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
-import HamburgerIcon from 'material-ui/svg-icons/image/dehaze';
-import { white } from 'material-ui/styles/colors';
+import IconButton from '@material-ui/core/IconButton';
+import { FiArrowRight as ArrowIcon, FiAlignJustify as HamburgerIcon} from 'react-icons/fi';
+import { white } from '@material-ui/core/colors';
 import theme from '../theme';
 import Loader from '../Loader';
 import GlobalNotice from '../GlobalNotice';
@@ -109,7 +108,7 @@ class Header extends React.Component {
     const selectedAppName = this.props.runtime && this.props.runtime.selectedApp ? this.props.runtime.selectedApp.name : '';
 
     return (
-      <MuiThemeProvider muiTheme={getMuiTheme(theme)}>
+      <MuiThemeProvider muiTheme={createMuiTheme(theme)}>
         <div>
           {this.renderLoadingIndicator()}
           <GlobalNotice />

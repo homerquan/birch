@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { white } from 'material-ui/styles/colors';
+import { white } from '@material-ui/core/colors';
 
 import theme from '../theme';
 

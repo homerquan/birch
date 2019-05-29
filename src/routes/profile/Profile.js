@@ -10,8 +10,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Page, Section, LayoutProvider } from 'react-page-layout';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+
 
 import lightTheme from '../../components/theme';
 import grids from '../../components/Layout/grids';
@@ -33,7 +33,7 @@ class Profile extends React.Component {
 
   render() {
     return (
-      <MuiThemeProvider muiTheme={getMuiTheme(lightTheme)}>
+      <MuiThemeProvider muiTheme={createMuiTheme(lightTheme)}>
         <LayoutProvider layouts={grids}>
           <Page layout="grid-one-one">
             <Section slot="titleBar">

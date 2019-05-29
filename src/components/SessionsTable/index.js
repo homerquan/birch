@@ -2,19 +2,19 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import DataTables from 'material-ui-datatables';
-import Avatar from 'material-ui/Avatar';
-import Chip from 'material-ui/Chip';
-import IconButton from 'material-ui/IconButton';
+import Avatar from '@material-ui/core/Avatar';
+import Chip from '@material-ui/core/Chip';
+import IconButton from '@material-ui/core/IconButton';
 import OnlineIcon from 'react-material-icons/icons/action/swap-horiz';
 import OffIcon from 'react-material-icons/icons/notification/sync-disabled';
 import MoreIcon from 'react-material-icons/icons/navigation/more-vert';
 import ChatIcon from 'react-material-icons/icons/communication/chat-bubble';
-import { grey500, deepPurple500, deepPurple800, white } from 'material-ui/styles/colors';
+import { grey500, deepPurple500, deepPurple800, white } from '@material-ui/core/colors';
 import Blockies from 'react-blockies';
 import moment from 'moment';
-import Toggle from 'material-ui/Toggle';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import Toggle from '@material-ui/core/Switch';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+
 import s from './style.css';
 import datatableTheme from '../datatableTheme';
 
@@ -265,7 +265,7 @@ class SessionsTable extends Component {
     const displayData = data.slice(rowSize * (page - 1), rowSize * page);
 
     return (
-      <MuiThemeProvider muiTheme={getMuiTheme(datatableTheme)}>
+      <MuiThemeProvider muiTheme={createMuiTheme(datatableTheme)}>
         <DataTables
           height="auto"
           selectable={false}

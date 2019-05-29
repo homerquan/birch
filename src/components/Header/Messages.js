@@ -1,18 +1,17 @@
 import React, { Component } from 'react';
 // import PropTypes from 'prop-types';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
+
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import Badge from 'material-ui/Badge';
-import IconButton from 'material-ui/IconButton';
-import SMSIcon from 'material-ui/svg-icons/notification/sms';
-import Paper from 'material-ui/Paper';
-import { deepPurple500, pink500, white } from 'material-ui/styles/colors';
-import { List, ListItem } from 'material-ui/List';
-import Avatar from 'material-ui/Avatar';
-import CodeIcon from 'material-ui/svg-icons/action/code';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import Divider from 'material-ui/Divider';
-import Subheader from 'material-ui/Subheader';
+import Badge from '@material-ui/core/Badge';
+import IconButton from '@material-ui/core/IconButton';
+import Paper from '@material-ui/core/Paper';
+import { deepPurple500, pink500, white } from '@material-ui/core/colors';
+import { List, ListItem } from '@material-ui/core/List';
+import Avatar from '@material-ui/core/Avatar';
+import { FiMail as SMSIcon, FiCode as CodeIcon } from 'react-icons/fi';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import Divider from '@material-ui/core/Divider';
+import ListSubheader from '@material-ui/core/ListSubheader';
 import Link from '../Link';
 import lightTheme from '../theme';
 import s from './Messages.css';
@@ -135,7 +134,7 @@ class Messages extends Component {
     const { isLoading, messages, isOpen } = this.state;
 
     return (
-      <MuiThemeProvider muiTheme={getMuiTheme(lightTheme)}>
+      <MuiThemeProvider muiTheme={createMuiTheme(lightTheme)}>
         <Badge
           badgeContent={messages.length ? messages.length : 0}
           badgeStyle={messages.length ? badgeStyle : hiddenStyle}
@@ -155,7 +154,7 @@ class Messages extends Component {
               <p className={s.headerTitle}>Messages</p>
             </div>
             <List style={listStyle}>
-              <Subheader style={subHeaderStyle}>Recent</Subheader>
+              <ListSubheader style={subHeaderStyle}>Recent</ListSubheader>
               {isLoading
                 ? 'Loading...'
                 : messages.map((message, index) => (

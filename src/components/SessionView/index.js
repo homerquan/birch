@@ -3,17 +3,15 @@ import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import moment from 'moment';
 import Blockies from 'react-blockies';
-import MoreVert from 'material-ui/svg-icons/navigation/more-vert';
-import IconMenu from 'material-ui/IconMenu';
-import MenuItem from 'material-ui/MenuItem';
-import { List, ListItem } from 'material-ui/List';
-import CompareArrows from 'material-ui/svg-icons/action/compare-arrows';
-import EventIcon from 'material-ui/svg-icons/notification/event-note';
-import Avatar from 'material-ui/Avatar';
-import Subheader from 'material-ui/Subheader';
-import { blue200, blue500, black } from 'material-ui/styles/colors';
-import AppsIcon from 'material-ui/svg-icons/navigation/apps';
-import IconButton from 'material-ui/IconButton';
+
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import { List, ListItem } from '@material-ui/core/List';
+import Avatar from '@material-ui/core/Avatar';
+import ListSubheader from '@material-ui/core/ListSubheader';
+import { blue200, blue500, black } from '@material-ui/core/colors';
+import { FiArrowRight as ArrowIcon, FiWatch as EventIcon, FiMoreVertical as MoreVert, FiList as AppsIcon } from 'react-icons/fi';
+import IconButton from '@material-ui/core/IconButton';
 import { RCard, RCardHeader, RCardBody, RCardFooter } from '../styled/RCard';
 import s from './style.css';
 
@@ -29,14 +27,14 @@ class SessionView extends Component {
             <h2>Session</h2>
           </div>
           <div className="button-container">
-            <IconMenu
+            <Menu
               iconButtonElement={<IconButton><MoreVert /></IconButton>}
               anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
               targetOrigin={{ horizontal: 'left', vertical: 'top' }}
             >
               <MenuItem primaryText="Refresh" />
               <MenuItem primaryText="Send feedback" />
-            </IconMenu>
+            </Menu>
           </div>
         </RCardHeader>
         <RCardBody>
@@ -52,7 +50,7 @@ class SessionView extends Component {
           </div>
           <List>
             <ListItem
-              leftIcon={<CompareArrows />}
+              leftIcon={<ArrowIcon />}
               primaryText={
                 <div>
                   <span>User Id</span>
@@ -80,7 +78,7 @@ class SessionView extends Component {
             />
           </List>
           <List>
-            <Subheader className={s.agentsSubHeader}>Agents</Subheader>
+            <ListSubheader className={s.agentsSubHeader}>Agents</ListSubheader>
             <ListItem
               primaryText="solver v 1.3"
               leftAvatar={<Avatar src="/images/avatar-helper.png" />}

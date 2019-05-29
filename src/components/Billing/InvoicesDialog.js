@@ -1,15 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import Dialog from 'material-ui/Dialog';
+import Dialog from '@material-ui/core/Dialog';
 import {
   Table,
   TableBody,
   TableRow,
   TableRowColumn,
-} from 'material-ui/Table';
-import ViewIcon from 'material-ui/svg-icons/action/visibility';
-import { deepPurple500, green500 } from 'material-ui/styles/colors';
+} from '@material-ui/core/Table';
+import { FiChevronRight as ViewIcon } from 'react-icons/fi';
+import { deepPurple500, green500 } from '@material-ui/core/colors';
 
 
 import s from './AddCreditCardDialog.css';

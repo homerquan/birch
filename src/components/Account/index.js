@@ -1,9 +1,9 @@
 import React from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import TextField from 'material-ui/TextField';
-import Avatar from 'material-ui/Avatar';
-import RaisedButton from 'material-ui/RaisedButton';
-import Divider from 'material-ui/Divider';
+import TextField from '@material-ui/core/TextField';
+import Avatar from '@material-ui/core/Avatar';
+import Button from '@material-ui/core/Button';
+import Divider from '@material-ui/core/Divider';
 import s from './style.css';
 
 const profileInputStyle = {
@@ -32,7 +32,7 @@ const Account = () => (
             src="images/avatar-visitor.png"
             size={80}
           />
-          <RaisedButton label="Upload Image" style={uploadBtn} />
+          <Button variant="contained" label="Upload Image" style={uploadBtn} />
         </div>
         <div>
           <TextField
@@ -47,7 +47,7 @@ const Account = () => (
           />
         </div>
       </div>
-      <RaisedButton label="Save" primary style={saveBtn} />
+      <Button variant="contained" label="Save" primary style={saveBtn} />
     </div>
 
     <div className={s.divider}>
@@ -74,7 +74,7 @@ const Account = () => (
         type="password"
         floatingLabelText="Confirm New Password"
       />
-      <RaisedButton label="Update Password" primary disabled style={saveBtn} />
+      <Button variant="contained" label="Update Password" primary disabled style={saveBtn} />
     </div>
 
     <div className={s.divider}>
@@ -85,7 +85,7 @@ const Account = () => (
       <h3 className={s.sectionTitle}>Close Account</h3>
     </div>
     <div>
-      <RaisedButton label="close this account" secondary />
+      <Button variant="contained" label="close this account" secondary />
     </div>
   </div>
 );

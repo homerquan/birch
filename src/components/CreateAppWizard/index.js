@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import { List, ListItem } from 'material-ui/List';
-import CheckCircleIcon from 'material-ui/svg-icons/action/check-circle';
-import RadioButtonChecked from 'material-ui/svg-icons/toggle/radio-button-checked';
-import RadioButtonUnchecked from 'material-ui/svg-icons/toggle/radio-button-unchecked';
+import { List, ListItem } from '@material-ui/core/List';
+import { FiCircle as CheckCircleIcon, FiCheckCircle as RadioButtonCheckedIcon, FiArrowRightCircle as RadioButtonUncheckedIcon } from 'react-icons/fi';
 import Info from './Info';
 import Properties from './Properties';
 import Finish from './Finish';
@@ -61,10 +59,10 @@ class NewApp extends Component {
     }
 
     if (page === step) {
-      return <RadioButtonChecked color="white" />;
+      return <RadioButtonCheckedIcon color="white" />;
     }
 
-    return <RadioButtonUnchecked color="white" />;
+    return <RadioButtonUncheckedIcon color="white" />;
   }
 
   render() {

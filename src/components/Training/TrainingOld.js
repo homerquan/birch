@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import classnames from 'classnames';
-import RaisedButton from 'material-ui/RaisedButton';
+import Button from '@material-ui/core/Button';
 import storm from 'storm-react-diagrams/dist/style.min.css';
 
 import s from './Training.css';
@@ -60,7 +60,7 @@ class Training extends Component {
     return (
       <div className={containerClass}>
         <div className={s.header}>
-          <RaisedButton
+          <Button variant="contained"
             label="Close"
             onClick={close}
           />
@@ -71,7 +71,7 @@ class Training extends Component {
           </div>
           <div className={s.diagramWrapper}>
             <div className={s.diagramOptions}>
-              <RaisedButton
+              <Button variant="contained"
                 label="Add Node"
                 primary
                 onClick={this.addNode}

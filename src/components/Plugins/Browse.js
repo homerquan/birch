@@ -4,14 +4,13 @@ import gql from 'graphql-tag';
 import { graphql, compose } from 'react-apollo';
 import _ from 'lodash';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
-import RaisedButton from 'material-ui/RaisedButton';
-import DropDownMenu from 'material-ui/DropDownMenu';
-import MenuItem from 'material-ui/MenuItem';
-import ReloadIcon from 'react-material-icons/icons/action/cached';
-import PlusIcon from 'material-ui/svg-icons/content/add';
-import IconButton from 'material-ui/IconButton';
-import Drawer from 'material-ui/Drawer';
+import { Toolbar, ToolbarGroup } from '@material-ui/core/Toolbar';
+import Butoon from '@material-ui/core/Button';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import { FiRefreshCcw as ReloadIcon, FiPlus as PlusIcon } from 'react-icons/fi';
+import IconButton from '@material-ui/core/IconButton';
+import Drawer from '@material-ui/core/Drawer';
 
 import s from './Browse.css';
 
@@ -92,7 +91,7 @@ class Browse extends Component {
       <div>
         <Toolbar>
           <ToolbarGroup firstChild>
-            <DropDownMenu
+            <Select
               value={currentType}
               onChange={(e, i, value) => this.setState({ currentType: value })}
               anchorOrigin={{ vertical: 'top', horizontal: 'left' }}
@@ -102,7 +101,7 @@ class Browse extends Component {
               <MenuItem value={'action'} primaryText="Action" />
               <MenuItem value={'model'} primaryText="Model" />
               <MenuItem value={'other'} primaryText="Other" />
-            </DropDownMenu>
+            </Select>
           </ToolbarGroup>
           <ToolbarGroup>
             <IconButton tooltip="Reload" onTouchTap={() => refetch()}>
@@ -128,7 +127,8 @@ class Browse extends Component {
                   </button>
                 </div>
               </div>
-              <RaisedButton
+              <Button
+                variant="contained"
                 label="Add to Application"
                 labelPosition="after"
                 icon={<PlusIcon />}
@@ -149,7 +149,8 @@ class Browse extends Component {
         >
           <div className={s.sideBar}>
             <img src={this.state.selectedPlugin.image} className={s.sideBarImage} alt="Plugin" />
-            <RaisedButton
+            <Button
+              variant="contained"
               label="Install"
               primary
               fullWidth

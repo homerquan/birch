@@ -2,22 +2,18 @@ import React from 'react';
 import BaseComponent from '../BaseComponent';
 import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import AppsIcon from 'material-ui/svg-icons/navigation/apps';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import ArrowForward from 'material-ui/svg-icons/navigation/arrow-forward';
-import MoreVert from 'material-ui/svg-icons/navigation/more-vert';
-import IconMenu from 'material-ui/IconMenu';
-import MenuItem from 'material-ui/MenuItem';
-import IconButton from 'material-ui/IconButton';
-import { black, deepPurple500 } from 'material-ui/styles/colors';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import IconButton from '@material-ui/core/IconButton';
+import { black, deepPurple500 } from '@material-ui/core/colors';
 import gql from 'graphql-tag';
 import { graphql, compose } from 'react-apollo';
-import { List, ListItem } from 'material-ui/List';
+import { List, ListItem } from '@material-ui/core/List';
 import _ from 'lodash';
-import Avatar from 'material-ui/Avatar';
-import Divider from 'material-ui/Divider';
-import CodeIcon from 'material-ui/svg-icons/action/code';
+import Avatar from '@material-ui/core/Avatar';
+import Divider from '@material-ui/core/Divider';
+import { FiPlay as ArrowForward, FiMoreVertical as MoreVert, FiList as AppsIcon, FiCode as CodeIcon } from 'react-icons/fi';
 import { RCard, RCardHeader, RCardBody, RCardFooter } from '../styled/RCard';
 import PrimaryText from './PrimaryText';
 import lightTheme from '../theme';
@@ -59,7 +55,7 @@ class AppsList extends BaseComponent {
     }
 
     return (
-      <MuiThemeProvider muiTheme={getMuiTheme(lightTheme)}>
+      <MuiThemeProvider muiTheme={createMuiTheme(lightTheme)}>
         <RCard>
           <RCardHeader>
             <div className="title-container">
@@ -67,14 +63,10 @@ class AppsList extends BaseComponent {
               <h2>Applications</h2>
             </div>
             <div className="button-container">
-              <IconMenu
-                iconButtonElement={<IconButton><MoreVert /></IconButton>}
-                anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
-                targetOrigin={{ horizontal: 'left', vertical: 'top' }}
-              >
+              <Menu>
                 <MenuItem primaryText="Refresh" />
                 <MenuItem primaryText="Send feedback" />
-              </IconMenu>
+              </Menu>
             </div>
           </RCardHeader>
           <RCardBody>

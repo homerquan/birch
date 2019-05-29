@@ -2,25 +2,25 @@
 * @Author: Homer
 * @Date:   2017-12-17 23:50:40
 * @Last Modified by:   homer
-* @Last Modified time: 2019-05-28 23:24:19
+* @Last Modified time: 2019-05-29 01:20:36
 */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { graphql, compose } from 'react-apollo';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+
 import DataTables from 'material-ui-datatables';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import IconButton from 'material-ui/IconButton';
+import IconButton from '@material-ui/core/IconButton';
 import ReloadIcon from 'react-material-icons/icons/action/cached';
 import AddIcon from 'react-material-icons/icons/content/add';
 import { FaBeer } from 'react-icons/fa';
 import {
   Toolbar,
   ToolbarGroup,
-} from 'material-ui/Toolbar';
+} from '@material-ui/core/Toolbar';
 import { openSnackbar } from 'mui-redux-alerts-next';
 import BaseComponent from '../BaseComponent';
 import { redirect } from '../../utils';
@@ -93,7 +93,7 @@ class AppsView extends BaseComponent {
     if (loading) return <h1>Loading</h1>;
 
     return (
-      <MuiThemeProvider muiTheme={getMuiTheme(lightTheme)}>
+      <MuiThemeProvider muiTheme={createMuiTheme(lightTheme)}>
         <div>
           <Toolbar>
             <ToolbarGroup firstChild />
@@ -108,7 +108,7 @@ class AppsView extends BaseComponent {
           </Toolbar>
 
           {appConnection.edges.length && appConnection.count > 0 ? (
-            <MuiThemeProvider muiTheme={getMuiTheme(datatableTheme)}>
+            <MuiThemeProvider muiTheme={createMuiTheme(datatableTheme)}>
               <DataTables
                 height={'auto'}
                 selectable={false}

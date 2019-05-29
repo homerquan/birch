@@ -10,10 +10,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Page, Section, LayoutProvider } from 'react-page-layout';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import { Tabs, Tab } from 'material-ui/Tabs';
-import Paper from 'material-ui/Paper';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+
+import { Tabs, Tab } from '@material-ui/core/Tabs';
+import Paper from '@material-ui/core/Paper';
 
 import lightTheme from '../../components/theme';
 import grids from '../../components/Layout/grids';
@@ -40,14 +40,14 @@ class AccountView extends React.Component {
     const { conversationId } = this.props;
 
     return (
-      <MuiThemeProvider muiTheme={getMuiTheme(lightTheme)}>
+      <MuiThemeProvider muiTheme={createMuiTheme(lightTheme)}>
         <LayoutProvider layouts={grids}>
           <Page layout="grid-one-one">
             <Section slot="titleBar">
               <TitleBar title="Plugins" />
             </Section>
             <Section slot="main">
-              <MuiThemeProvider muiTheme={getMuiTheme(lightTheme)}>
+              <MuiThemeProvider muiTheme={createMuiTheme(lightTheme)}>
                 <Paper>
                   <Tabs
                     value={this.state.value}

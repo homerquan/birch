@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import FlatButton from 'material-ui/FlatButton';
+import Button from '@material-ui/core/Button';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 
 import s from './style.css';
 
 const ReplyButtons = ({ reply, archive }) => (
   <div className={s.notificationsButtonContainer}>
-    <FlatButton label="Reply" primary onClick={() => reply} />
-    <FlatButton label="Archive" primary onClick={() => archive} />
+    <Button label="Reply" primary onClick={() => reply} />
+    <Button label="Archive" primary onClick={() => archive} />
   </div>
 );
 

@@ -7,51 +7,45 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
-import React from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { Page, Section, LayoutProvider } from "react-page-layout";
-import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
-import getMuiTheme from "material-ui/styles/getMuiTheme";
-import { Tabs, Tab } from "material-ui/Tabs";
-import Slider from "material-ui/Slider";
-import FlatButton from 'material-ui/FlatButton';
-import EditIcon from 'material-ui/svg-icons/image/edit';
-import grids from "../../components/Layout/grids";
-import TitleBar from "../../components/TitleBar";
-import AppsWidget from "../../components/AppsWidget";
-import Activities from "../../components/Activities";
-import lightTheme from "../../components/theme";
+import React from 'react';
+import { connect } from 'react-redux';
+import { Page, Section, LayoutProvider } from 'react-page-layout';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import grids from '../../components/Layout/grids';
+import TitleBar from '../../components/TitleBar';
+import AppsWidget from '../../components/AppsWidget';
+import Activities from '../../components/Activities';
+import lightTheme from '../../components/theme';
 
 const styles = {
   container: {
-    maxWidth: "1200px",
-    margin: "0 auto",
-    marginTop: "20px"
+    maxWidth: '1200px',
+    margin: '0 auto',
+    marginTop: '20px',
   },
   col: {
     flex: 1,
     // maxWidth: '450px',
-    marginLeft: "8px",
-    marginRight: "8px"
-  }
+    marginLeft: '8px',
+    marginRight: '8px',
+  },
 };
 
 class HomePage extends React.Component {
   render() {
     return (
-      <MuiThemeProvider muiTheme={getMuiTheme(lightTheme)}>
+      <MuiThemeProvider muiTheme={createMuiTheme(lightTheme)}>
         <LayoutProvider layouts={grids}>
           <Page layout="grid-one-two">
             <Section slot="titleBar">
-              <TitleBar title="Dashboard">
-              </TitleBar>
+            {/* <TitleBar title="Dashboard" /> */}
+              
             </Section>
             <Section slot="col-1">
               <AppsWidget userId={this.props.session.userId} />
             </Section>
             <Section slot="col-2">
-              <Activities />
+            {/*  <Activities /> */}     
             </Section>
           </Page>
         </LayoutProvider>
@@ -62,11 +56,11 @@ class HomePage extends React.Component {
 
 function selectProps(state) {
   return {
-    session: state.session
+    session: state.session,
   };
 }
 
 export default connect(
   selectProps,
-  null
+  null,
 )(HomePage);

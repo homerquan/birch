@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import _ from 'lodash';
 import * as SRD from 'storm-react-diagrams';
-import { white } from 'material-ui/styles/colors';
+import { white } from '@material-ui/core/colors';
 
 import theme from '../../theme';
 

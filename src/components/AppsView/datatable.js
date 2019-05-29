@@ -2,13 +2,11 @@
 * @Author: homer
 * @Date:   2019-05-28 23:14:56
 * @Last Modified by:   homer
-* @Last Modified time: 2019-05-28 23:18:55
+* @Last Modified time: 2019-05-29 02:59:46
 */
 import React from 'react';
-import CodeIcon from 'material-ui/svg-icons/action/code';
-import EyeIcon from 'material-ui/svg-icons/image/remove-red-eye';
-import MoreIcon from 'react-material-icons/icons/navigation/more-vert';
-import IconButton from 'material-ui/IconButton';
+import { FiMoreVertical as MoreIcon, FiCode as CodeIcon, FiExternalLink as OpenIcon } from 'react-icons/fi';
+import IconButton from '@material-ui/core/IconButton';
 
 export const tableColumns = (openCodeModal, selectApp) => ([
   {
@@ -39,7 +37,7 @@ export const tableColumns = (openCodeModal, selectApp) => ([
     label: 'Select',
     render: id => (
       <IconButton onClick={() => selectApp(id)}>
-        <EyeIcon />
+        <OpenIcon />
       </IconButton>
     ),
   },

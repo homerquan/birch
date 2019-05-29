@@ -5,19 +5,17 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { graphql, compose } from 'react-apollo';
 import gql from 'graphql-tag';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import Badge from 'material-ui/Badge';
-import IconButton from 'material-ui/IconButton';
-import NotificationIcon from 'material-ui/svg-icons/social/notifications';
-import Paper from 'material-ui/Paper';
-import { deepPurple500, pink500, white } from 'material-ui/styles/colors';
-import { List, ListItem } from 'material-ui/List';
-import Avatar from 'material-ui/Avatar';
-import CodeIcon from 'material-ui/svg-icons/action/code';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import Divider from 'material-ui/Divider';
-import Subheader from 'material-ui/Subheader';
+import Badge from '@material-ui/core/Badge';
+import IconButton from '@material-ui/core/IconButton';
+import Paper from '@material-ui/core/Paper';
+import { deepPurple500, pink500, white } from '@material-ui/core/colors';
+import { List, ListItem } from '@material-ui/core/List';
+import Avatar from '@material-ui/core/Avatar';
+import {FiBell as NotificationIcon, FiCode as CodeIcon} from 'react-icons/fi';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import Divider from '@material-ui/core/Divider';
+import ListSubheader from '@material-ui/core/ListSubheader';
 import Link from '../Link';
 import lightTheme from '../theme';
 import s from './Notifications.css';
@@ -153,7 +151,7 @@ class Notifications extends BaseComponent {
 
     // TBD: add grace error if notifications are empty
     return (
-      <MuiThemeProvider muiTheme={getMuiTheme(lightTheme)}>
+      <MuiThemeProvider muiTheme={createMuiTheme(lightTheme)}>
         <Badge
           badgeContent={
             runtime[CONSTANTS.notificationsCount]
@@ -181,7 +179,7 @@ class Notifications extends BaseComponent {
               <p className={s.headerTitle}>Notifications</p>
             </div>
             <List style={styles.listStyle}>
-              <Subheader style={styles.subHeaderStyle}>Recent</Subheader>
+              <ListSubheader style={styles.subHeaderStyle}>Recent</ListSubheader>
                {notificationConnection.edges.length
                 ? (
                   this.transformConnectionNode(notificationConnection.edges).map((item, index) => (

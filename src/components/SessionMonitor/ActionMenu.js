@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Popup from 'reactjs-popup';
-import { List, ListItem } from 'material-ui/List';
-import Subheader from 'material-ui/Subheader';
-import IconButton from 'material-ui/IconButton';
-import AddIcon from 'material-ui/svg-icons/content/add';
-import AttachFileIcon from 'material-ui/svg-icons/editor/attach-file';
-import DescriptionIcon from 'material-ui/svg-icons/action/description';
+import { List, ListItem } from '@material-ui/core/List';
+import ListSubheader from '@material-ui/core/ListSubheader';
+import IconButton from '@material-ui/core/IconButton';
+import {FiPlus as AddIcon} from 'react-icons/fi';
+import {FiPaperclip as AttachFileIcon} from 'react-icons/fi';
+import {FiPlus as DescriptionIcon} from 'react-icons/fi';
 
 import SubMenu from './SubMenu';
 
@@ -52,7 +52,7 @@ const ActionMenu = ({ plugins }) => (
     offsetY={10}
   >
     <List style={styles.listStyle}>
-      <Subheader style={styles.subHeaderStyle}>General Actions</Subheader>
+      <ListSubheader style={styles.subHeaderStyle}>General Actions</ListSubheader>
       <ListItem
         style={styles.listItemStyle}
         innerDivStyle={styles.innerDivStyle}
@@ -65,7 +65,7 @@ const ActionMenu = ({ plugins }) => (
         primaryText="Post"
         leftIcon={<DescriptionIcon style={styles.smallIcon} />}
       />
-      <Subheader style={styles.subHeaderStyle}>Plugins</Subheader>
+      <ListSubheader style={styles.subHeaderStyle}>Plugins</ListSubheader>
       {plugins.map(plugin => <SubMenu key={plugin.name} plugin={plugin} />)}
     </List>
   </Popup>

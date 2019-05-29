@@ -1,7 +1,7 @@
 import * as React from 'react';
 import NoSSR from 'react-no-ssr';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import RaisedButton from 'material-ui/RaisedButton';
+import Button from '@material-ui/core/Button';
 import s from 'storm-react-diagrams/dist/style.min.css';
 import _ from 'lodash';
 
@@ -326,13 +326,13 @@ class ExperienceEditor extends React.Component {
     return (
       <NoSSR>
         <Header>
-          <RaisedButton
+          <Button variant="contained"
             label="User Simulator"
             onClick={() => this.setState({ userSimulator: !this.state.userSimulator })}
             style={{ marginRight: '5px' }}
             backgroundColor={this.state.userSimulator ? 'green' : 'white'}
           />
-          <RaisedButton
+          <Button variant="contained"
             label="delete"
             onClick={this.deleteNode}
             style={{ marginRight: '5px' }}
@@ -345,7 +345,7 @@ class ExperienceEditor extends React.Component {
 
               {this.state.inNestedScreen
                 ? (
-                  <RaisedButton
+                  <Button variant="contained"
                     label="Back"
                     onClick={this.back}
                     primary
@@ -364,22 +364,22 @@ class ExperienceEditor extends React.Component {
           </Sidebar>
           <Editor>
             <EditorOptions>
-              <RaisedButton
+              <Button variant="contained"
                 label="Context Import Node"
                 onClick={this.addContextImport}
                 style={{ marginRight: '5px' }}
               />
-              {/* <RaisedButton
+              {/* <Button variant="contained"
                 label="Condition Node"
                 onClick={this.addConditionNode}
                 style={{ marginLeft: '5px', marginRight: '5px' }}
               /> */}
-              <RaisedButton
+              <Button variant="contained"
                 label="Context Export Node"
                 onClick={this.addContextExport}
                 style={{ marginLeft: '5px', marginRight: '5px' }}
               />
-              <RaisedButton
+              <Button variant="contained"
                 label="Plugin Node"
                 onClick={this.addNode}
                 style={{ marginLeft: '5px' }}

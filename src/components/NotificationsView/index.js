@@ -4,19 +4,17 @@ import _ from 'lodash';
 import { graphql, compose } from 'react-apollo';
 import gql from 'graphql-tag';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import { List, ListItem } from 'material-ui/List';
-import Divider from 'material-ui/Divider';
-import { deepPurple500, black } from 'material-ui/styles/colors';
-import Avatar from 'material-ui/Avatar';
-import CodeIcon from 'material-ui/svg-icons/action/code';
-import RaisedButton from 'material-ui/RaisedButton';
-import AppsIcon from 'material-ui/svg-icons/navigation/apps';
-import IconMenu from 'material-ui/IconMenu';
-import IconButton from 'material-ui/IconButton';
-import MoreVert from 'material-ui/svg-icons/navigation/more-vert';
-import MenuItem from 'material-ui/MenuItem';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+
+import { List, ListItem } from '@material-ui/core/List';
+import Divider from '@material-ui/core/Divider';
+import { deepPurple500, black } from '@material-ui/core/colors';
+import Avatar from '@material-ui/core/Avatar';
+import Button from '@material-ui/core/Button';
+import Menu from '@material-ui/core/Menu';
+import IconButton from '@material-ui/core/IconButton';
+import { FiCode as CodeIcon, FiList as AppsIcon, FiMoreVertical as MoreVert} from 'react-icons/fi';
+import MenuItem from '@material-ui/core/MenuItem';
 import { RCard, RCardHeader, RCardBody, RCardFooter } from '../styled/RCard';
 import lightTheme from '../theme';
 import s from './style.css';
@@ -124,7 +122,7 @@ class Notifications extends Component {
     }
 
     return (
-      <MuiThemeProvider muiTheme={getMuiTheme(lightTheme)}>
+      <MuiThemeProvider muiTheme={createMuiTheme(lightTheme)}>
         <RCard>
           <RCardHeader>
             <div className="title-container">
@@ -132,14 +130,14 @@ class Notifications extends Component {
               <h2>Notifications</h2>
             </div>
             <div className="button-container">
-              <IconMenu
+              <Menu
                 iconButtonElement={<IconButton><MoreVert /></IconButton>}
                 anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
                 targetOrigin={{ horizontal: 'left', vertical: 'top' }}
               >
                 <MenuItem primaryText="Refresh" />
                 <MenuItem primaryText="Send feedback" />
-              </IconMenu>
+              </Menu>
             </div>
           </RCardHeader>
           <RCardBody>
@@ -160,7 +158,7 @@ class Notifications extends Component {
               }
             </List>
             <RCardFooter >
-              <RaisedButton
+              <Button variant="contained"
                 label="Load More"
                 styled={{ paddingBottom: 0 }}
                 primary

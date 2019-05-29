@@ -4,9 +4,9 @@ import { connect } from 'react-redux';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import moment from 'moment';
 import classnames from 'classnames';
-import RaisedButton from 'material-ui/RaisedButton';
-import FloatingActionButton from 'material-ui/FloatingActionButton';
-import DownArrowIcon from 'material-ui/svg-icons/hardware/keyboard-arrow-down';
+import Button from '@material-ui/core/Button';
+import Fab from '@material-ui/core/Fab';
+import { FiArrowDown as DownArrowIcon } from 'react-icons/fi';
 import Scroll from 'react-scroll';
 import _ from 'lodash';
 
@@ -85,16 +85,18 @@ class MessagesContainer extends Component {
     return (
       <Element id="messageContainer" className={s.messagesContainer}>
         <div className={toBottomClass}>
-          <FloatingActionButton
-            style={{ position: 'fixed' }}
-            onClick={() => this.scrollToBottom()}
-          >
-            <DownArrowIcon />
-          </FloatingActionButton>
+          <Fab color="primary">
+            <Button
+              style={{ position: 'fixed' }}
+              onClick={() => this.scrollToBottom()}
+            >
+              <DownArrowIcon />
+            </Button>
+          </Fab>
         </div>
 
         <div id="messageContainerInner">
-          <RaisedButton
+          <Button variant="contained"
             style={showMoreButtonStyles}
             label="Load More"
             onClick={loadMoreMessages}

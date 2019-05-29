@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Field, reduxForm, propTypes } from 'redux-form';
-import { RaisedButton } from 'material-ui'; 
+import { Button } from 'material-ui'; 
 
 import { RCard, RCardBody } from '../styled/RCard';
 import { FormGroup } from '../styled/Forms';

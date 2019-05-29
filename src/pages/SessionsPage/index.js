@@ -1,8 +1,8 @@
 import React from 'react';
 import { Page, Section, LayoutProvider } from 'react-page-layout';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+
 import { connect } from 'react-redux';
 import lightTheme from '../../components/theme';
 import TitleBar from '../../components/TitleBar';
@@ -15,7 +15,7 @@ class SessionsPage extends React.Component {
 
   render() {
     return (
-      <MuiThemeProvider muiTheme={getMuiTheme(lightTheme)}>
+      <MuiThemeProvider muiTheme={createMuiTheme(lightTheme)}>
         <LayoutProvider layouts={grids}>
           <Page layout="grid-one-one">
             <Section slot="titleBar">

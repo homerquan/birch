@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import RaisedButton from 'material-ui/RaisedButton';
+import Button from '@material-ui/core/Button';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 import s from './Info.css';
@@ -19,16 +19,16 @@ const Finish = ({ next, back, text }) => (
       <input value={text} />
       <CopyToClipboard
         text={text}
-      ><RaisedButton style={copyButtonStyle} label="Copy" />
+      ><Button variant="contained" style={copyButtonStyle} label="Copy" />
       </CopyToClipboard>
     </div>
     <div className={s.footer}>
-      <RaisedButton
+      <Button variant="contained"
         style={{ marginRight: '14px' }}
         label="Back"
         onClick={back}
       />
-      <RaisedButton
+      <Button variant="contained"
         label="Close"
         onClick={next}
       />

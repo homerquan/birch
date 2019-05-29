@@ -1,8 +1,8 @@
 import * as React from 'react';
-import SearchIcon from 'material-ui/svg-icons/action/search';
-import { List, ListItem } from 'material-ui/List';
-import { white, grey500 } from 'material-ui/styles/colors';
-import Divider from 'material-ui/Divider';
+import { List, ListItem } from '@material-ui/core/List';
+import { white, grey500 } from '@material-ui/core/colors';
+import { FiSearch as SearchIcon } from 'react-icons/fi';
+import Divider from '@material-ui/core/Divider';
 
 import Link from '../Link';
 import {

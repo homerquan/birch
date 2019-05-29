@@ -8,9 +8,9 @@
  */
 
 import React from 'react';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import Paper from 'material-ui/Paper';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
+
 import lightTheme from '../../components/theme';
 import BlankScreen from '../../components/Layout/BlankScreen';
 import LoginView from '../../components/LoginView';
@@ -54,7 +54,7 @@ export default {
       chunk: 'login',
       component: (
         <BlankScreen>
-          <MuiThemeProvider muiTheme={getMuiTheme(lightTheme)}>
+          <MuiThemeProvider muiTheme={createMuiTheme(lightTheme)}>
             <div style={styles.loginScreen}>
               <Paper style={styles.loginPaper} zDepth={2}>
                 <LoginView title={title} redirect={query.redirect} />

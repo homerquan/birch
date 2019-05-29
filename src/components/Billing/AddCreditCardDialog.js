@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import Dialog from 'material-ui/Dialog';
-import TextField from 'material-ui/TextField';
+import Dialog from '@material-ui/core/Dialog';
+import TextField from '@material-ui/core/TextField';
 import InputMask from 'react-input-mask';
 
 import s from './AddCreditCardDialog.css';

@@ -8,26 +8,19 @@
 import React from 'react';
 // import cx from 'classnames';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import Drawer from 'material-ui/Drawer';
-import { List, ListItem } from 'material-ui/List';
-import Divider from 'material-ui/Divider';
-// import ActionInfo from 'material-ui/svg-icons/action/info';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import { spacing } from 'material-ui/styles';
-import { deepPurple500, white } from 'material-ui/styles/colors';
-import IconButton from 'material-ui/IconButton';
+import Drawer from '@material-ui/core/Drawer';
+import { List, ListItem } from '@material-ui/core/List';
+import Divider from '@material-ui/core/Divider';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { spacing } from '@material-ui/system';
+import { deepPurple500, white } from '@material-ui/core/colors';
+import IconButton from '@material-ui/core/IconButton';
 import HelpIcon from 'react-material-icons/icons/action/help-outline';
 import AccountIcon from 'react-material-icons/icons/action/account-circle';
 import AddIcon from 'react-material-icons/icons/content/add';
 import AppsIcon from 'react-material-icons/icons/action/list';
-// import CloseIcon from 'react-material-icons/icons/navigation/chevron-left';
 import ListIcon from 'react-material-icons/icons/action/list';
-import { FiMoreHorizontal as MoreIcon } from 'react-icons/fi';
-// import ConversationIcon from 'react-material-icons/icons/communication/chat';
-import { FiUsers as ConversationsIcon } from 'react-icons/fi';
-import { FiCpu as PluginsIcon } from 'react-icons/fi';
-import { FiGitPullRequest as ExperienceIcon } from 'react-icons/fi';
+import { FiMoreHorizontal as MoreIcon, FiUsers as ConversationsIcon, FiCpu as PluginsIcon, FiGitPullRequest as ExperienceIcon } from 'react-icons/fi';
 import { connect } from 'react-redux';
 import logoUrl from './logo.png';
 import themeDark from '../themeDark';
@@ -83,7 +76,7 @@ class Sidebar extends React.Component {
       this.props.runtime && this.props.runtime.selectedApp ? this.props.runtime.selectedApp : null;
 
     return (
-      <MuiThemeProvider muiTheme={getMuiTheme(themeDark)}>
+      <MuiThemeProvider muiTheme={createMuiTheme(themeDark)}>
         <Drawer
           docked={false}
           open={this.props.open}

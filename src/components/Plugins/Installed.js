@@ -4,16 +4,16 @@ import gql from 'graphql-tag';
 import { graphql, compose } from 'react-apollo';
 import _ from 'lodash';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
-import RaisedButton from 'material-ui/RaisedButton';
-import DropDownMenu from 'material-ui/DropDownMenu';
-import MenuItem from 'material-ui/MenuItem';
+import { Toolbar, ToolbarGroup } from '@material-ui/core/Toolbar';
+import Button from '@material-ui/core/Button';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
 import ReloadIcon from 'react-material-icons/icons/action/cached';
-import PlusIcon from 'material-ui/svg-icons/content/add';
-import IconButton from 'material-ui/IconButton';
-import Drawer from 'material-ui/Drawer';
-import Divider from 'material-ui/Divider';
-import TextField from 'material-ui/TextField';
+import { FiPlus as PlusIcon } from 'react-icons/fi';
+import IconButton from '@material-ui/core/IconButton';
+import Drawer from '@material-ui/core/Drawer';
+import Divider from '@material-ui/core/Divider';
+import TextField from '@material-ui/core/TextField';
 
 import s from './Browse.css';
 import installed from './Installed.css';
@@ -95,7 +95,7 @@ class Installed extends Component {
       <div>
         <Toolbar>
           <ToolbarGroup firstChild>
-            <DropDownMenu
+            <Select
               value={currentType}
               onChange={(e, i, value) => this.setState({ currentType: value })}
               anchorOrigin={{ vertical: 'top', horizontal: 'left' }}
@@ -105,7 +105,7 @@ class Installed extends Component {
               <MenuItem value={'action'} primaryText="Action" />
               <MenuItem value={'model'} primaryText="Model" />
               <MenuItem value={'other'} primaryText="Other" />
-            </DropDownMenu>
+            </Select>
           </ToolbarGroup>
           <ToolbarGroup>
             <IconButton tooltip="Reload" onTouchTap={() => refetch()}>
@@ -133,7 +133,7 @@ class Installed extends Component {
                       </button>
                     </div>
                   </div>
-                  <RaisedButton
+                  <Button variant="contained"
                     label="Remove"
                     labelPosition="after"
                     icon={<PlusIcon />}
@@ -155,7 +155,7 @@ class Installed extends Component {
         >
           <div className={s.sideBar}>
             <img src={this.state.selectedPlugin.image} className={s.sideBarImage} alt="Plugin" />
-            <RaisedButton
+            <Button variant="contained"
               label="Remove"
               secondary
               fullWidth

@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import TextField from 'material-ui/TextField';
-import RaisedButton from 'material-ui/RaisedButton';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
 
 import s from './Info.css';
 
@@ -21,7 +21,7 @@ const Info = ({ next }) => (
       />
     </div>
     <div className={s.footer}>
-      <RaisedButton
+      <Button variant="contained"
         label="Next"
         onClick={next}
       />

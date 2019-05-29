@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import RaisedButton from 'material-ui/RaisedButton';
+import Button from '@material-ui/core/Button';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import Subheader from 'material-ui/Subheader';
-import FlatButton from 'material-ui/FlatButton';
-import HelpIcon from 'material-ui/svg-icons/action/help-outline';
+import ListSubheader from '@material-ui/core/ListSubheader';
+import IconButton from '@material-ui/core/IconButton';
+import { FiHelpCircle as HelpIcon } from 'react-icons/fi';
 
 import s from './CopyCodeModal.css';
 
@@ -15,7 +15,7 @@ const CodeModal = ({ close, code, dipatchConfirm }) => (
     <div className={s.modalContainer}>
       <div className={s.modal}>
 
-        <Subheader>Embeded Code</Subheader>
+        <ListSubheader>Embeded Code</ListSubheader>
 
         <div className={s.copyContainer}>
           <input value={code} />
@@ -23,21 +23,23 @@ const CodeModal = ({ close, code, dipatchConfirm }) => (
             text={code}
             onCopy={dipatchConfirm}
           >
-            <RaisedButton label="Copy" />
+            <Button variant="contained" label="Copy" />
           </CopyToClipboard>
         </div>
 
         <div className={s.footer}>
-          <RaisedButton
+          <Button
+            variant="contained"
             label="Done"
             primary
             onClick={close}
           />
-          <FlatButton
+          <IconButton
             href="#"
             label="How to Install"
-            icon={<HelpIcon />}
-          />
+          >
+            <HelpIcon />
+          </IconButton>
         </div>
       </div>
     </div>

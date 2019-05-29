@@ -2,7 +2,7 @@
 * @Author: homer
 * @Date:   2019-05-28 20:54:31
 * @Last Modified by:   homer
-* @Last Modified time: 2019-05-28 21:53:31
+* @Last Modified time: 2019-05-29 01:20:39
 */
 /*
 * @Author: Homer
@@ -16,8 +16,8 @@ import PropTypes from 'prop-types';
 import { compose } from 'react-apollo';
 import { connect } from 'react-redux';
 import { Page, Section, LayoutProvider } from 'react-page-layout';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+
 
 import lightTheme from '../../components/theme';
 import TitleBar from '../../components/TitleBar';
@@ -40,7 +40,7 @@ class CreateAppPage extends React.Component {
 
   render() {
     return (
-      <MuiThemeProvider muiTheme={getMuiTheme(lightTheme)}>
+      <MuiThemeProvider muiTheme={createMuiTheme(lightTheme)}>
         <LayoutProvider layouts={grids}>
           <Page layout="grid-one-one">
             <Section slot="titleBar">

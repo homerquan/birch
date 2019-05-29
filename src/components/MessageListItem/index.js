@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import { ListItem } from 'material-ui/List';
-import BuildIcon from 'material-ui/svg-icons/action/build';
+import { ListItem } from '@material-ui/core/List';
+import { FiSettings as BuildIcon } from 'react-icons/fi';
 import s from './style.css';
 
 const MessageListItem = ({ application, text, time }) => (

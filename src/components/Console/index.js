@@ -1,13 +1,12 @@
 import React from 'react';
-import BaseComponent from '../BaseComponent';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import styled from 'styled-components';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import { white, black, grey400, grey800 } from 'material-ui/styles/colors';
-import ArrowIcon from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { white, black, grey400, grey800 } from '@material-ui/core/colors';
+import { FiTerminal as ArrowIcon } from 'react-icons/fi';
+import BaseComponent from '../BaseComponent';
 import theme from '../theme';
 import { closeConsole } from '../../actions/console';
 
@@ -96,7 +95,7 @@ class Console extends BaseComponent {
 
   render() {
     return (
-      <MuiThemeProvider muiTheme={getMuiTheme(theme)}>
+      <MuiThemeProvider muiTheme={createMuiTheme(theme)}>
         <ConsoleContainer isOpen={this.props.isOpen}>
           <CloseButton onClick={this.props.closeConsole} />
           <HistoryContainer>

@@ -8,19 +8,18 @@
  * @Email: dev@reflen.com
  * @Date:   2017-11-05 17:00:20
  * @Last Modified by:   homer
- * @Last Modified time: 2019-05-24 16:22:04
+ * @Last Modified time: 2019-05-29 03:23:50
  */
 import React, { Component } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import { List } from 'material-ui/List';
-import Divider from 'material-ui/Divider';
-import { deepPurple500, black } from 'material-ui/styles/colors';
-import FlatButton from 'material-ui/FlatButton';
-import AppsIcon from 'material-ui/svg-icons/navigation/apps';
-import IconButton from 'material-ui/IconButton';
-import MoreVert from 'material-ui/svg-icons/navigation/more-vert';
-import IconMenu from 'material-ui/IconMenu';
-import MenuItem from 'material-ui/MenuItem';
+import { List } from '@material-ui/core/List';
+import Divider from '@material-ui/core/Divider';
+import { deepPurple500, black } from '@material-ui/core/colors';
+import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
+import { FiList as AppsIcon, FiMoreVertical as MoreVert } from 'react-icons/fi';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 import fakeData from './fakeData.json';
 import MessageListItem from '../MessageListItem';
 import NotificationListItem from '../NotificationListItem';
@@ -69,14 +68,14 @@ class SessionActivitiesView extends Component {
             <h2>Recent Activities</h2>
           </div>
           <div className="button-container">
-            <IconMenu
+            <Menu
               iconButtonElement={<IconButton><MoreVert /></IconButton>}
               anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
               targetOrigin={{ horizontal: 'left', vertical: 'top' }}
             >
               <MenuItem primaryText="Refresh" />
               <MenuItem primaryText="Send feedback" />
-            </IconMenu>
+            </Menu>
           </div>
         </RCardHeader>
         <RCardBody>
@@ -103,7 +102,7 @@ class SessionActivitiesView extends Component {
           </List>
         </RCardBody>
         <RCardFooter>
-          <FlatButton
+          <Button
             label="View all Conversations"
             labelStyle={linkStyle}
             fullWidth

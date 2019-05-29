@@ -165,3 +165,4 @@ BIRCH.SIMULATE('SET_RUNTIME_VARIABLE',{
 * Seeding data generator
   * https://www.npmjs.com/package/dummy-json
 * Icons: https://react-icons.netlify.com/#/
+* Top search https://www.algolia.com/ref/docsearch/?utm_source=docsearch&utm_medium=link&utm_term=footer&utm_campaign=material-ui.com

@@ -1,11 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import Paper from 'material-ui/Paper';
-import LinearProgress from 'material-ui/LinearProgress';
-import FlatButton from 'material-ui/FlatButton';
-import RaisedButton from 'material-ui/RaisedButton';
-import Badge from 'material-ui/Badge';
+import Paper from '@material-ui/core/Paper';
+import LinearProgress from '@material-ui/core/LinearProgress';
+import Button from '@material-ui/core/Button';
+import Badge from '@material-ui/core/Badge';
 import classnames from 'classnames';
 
 import s from './DecisionSupport.css';
@@ -42,7 +41,7 @@ const DecisionSupport = ({ isOpen, enableTraining, openTraining }) => {
         </p>
         <div className={s.decisionButtons}>
           <div>
-            <RaisedButton
+            <Button variant="contained"
               label="Edit"
               primary
               onClick={openTraining}
@@ -56,9 +55,9 @@ const DecisionSupport = ({ isOpen, enableTraining, openTraining }) => {
               style={styles.badgeRootStyle}
               badgeStyle={styles.badgeStyle}
             >
-              <FlatButton label="Accept" />
+              <Button label="Accept" />
             </Badge>
-            <FlatButton label="Cancel" primary />
+            <Button label="Cancel" primary />
           </div>
         </div>
       </div>

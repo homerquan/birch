@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import classnames from 'classnames';
-import Paper from 'material-ui/Paper';
+import Paper from '@material-ui/core/Paper';
 
 import s from './CommandList.css';
 

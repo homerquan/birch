@@ -1,16 +1,15 @@
-import React from "react";
-import PropTypes from "prop-types";
-import withStyles from "isomorphic-style-loader/lib/withStyles";
-import TextField from "material-ui/TextField";
-import RaisedButton from "material-ui/RaisedButton";
-import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
-import getMuiTheme from "material-ui/styles/getMuiTheme";
-import Checkbox from "material-ui/Checkbox";
-import theme from "../theme";
-import { bindActionCreators } from "redux";
-import { connect } from "react-redux";
-import * as sessionActions from "../../actions/session";
-import s from "./style.css";
+import React from 'react';
+import PropTypes from 'prop-types';
+import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import TextField from '@material-ui/core/TextField';
+import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
+import { createMuiTheme } from '@material-ui/core/styles'
+import Checkbox from '@material-ui/core/Checkbox';
+import theme from '../theme';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import * as sessionActions from '../../actions/session';
+import s from './style.css';
 
 class LoginView extends React.Component {
   static propTypes = {
@@ -38,7 +37,7 @@ class LoginView extends React.Component {
 
   render() {
     return (
-      <MuiThemeProvider muiTheme={getMuiTheme(theme)}>
+      <MuiThemeProvider muiTheme={createMuiTheme(theme)}>
         <div className={s.root}>
           <div className={s.container}>
             <h2 className={s.title}>{this.props.title}</h2>
@@ -68,7 +67,8 @@ class LoginView extends React.Component {
                 <Checkbox label="Remember me" />
               </div>
               <div className={s.formGroup}>
-                <RaisedButton
+                <Button
+                  variant="contained"
                   label="Login"
                   primary
                   type="submit"
