@@ -10,31 +10,18 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Page, Section, LayoutProvider } from 'react-page-layout';
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { ThemeProvider } from '@material-ui/styles';
+import { createMuiTheme } from '@material-ui/core/styles';
 import grids from '../../components/Layout/grids';
 import TitleBar from '../../components/TitleBar';
 import AppsWidget from '../../components/AppsWidget';
 import Activities from '../../components/Activities';
 import lightTheme from '../../components/theme';
 
-const styles = {
-  container: {
-    maxWidth: '1200px',
-    margin: '0 auto',
-    marginTop: '20px',
-  },
-  col: {
-    flex: 1,
-    // maxWidth: '450px',
-    marginLeft: '8px',
-    marginRight: '8px',
-  },
-};
-
 class HomePage extends React.Component {
   render() {
     return (
-      <MuiThemeProvider muiTheme={createMuiTheme(lightTheme)}>
+      <ThemeProvider theme={createMuiTheme(lightTheme)}>
         <LayoutProvider layouts={grids}>
           <Page layout="grid-one-two">
             <Section slot="titleBar">
@@ -42,14 +29,16 @@ class HomePage extends React.Component {
               
             </Section>
             <Section slot="col-1">
-              <AppsWidget userId={this.props.session.userId} />
+              {/*  <AppsWidget userId={this.props.session.userId} /> */}
+
             </Section>
             <Section slot="col-2">
-            {/*  <Activities /> */}     
+            {/*  <Activities /> */}
+
             </Section>
           </Page>
         </LayoutProvider>
-      </MuiThemeProvider>
+      </ThemeProvider>
     );
   }
 }

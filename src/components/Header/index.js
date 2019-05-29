@@ -11,8 +11,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-
+import { ThemeProvider } from '@material-ui/styles';
+import { createMuiTheme } from '@material-ui/core/styles';
 import Sticky from 'react-stickynode';
 import { connect } from 'react-redux';
 import CornerNotifications from 'react-notification-system-redux';
@@ -108,7 +108,7 @@ class Header extends React.Component {
     const selectedAppName = this.props.runtime && this.props.runtime.selectedApp ? this.props.runtime.selectedApp.name : '';
 
     return (
-      <MuiThemeProvider muiTheme={createMuiTheme(theme)}>
+      <ThemeProvider theme={createMuiTheme(theme)}>
         <div>
           {this.renderLoadingIndicator()}
           <GlobalNotice />
@@ -130,13 +130,13 @@ class Header extends React.Component {
               <IconButton tooltip="Open Console">
                 <ArrowIcon color={white} onClick={this.toggleConsole} />
               </IconButton>
-              <Messages />
+              {/* <Messages /> */}
               <Notifications userId={this.props.session.userId} />
             </div>
           </HeaderContainer>
           {/* </Sticky> */}
         </div>
-      </MuiThemeProvider>
+      </ThemeProvider>
     );
   }
 }

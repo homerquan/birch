@@ -9,7 +9,8 @@
 
 import React from 'react';
 import { Page, Section, LayoutProvider } from 'react-page-layout';
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { ThemeProvider } from '@material-ui/styles';
+import { createMuiTheme } from '@material-ui/core/styles';
 
 import { Tabs, Tab } from '@material-ui/core/Tabs';
 import Paper from '@material-ui/core/Paper';
@@ -43,7 +44,7 @@ class AccountView extends React.Component {
             <TitleBar title="Manage Account" />
           </Section>
           <Section slot="main">
-            <MuiThemeProvider muiTheme={createMuiTheme(datatableTheme)}>
+            <ThemeProvider theme={createMuiTheme(datatableTheme)}>
               <Paper>
                 <Tabs
                   value={this.state.value}
@@ -57,7 +58,7 @@ class AccountView extends React.Component {
                   </Tab>
                 </Tabs>
               </Paper>
-            </MuiThemeProvider>
+            </ThemeProvider>
           </Section>
         </Page>
       </LayoutProvider>

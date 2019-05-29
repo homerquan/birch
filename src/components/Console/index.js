@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import styled from 'styled-components';
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { ThemeProvider } from '@material-ui/styles';
+import { createMuiTheme } from '@material-ui/core/styles';
 import { white, black, grey400, grey800 } from '@material-ui/core/colors';
 import { FiTerminal as ArrowIcon } from 'react-icons/fi';
 import BaseComponent from '../BaseComponent';
@@ -95,7 +96,7 @@ class Console extends BaseComponent {
 
   render() {
     return (
-      <MuiThemeProvider muiTheme={createMuiTheme(theme)}>
+      <ThemeProvider theme={createMuiTheme(theme)}>
         <ConsoleContainer isOpen={this.props.isOpen}>
           <CloseButton onClick={this.props.closeConsole} />
           <HistoryContainer>
@@ -110,7 +111,7 @@ class Console extends BaseComponent {
             />
           </CommandContainer>
         </ConsoleContainer>
-      </MuiThemeProvider>
+      </ThemeProvider>
     );
   }
 }

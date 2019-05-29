@@ -1,6 +1,7 @@
 import React from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { ThemeProvider } from '@material-ui/styles';
+import { createMuiTheme } from '@material-ui/core/styles';
 
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -36,7 +37,7 @@ class Register extends React.Component {
 
   render() {
     return (
-      <MuiThemeProvider muiTheme={createMuiTheme(theme)}>
+      <ThemeProvider theme={createMuiTheme(theme)}>
         <div>
           <h2 className={s.title}>Register</h2>
           <form>
@@ -69,7 +70,7 @@ class Register extends React.Component {
             </div>
           </form>
         </div>
-      </MuiThemeProvider>
+      </ThemeProvider>
     );
   }
 }

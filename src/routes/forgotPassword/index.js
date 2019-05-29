@@ -8,7 +8,8 @@
  */
 
 import React from 'react';
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { ThemeProvider } from '@material-ui/styles';
+import { createMuiTheme } from '@material-ui/core/styles';
 import lightTheme from '../../components/theme';
 import BlankScreen from '../../components/Layout/BlankScreen';
 import ForgotPassword from '../../components/ForgotPassword';
@@ -21,11 +22,11 @@ export default {
     return {
       component: (
         <BlankScreen>
-          <MuiThemeProvider muiTheme={createMuiTheme(lightTheme)}>
+          <ThemeProvider theme={createMuiTheme(lightTheme)}>
             <div>
               <ForgotPassword />
             </div>
-          </MuiThemeProvider>
+          </ThemeProvider>
         </BlankScreen>
       ),
     };

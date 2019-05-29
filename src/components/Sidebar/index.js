@@ -11,16 +11,21 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import Drawer from '@material-ui/core/Drawer';
 import { List, ListItem } from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { ThemeProvider } from '@material-ui/styles';
+import { createMuiTheme } from '@material-ui/core/styles';
 import { spacing } from '@material-ui/system';
 import { deepPurple500, white } from '@material-ui/core/colors';
 import IconButton from '@material-ui/core/IconButton';
-import HelpIcon from 'react-material-icons/icons/action/help-outline';
-import AccountIcon from 'react-material-icons/icons/action/account-circle';
-import AddIcon from 'react-material-icons/icons/content/add';
-import AppsIcon from 'react-material-icons/icons/action/list';
-import ListIcon from 'react-material-icons/icons/action/list';
-import { FiMoreHorizontal as MoreIcon, FiUsers as ConversationsIcon, FiCpu as PluginsIcon, FiGitPullRequest as ExperienceIcon } from 'react-icons/fi';
+import {
+  FiUsers as HelpIcon,
+  FiUsers as AccountIcon,
+  FiUsers as AddIcon,
+  FiUsers as AppsIcon,
+  FiUsers as ListIcon,
+  FiMoreHorizontal as MoreIcon,
+  FiUsers as ConversationsIcon,
+  FiGitPullRequest as ExperienceIcon,
+} from 'react-icons/fi';
 import { connect } from 'react-redux';
 import logoUrl from './logo.png';
 import themeDark from '../themeDark';
@@ -76,7 +81,7 @@ class Sidebar extends React.Component {
       this.props.runtime && this.props.runtime.selectedApp ? this.props.runtime.selectedApp : null;
 
     return (
-      <MuiThemeProvider muiTheme={createMuiTheme(themeDark)}>
+      <ThemeProvider theme={createMuiTheme(themeDark)}>
         <Drawer
           docked={false}
           open={this.props.open}
@@ -161,7 +166,7 @@ class Sidebar extends React.Component {
             )}
           </div>
         </Drawer>
-      </MuiThemeProvider>
+      </ThemeProvider>
     );
   }
 }

@@ -2,7 +2,7 @@
 * @Author: Homer
 * @Date:   2017-12-17 23:50:40
 * @Last Modified by:   homer
-* @Last Modified time: 2019-05-29 01:20:40
+* @Last Modified time: 2019-05-29 04:07:46
 */
 
 import React from 'react';
@@ -11,7 +11,8 @@ import PropTypes from 'prop-types';
 import { graphql, compose } from 'react-apollo';
 import _ from 'lodash';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { ThemeProvider } from '@material-ui/styles';
+import { createMuiTheme } from '@material-ui/core/styles';
 
 import ReloadIcon from 'react-material-icons/icons/action/cached';
 import IconButton from '@material-ui/core/IconButton';
@@ -72,7 +73,7 @@ class SessionsView extends BaseComponent {
     }
 
     return (
-      <MuiThemeProvider muiTheme={createMuiTheme(lightTheme)}>
+      <ThemeProvider theme={createMuiTheme(lightTheme)}>
         <div>
           <Toolbar>
             <ToolbarGroup firstChild />
@@ -114,7 +115,7 @@ class SessionsView extends BaseComponent {
           }
 
         </div>
-      </MuiThemeProvider>
+      </ThemeProvider>
     );
   }
 }

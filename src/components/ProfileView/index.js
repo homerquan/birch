@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import Button from '@material-ui/core/Button';
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { ThemeProvider } from '@material-ui/styles';
+import { createMuiTheme } from '@material-ui/core/styles';
 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -29,7 +30,7 @@ class ProfileView extends React.Component {
 
   render() {
     return (
-      <MuiThemeProvider muiTheme={createMuiTheme(theme)}>
+      <ThemeProvider theme={createMuiTheme(theme)}>
         <div>
           <Button variant="contained"
             label="Logout"
@@ -37,7 +38,7 @@ class ProfileView extends React.Component {
             onClick={this.logoutHandler}
           />
         </div>
-      </MuiThemeProvider>
+      </ThemeProvider>
     );
   }
 }

@@ -13,7 +13,8 @@ import { grey500, deepPurple500, deepPurple800, white } from '@material-ui/core/
 import Blockies from 'react-blockies';
 import moment from 'moment';
 import Toggle from '@material-ui/core/Switch';
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { ThemeProvider } from '@material-ui/styles';
+import { createMuiTheme } from '@material-ui/core/styles';
 
 import s from './style.css';
 import datatableTheme from '../datatableTheme';
@@ -265,7 +266,7 @@ class SessionsTable extends Component {
     const displayData = data.slice(rowSize * (page - 1), rowSize * page);
 
     return (
-      <MuiThemeProvider muiTheme={createMuiTheme(datatableTheme)}>
+      <ThemeProvider theme={createMuiTheme(datatableTheme)}>
         <DataTables
           height="auto"
           selectable={false}
@@ -282,7 +283,7 @@ class SessionsTable extends Component {
           count={items.length}
           tableHeaderColumnStyle={{ color: 'black' }}
         />
-      </MuiThemeProvider>
+      </ThemeProvider>
     );
   }
 }

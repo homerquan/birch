@@ -2,7 +2,7 @@
 * @Author: homer
 * @Date:   2019-05-28 23:39:15
 * @Last Modified by:   homer
-* @Last Modified time: 2019-05-28 23:39:57
+* @Last Modified time: 2019-05-29 05:16:23
 */
 
 
@@ -19,6 +19,7 @@ const iconStyles = {
 
 
 class NotFound extends React.Component {
+  
   static propTypes = {
     title: PropTypes.string.isRequired,
   };

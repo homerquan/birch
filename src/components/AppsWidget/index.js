@@ -2,7 +2,8 @@ import React from 'react';
 import BaseComponent from '../BaseComponent';
 import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { ThemeProvider } from '@material-ui/styles';
+import { createMuiTheme } from '@material-ui/core/styles';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import IconButton from '@material-ui/core/IconButton';
@@ -55,7 +56,7 @@ class AppsList extends BaseComponent {
     }
 
     return (
-      <MuiThemeProvider muiTheme={createMuiTheme(lightTheme)}>
+      <ThemeProvider theme={createMuiTheme(lightTheme)}>
         <RCard>
           <RCardHeader>
             <div className="title-container">
@@ -89,7 +90,7 @@ class AppsList extends BaseComponent {
             <a className="link-text" href="/apps">View all applications</a>
           </RCardFooter>
         </RCard>
-      </MuiThemeProvider>
+      </ThemeProvider>
     );
   }
 }

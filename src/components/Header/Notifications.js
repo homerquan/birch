@@ -13,7 +13,8 @@ import { deepPurple500, pink500, white } from '@material-ui/core/colors';
 import { List, ListItem } from '@material-ui/core/List';
 import Avatar from '@material-ui/core/Avatar';
 import {FiBell as NotificationIcon, FiCode as CodeIcon} from 'react-icons/fi';
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { ThemeProvider } from '@material-ui/styles';
+import { createMuiTheme } from '@material-ui/core/styles';
 import Divider from '@material-ui/core/Divider';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import Link from '../Link';
@@ -151,7 +152,7 @@ class Notifications extends BaseComponent {
 
     // TBD: add grace error if notifications are empty
     return (
-      <MuiThemeProvider muiTheme={createMuiTheme(lightTheme)}>
+      <ThemeProvider theme={createMuiTheme(lightTheme)}>
         <Badge
           badgeContent={
             runtime[CONSTANTS.notificationsCount]
@@ -200,7 +201,7 @@ class Notifications extends BaseComponent {
             </div>
           </Paper>
         </Badge>
-      </MuiThemeProvider>
+      </ThemeProvider>
     );
   }
 }

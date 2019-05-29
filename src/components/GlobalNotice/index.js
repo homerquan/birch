@@ -8,7 +8,7 @@
  * @Email: dev@reflen.com
  * @Date:   2017-11-05 17:00:20
  * @Last Modified by:   homer
- * @Last Modified time: 2019-05-29 01:34:21
+ * @Last Modified time: 2019-05-29 05:58:27
  */
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -16,10 +16,12 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import IconButton from '@material-ui/core/IconButton';
-import CloseIcon from 'react-material-icons/icons/content/clear';
+import {
+ FiX as CloseIcon,
+} from 'react-icons/fi';
 import { white } from '@material-ui/core/colors';
-
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { ThemeProvider } from '@material-ui/styles';
+import { createMuiTheme } from '@material-ui/core/styles';
 
 import { ignoreGlobalNotification } from '../../actions/globalNotification';
 import lightTheme from '../theme';
@@ -57,7 +59,7 @@ class GlobalNotice extends React.Component {
 
   render() {
     return (
-      <MuiThemeProvider muiTheme={createMuiTheme(lightTheme)}>
+      <ThemeProvider theme={createMuiTheme(lightTheme)}>
         <div className={s.globalNotice} style={this.props.globalNotification ? {} : { display: 'none' }} >
           <span className={s.content}>{this.props.globalNotification ? this.props.globalNotification.text : ''}</span>
           <IconButton
@@ -69,7 +71,7 @@ class GlobalNotice extends React.Component {
             <CloseIcon />
           </IconButton>
         </div>
-      </MuiThemeProvider>
+      </ThemeProvider>
     );
   }
 }

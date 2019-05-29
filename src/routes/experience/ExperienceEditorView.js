@@ -2,15 +2,14 @@
 * @Author: Homer
 * @Date:   2017-12-31 18:26:35
 * @Last Modified by:   homer
-* @Last Modified time: 2019-05-29 01:20:37
+* @Last Modified time: 2019-05-29 04:07:43
 */
 
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Page, Section, LayoutProvider } from 'react-page-layout';
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-
-
+import { ThemeProvider } from '@material-ui/styles';
+import { createMuiTheme } from '@material-ui/core/styles';
 import lightTheme from '../../components/theme';
 import TitleBar from '../../components/TitleBar';
 import grids from '../../components/Layout/grids';
@@ -23,7 +22,7 @@ class NewBot extends React.Component {
 
   render() {
     return (
-      <MuiThemeProvider muiTheme={createMuiTheme(lightTheme)}>
+      <ThemeProvider theme={createMuiTheme(lightTheme)}>
         <LayoutProvider layouts={grids}>
           <Page layout="grid-one-full">
             <Section slot="titleBar">
@@ -36,7 +35,7 @@ class NewBot extends React.Component {
             </Section>
           </Page>
         </LayoutProvider>
-      </MuiThemeProvider>
+      </ThemeProvider>
     );
   }
 }

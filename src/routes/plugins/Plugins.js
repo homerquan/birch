@@ -10,7 +10,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Page, Section, LayoutProvider } from 'react-page-layout';
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { ThemeProvider } from '@material-ui/styles';
+import { createMuiTheme } from '@material-ui/core/styles';
 
 import { Tabs, Tab } from '@material-ui/core/Tabs';
 import Paper from '@material-ui/core/Paper';
@@ -40,14 +41,14 @@ class AccountView extends React.Component {
     const { conversationId } = this.props;
 
     return (
-      <MuiThemeProvider muiTheme={createMuiTheme(lightTheme)}>
+      <ThemeProvider theme={createMuiTheme(lightTheme)}>
         <LayoutProvider layouts={grids}>
           <Page layout="grid-one-one">
             <Section slot="titleBar">
               <TitleBar title="Plugins" />
             </Section>
             <Section slot="main">
-              <MuiThemeProvider muiTheme={createMuiTheme(lightTheme)}>
+              <ThemeProvider theme={createMuiTheme(lightTheme)}>
                 <Paper>
                   <Tabs
                     value={this.state.value}
@@ -61,11 +62,11 @@ class AccountView extends React.Component {
                     </Tab>
                   </Tabs>
                 </Paper>
-              </MuiThemeProvider>
+              </ThemeProvider>
             </Section>
           </Page>
         </LayoutProvider>
-      </MuiThemeProvider>
+      </ThemeProvider>
     );
   }
 }

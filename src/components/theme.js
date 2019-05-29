@@ -14,10 +14,31 @@ Object.defineProperty(exports, '__esModule', {
 
 
 exports.default = {
+  root: {},
   spacing: spacing2.default,
-  fontFamily: 'Open Sans, Roboto, sans-serif',
-  borderRadius: 2,
-  borderShadow: 'rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 1px 4px',
+  typography: {
+    // Use the system font instead of the default Roboto font.
+    fontFamily: [
+      '-apple-system',
+      'Open Sans',
+      'Roboto',
+      'Roboto',
+      'sans-serif',
+      '"Apple Color Emoji"',
+      '"Segoe UI Emoji"',
+      '"Segoe UI Symbol"',
+    ].join(','),
+    fontWeightMedium: 500,
+    body1: {
+      fontWeight: 500,
+    },
+    subtitle1: {
+      fontSize: 12,
+    },
+    button: {
+      fontStyle: 'italic',
+    },
+  },
   palette: {
     primary1Color: colors.deepPurple500,
     primary1Highlight: colors.deepPurple400,
@@ -30,7 +51,7 @@ exports.default = {
     textColorLight: colors.grey400,
     borderColor: colors.grey300,
   },
-
+  checked: {},
   appBar: {
     height: 48,
   },

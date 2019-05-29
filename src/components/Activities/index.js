@@ -8,10 +8,11 @@
  * @Email: dev@reflen.com
  * @Date:   2017-11-05 17:00:20
  * @Last Modified by:   homer
- * @Last Modified time: 2019-05-29 02:51:37
+ * @Last Modified time: 2019-05-29 04:07:50
  */
 import React, { Component } from 'react';
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { ThemeProvider } from '@material-ui/styles';
+import { createMuiTheme } from '@material-ui/core/styles';
 
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import { List } from '@material-ui/core/List';
@@ -46,7 +47,7 @@ class Activities extends Component {
     }
 
     return (
-      <MuiThemeProvider muiTheme={createMuiTheme(lightTheme)}>
+      <ThemeProvider theme={createMuiTheme(lightTheme)}>
         <RCard>
           <RCardHeader>
             <div className="title-container">
@@ -89,7 +90,7 @@ class Activities extends Component {
             <p className="link-text">View all activities</p>
           </RCardFooter>
         </RCard>
-      </MuiThemeProvider>
+      </ThemeProvider>
     );
   }
 }

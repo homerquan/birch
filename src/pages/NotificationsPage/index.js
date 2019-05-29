@@ -11,9 +11,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Page, Section, LayoutProvider } from 'react-page-layout';
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-
-
+import { ThemeProvider } from '@material-ui/styles';
+import { createMuiTheme } from '@material-ui/core/styles';
 import lightTheme from '../../components/theme';
 import grids from '../../components/Layout/grids';
 import TitleBar from '../../components/TitleBar';
@@ -22,7 +21,7 @@ import NotificationsView from '../../components/NotificationsView';
 class NotificationsPage extends Component {
   render() {
     return (
-      <MuiThemeProvider muiTheme={createMuiTheme(lightTheme)}>
+      <ThemeProvider theme={createMuiTheme(lightTheme)}>
         <LayoutProvider layouts={grids}>
           <Page layout="grid-one-three">
             <Section slot="titleBar">
@@ -33,7 +32,7 @@ class NotificationsPage extends Component {
             </Section>
           </Page>
         </LayoutProvider>
-      </MuiThemeProvider>
+      </ThemeProvider>
     );
   }
 }

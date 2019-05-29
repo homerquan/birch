@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import TextField from '@material-ui/core/TextField';
-import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
-import { createMuiTheme } from '@material-ui/core/styles'
+import { ThemeProvider } from '@material-ui/styles';
+import { createMuiTheme } from '@material-ui/core/styles';
 import Checkbox from '@material-ui/core/Checkbox';
 import theme from '../theme';
 import { bindActionCreators } from 'redux';
@@ -37,7 +37,7 @@ class LoginView extends React.Component {
 
   render() {
     return (
-      <MuiThemeProvider muiTheme={createMuiTheme(theme)}>
+      <ThemeProvider theme={createMuiTheme(theme)}>
         <div className={s.root}>
           <div className={s.container}>
             <h2 className={s.title}>{this.props.title}</h2>
@@ -78,7 +78,7 @@ class LoginView extends React.Component {
             </form>
           </div>
         </div>
-      </MuiThemeProvider>
+      </ThemeProvider>
     );
   }
 }

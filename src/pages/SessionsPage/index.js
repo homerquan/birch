@@ -1,7 +1,8 @@
 import React from 'react';
 import { Page, Section, LayoutProvider } from 'react-page-layout';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { ThemeProvider } from '@material-ui/styles';
+import { createMuiTheme } from '@material-ui/core/styles';
 
 import { connect } from 'react-redux';
 import lightTheme from '../../components/theme';
@@ -15,7 +16,7 @@ class SessionsPage extends React.Component {
 
   render() {
     return (
-      <MuiThemeProvider muiTheme={createMuiTheme(lightTheme)}>
+      <ThemeProvider theme={createMuiTheme(lightTheme)}>
         <LayoutProvider layouts={grids}>
           <Page layout="grid-one-one">
             <Section slot="titleBar">
@@ -33,7 +34,7 @@ class SessionsPage extends React.Component {
             </Section>
           </Page>
         </LayoutProvider>
-      </MuiThemeProvider>
+      </ThemeProvider>
     );
   }
 

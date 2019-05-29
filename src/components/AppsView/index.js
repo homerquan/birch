@@ -2,14 +2,15 @@
 * @Author: Homer
 * @Date:   2017-12-17 23:50:40
 * @Last Modified by:   homer
-* @Last Modified time: 2019-05-29 01:20:36
+* @Last Modified time: 2019-05-29 04:07:49
 */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { graphql, compose } from 'react-apollo';
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { ThemeProvider } from '@material-ui/styles';
+import { createMuiTheme } from '@material-ui/core/styles';
 
 import DataTables from 'material-ui-datatables';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
@@ -93,7 +94,7 @@ class AppsView extends BaseComponent {
     if (loading) return <h1>Loading</h1>;
 
     return (
-      <MuiThemeProvider muiTheme={createMuiTheme(lightTheme)}>
+      <ThemeProvider theme={createMuiTheme(lightTheme)}>
         <div>
           <Toolbar>
             <ToolbarGroup firstChild />
@@ -108,7 +109,7 @@ class AppsView extends BaseComponent {
           </Toolbar>
 
           {appConnection.edges.length && appConnection.count > 0 ? (
-            <MuiThemeProvider muiTheme={createMuiTheme(datatableTheme)}>
+            <ThemeProvider theme={createMuiTheme(datatableTheme)}>
               <DataTables
                 height={'auto'}
                 selectable={false}
@@ -119,7 +120,7 @@ class AppsView extends BaseComponent {
                 page={1}
                 count={appConnection.count}
               />
-            </MuiThemeProvider>
+            </ThemeProvider>
           ) : (
             <div>
               <div className={s.nothing}>
@@ -145,7 +146,7 @@ class AppsView extends BaseComponent {
           />
         }
 
-      </MuiThemeProvider>
+      </ThemeProvider>
     );
   }
 }

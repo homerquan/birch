@@ -9,7 +9,8 @@ import { deepPurple500, pink500, white } from '@material-ui/core/colors';
 import { List, ListItem } from '@material-ui/core/List';
 import Avatar from '@material-ui/core/Avatar';
 import { FiMail as SMSIcon, FiCode as CodeIcon } from 'react-icons/fi';
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { ThemeProvider } from '@material-ui/styles';
+import { createMuiTheme } from '@material-ui/core/styles';
 import Divider from '@material-ui/core/Divider';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import Link from '../Link';
@@ -134,7 +135,7 @@ class Messages extends Component {
     const { isLoading, messages, isOpen } = this.state;
 
     return (
-      <MuiThemeProvider muiTheme={createMuiTheme(lightTheme)}>
+      <ThemeProvider theme={createMuiTheme(lightTheme)}>
         <Badge
           badgeContent={messages.length ? messages.length : 0}
           badgeStyle={messages.length ? badgeStyle : hiddenStyle}
@@ -174,7 +175,7 @@ class Messages extends Component {
             </div>
           </Paper>
         </Badge>
-      </MuiThemeProvider>
+      </ThemeProvider>
     );
   }
 }

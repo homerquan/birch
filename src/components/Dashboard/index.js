@@ -7,11 +7,12 @@
  * @Email: dev@reflen.com
  * @Date:   2017-11-05 17:00:20
  * @Last Modified by:   homer
- * @Last Modified time: 2019-05-29 01:20:35
+ * @Last Modified time: 2019-05-29 04:07:48
  */
 import React from 'react';
 import { graphql, compose } from 'react-apollo';
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { ThemeProvider } from '@material-ui/styles';
+import { createMuiTheme } from '@material-ui/core/styles';
 
 import lightTheme from '../theme';
 import Paper from '@material-ui/core/Paper';
@@ -21,7 +22,7 @@ import s from './style.css';
 class Dashboard extends React.Component {
   render() {
     return (
-      <MuiThemeProvider muiTheme={createMuiTheme(lightTheme)}>
+      <ThemeProvider theme={createMuiTheme(lightTheme)}>
         <div>
           <Paper className={s.card} zDepth={1}>
             <div className={s.value}>12,345</div>
@@ -40,7 +41,7 @@ class Dashboard extends React.Component {
             <div className={s.label}>Learned knowledge (last 24h)</div>
           </Paper>
         </div>
-      </MuiThemeProvider>
+      </ThemeProvider>
     );
   }
 }

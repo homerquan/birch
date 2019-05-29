@@ -8,7 +8,8 @@
  */
 
 import React from 'react';
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { ThemeProvider } from '@material-ui/styles';
+import { createMuiTheme } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 
 import lightTheme from '../../components/theme';
@@ -54,13 +55,13 @@ export default {
       chunk: 'login',
       component: (
         <BlankScreen>
-          <MuiThemeProvider muiTheme={createMuiTheme(lightTheme)}>
+          <ThemeProvider theme={createMuiTheme(lightTheme)}>
             <div style={styles.loginScreen}>
               <Paper style={styles.loginPaper} zDepth={2}>
                 <LoginView title={title} redirect={query.redirect} />
               </Paper>
             </div>
-          </MuiThemeProvider>
+          </ThemeProvider>
         </BlankScreen>
       ),
     };

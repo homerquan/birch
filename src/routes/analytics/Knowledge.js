@@ -11,7 +11,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { graphql, compose } from 'react-apollo';
-import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider'
+import ThemeProvider from '@material-ui/core/styles/ThemeProvider'
 
 import lightTheme from '../theme';
 import Button from '@material-ui/core/Button';
@@ -45,12 +45,12 @@ class Knowledge extends React.Component {
 
   render() {
     return (
-      <MuiThemeProvider muiTheme={createMuiTheme(lightTheme)}>
+      <ThemeProvider theme={createMuiTheme(lightTheme)}>
       <div>
         <textarea id="demoKB" class="knowledge" defaultValue={this.state.knowledge} />
         <Button label="Change" fullWidth={true} onClick={this.onSave} />
       </div>  
-      </MuiThemeProvider>
+      </ThemeProvider>
     );
   }
 }

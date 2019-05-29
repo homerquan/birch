@@ -4,7 +4,8 @@ import _ from 'lodash';
 import { graphql, compose } from 'react-apollo';
 import gql from 'graphql-tag';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { ThemeProvider } from '@material-ui/styles';
+import { createMuiTheme } from '@material-ui/core/styles';
 
 import { List, ListItem } from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
@@ -122,7 +123,7 @@ class Notifications extends Component {
     }
 
     return (
-      <MuiThemeProvider muiTheme={createMuiTheme(lightTheme)}>
+      <ThemeProvider theme={createMuiTheme(lightTheme)}>
         <RCard>
           <RCardHeader>
             <div className="title-container">
@@ -169,7 +170,7 @@ class Notifications extends Component {
             </RCardFooter>
           </RCardBody>
         </RCard>
-      </MuiThemeProvider>
+      </ThemeProvider>
     );
   }
 }
