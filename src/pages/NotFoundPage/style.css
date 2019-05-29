@@ -1,0 +1,16 @@
+/*
+* @Author: homer
+* @Date:   2019-05-28 23:39:22
+* @Last Modified by:   homer
+* @Last Modified time: 2019-05-28 23:39:33
+*/
+
+@import '../../components/variables.css';
+
+.center {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
