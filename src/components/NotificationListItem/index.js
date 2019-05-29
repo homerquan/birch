@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import { ListItem } from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
 import { FiCode as CodeIcon } from 'react-icons/fi';
 import s from './style.css';
 

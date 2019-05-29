@@ -3,14 +3,13 @@ import { white } from '@material-ui/core/colors';
 
 import theme from '../theme';
 
-const { borderShadow, palette } = theme;
+const { palette } = theme;
 
 export const TitleContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 10px 20px;
-  box-shadow: ${borderShadow};
   background-color: ${white};
 `;
 

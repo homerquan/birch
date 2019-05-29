@@ -7,7 +7,10 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import { ThemeProvider } from '@material-ui/styles';
 import { createMuiTheme } from '@material-ui/core/styles';
 
-import { List, ListItem } from '@material-ui/core/List';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
 import { deepPurple500, black } from '@material-ui/core/colors';
 import Avatar from '@material-ui/core/Avatar';
@@ -17,7 +20,7 @@ import IconButton from '@material-ui/core/IconButton';
 import { FiCode as CodeIcon, FiList as AppsIcon, FiMoreVertical as MoreVert} from 'react-icons/fi';
 import MenuItem from '@material-ui/core/MenuItem';
 import { RCard, RCardHeader, RCardBody, RCardFooter } from '../styled/RCard';
-import lightTheme from '../theme';
+import theme from '../theme';
 import s from './style.css';
 
 const NotificationsFeed = gql`
@@ -123,7 +126,7 @@ class Notifications extends Component {
     }
 
     return (
-      <ThemeProvider theme={createMuiTheme(lightTheme)}>
+      <ThemeProvider theme={createMuiTheme(theme)}>
         <RCard>
           <RCardHeader>
             <div className="title-container">

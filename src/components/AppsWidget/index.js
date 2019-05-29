@@ -2,22 +2,24 @@ import React from 'react';
 import BaseComponent from '../BaseComponent';
 import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import gql from 'graphql-tag';
+import { graphql, compose } from 'react-apollo';
 import { ThemeProvider } from '@material-ui/styles';
 import { createMuiTheme } from '@material-ui/core/styles';
+import { black, deepPurple500 } from '@material-ui/core/colors';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import IconButton from '@material-ui/core/IconButton';
-import { black, deepPurple500 } from '@material-ui/core/colors';
-import gql from 'graphql-tag';
-import { graphql, compose } from 'react-apollo';
-import { List, ListItem } from '@material-ui/core/List';
-import _ from 'lodash';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
 import Avatar from '@material-ui/core/Avatar';
 import Divider from '@material-ui/core/Divider';
 import { FiPlay as ArrowForward, FiMoreVertical as MoreVert, FiList as AppsIcon, FiCode as CodeIcon } from 'react-icons/fi';
 import { RCard, RCardHeader, RCardBody, RCardFooter } from '../styled/RCard';
 import PrimaryText from './PrimaryText';
-import lightTheme from '../theme';
+import theme from '../theme';
 import Loader from './Loader';
 import s from './style.css';
 
@@ -56,7 +58,7 @@ class AppsList extends BaseComponent {
     }
 
     return (
-      <ThemeProvider theme={createMuiTheme(lightTheme)}>
+      <ThemeProvider theme={createMuiTheme(theme)}>
         <RCard>
           <RCardHeader>
             <div className="title-container">

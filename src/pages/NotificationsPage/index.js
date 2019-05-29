@@ -13,7 +13,7 @@ import { connect } from 'react-redux';
 import { Page, Section, LayoutProvider } from 'react-page-layout';
 import { ThemeProvider } from '@material-ui/styles';
 import { createMuiTheme } from '@material-ui/core/styles';
-import lightTheme from '../../components/theme';
+import theme from '../../components/theme';
 import grids from '../../components/Layout/grids';
 import TitleBar from '../../components/TitleBar';
 import NotificationsView from '../../components/NotificationsView';
@@ -21,7 +21,7 @@ import NotificationsView from '../../components/NotificationsView';
 class NotificationsPage extends Component {
   render() {
     return (
-      <ThemeProvider theme={createMuiTheme(lightTheme)}>
+      <ThemeProvider theme={createMuiTheme(theme)}>
         <LayoutProvider layouts={grids}>
           <Page layout="grid-one-three">
             <Section slot="titleBar">

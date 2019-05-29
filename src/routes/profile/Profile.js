@@ -14,7 +14,7 @@ import { ThemeProvider } from '@material-ui/styles';
 import { createMuiTheme } from '@material-ui/core/styles';
 
 
-import lightTheme from '../../components/theme';
+import theme from '../../components/theme';
 import grids from '../../components/Layout/grids';
 import TitleBar from '../../components/TitleBar';
 import ProfileView from '../../components/ProfileView';
@@ -34,7 +34,7 @@ class Profile extends React.Component {
 
   render() {
     return (
-      <ThemeProvider theme={createMuiTheme(lightTheme)}>
+      <ThemeProvider theme={createMuiTheme(theme)}>
         <LayoutProvider layouts={grids}>
           <Page layout="grid-one-one">
             <Section slot="titleBar">

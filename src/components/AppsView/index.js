@@ -2,7 +2,7 @@
 * @Author: Homer
 * @Date:   2017-12-17 23:50:40
 * @Last Modified by:   homer
-* @Last Modified time: 2019-05-29 04:07:49
+* @Last Modified time: 2019-05-29 11:45:27
 */
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -27,7 +27,7 @@ import BaseComponent from '../BaseComponent';
 import { redirect } from '../../utils';
 import datatableTheme from '../datatableTheme';
 import * as runtimeActions from '../../actions/runtime';
-import lightTheme from '../theme';
+import theme from '../theme';
 import CreateAppWizard from '../CreateAppWizard';
 import CopyCodeModal from './CopyCodeModal';
 import { appsQuery } from './graphql';
@@ -94,7 +94,7 @@ class AppsView extends BaseComponent {
     if (loading) return <h1>Loading</h1>;
 
     return (
-      <ThemeProvider theme={createMuiTheme(lightTheme)}>
+      <ThemeProvider theme={createMuiTheme(theme)}>
         <div>
           <Toolbar>
             <ToolbarGroup firstChild />

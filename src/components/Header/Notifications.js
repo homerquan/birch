@@ -10,15 +10,18 @@ import Badge from '@material-ui/core/Badge';
 import IconButton from '@material-ui/core/IconButton';
 import Paper from '@material-ui/core/Paper';
 import { deepPurple500, pink500, white } from '@material-ui/core/colors';
-import { List, ListItem } from '@material-ui/core/List';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
 import Avatar from '@material-ui/core/Avatar';
-import {FiBell as NotificationIcon, FiCode as CodeIcon} from 'react-icons/fi';
+import { FiBell as NotificationIcon, FiCode as CodeIcon } from 'react-icons/fi';
 import { ThemeProvider } from '@material-ui/styles';
 import { createMuiTheme } from '@material-ui/core/styles';
 import Divider from '@material-ui/core/Divider';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import Link from '../Link';
-import lightTheme from '../theme';
+import theme from '../theme';
 import s from './Notifications.css';
 import CONSTANTS from '../../constants';
 
@@ -91,7 +94,7 @@ const styles = {
 };
 
 class Notifications extends BaseComponent {
-  
+
   static propTypes = {
     runtime: PropTypes.shape({
       NOTIFICATIONS_COUNT: PropTypes.number,
@@ -145,14 +148,14 @@ class Notifications extends BaseComponent {
   render() {
     const { isOpen } = this.state;
     const { runtime, data: { notificationConnection, loading } } = this.props;
-    
+
     if (loading) {
       return <div>loading</div>;
     }
 
     // TBD: add grace error if notifications are empty
     return (
-      <ThemeProvider theme={createMuiTheme(lightTheme)}>
+      <ThemeProvider theme={createMuiTheme(theme)}>
         <Badge
           badgeContent={
             runtime[CONSTANTS.notificationsCount]
@@ -181,7 +184,7 @@ class Notifications extends BaseComponent {
             </div>
             <List style={styles.listStyle}>
               <ListSubheader style={styles.subHeaderStyle}>Recent</ListSubheader>
-               {notificationConnection.edges.length
+              {notificationConnection.edges.length
                 ? (
                   this.transformConnectionNode(notificationConnection.edges).map((item, index) => (
                     <div key={item.id}>

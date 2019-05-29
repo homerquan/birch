@@ -13,7 +13,7 @@ import PropTypes from 'prop-types';
 import { graphql, compose } from 'react-apollo';
 import ThemeProvider from '@material-ui/core/styles/ThemeProvider'
 
-import lightTheme from '../theme';
+import theme from '../theme';
 import Button from '@material-ui/core/Button';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import s from './Knowledge.css';
@@ -45,7 +45,7 @@ class Knowledge extends React.Component {
 
   render() {
     return (
-      <ThemeProvider theme={createMuiTheme(lightTheme)}>
+      <ThemeProvider theme={createMuiTheme(theme)}>
       <div>
         <textarea id="demoKB" class="knowledge" defaultValue={this.state.knowledge} />
         <Button label="Change" fullWidth={true} onClick={this.onSave} />

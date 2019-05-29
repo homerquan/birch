@@ -16,7 +16,7 @@ import { createMuiTheme } from '@material-ui/core/styles';
 import { Tabs, Tab } from '@material-ui/core/Tabs';
 import Paper from '@material-ui/core/Paper';
 
-import lightTheme from '../../components/theme';
+import theme from '../../components/theme';
 import grids from '../../components/Layout/grids';
 import TitleBar from '../../components/TitleBar';
 import Browse from '../../components/Plugins/Browse';
@@ -41,14 +41,14 @@ class AccountView extends React.Component {
     const { conversationId } = this.props;
 
     return (
-      <ThemeProvider theme={createMuiTheme(lightTheme)}>
+      <ThemeProvider theme={createMuiTheme(theme)}>
         <LayoutProvider layouts={grids}>
           <Page layout="grid-one-one">
             <Section slot="titleBar">
               <TitleBar title="Plugins" />
             </Section>
             <Section slot="main">
-              <ThemeProvider theme={createMuiTheme(lightTheme)}>
+              <ThemeProvider theme={createMuiTheme(theme)}>
                 <Paper>
                   <Tabs
                     value={this.state.value}

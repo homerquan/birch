@@ -7,14 +7,14 @@
  * @Email: dev@reflen.com
  * @Date:   2017-11-05 17:00:20
  * @Last Modified by:   homer
- * @Last Modified time: 2019-05-29 04:07:48
+ * @Last Modified time: 2019-05-29 11:45:26
  */
 import React from 'react';
 import { graphql, compose } from 'react-apollo';
 import { ThemeProvider } from '@material-ui/styles';
 import { createMuiTheme } from '@material-ui/core/styles';
 
-import lightTheme from '../theme';
+import theme from '../theme';
 import Paper from '@material-ui/core/Paper';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import s from './style.css';
@@ -22,7 +22,7 @@ import s from './style.css';
 class Dashboard extends React.Component {
   render() {
     return (
-      <ThemeProvider theme={createMuiTheme(lightTheme)}>
+      <ThemeProvider theme={createMuiTheme(theme)}>
         <div>
           <Paper className={s.card} zDepth={1}>
             <div className={s.value}>12,345</div>

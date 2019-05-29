@@ -8,28 +8,26 @@
  * @Email: dev@reflen.com
  * @Date:   2017-11-05 17:00:20
  * @Last Modified by:   homer
- * @Last Modified time: 2019-05-29 04:07:50
+ * @Last Modified time: 2019-05-29 12:25:56
  */
 import React, { Component } from 'react';
-import { ThemeProvider } from '@material-ui/styles';
-import { createMuiTheme } from '@material-ui/core/styles';
-
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import { List } from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
-import { black } from '@material-ui/core/colors';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import List from '@material-ui/core/List';
+import { ThemeProvider } from '@material-ui/styles';
+import { createMuiTheme } from '@material-ui/core/styles';
 import { FiRadio as NotificationsIcon, FiArrowRight as ArrowForward } from 'react-icons/fi';
 import { RCard, RCardHeader, RCardBody, RCardFooter } from '../styled/RCard';
-import lightTheme from '../theme';
+import theme from '../theme';
 import fakeData from './fakeData.json';
 import MessageListItem from '../MessageListItem';
 import NotificationListItem from '../NotificationListItem';
 import ActivitiesContentLoader from './ActivitiesContentLoader';
 import s from './style.css';
 
-class Activities extends Component {
+class ActivitiesWidget extends Component {
   constructor(props) {
     super(props);
 
@@ -47,11 +45,11 @@ class Activities extends Component {
     }
 
     return (
-      <ThemeProvider theme={createMuiTheme(lightTheme)}>
+      <ThemeProvider theme={createMuiTheme(theme)}>
         <RCard>
           <RCardHeader>
             <div className="title-container">
-              <NotificationsIcon color={black} />
+              <NotificationsIcon/>
               <h2>Activities</h2>
             </div>
             <div className="button-container">
@@ -62,8 +60,7 @@ class Activities extends Component {
             </div>
           </RCardHeader>
           <RCardBody>
-
-            <List style={{ padding: 0 }}>
+            <List>
               {this.state.data.map((application, index, array) => (
                 <div key={application.id}>
                   {application.type === 'message'
@@ -86,7 +83,7 @@ class Activities extends Component {
             </List>
           </RCardBody>
           <RCardFooter>
-            <ArrowForward color={black} />
+            <ArrowForward/>
             <p className="link-text">View all activities</p>
           </RCardFooter>
         </RCard>
@@ -95,4 +92,4 @@ class Activities extends Component {
   }
 }
 
-export default withStyles(s)(Activities);
+export default withStyles(s)(ActivitiesWidget);

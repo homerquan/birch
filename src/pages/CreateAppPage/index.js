@@ -2,7 +2,7 @@
 * @Author: homer
 * @Date:   2019-05-28 20:54:31
 * @Last Modified by:   homer
-* @Last Modified time: 2019-05-29 04:07:45
+* @Last Modified time: 2019-05-29 11:45:24
 */
 /*
 * @Author: Homer
@@ -20,7 +20,7 @@ import { ThemeProvider } from '@material-ui/styles';
 import { createMuiTheme } from '@material-ui/core/styles';
 
 
-import lightTheme from '../../components/theme';
+import theme from '../../components/theme';
 import TitleBar from '../../components/TitleBar';
 import grids from '../../components/Layout/grids';
 import CreateAppWizard from '../../components/CreateAppWizard';
@@ -41,7 +41,7 @@ class CreateAppPage extends React.Component {
 
   render() {
     return (
-      <ThemeProvider theme={createMuiTheme(lightTheme)}>
+      <ThemeProvider theme={createMuiTheme(theme)}>
         <LayoutProvider layouts={grids}>
           <Page layout="grid-one-one">
             <Section slot="titleBar">

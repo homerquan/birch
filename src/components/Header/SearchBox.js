@@ -1,5 +1,8 @@
 import * as React from 'react';
-import { List, ListItem } from '@material-ui/core/List';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
 import { white, grey500 } from '@material-ui/core/colors';
 import { FiSearch as SearchIcon } from 'react-icons/fi';
 import Divider from '@material-ui/core/Divider';

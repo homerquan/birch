@@ -15,26 +15,23 @@ import { createMuiTheme } from '@material-ui/core/styles';
 import grids from '../../components/Layout/grids';
 import TitleBar from '../../components/TitleBar';
 import AppsWidget from '../../components/AppsWidget';
-import Activities from '../../components/Activities';
-import lightTheme from '../../components/theme';
+import ActivitiesWidget from '../../components/ActivitiesWidget';
+import theme from '../../components/theme';
 
 class HomePage extends React.Component {
   render() {
     return (
-      <ThemeProvider theme={createMuiTheme(lightTheme)}>
+      <ThemeProvider theme={createMuiTheme(theme)}>
         <LayoutProvider layouts={grids}>
           <Page layout="grid-one-two">
             <Section slot="titleBar">
-            {/* <TitleBar title="Dashboard" /> */}
-              
+              <TitleBar title="Dashboard" />         
             </Section>
             <Section slot="col-1">
-              {/*  <AppsWidget userId={this.props.session.userId} /> */}
-
+              <AppsWidget userId={this.props.session.userId} />
             </Section>
             <Section slot="col-2">
-            {/*  <Activities /> */}
-
+               <ActivitiesWidget />
             </Section>
           </Page>
         </LayoutProvider>

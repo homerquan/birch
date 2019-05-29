@@ -2,7 +2,7 @@
 * @Author: Homer
 * @Date:   2017-12-17 23:50:40
 * @Last Modified by:   homer
-* @Last Modified time: 2019-05-29 04:07:46
+* @Last Modified time: 2019-05-29 11:45:24
 */
 
 import React from 'react';
@@ -17,7 +17,7 @@ import { createMuiTheme } from '@material-ui/core/styles';
 import ReloadIcon from 'react-material-icons/icons/action/cached';
 import IconButton from '@material-ui/core/IconButton';
 import { Toolbar, ToolbarGroup } from '@material-ui/core/Toolbar';
-import lightTheme from '../theme';
+import theme from '../theme';
 import config from '../../config';
 import SessionsTable from '../SessionsTable';
 import SessionMonitor from '../SessionMonitor';
@@ -73,7 +73,7 @@ class SessionsView extends BaseComponent {
     }
 
     return (
-      <ThemeProvider theme={createMuiTheme(lightTheme)}>
+      <ThemeProvider theme={createMuiTheme(theme)}>
         <div>
           <Toolbar>
             <ToolbarGroup firstChild />

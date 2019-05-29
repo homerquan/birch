@@ -12,7 +12,7 @@ import { ThemeProvider } from '@material-ui/styles';
 import { createMuiTheme } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 
-import lightTheme from '../../components/theme';
+import theme from '../../components/theme';
 import BlankScreen from '../../components/Layout/BlankScreen';
 import LoginView from '../../components/LoginView';
 import Background from '../../../public/images/bg.svg';
@@ -55,7 +55,7 @@ export default {
       chunk: 'login',
       component: (
         <BlankScreen>
-          <ThemeProvider theme={createMuiTheme(lightTheme)}>
+          <ThemeProvider theme={createMuiTheme(theme)}>
             <div style={styles.loginScreen}>
               <Paper style={styles.loginPaper} zDepth={2}>
                 <LoginView title={title} redirect={query.redirect} />

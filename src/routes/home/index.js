@@ -32,7 +32,7 @@ export default {
       chunk,
       component: (
         <Layout>
-          {/*   <HomePage /> */}
+          <HomePage />
         </Layout>
       ),
     };

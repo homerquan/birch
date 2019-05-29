@@ -8,7 +8,7 @@
  * @Email: dev@reflen.com
  * @Date:   2017-11-05 17:00:20
  * @Last Modified by:   homer
- * @Last Modified time: 2019-05-29 05:58:27
+ * @Last Modified time: 2019-05-29 11:45:26
  */
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -24,7 +24,7 @@ import { ThemeProvider } from '@material-ui/styles';
 import { createMuiTheme } from '@material-ui/core/styles';
 
 import { ignoreGlobalNotification } from '../../actions/globalNotification';
-import lightTheme from '../theme';
+import theme from '../theme';
 import s from './style.css';
 
 const styles = {
@@ -59,7 +59,7 @@ class GlobalNotice extends React.Component {
 
   render() {
     return (
-      <ThemeProvider theme={createMuiTheme(lightTheme)}>
+      <ThemeProvider theme={createMuiTheme(theme)}>
         <div className={s.globalNotice} style={this.props.globalNotification ? {} : { display: 'none' }} >
           <span className={s.content}>{this.props.globalNotification ? this.props.globalNotification.text : ''}</span>
           <IconButton

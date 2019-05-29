@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import { List, ListItem } from '@material-ui/core/List';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
 import { FiCircle as CheckCircleIcon, FiCheckCircle as RadioButtonCheckedIcon, FiArrowRightCircle as RadioButtonUncheckedIcon } from 'react-icons/fi';
 import Info from './Info';
 import Properties from './Properties';

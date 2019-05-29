@@ -8,7 +8,7 @@
  * @Email: dev@reflen.com
  * @Date:   2017-11-05 19:34:16
  * @Last Modified by:   homer
- * @Last Modified time: 2019-05-29 04:07:45
+ * @Last Modified time: 2019-05-29 11:45:24
  */
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -18,7 +18,7 @@ import { Page, Section, LayoutProvider } from 'react-page-layout';
 import { ThemeProvider } from '@material-ui/styles';
 import { createMuiTheme } from '@material-ui/core/styles';
 
-import lightTheme from '../../components/theme';
+import theme from '../../components/theme';
 import grids from '../../components/Layout/grids';
 import TitleBar from '../../components/TitleBar';
 import AppsView from '../../components/AppsView';
@@ -28,7 +28,7 @@ class AppsPage extends React.Component {
 
   render() {
     return (
-      <ThemeProvider theme={createMuiTheme(lightTheme)}>
+      <ThemeProvider theme={createMuiTheme(theme)}>
         <LayoutProvider layouts={grids}>
           <Page layout="grid-one-one">
             <Section slot="titleBar">

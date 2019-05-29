@@ -9,7 +9,10 @@ import React from 'react';
 // import cx from 'classnames';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import Drawer from '@material-ui/core/Drawer';
-import { List, ListItem } from '@material-ui/core/List';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
 import { ThemeProvider } from '@material-ui/styles';
 import { createMuiTheme } from '@material-ui/core/styles';
@@ -28,7 +31,7 @@ import {
 } from 'react-icons/fi';
 import { connect } from 'react-redux';
 import logoUrl from './logo.png';
-import themeDark from '../themeDark';
+import darkTheme from '../darkTheme';
 import s from './style.css';
 
 const styles = {
@@ -81,7 +84,7 @@ class Sidebar extends React.Component {
       this.props.runtime && this.props.runtime.selectedApp ? this.props.runtime.selectedApp : null;
 
     return (
-      <ThemeProvider theme={createMuiTheme(themeDark)}>
+      <ThemeProvider theme={createMuiTheme(darkTheme)}>
         <Drawer
           docked={false}
           open={this.props.open}

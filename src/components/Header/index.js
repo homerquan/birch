@@ -18,7 +18,7 @@ import { connect } from 'react-redux';
 import CornerNotifications from 'react-notification-system-redux';
 import { Alerts as SnackBarAlerts } from 'mui-redux-alerts-next';
 import IconButton from '@material-ui/core/IconButton';
-import { FiArrowRight as ArrowIcon, FiAlignJustify as HamburgerIcon} from 'react-icons/fi';
+import { FiTerminal as TerminalIcon, FiAlignJustify as HamburgerIcon} from 'react-icons/fi';
 import { white } from '@material-ui/core/colors';
 import theme from '../theme';
 import Loader from '../Loader';
@@ -128,9 +128,9 @@ class Header extends React.Component {
 
             <div>
               <IconButton tooltip="Open Console">
-                <ArrowIcon color={white} onClick={this.toggleConsole} />
+                <TerminalIcon color={white} onClick={this.toggleConsole} />
               </IconButton>
-              {/* <Messages /> */}
+              <Messages />
               <Notifications userId={this.props.session.userId} />
             </div>
           </HeaderContainer>

@@ -27,18 +27,21 @@ export default {
   },
   palette: {
     primary1Color: colors.deepPurple500,
-    primary1Highlight: colors.deepPurple400,
     primary2Color: colors.deepPurple700,
     primary3Color: colors.grey600,
-    accent1Color: colors.green100,
-    accent2Color: colors.grey100,
+    accent1Color: colors.pinkA200,
+    accent2Color: colors.pinkA400,
     accent3Color: colors.pinkA100,
-    textColor: colors.darkBlack,
-    textColorLight: colors.grey400,
-    borderColor: colors.grey300,
+    textColor: colors.fullWhite,
   },
-  checked: {},
   appBar: {
     height: 48,
+    textColor: colors.fullWhite,
+    titleFontWeight: 300,
+  },
+  snackbar: {
+    textColor: colors.fullWhite,
+    backgroundColor: colors.fullBlack,
+    actionColor: colors.deepPurple500,
   },
 };

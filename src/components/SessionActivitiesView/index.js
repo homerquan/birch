@@ -8,11 +8,11 @@
  * @Email: dev@reflen.com
  * @Date:   2017-11-05 17:00:20
  * @Last Modified by:   homer
- * @Last Modified time: 2019-05-29 03:23:50
+ * @Last Modified time: 2019-05-29 12:27:28
  */
 import React, { Component } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import { List } from '@material-ui/core/List';
+import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import { deepPurple500, black } from '@material-ui/core/colors';
 import Button from '@material-ui/core/Button';

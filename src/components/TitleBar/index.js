@@ -13,7 +13,7 @@ class Title extends React.Component {
       <TitleContainer>
         <Breadcrumbs>
           <li>
-            <a href="/">Home</a> <span className="separator">|</span>
+            <a href="/">Home</a><span className="separator">|</span>
           </li>
           <li>
             <h3>{this.props.title}</h3>
