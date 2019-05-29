@@ -54,6 +54,7 @@
     "method-override": "^2.3.9",
     "moment": "^2.24.0",
     "morgan": "^1.9.1",
+    "mui-datatables": "^2.2.0",
     "mui-redux-alerts-next": "^0.1.0",
     "node-uuid": "^1.4.8",
     "normalize.css": "^7.0.0",

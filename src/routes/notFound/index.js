@@ -8,18 +8,19 @@
  */
 
 import React from 'react';
-import NotFoundPage from '../../NotFoundPage';
+import NotFoundPage from '../../pages/NotFoundPage';
 import BlankScreen from '../../components/Layout/BlankScreen';
 
 const title = 'Page Not Found';
+const chunk = 'notFound';
 
 export default {
   path: '*',
-  chunk: 'notFound',
+  chunk,
   action() {
     return {
       title,
-      chunk: 'notFound',
+      chunk,
       component: (
         <BlankScreen>
           <NotFoundPage title={title} />
