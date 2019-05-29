@@ -1,6 +1,5 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
 import { connect } from 'react-redux';
 import { graphql, compose } from 'react-apollo';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
@@ -10,6 +9,7 @@ import SendIcon from 'material-ui/svg-icons/content/send';
 import { greenA700, grey900, white } from 'material-ui/styles/colors';
 import SchoolIcon from 'material-ui/svg-icons/social/school';
 import withWidth, { LARGE } from 'material-ui/utils/withWidth';
+import BaseComponent from '../BaseComponent';
 import MessagesContainer from './MessagesContainer';
 import ActionMenu from './ActionMenu';
 import CommandsList from './CommandList';
@@ -21,19 +21,13 @@ import s from './style.css';
 import { sessionQuery, conversationQueryLoadMore, createMessage } from './graphql';
 
 
-class SessionMonitor extends Component {
+class SessionMonitor extends BaseComponent {
 
   static propTypes = {
     data: PropTypes.shape({
-      conversation: PropTypes.shape({
-        messages: PropTypes.object,
-      }),
+      sessionById: PropTypes.object,
     }).isRequired,
     mutate: PropTypes.func.isRequired,
-    session: PropTypes.shape({
-      id: PropTypes.string,
-      _owner: PropTypes.string,
-    }).isRequired,
     runtime: PropTypes.shape({
       openDecisionSupport: PropTypes.number,
     }).isRequired,
@@ -192,26 +186,26 @@ class SessionMonitor extends Component {
   }
 
   loadMoreMessages() {
-    const { data, conversation } = this.props;
+    const { data, session } = this.props;
 
     data.fetchMore({
       query: conversationQueryLoadMore,
       variables: {
-        conversationId: conversation.id,
-        after: data.conversation.messages.pageInfo.endCursor,
+        sessionId: session._id,
+        after: data.session.actionConnection.pageInfo.endCursor,
       },
       updateQuery: (previousResult, { fetchMoreResult }) => {
-        const previousEntry = previousResult.conversation.messages.edges;
-        const newMessages = fetchMoreResult.conversation.messages.edges;
+        const previousEntry = previousResult.session.actionConnection.edges;
+        const newMessages = fetchMoreResult.session.actionConnection.edges;
 
         return {
           conversation: {
             __typename: previousResult.conversation.__typename, // eslint-disable-line
             id: previousResult.conversation.id,
             messages: {
-              __typename: previousResult.conversation.messages.__typename, // eslint-disable-line
+              __typename: previousResult.session.actionConnection.__typename, // eslint-disable-line
               edges: [...newMessages, ...previousEntry],
-              pageInfo: fetchMoreResult.conversation.messages.pageInfo,
+              pageInfo: fetchMoreResult.session.actionConnection.pageInfo,
               totalCount: [...newMessages, ...previousEntry].length,
             },
           },
@@ -220,10 +214,8 @@ class SessionMonitor extends Component {
     });
   }
 
-  transform = data => (_.map(data, 'node'));
-
   render() {
-    const { width, isOpen, closeDrawer, data: { loading, conversation } } = this.props;
+    const { width, isOpen, closeDrawer, data: { loading, sessionById } } = this.props;
     const { currentMessage, activeCommands, trainingIsOpen, enableTraining } = this.state;
 
     const styles = {
@@ -330,7 +322,7 @@ class SessionMonitor extends Component {
               />
 
               <MessagesContainer
-                messages={this.transform(conversation.messages.edges)}
+                messages={this.transformConnectionNode(sessionById.actionConnection.edges)}
                 loadMoreMessages={this.loadMoreMessages}
               />
 
@@ -382,8 +374,7 @@ class SessionMonitor extends Component {
 
 function selectProps(state) {
   return {
-    runtime: state.runtime,
-    session: state.session,
+    runtime: state.runtime
   };
 }
 

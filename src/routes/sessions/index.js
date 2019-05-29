@@ -7,7 +7,7 @@ const title = 'Live sessions';
 const chunk = 'sessions';
 
 export default {
-  path: '/:aid/sessions',
+  path: '/app/:aid/sessions',
   chunk,
   action({ store, params, path }) {
     const login = isLogin(store.getState());

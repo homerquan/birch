@@ -2,16 +2,29 @@
 * @Author: homer
 * @Date:   2019-05-24 17:53:36
 * @Last Modified by:   homer
-* @Last Modified time: 2019-05-26 15:17:31
+* @Last Modified time: 2019-05-28 14:48:58
 */
 
 import gql from 'graphql-tag';
 
 export const sessionQuery = gql`
-  query session ($id:MongoID!) {
-    sessionById(_id:$id) {
+  query session ($sessionId:MongoID!) {
+    sessionById(_id:$sessionId) {
       status
       context
+      actionConnection(last:10) {
+        count
+        pageInfo {
+          startCursor
+          endCursor
+        }
+        edges {
+          node {
+            _id
+            text
+          }
+        }
+      }
     }
   }
 `;

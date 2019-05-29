@@ -2,8 +2,9 @@
 * @Author: homer
 * @Date:   2019-05-26 15:33:39
 * @Last Modified by:   homer
-* @Last Modified time: 2019-05-26 15:34:26
+* @Last Modified time: 2019-05-28 01:47:38
 */
+import gql from 'graphql-tag';
 
 export const appsQuery = gql`
 query Apps($userId: String) {

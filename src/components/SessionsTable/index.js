@@ -34,7 +34,7 @@ const styles = {
 
 const tableColumns = (addPinned, openDrawer) => ([
   {
-    key: 'id',
+    key: '_id',
     style: {
       width: 10,
     },
@@ -52,7 +52,7 @@ const tableColumns = (addPinned, openDrawer) => ([
     ),
   },
   {
-    key: 'id',
+    key: '_id',
     label: 'From',
     style: {
       width: 160,
@@ -144,47 +144,46 @@ const tableColumns = (addPinned, openDrawer) => ([
     style: {
       width: 40,
     },
-    render: (pinToTop, all) => {
-      const { id } = all;
-
-      return (<Toggle
-        name={id}
-        tooltip="Pin to Top"
-        toggled={pinToTop}
-        onToggle={passedId => addPinned(passedId)}
-      />);
-    },
+    render: (pinToTop, item) => (<Toggle
+      name={item._id}
+      tooltip="Pin to Top"
+      toggled={pinToTop}
+      onToggle={passedId => addPinned(passedId)}
+    />),
   },
   {
     label: 'Open',
     style: {
       width: 30,
     },
-    render: (name, all) => (
+    render: (name, item) => (
       <IconButton
         tooltip="Open"
-        onClick={() => openDrawer(all.id)}
+        onClick={() => openDrawer(item._id)}
       >
         <ChatIcon color={grey500} />
       </IconButton>
     ),
   },
   {
+    key: '_id',
     label: 'More',
-    key: 'id',
     style: {
       width: 30,
     },
-    render: () => (
-      <div>
-        <IconButton
-          href= "./session/{id}"
-          tooltip="More"
-        >
-          <MoreIcon />
-        </IconButton>
-      </div>
-    ),
+    render: (id) => {
+      const sessionUrl = `./session/${id}`;
+      return (
+        <div>
+          <IconButton
+            href={sessionUrl}
+            tooltip="More"
+          >
+            <MoreIcon />
+          </IconButton>
+        </div>
+      );
+    },
   },
 ]);
 

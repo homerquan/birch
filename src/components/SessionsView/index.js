@@ -2,7 +2,7 @@
 * @Author: Homer
 * @Date:   2017-12-17 23:50:40
 * @Last Modified by:   homer
-* @Last Modified time: 2019-05-24 17:48:57
+* @Last Modified time: 2019-05-28 15:27:23
 */
 
 import React from 'react';
@@ -33,7 +33,6 @@ class SessionsView extends BaseComponent {
   };
 
   constructor(props) {
-    
     super(props);
 
     this.state = {
@@ -51,8 +50,6 @@ class SessionsView extends BaseComponent {
   }
 
   openDrawer(sid) {
-    const { data: { conversationsFeed } } = this.props;
-
     this.setState({
       drawerIsOpen: true,
       selectedSessionId: sid,
@@ -68,9 +65,11 @@ class SessionsView extends BaseComponent {
   render() {
     const { sessionConnection, loading, refetch } = this.props.data;
 
-    if (loading) return (
-      <h1>Loading</h1>
-    );
+    if (loading) {
+      return (
+        <h1>Loading</h1>
+      );
+    }
 
     return (
       <MuiThemeProvider muiTheme={getMuiTheme(lightTheme)}>

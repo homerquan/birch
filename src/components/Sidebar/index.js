@@ -79,8 +79,10 @@ class Sidebar extends React.Component {
   };
 
   render() {
+
     const selectedApp =
       this.props.runtime && this.props.runtime.selectedApp ? this.props.runtime.selectedApp : null;
+
     return (
       <MuiThemeProvider muiTheme={getMuiTheme(themeDark)}>
         <Drawer
@@ -149,13 +151,10 @@ class Sidebar extends React.Component {
                 <Divider />
                 <List>
                   <ListItem leftIcon={<ConversationsIcon color={white} style={styles.iconItem} />}>
-                    <a className={s.link} href={`/${selectedApp.id}/sessions`}>Conversations</a>
-                  </ListItem>
-                  <ListItem leftIcon={<PluginsIcon color={white} style={styles.iconItem} />}>
-                     <a className={s.link} href={`/${selectedApp.id}/plugins`}>Plugins</a>
+                    <a className={s.link} href={`/app/${selectedApp._id}/sessions`}>Conversations</a>
                   </ListItem>
                   <ListItem leftIcon={<ExperienceIcon color={white} style={styles.iconItem} />}>
-                     <a className={s.link} href={`/${selectedApp.id}/experience`}>Experience</a>
+                     <a className={s.link} href={`/app/${selectedApp._id}/experience`}>Experience</a>
                   </ListItem>
                 </List>
               </div>

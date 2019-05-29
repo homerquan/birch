@@ -2,7 +2,7 @@
 * @Author: Homer
 * @Date:   2017-12-17 23:50:40
 * @Last Modified by:   homer
-* @Last Modified time: 2019-05-26 15:49:29
+* @Last Modified time: 2019-05-28 16:14:13
 */
 
 import React from 'react';
@@ -103,7 +103,7 @@ class AppsView extends BaseComponent {
   }
 
   selectApp = (appId) => {
-    redirect(`/${appId}/sessions`);
+    redirect(`/app/${appId}/sessions`);
   };
 
   closeNewAppModal() {
