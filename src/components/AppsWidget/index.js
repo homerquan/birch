@@ -46,10 +46,10 @@ query Apps($userId: String) {
 `;
 
 class AppsList extends BaseComponent {
-  
+
   static propTypes = {
     data: PropTypes.object.isRequired,
-  };
+  }
 
   render() {
     const { data: { appConnection, loading } } = this.props;
@@ -105,7 +105,7 @@ class AppsList extends BaseComponent {
 export default withStyles(s)(
   compose(
     graphql(appsListQuery, {
-      options: (props) => ({
+      options: props => ({
         variables: { userId: props.userId },
       }),
     }),

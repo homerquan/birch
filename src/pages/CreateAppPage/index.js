@@ -2,7 +2,7 @@
 * @Author: homer
 * @Date:   2019-05-28 20:54:31
 * @Last Modified by:   homer
-* @Last Modified time: 2019-05-28 20:55:24
+* @Last Modified time: 2019-05-28 21:53:31
 */
 /*
 * @Author: Homer
@@ -22,9 +22,9 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import lightTheme from '../../components/theme';
 import TitleBar from '../../components/TitleBar';
 import grids from '../../components/Layout/grids';
-import NewBotView from '../../components/NewBotView';
+import CreateAppWizard from '../../components/CreateAppWizard';
 
-class NewBot extends React.Component {
+class CreateAppPage extends React.Component { 
   static propTypes = {
     title: PropTypes.string.isRequired,
     session: PropTypes.shape({
@@ -47,8 +47,8 @@ class NewBot extends React.Component {
               <TitleBar title={this.props.title} />
             </Section>
             <Section slot="main">
-              <NewBotView
-                clientId={this.props.session.userId}
+              <CreateAppWizard
+                userId={this.props.session.userId}
               />
             </Section>
           </Page>
@@ -64,4 +64,4 @@ function selectProps(state) {
   };
 }
 
-export default compose()(connect(selectProps, null)(NewBot));
+export default compose()(connect(selectProps, null)(CreateAppPage));
