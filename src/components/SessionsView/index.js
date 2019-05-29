@@ -2,7 +2,7 @@
 * @Author: Homer
 * @Date:   2017-12-17 23:50:40
 * @Last Modified by:   homer
-* @Last Modified time: 2019-05-29 11:45:24
+* @Last Modified time: 2019-05-29 13:47:01
 */
 
 import React from 'react';
@@ -73,7 +73,7 @@ class SessionsView extends BaseComponent {
     }
 
     return (
-      <ThemeProvider theme={createMuiTheme(theme)}>
+      <ThemeProvider theme={theme}>
         <div>
           <Toolbar>
             <ToolbarGroup firstChild />

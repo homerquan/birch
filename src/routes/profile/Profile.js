@@ -34,7 +34,7 @@ class Profile extends React.Component {
 
   render() {
     return (
-      <ThemeProvider theme={createMuiTheme(theme)}>
+      <ThemeProvider theme={theme}>
         <LayoutProvider layouts={grids}>
           <Page layout="grid-one-one">
             <Section slot="titleBar">

@@ -55,7 +55,7 @@ export default {
       chunk: 'login',
       component: (
         <BlankScreen>
-          <ThemeProvider theme={createMuiTheme(theme)}>
+          <ThemeProvider theme={theme}>
             <div style={styles.loginScreen}>
               <Paper style={styles.loginPaper} zDepth={2}>
                 <LoginView title={title} redirect={query.redirect} />

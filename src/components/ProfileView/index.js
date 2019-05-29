@@ -30,7 +30,7 @@ class ProfileView extends React.Component {
 
   render() {
     return (
-      <ThemeProvider theme={createMuiTheme(theme)}>
+      <ThemeProvider theme={theme}>
         <div>
           <Button variant="contained"
             label="Logout"

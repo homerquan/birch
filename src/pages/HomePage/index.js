@@ -21,7 +21,7 @@ import theme from '../../components/theme';
 class HomePage extends React.Component {
   render() {
     return (
-      <ThemeProvider theme={createMuiTheme(theme)}>
+      <ThemeProvider theme={theme}>
         <LayoutProvider layouts={grids}>
           <Page layout="grid-one-two">
             <Section slot="titleBar">

@@ -41,14 +41,14 @@ class AccountView extends React.Component {
     const { conversationId } = this.props;
 
     return (
-      <ThemeProvider theme={createMuiTheme(theme)}>
+      <ThemeProvider theme={theme}>
         <LayoutProvider layouts={grids}>
           <Page layout="grid-one-one">
             <Section slot="titleBar">
               <TitleBar title="Plugins" />
             </Section>
             <Section slot="main">
-              <ThemeProvider theme={createMuiTheme(theme)}>
+              <ThemeProvider theme={theme}>
                 <Paper>
                   <Tabs
                     value={this.state.value}

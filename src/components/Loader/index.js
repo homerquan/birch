@@ -7,7 +7,7 @@
  * @Email: dev@reflen.com
  * @Date:   2017-11-05 17:00:20
  * @Last Modified by:   homer
- * @Last Modified time: 2019-05-29 11:45:25
+ * @Last Modified time: 2019-05-29 13:47:03
  */
 import React from 'react';
 import { graphql, compose } from 'react-apollo';
@@ -23,7 +23,7 @@ import s from './style.css';
 class Loader extends React.Component {
   render() {
     return (
-      <ThemeProvider theme={createMuiTheme(theme)}>
+      <ThemeProvider theme={theme}>
         <LinearProgress mode="indeterminate" />
       </ThemeProvider>
     );

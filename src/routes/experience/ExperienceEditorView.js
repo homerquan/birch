@@ -2,7 +2,7 @@
 * @Author: Homer
 * @Date:   2017-12-31 18:26:35
 * @Last Modified by:   homer
-* @Last Modified time: 2019-05-29 11:45:28
+* @Last Modified time: 2019-05-29 13:47:23
 */
 
 import React from 'react';
@@ -22,7 +22,7 @@ class NewBot extends React.Component {
 
   render() {
     return (
-      <ThemeProvider theme={createMuiTheme(theme)}>
+      <ThemeProvider theme={theme}>
         <LayoutProvider layouts={grids}>
           <Page layout="grid-one-full">
             <Section slot="titleBar">

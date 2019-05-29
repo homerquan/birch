@@ -2,7 +2,7 @@
 * @Author: homer
 * @Date:   2019-05-28 20:54:31
 * @Last Modified by:   homer
-* @Last Modified time: 2019-05-29 11:45:24
+* @Last Modified time: 2019-05-29 13:47:16
 */
 /*
 * @Author: Homer
@@ -41,7 +41,7 @@ class CreateAppPage extends React.Component {
 
   render() {
     return (
-      <ThemeProvider theme={createMuiTheme(theme)}>
+      <ThemeProvider theme={theme}>
         <LayoutProvider layouts={grids}>
           <Page layout="grid-one-one">
             <Section slot="titleBar">

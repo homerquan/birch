@@ -155,7 +155,7 @@ class Notifications extends BaseComponent {
 
     // TBD: add grace error if notifications are empty
     return (
-      <ThemeProvider theme={createMuiTheme(theme)}>
+      <ThemeProvider theme={theme}>
         <Badge
           badgeContent={
             runtime[CONSTANTS.notificationsCount]

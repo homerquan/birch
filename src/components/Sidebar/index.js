@@ -2,7 +2,7 @@
 * @Author: homer
 * @Date:   2019-05-29 12:37:48
 * @Last Modified by:   homer
-* @Last Modified time: 2019-05-29 12:56:22
+* @Last Modified time: 2019-05-29 13:47:17
 */
 import React from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
@@ -29,7 +29,7 @@ import {
 } from 'react-icons/fi';
 import { connect } from 'react-redux';
 import logoUrl from './logo.png';
-import darkTheme from '../darkTheme';
+import theme from '../theme';
 import s from './style.css';
 
 const styles = {
@@ -79,7 +79,7 @@ class Sidebar extends React.Component {
       this.props.runtime && this.props.runtime.selectedApp ? this.props.runtime.selectedApp : null;
 
     return (
-      <ThemeProvider theme={createMuiTheme(darkTheme)}>
+      <ThemeProvider theme={theme}>
         <Drawer
           docked={false}
           open={this.props.open}
@@ -137,6 +137,12 @@ class Sidebar extends React.Component {
             {selectedApp ? (
               <div>
                 <List>
+                  <ListItem button>
+                    <ListItemIcon>
+                      <ConversationsIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Inbox" />
+                  </ListItem>
                   <ListItem
                     primaryText={this.props.runtime.selectedApp.name}
                     style={styles.darkLink}

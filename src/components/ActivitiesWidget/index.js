@@ -8,7 +8,7 @@
  * @Email: dev@reflen.com
  * @Date:   2017-11-05 17:00:20
  * @Last Modified by:   homer
- * @Last Modified time: 2019-05-29 12:25:56
+ * @Last Modified time: 2019-05-29 13:47:06
  */
 import React, { Component } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
@@ -45,7 +45,7 @@ class ActivitiesWidget extends Component {
     }
 
     return (
-      <ThemeProvider theme={createMuiTheme(theme)}>
+      <ThemeProvider theme={theme}>
         <RCard>
           <RCardHeader>
             <div className="title-container">

@@ -58,7 +58,7 @@ class AppsList extends BaseComponent {
     }
 
     return (
-      <ThemeProvider theme={createMuiTheme(theme)}>
+      <ThemeProvider theme={theme}>
         <RCard>
           <RCardHeader>
             <div className="title-container">

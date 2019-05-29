@@ -37,7 +37,7 @@ class Register extends React.Component {
 
   render() {
     return (
-      <ThemeProvider theme={createMuiTheme(theme)}>
+      <ThemeProvider theme={theme}>
         <div>
           <h2 className={s.title}>Register</h2>
           <form>

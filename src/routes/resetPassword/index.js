@@ -21,7 +21,7 @@ export default {
     return {
       component: (
         <BlankScreen>
-          <ThemeProvider theme={createMuiTheme(theme)}>
+          <ThemeProvider theme={theme}>
             <div>
               <ResetPassword />
             </div>

@@ -18,8 +18,9 @@ import { connect } from 'react-redux';
 import CornerNotifications from 'react-notification-system-redux';
 import { Alerts as SnackBarAlerts } from 'mui-redux-alerts-next';
 import IconButton from '@material-ui/core/IconButton';
-import { FiTerminal as TerminalIcon, FiAlignJustify as HamburgerIcon} from 'react-icons/fi';
-import { white } from '@material-ui/core/colors';
+import { FiTerminal as TerminalIcon, FiMenu as HamburgerIcon } from 'react-icons/fi';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
 import theme from '../theme';
 import Loader from '../Loader';
 import GlobalNotice from '../GlobalNotice';
@@ -108,7 +109,7 @@ class Header extends React.Component {
     const selectedAppName = this.props.runtime && this.props.runtime.selectedApp ? this.props.runtime.selectedApp.name : '';
 
     return (
-      <ThemeProvider theme={createMuiTheme(theme)}>
+      <ThemeProvider theme={theme}>
         <div>
           {this.renderLoadingIndicator()}
           <GlobalNotice />
@@ -118,22 +119,23 @@ class Header extends React.Component {
           />
           <SnackBarAlerts alerts={this.props.snackBarNotifications} />
           {/* <Sticky onStateChange={this.handleStickyChange} innerZ={100}> */}
-          <HeaderContainer>
-            <IconButton onClick={this.handleToggleButtonTouchTap}>
-              <HamburgerIcon color={white} />
-            </IconButton>
-            <HeaderTitle>{selectedAppName}</HeaderTitle>
 
-            <SearchBox />
+          <AppBar position="static">
+            <Toolbar>
+              <IconButton color="inherit" onClick={this.handleToggleButtonTouchTap}>
+                <HamburgerIcon color="inherit"/>
+              </IconButton>
+              <HeaderTitle>{selectedAppName}</HeaderTitle>
 
-            <div>
-              <IconButton tooltip="Open Console">
-                <TerminalIcon color={white} onClick={this.toggleConsole} />
+              <SearchBox />
+
+              <IconButton color="inherit" tooltip="Open Console">
+                <TerminalIcon onClick={this.toggleConsole} />
               </IconButton>
               <Messages />
               <Notifications userId={this.props.session.userId} />
-            </div>
-          </HeaderContainer>
+            </Toolbar>
+          </AppBar>
           {/* </Sticky> */}
         </div>
       </ThemeProvider>

@@ -45,7 +45,7 @@ class Knowledge extends React.Component {
 
   render() {
     return (
-      <ThemeProvider theme={createMuiTheme(theme)}>
+      <ThemeProvider theme={theme}>
       <div>
         <textarea id="demoKB" class="knowledge" defaultValue={this.state.knowledge} />
         <Button label="Change" fullWidth={true} onClick={this.onSave} />

@@ -96,7 +96,7 @@ class Console extends BaseComponent {
 
   render() {
     return (
-      <ThemeProvider theme={createMuiTheme(theme)}>
+      <ThemeProvider theme={theme}>
         <ConsoleContainer isOpen={this.props.isOpen}>
           <CloseButton onClick={this.props.closeConsole} />
           <HistoryContainer>

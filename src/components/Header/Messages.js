@@ -138,7 +138,7 @@ class Messages extends Component {
     const { isLoading, messages, isOpen } = this.state;
 
     return (
-      <ThemeProvider theme={createMuiTheme(theme)}>
+      <ThemeProvider theme={theme}>
         <Badge
           badgeContent={messages.length ? messages.length : 0}
           badgeStyle={messages.length ? badgeStyle : hiddenStyle}

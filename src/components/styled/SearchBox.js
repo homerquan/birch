@@ -12,7 +12,7 @@ export const SearchContainer = styled.div`
 `;
 
 export const Search = styled.div`
-  background-color: ${props => (props.isFocused ? white : palette.primary1Highlight)};
+  background-color: ${props => (props.isFocused ? white : '#8559da')};
   box-shadow: ${props => (props.isFocused ? borderShadow : 'none')};
   display: flex;
   position: relative;

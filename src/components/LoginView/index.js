@@ -37,7 +37,7 @@ class LoginView extends React.Component {
 
   render() {
     return (
-      <ThemeProvider theme={createMuiTheme(theme)}>
+      <ThemeProvider theme={theme}>
         <div className={s.root}>
           <div className={s.container}>
             <h2 className={s.title}>{this.props.title}</h2>

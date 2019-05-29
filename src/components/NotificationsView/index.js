@@ -126,7 +126,7 @@ class Notifications extends Component {
     }
 
     return (
-      <ThemeProvider theme={createMuiTheme(theme)}>
+      <ThemeProvider theme={theme}>
         <RCard>
           <RCardHeader>
             <div className="title-container">
