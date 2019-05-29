@@ -23,11 +23,11 @@ import AddIcon from 'react-material-icons/icons/content/add';
 import AppsIcon from 'react-material-icons/icons/action/list';
 // import CloseIcon from 'react-material-icons/icons/navigation/chevron-left';
 import ListIcon from 'react-material-icons/icons/action/list';
-import MoreIcon from 'react-icons/lib/md/more-vert';
+import { FiMoreHorizontal as MoreIcon } from 'react-icons/fi';
 // import ConversationIcon from 'react-material-icons/icons/communication/chat';
-import ConversationsIcon from 'react-icons/lib/md/chat';
-import PluginsIcon from 'react-icons/lib/md/developer-board';
-import ExperienceIcon from 'react-icons/lib/md/grain';
+import { FiUsers as ConversationsIcon } from 'react-icons/fi';
+import { FiCpu as PluginsIcon } from 'react-icons/fi';
+import { FiGitPullRequest as ExperienceIcon } from 'react-icons/fi';
 import { connect } from 'react-redux';
 import logoUrl from './logo.png';
 import themeDark from '../themeDark';
@@ -79,7 +79,6 @@ class Sidebar extends React.Component {
   };
 
   render() {
-
     const selectedApp =
       this.props.runtime && this.props.runtime.selectedApp ? this.props.runtime.selectedApp : null;
 
@@ -144,7 +143,7 @@ class Sidebar extends React.Component {
                 <List>
                   <ListItem
                     primaryText={this.props.runtime.selectedApp.name}
-                    style = {styles.darkLink}
+                    style={styles.darkLink}
                     rightIcon={<MoreIcon />}
                   />
                 </List>
@@ -154,7 +153,7 @@ class Sidebar extends React.Component {
                     <a className={s.link} href={`/app/${selectedApp._id}/sessions`}>Conversations</a>
                   </ListItem>
                   <ListItem leftIcon={<ExperienceIcon color={white} style={styles.iconItem} />}>
-                     <a className={s.link} href={`/app/${selectedApp._id}/experience`}>Experience</a>
+                    <a className={s.link} href={`/app/${selectedApp._id}/experience`}>Experience</a>
                   </ListItem>
                 </List>
               </div>
@@ -162,7 +161,7 @@ class Sidebar extends React.Component {
               <div>
                 <List>
                   <ListItem leftIcon={<AppsIcon color={white} style={styles.iconItem} />}>
-                    <a className={s.link} href={`/apps`}>Properties & Apps</a>
+                    <a className={s.link} href={'/apps'}>Properties & Apps</a>
                   </ListItem>
                 </List>
               </div>
@@ -176,7 +175,7 @@ class Sidebar extends React.Component {
 
 function selectProps(state) {
   return {
-    runtime: state.runtime
+    runtime: state.runtime,
   };
 }
 

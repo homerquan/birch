@@ -2,9 +2,8 @@
 * @Author: Homer
 * @Date:   2017-12-17 23:50:40
 * @Last Modified by:   homer
-* @Last Modified time: 2019-05-28 22:10:17
+* @Last Modified time: 2019-05-28 23:24:19
 */
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -17,9 +16,7 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import IconButton from 'material-ui/IconButton';
 import ReloadIcon from 'react-material-icons/icons/action/cached';
 import AddIcon from 'react-material-icons/icons/content/add';
-import CodeIcon from 'material-ui/svg-icons/action/code';
-import EyeIcon from 'material-ui/svg-icons/image/remove-red-eye';
-import MoreIcon from 'react-material-icons/icons/navigation/more-vert';
+import { FaBeer } from 'react-icons/fa';
 import {
   Toolbar,
   ToolbarGroup,
@@ -33,54 +30,8 @@ import lightTheme from '../theme';
 import CreateAppWizard from '../CreateAppWizard';
 import CopyCodeModal from './CopyCodeModal';
 import { appsQuery } from './graphql';
+import { tableColumns } from './datatable';
 import s from './style.css';
-
-const tableColumns = (openCodeModal, selectApp) => ([
-  {
-    key: 'name',
-    label: 'Name',
-    style: {
-      width: 160,
-    },
-  },
-  {
-    key: 'hostname',
-    label: 'Hostname',
-    style: {
-      width: 160,
-    },
-  },
-  {
-    key: 'embedCode',
-    label: 'Embed code',
-    render: code => (
-      <IconButton onClick={() => openCodeModal(code)}>
-        <CodeIcon />
-      </IconButton>
-    ),
-  },
-  {
-    key: '_id',
-    label: 'View',
-    render: id => (
-      <IconButton onClick={() => selectApp(id)}>
-        <EyeIcon />
-      </IconButton>
-    ),
-  },
-  {
-    style: {
-      width: 30,
-    },
-    render: () => (
-      <div>
-        <IconButton tooltip="More">
-          <MoreIcon />
-        </IconButton>
-      </div>
-    ),
-  },
-]);
 
 const confirmCopy = { message: 'Embed code has been copied to your clipboard', autoHideDuration: 600000 };
 
@@ -148,7 +99,7 @@ class AppsView extends BaseComponent {
             <ToolbarGroup firstChild />
             <ToolbarGroup>
               <IconButton tooltip="Add" onClick={this.openNewAppModal}>
-                <AddIcon />
+                <FaBeer />
               </IconButton>
               <IconButton tooltip="Reload" onTouchTap={() => refetch()}>
                 <ReloadIcon />
@@ -166,7 +117,7 @@ class AppsView extends BaseComponent {
                 data={this.transformConnectionNode(appConnection.edges)}
                 showCheckboxes={false}
                 page={1}
-                count={100}
+                count={appConnection.count}
               />
             </MuiThemeProvider>
           ) : (

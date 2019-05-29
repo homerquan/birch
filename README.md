@@ -164,3 +164,4 @@ BIRCH.SIMULATE('SET_RUNTIME_VARIABLE',{
 * Make an ad-hoc request (e.g., login) by graphql-request https://github.com/prisma/graphql-request
 * Seeding data generator
   * https://www.npmjs.com/package/dummy-json
+* Icons: https://react-icons.netlify.com/#/

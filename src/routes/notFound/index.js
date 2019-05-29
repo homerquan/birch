@@ -8,7 +8,7 @@
  */
 
 import React from 'react';
-import NotFound from './NotFound';
+import NotFoundPage from '../../NotFoundPage';
 import BlankScreen from '../../components/Layout/BlankScreen';
 
 const title = 'Page Not Found';
@@ -22,7 +22,7 @@ export default {
       chunk: 'notFound',
       component: (
         <BlankScreen>
-          <NotFound title={title} />
+          <NotFoundPage title={title} />
         </BlankScreen>
       ),
       status: 404,
