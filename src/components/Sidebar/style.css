@@ -1,37 +1,40 @@
 @import "../variables.css";
 
-.root {
-}
+.root {}
 
 .link {
-	color: white;
-	text-decoration: none;
-	font-weight: 600;
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
 }
 
 .leftMenu {
-	position: absolute;
-	top: 0;
-	bottom: 0;
-	width: var(--fixed-menu-width);
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: var(--fixed-menu-width);
 }
+
 .rightMenu {
-	margin-left: var(--fixed-menu-width);
+  margin-left: var(--fixed-menu-width);
 }
 
 .fixedButton {
-	margin-left: 14px;
-	margin-top: 6px;
-	margin-bottom: 12px;
+  margin-left: 14px;
+  margin-top: 6px;
+  margin-bottom: 12px;
 }
+
 .logo {
-	margin-left: 10px;
-	margin-top: 10px;
+  margin-left: 10px;
+  margin-top: 10px;
 }
+
 .bottomSection {
-	position: absolute;
-	bottom: 2px;
+  position: absolute;
+  bottom: 2px;
 }
+
 .logoText {
   font-weight: 100;
   margin: 12px 0px;

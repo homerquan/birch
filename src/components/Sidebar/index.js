@@ -1,12 +1,10 @@
-/**
- * Sidebar component
- *
- * Copyright © 2016-present Refle Inc. All rights reserved.
- *
- */
-
+/*
+* @Author: homer
+* @Date:   2019-05-29 12:37:48
+* @Last Modified by:   homer
+* @Last Modified time: 2019-05-29 12:56:22
+*/
 import React from 'react';
-// import cx from 'classnames';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
@@ -71,9 +69,6 @@ const styles = {
 };
 
 class Sidebar extends React.Component {
-  constructor(props) {
-    super(props);
-  }
 
   handleCloseButtonTouchTap = () => {
     this.props.onClose(false);
@@ -89,7 +84,7 @@ class Sidebar extends React.Component {
           docked={false}
           open={this.props.open}
           width={styles.drawer.width}
-          onRequestChange={this.handleCloseButtonTouchTap}
+          onClose={this.handleCloseButtonTouchTap}
         >
           <div className={s.leftMenu} style={styles.fixedMenu}>
             <div className={s.logo}>
