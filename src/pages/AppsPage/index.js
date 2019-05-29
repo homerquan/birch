@@ -8,7 +8,7 @@
  * @Email: dev@reflen.com
  * @Date:   2017-11-05 19:34:16
  * @Last Modified by:   homer
- * @Last Modified time: 2019-05-23 03:13:14
+ * @Last Modified time: 2019-05-28 20:57:39
  */
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -23,7 +23,7 @@ import TitleBar from '../../components/TitleBar';
 import AppsView from '../../components/AppsView';
 import s from './style.css';
 
-class Apps extends React.Component {
+class AppsPage extends React.Component {
 
   render() {
     return (
@@ -49,4 +49,4 @@ function selectProps(state) {
   };
 }
 
-export default withStyles(s)(connect(selectProps, null)(Apps));
+export default withStyles(s)(connect(selectProps, null)(AppsPage));

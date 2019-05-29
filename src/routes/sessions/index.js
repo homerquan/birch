@@ -1,5 +1,5 @@
 import React from 'react';
-import Sessions from '../../pages/sessions';
+import SessionsPage from '../../pages/SessionsPage';
 import Layout from '../../components/Layout';
 import { isLogin } from '../../utils';
 
@@ -21,7 +21,7 @@ export default {
       chunk,
       component: (
         <Layout>
-          <Sessions
+          <SessionsPage
             title={title}
             appId={params.aid}
           />

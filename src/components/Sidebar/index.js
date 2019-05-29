@@ -107,7 +107,7 @@ class Sidebar extends React.Component {
               </IconButton>
             </div>
             <div className={s.fixedButton}>
-              <IconButton tooltip="Add a app" href="/new_app">
+              <IconButton tooltip="Add a app" href="/create-app">
                 <AddIcon />
               </IconButton>
             </div>

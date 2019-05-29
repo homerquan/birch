@@ -8,10 +8,10 @@
  * @Email: dev@reflen.com
  * @Date:   2017-11-05 19:36:24
  * @Last Modified by:   homer
- * @Last Modified time: 2019-05-23 01:28:06
+ * @Last Modified time: 2019-05-28 21:34:46
  */
 import React from 'react';
-import Apps from '../../pages/apps';
+import AppsPage from '../../pages/AppsPage';
 import Layout from '../../components/Layout';
 import { isLogin } from '../../utils';
 
@@ -32,7 +32,7 @@ export default {
       chunk: 'apps',
       component: (
         <Layout>
-          <Apps title={title} />
+          <AppsPage title={title} />
         </Layout>
       ),
     };

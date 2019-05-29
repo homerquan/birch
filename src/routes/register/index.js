@@ -9,7 +9,7 @@
 
 import React from 'react';
 import BlankScreen from '../../components/Layout/BlankScreen';
-import Register from '../../pages/register';
+import RegisterPage from '../../pages/RegisterPage';
 
 const title = 'New User Registration';
 
@@ -21,7 +21,7 @@ export default {
     return {
       title,
       chunk: 'register',
-      component: <BlankScreen><Register /></BlankScreen>,
+      component: <BlankScreen><RegisterPage /></BlankScreen>,
     };
   },
 

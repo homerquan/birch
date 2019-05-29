@@ -8,7 +8,7 @@
  */
 
 import React from 'react';
-import Home from '../../pages/home';
+import HomePage from '../../pages/HomePage';
 import Layout from '../../components/Layout';
 import { isLogin } from '../../utils';
 
@@ -32,7 +32,7 @@ export default {
       chunk,
       component: (
         <Layout>
-          <Home />
+          <HomePage />
         </Layout>
       ),
     };

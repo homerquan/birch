@@ -8,7 +8,7 @@
  */
 
 import React from 'react';
-import Notifications from '../../pages/notifications';
+import NotificationsPage from '../../pages/NotificationsPage';
 import Layout from '../../components/Layout';
 import { isLogin } from '../../utils';
 
@@ -27,7 +27,7 @@ export default {
       chunk: 'notifications',
       component: (
         <Layout>
-          <Notifications />
+          <NotificationsPage />
         </Layout>
       ),
     };

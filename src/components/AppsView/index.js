@@ -2,7 +2,7 @@
 * @Author: Homer
 * @Date:   2017-12-17 23:50:40
 * @Last Modified by:   homer
-* @Last Modified time: 2019-05-28 16:14:13
+* @Last Modified time: 2019-05-28 21:32:23
 */
 
 import React from 'react';
@@ -30,7 +30,7 @@ import { redirect } from '../../utils';
 import datatableTheme from '../datatableTheme';
 import * as runtimeActions from '../../actions/runtime';
 import lightTheme from '../theme';
-import NewApp from '../NewApp';
+import CreateAppWizard from '../CreateAppWizard';
 import CopyCodeModal from './CopyCodeModal';
 import { appsQuery } from './graphql';
 import s from './style.css';
@@ -44,8 +44,8 @@ const tableColumns = (openCodeModal, selectApp) => ([
     },
   },
   {
-    key: 'host',
-    label: 'Host',
+    key: 'hostname',
+    label: 'Hostname',
     style: {
       width: 160,
     },
@@ -174,7 +174,7 @@ class AppsView extends BaseComponent {
         </div>
 
         {newAppModalIsOpen &&
-          <NewApp
+          <CreateAppWizard
             close={this.closeNewAppModal}
           />
         }

@@ -7,10 +7,10 @@
  * @Email: dev@reflen.com
  * @Date:   2017-11-05 19:36:24
  * @Last Modified by:   homer
- * @Last Modified time: 2019-05-28 16:15:27
+ * @Last Modified time: 2019-05-28 21:36:26
  */
 import React from 'react';
-import Session from '../../pages/session';
+import SessionPage from '../../pages/SessionPage';
 import Layout from '../../components/Layout';
 import { isLogin } from '../../utils';
 
@@ -32,7 +32,7 @@ export default {
       chunk,
       component: (
         <Layout>
-          <Session title={title} appId={params.aid} sessionId={params.sid}/>
+          <SessionPage title={title} appId={params.aid} sessionId={params.sid}/>
         </Layout>
       ),
     };

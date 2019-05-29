@@ -1,28 +1,28 @@
 /*
 * @Author: Homer
 * @Date:   2017-12-31 18:26:19
-* @Last Modified by:   Michael
-* @Last Modified time: 2018-05-03
+* @Last Modified by:   homer
+* @Last Modified time: 2019-05-28 21:35:04
 */
 import React from 'react';
-import NewBot from './NewBot';
+import CreateAppPage from '../../pages/CreateAppPage';
 import Layout from '../../components/Layout';
 
 const title = 'Create a new property & app';
+const chunk = 'createApp';
 
 export default {
-  path: '/new_app',
-  chunk: '/newBot',
+  path: '/create-app',
+  chunk,
   action() {
     return {
       title,
-      chunk: 'newBot',
+      chunk,
       component: (
         <Layout>
-          <NewBot title={title} />
+          <CreateAppPage title={title} />
         </Layout>
       ),
-      status: 404,
     };
   },
 };

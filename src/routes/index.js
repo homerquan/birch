@@ -13,7 +13,7 @@ export default {
     require('./session').default,
     require('./apps').default,
     require('./app').default,
-    require('./newBot').default,
+    require('./createApp').default,
     require('./knowledge').default,
     require('./profile').default,
     require('./register').default,
