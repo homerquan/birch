@@ -11,74 +11,9 @@
 
 :root {
   --brand-color: #61dafb;
+  flexGrow: 1,
 }
 
-/* .notificationsButtonContainer {
-  background-color: #eaeaea;
-  margin: 10px -10px 0 -10px;
-  border-bottom-left-radius: 2px;
-  border-bottom-right-radius: 2px;
-} */
-
-/* .root {
-  background: #373277;
-  color: #fff;
+.title {
+    flexGrow: 1,
 }
-
-.container {
-  margin: 0 auto;
-  padding: 20px 0;
-  max-width: var(--max-content-width);
-}
-
-.brand {
-  color: color(var(--brand-color) lightness(+10%));
-  text-decoration: none;
-  font-size: 1.75em; /* ~28px */
-/* } */
-
-/* .brandTxt {
-  margin-left: 10px;
-}
-
-.banner {
-  text-align: center;
-}
-
-.bannerTitle {
-  margin: 0;
-  padding: 10px;
-  font-weight: normal;
-  font-size: 4em;
-  line-height: 1em;
-}
-
-.bannerDesc {
-  padding: 0;
-  color: rgba(255, 255, 255, 0.5);
-  font-size: 1.25em;
-  margin: 0;
-}
-
-.header {
-  position: fixed;
-}
-
-.top-true {
-  background: black;
-}
-  */
-
-
-
-/* .messageContainer {
-  position: absolute;
-  z-index: 101;
-  left: -32px;
-  background-color: blue;
-}
-
-.list {
-  padding: 0;
-  color: white;
-} */

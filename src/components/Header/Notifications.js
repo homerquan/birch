@@ -46,51 +46,6 @@ query Notifications($userId: String) {
 `;
 
 const styles = {
-  badgeStyle: {
-    top: 4,
-    right: 4,
-    width: 18,
-    height: 18,
-    fontSize: 9,
-    zIndex: 1,
-    backgroundColor: pink500,
-    color: 'white',
-  },
-  badgeRootStyle: {
-    padding: 0,
-  },
-  btnStyle: {
-    padding: 0,
-  },
-  paperStyle: {
-    position: 'absolute',
-    zIndex: 101,
-    right: 0,
-    top: 46,
-    width: 430,
-  },
-  subHeaderStyle: {
-    lineHeight: '14px',
-    paddingTop: 10,
-    paddingBottom: 5,
-  },
-  listStyle: {
-    padding: 0,
-    overflowY: 'scroll',
-    maxHeight: '317px', // show 4 notifications
-  },
-  footerText: {
-    margin: '8px 0',
-    fontSize: '14px',
-    fontWeight: 400,
-    lineHeight: '14px',
-    padding: '0 10px',
-    color: deepPurple500,
-    textDecoration: 'none',
-  },
-  hiddenStyle: {
-    display: 'none',
-  },
 };
 
 class Notifications extends BaseComponent {
@@ -171,38 +126,9 @@ class Notifications extends BaseComponent {
         >
           <IconButton
             className="notificationIcon"
-            style={styles.btnStyle}
           >
-            <NotificationIcon color={white} />
+            <NotificationIcon/>
           </IconButton>
-          <Paper
-            onMouseLeave={this.mouseLeftNotificationsContainer}
-            style={isOpen ? styles.paperStyle : styles.hiddenStyle}
-          >
-            <div className={s.header}>
-              <p className={s.headerTitle}>Notifications</p>
-            </div>
-            <List style={styles.listStyle}>
-              <ListSubheader style={styles.subHeaderStyle}>Recent</ListSubheader>
-              {notificationConnection.edges.length
-                ? (
-                  this.transformConnectionNode(notificationConnection.edges).map((item, index) => (
-                    <div key={item.id}>
-                      {index > 0 ? <Divider /> : ''}
-                      <ListItem
-                        leftAvatar={<Avatar backgroundColor={deepPurple500} icon={<CodeIcon />} />}
-                        secondaryText={<p>{item.text}</p>}
-                        secondaryTextLines={2}
-                      />
-                    </div>
-                  ))
-                ) : 'No notification'
-              }
-            </List>
-            <div className={s.footer}>
-              <Link to="/notifications" style={styles.footerText}>See All</Link>
-            </div>
-          </Paper>
         </Badge>
       </ThemeProvider>
     );

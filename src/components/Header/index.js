@@ -18,17 +18,18 @@ import { connect } from 'react-redux';
 import CornerNotifications from 'react-notification-system-redux';
 import { Alerts as SnackBarAlerts } from 'mui-redux-alerts-next';
 import IconButton from '@material-ui/core/IconButton';
-import { FiTerminal as TerminalIcon, FiMenu as HamburgerIcon } from 'react-icons/fi';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
+import { FiTerminal as TerminalIcon, FiMenu as HamburgerIcon } from 'react-icons/fi';
 import theme from '../theme';
 import Loader from '../Loader';
 import GlobalNotice from '../GlobalNotice';
+import GlobalSearch from '../GlobalSearch';
 import Messages from './Messages';
 import Notifications from './Notifications';
 import { openConsole, closeConsole } from '../../actions/console';
-import SearchBox from './SearchBox';
-import { HeaderContainer, HeaderTitle } from '../styled/Header';
 import s from './style.css';
 
 const notificationStyle = {
@@ -120,14 +121,15 @@ class Header extends React.Component {
           <SnackBarAlerts alerts={this.props.snackBarNotifications} />
           {/* <Sticky onStateChange={this.handleStickyChange} innerZ={100}> */}
 
-          <AppBar position="static">
+          <AppBar color="default" position="static">
             <Toolbar>
               <IconButton color="inherit" onClick={this.handleToggleButtonTouchTap}>
-                <HamburgerIcon color="inherit"/>
+                <HamburgerIcon color="inherit" />
               </IconButton>
-              <HeaderTitle>{selectedAppName}</HeaderTitle>
-
-              <SearchBox />
+              <Typography variant="h6" className={s.title}>
+                {selectedAppName}
+              </Typography>
+              <GlobalSearch />
 
               <IconButton color="inherit" tooltip="Open Console">
                 <TerminalIcon onClick={this.toggleConsole} />

@@ -36,10 +36,6 @@ const badgeRootStyle = {
   padding: 0,
 };
 
-const btnStyle = {
-  padding: 0,
-};
-
 const paperStyle = {
   position: 'absolute',
   zIndex: 101,
@@ -146,7 +142,6 @@ class Messages extends Component {
         >
           <IconButton
             className="messageIcon"
-            style={btnStyle}
           >
             <SMSIcon color={white} />
           </IconButton>
@@ -174,7 +169,7 @@ class Messages extends Component {
               }
             </List>
             <div className={s.footer}>
-              <Link to='#' style={footerText}>See All</Link>
+              <Link href='#' style={footerText}>See All</Link>
             </div>
           </Paper>
         </Badge>

@@ -15,7 +15,6 @@ module.exports = {
     process.env.API_SUBSCRIPTION_URL ||
     'wss://console-api.rl.business/graphql-subscriptions',
   widgetUrl: 'https://io.rl.business',
-
   // API URL for graphql subscription ws
   clientSubscriptionUrl: process.env.API_SUBSCRIPTION_URL || 'wss://console-api.rl.business',
 };

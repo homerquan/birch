@@ -1,12 +1,19 @@
-import * as React from 'react';
+/*
+* @Author: homer
+* @Date:   2019-05-29 21:13:50
+* @Last Modified by:   homer
+* @Last Modified time: 2019-05-29 22:01:31
+*/
+
+import React from 'react';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import { white, grey500 } from '@material-ui/core/colors';
+import InputBase from '@material-ui/core/InputBase';
 import { FiSearch as SearchIcon } from 'react-icons/fi';
 import Divider from '@material-ui/core/Divider';
-
 import Link from '../share/Link';
 import {
   SearchContainer,
@@ -14,9 +21,10 @@ import {
   SearchContainerBG,
   Search,
   HackySearchBG,
-} from '../styled/SearchBox';
+} from './SearchBox';
 
-class SearchBox extends React.Component {
+
+class GlobalSearch extends React.Component {
   constructor(props) {
     super(props);
 
@@ -79,7 +87,7 @@ class SearchBox extends React.Component {
           <React.Fragment>
             <ListItem
               primaryText={result.name}
-              containerElement={<Link to={result.link} />}
+              containerElement={<Link href={result.link} />}
               onClick={this.closeSearch}
             />
             <Divider />
@@ -122,4 +130,4 @@ class SearchBox extends React.Component {
   }
 }
 
-export default SearchBox;
+export default GlobalSearch;

@@ -1,3 +1,9 @@
+/*
+* @Author: homer
+* @Date:   2019-05-29 21:21:10
+* @Last Modified by:   homer
+* @Last Modified time: 2019-05-29 22:10:02
+*/
 import styled from 'styled-components';
 import { white, grey500 } from '@material-ui/core/colors';
 
@@ -12,7 +18,7 @@ export const SearchContainer = styled.div`
 `;
 
 export const Search = styled.div`
-  background-color: ${props => (props.isFocused ? white : '#8559da')};
+  background-color: ${props => (props.isFocused ? white : '#dfe1e2')};
   box-shadow: ${props => (props.isFocused ? borderShadow : 'none')};
   display: flex;
   position: relative;
@@ -22,6 +28,7 @@ export const Search = styled.div`
   z-index: 2;
   max-width: 400px;
   width: 100%;
+  height: 45px;
 
   input {
     background-color: transparent;

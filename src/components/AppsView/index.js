@@ -2,7 +2,7 @@
 * @Author: Homer
 * @Date:   2017-12-17 23:50:40
 * @Last Modified by:   homer
-* @Last Modified time: 2019-05-29 19:22:38
+* @Last Modified time: 2019-05-29 20:55:26
 */
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -85,6 +85,8 @@ class AppsView extends BaseComponent {
     const { appConnection, loading, refetch } = this.props.data;
 
     const options = {
+      print: false,
+      download: false,
       count: appConnection ? appConnection.count : 0,
       onRowClick: (rowData: string[], rowMeta: { dataIndex: number, rowIndex: number }) => {
         this.selectApp(rowData[1]);
