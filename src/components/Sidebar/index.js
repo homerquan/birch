@@ -2,20 +2,16 @@
 * @Author: homer
 * @Date:   2019-05-29 12:37:48
 * @Last Modified by:   homer
-* @Last Modified time: 2019-05-29 13:47:17
+* @Last Modified time: 2019-05-30 00:26:56
 */
 import React from 'react';
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
-import { ThemeProvider } from '@material-ui/styles';
-import { createMuiTheme } from '@material-ui/core/styles';
-import { spacing } from '@material-ui/system';
-import { deepPurple500, white } from '@material-ui/core/colors';
+import { ThemeProvider, withStyles } from '@material-ui/styles';
 import IconButton from '@material-ui/core/IconButton';
 import {
   FiUsers as HelpIcon,
@@ -30,43 +26,7 @@ import {
 import { connect } from 'react-redux';
 import logoUrl from './logo.png';
 import theme from '../theme';
-import s from './style.css';
-
-const styles = {
-  logo: {
-    cursor: 'pointer',
-    paddingLeft: spacing.desktopGutter,
-    marginTop: 24,
-    marginBottom: 8,
-  },
-  fixedMenu: {
-    backgroundColor: deepPurple500,
-  },
-  drawer: {
-    width: 320,
-  },
-  version: {
-    paddingLeft: spacing.desktopGutterLess,
-    fontSize: 16,
-  },
-  large: {
-    width: 60,
-    height: 60,
-    padding: 0,
-  },
-  largeIcon: {
-    width: 48,
-    height: 48,
-  },
-  darkLink: {
-    color: '#757575',
-    fontWeight: '600',
-    paddingLeft: 10,
-  },
-  iconItem: {
-    paddingLeft: 10,
-  },
-};
+import styles from './styles';
 
 class Sidebar extends React.Component {
 
@@ -75,6 +35,8 @@ class Sidebar extends React.Component {
   };
 
   render() {
+    const { classes } = this.props;
+
     const selectedApp =
       this.props.runtime && this.props.runtime.selectedApp ? this.props.runtime.selectedApp : null;
 
@@ -83,31 +45,30 @@ class Sidebar extends React.Component {
         <Drawer
           docked={false}
           open={this.props.open}
-          width={styles.drawer.width}
+          width={classes.drawer.width}
           onClose={this.handleCloseButtonTouchTap}
         >
-          <div className={s.leftMenu} style={styles.fixedMenu}>
-            <div className={s.logo}>
+          <div className={classes.leftMenu}>
+            <div className={classes.logo}>
               <IconButton
-                iconStyle={styles.largeIcon}
-                style={styles.large}
+                className={classes.large}
                 onTouchTap={this.handleCloseButtonTouchTap}
               >
                 <img src={logoUrl} alt="logo" />
               </IconButton>
             </div>
-            <div className={s.fixedButton}>
+            <div className={classes.fixedButton}>
               <IconButton tooltip="All apps" href="/apps">
                 <ListIcon />
               </IconButton>
             </div>
-            <div className={s.fixedButton}>
+            <div className={classes.fixedButton}>
               <IconButton tooltip="Add a app" href="/create-app">
                 <AddIcon />
               </IconButton>
             </div>
-            <div className={s.bottomSection}>
-              <div className={s.fixedButton}>
+            <div className={classes.bottomSection}>
+              <div className={classes.fixedButton}>
                 <IconButton
                   tooltip="Help"
                   tooltipPosition="top-center"
@@ -116,7 +77,7 @@ class Sidebar extends React.Component {
                   <HelpIcon />
                 </IconButton>
               </div>
-              <div className={s.fixedButton}>
+              <div className={classes.fixedButton}>
                 <IconButton
                   tooltip="Profile"
                   tooltipPosition="top-center"
@@ -127,12 +88,12 @@ class Sidebar extends React.Component {
               </div>
             </div>
           </div>
-          <div className={s.rightMenu}>
+          <div className={classes.rightMenu}>
             <div
-              style={styles.logo}
+              className={classes.logo}
               onTouchTap={this.handleCloseButtonTouchTap}
             >
-              <h2 className={s.logoText}>Platform Console</h2>
+              <h2 className={classes.logoText}>Platform Console</h2>
             </div>
             {selectedApp ? (
               <div>
@@ -145,25 +106,25 @@ class Sidebar extends React.Component {
                   </ListItem>
                   <ListItem
                     primaryText={this.props.runtime.selectedApp.name}
-                    style={styles.darkLink}
+                    className={classes.darkLink}
                     rightIcon={<MoreIcon />}
                   />
                 </List>
                 <Divider />
                 <List>
-                  <ListItem leftIcon={<ConversationsIcon color={white} style={styles.iconItem} />}>
-                    <a className={s.link} href={`/app/${selectedApp._id}/sessions`}>Conversations</a>
+                  <ListItem leftIcon={<ConversationsIcon  className={classes.iconItem} />}>
+                    <a className={classes.link} href={`/app/${selectedApp._id}/sessions`}>Conversations</a>
                   </ListItem>
-                  <ListItem leftIcon={<ExperienceIcon color={white} style={styles.iconItem} />}>
-                    <a className={s.link} href={`/app/${selectedApp._id}/experience`}>Experience</a>
+                  <ListItem leftIcon={<ExperienceIcon className={classes.iconItem} />}>
+                    <a className={classes.link} href={`/app/${selectedApp._id}/experience`}>Experience</a>
                   </ListItem>
                 </List>
               </div>
             ) : (
               <div>
                 <List>
-                  <ListItem leftIcon={<AppsIcon color={white} style={styles.iconItem} />}>
-                    <a className={s.link} href={'/apps'}>Properties & Apps</a>
+                  <ListItem leftIcon={<AppsIcon className={classes.iconItem} />}>
+                    <a className={classes.link} href={'/apps'}>Properties & Apps</a>
                   </ListItem>
                 </List>
               </div>
@@ -181,4 +142,4 @@ function selectProps(state) {
   };
 }
 
-export default withStyles(s)(connect(selectProps, null)(Sidebar));
+export default withStyles(styles)(connect(selectProps, null)(Sidebar));
