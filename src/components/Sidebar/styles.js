@@ -14,18 +14,13 @@ const fixedMenuWidth = 80;
 
 const styles = {
 
-   // .link
-  link: {
-    color: palette.text.primary,
-    textDecoration: 'none',
-    fontWeight: '600',
-  },
    // .leftMenu
   leftMenu: {
     position: 'absolute',
     top: '0',
     bottom: '0',
     width: fixedMenuWidth,
+    backgroundColor: palette.grey['50'],
   },
    // .rightMenu
   rightMenu: {
@@ -43,7 +38,7 @@ const styles = {
     marginTop: '10px',
     cursor: 'pointer',
     paddingLeft: spacing.desktopGutter,
-    marginTop: 24,
+    marginTop: 12,
     marginBottom: 8,
   },
   drawerPaper: {
@@ -57,7 +52,10 @@ const styles = {
   // .logoText
   logoText: {
     fontWeight: '100',
-    margin: '12px 0px',
+    margin: '24px 8px 36px',
+  },
+  appName: {
+    margin: '0px 18px',
   },
   version: {
     paddingLeft: spacing.desktopGutterLess,

@@ -24,7 +24,8 @@ import {
   FiGitPullRequest as ExperienceIcon,
 } from 'react-icons/fi';
 import { connect } from 'react-redux';
-import logoUrl from './logo.png';
+import ListItemLink from '../share/ListItemLink';
+import logoImage from './logo.png';
 import theme from '../theme';
 import styles from './styles';
 
@@ -44,8 +45,8 @@ class Sidebar extends React.Component {
       <ThemeProvider theme={theme}>
         <Drawer
           classes={{
-              paper: classes.drawerPaper,
-            }}
+            paper: classes.drawerPaper,
+          }}
           open={this.props.open}
           onClose={this.handleCloseButtonTouchTap}
         >
@@ -55,7 +56,7 @@ class Sidebar extends React.Component {
                 className={classes.largeClose}
                 onTouchTap={this.handleCloseButtonTouchTap}
               >
-                <img src={logoUrl} alt="logo" />
+                <a href="/"><img src={logoImage} alt="logo" /></a>
               </IconButton>
             </div>
             <div className={classes.fixedButton}>
@@ -98,35 +99,32 @@ class Sidebar extends React.Component {
             </div>
             {selectedApp ? (
               <div>
-                <List>
-                  <ListItem button>
-                    <ListItemIcon>
-                      <ConversationsIcon />
-                    </ListItemIcon>
-                    <ListItemText primary="Inbox" />
-                  </ListItem>
-                  <ListItem
-                    primaryText={this.props.runtime.selectedApp.name}
-                    className={classes.darkLink}
-                    rightIcon={<MoreIcon />}
-                  />
-                </List>
+                <div className={classes.appName}>{selectedApp.name}</div>
                 <Divider />
-                <List>
-                  <ListItem leftIcon={<ConversationsIcon  className={classes.iconItem} />}>
-                    <a className={classes.link} href={`/app/${selectedApp._id}/sessions`}>Conversations</a>
-                  </ListItem>
-                  <ListItem leftIcon={<ExperienceIcon className={classes.iconItem} />}>
-                    <a className={classes.link} href={`/app/${selectedApp._id}/experience`}>Experience</a>
-                  </ListItem>
+                <List component="nav">
+                  <ListItemLink href={`/app/${selectedApp._id}/sessions`}>
+                    <ListItemIcon>
+                      <ConversationsIcon className={classes.iconItem} />
+                    </ListItemIcon>
+                    <ListItemText primary="Conversations" />
+                  </ListItemLink>
+                  <ListItemLink href={`/app/${selectedApp._id}/experience`}>
+                    <ListItemIcon>
+                      <ExperienceIcon className={classes.iconItem} />
+                    </ListItemIcon>
+                    <ListItemText primary="Experience" />
+                  </ListItemLink>
                 </List>
               </div>
             ) : (
               <div>
-                <List>
-                  <ListItem leftIcon={<AppsIcon className={classes.iconItem} />}>
-                    <a className={classes.link} href={'/apps'}>Properties & Apps</a>
-                  </ListItem>
+                <List component="nav">
+                  <ListItemLink href='/apps'>
+                    <ListItemIcon>
+                      <ListIcon className={classes.iconItem} />
+                    </ListItemIcon>
+                    <ListItemText primary="Properties & Apps" />
+                  </ListItemLink>
                 </List>
               </div>
             )}
