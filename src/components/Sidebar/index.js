@@ -2,7 +2,7 @@
 * @Author: homer
 * @Date:   2019-05-29 12:37:48
 * @Last Modified by:   homer
-* @Last Modified time: 2019-05-30 00:26:56
+* @Last Modified time: 2019-05-30 14:39:10
 */
 import React from 'react';
 import Drawer from '@material-ui/core/Drawer';
@@ -14,11 +14,11 @@ import Divider from '@material-ui/core/Divider';
 import { ThemeProvider, withStyles } from '@material-ui/styles';
 import IconButton from '@material-ui/core/IconButton';
 import {
-  FiUsers as HelpIcon,
-  FiUsers as AccountIcon,
-  FiUsers as AddIcon,
-  FiUsers as AppsIcon,
-  FiUsers as ListIcon,
+  FiHelpCircle as HelpIcon,
+  FiUser as AccountIcon,
+  FiPlusCircle as AddIcon,
+  FiLayers as AppsIcon,
+  FiList as ListIcon,
   FiMoreHorizontal as MoreIcon,
   FiUsers as ConversationsIcon,
   FiGitPullRequest as ExperienceIcon,
@@ -43,15 +43,16 @@ class Sidebar extends React.Component {
     return (
       <ThemeProvider theme={theme}>
         <Drawer
-          docked={false}
+          classes={{
+              paper: classes.drawerPaper,
+            }}
           open={this.props.open}
-          width={classes.drawer.width}
           onClose={this.handleCloseButtonTouchTap}
         >
           <div className={classes.leftMenu}>
             <div className={classes.logo}>
               <IconButton
-                className={classes.large}
+                className={classes.largeClose}
                 onTouchTap={this.handleCloseButtonTouchTap}
               >
                 <img src={logoUrl} alt="logo" />

@@ -2,20 +2,21 @@
 * @Author: homer
 * @Date:   2019-05-29 23:56:14
 * @Last Modified by:   homer
-* @Last Modified time: 2019-05-30 00:23:52
+* @Last Modified time: 2019-05-30 15:28:46
 */
 
 import theme from '../theme';
 import { spacing } from '@material-ui/system';
-import { deepPurple500, white } from '@material-ui/core/colors';
 
 const { palette, borderRadius, borderShadow } = theme;
 
+const fixedMenuWidth = 80;
+
 const styles = {
-  
+
    // .link
   link: {
-    color: 'white',
+    color: palette.text.primary,
     textDecoration: 'none',
     fontWeight: '600',
   },
@@ -24,12 +25,11 @@ const styles = {
     position: 'absolute',
     top: '0',
     bottom: '0',
-    width: 'var(--fixed-menu-width)',
-    backgroundColor: deepPurple500,
+    width: fixedMenuWidth,
   },
    // .rightMenu
   rightMenu: {
-    marginLeft: 'var(--fixed-menu-width)',
+    marginLeft: fixedMenuWidth,
   },
   // .fixedButton
   fixedButton: {
@@ -46,6 +46,9 @@ const styles = {
     marginTop: 24,
     marginBottom: 8,
   },
+  drawerPaper: {
+    width: 300,
+  },
   // .bottomSection
   bottomSection: {
     position: 'absolute',
@@ -56,14 +59,11 @@ const styles = {
     fontWeight: '100',
     margin: '12px 0px',
   },
-  drawer: {
-    width: 320,
-  },
   version: {
     paddingLeft: spacing.desktopGutterLess,
     fontSize: 16,
   },
-  large: {
+  largeClose: {
     width: 60,
     height: 60,
     padding: 0,
