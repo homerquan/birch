@@ -36,8 +36,8 @@ class Sidebar extends React.Component {
   };
 
   render() {
+    
     const { classes } = this.props;
-
     const selectedApp =
       this.props.runtime && this.props.runtime.selectedApp ? this.props.runtime.selectedApp : null;
 

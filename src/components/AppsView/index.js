@@ -87,6 +87,7 @@ class AppsView extends BaseComponent {
     const options = {
       print: false,
       download: false,
+      selectableRows: false,
       count: appConnection ? appConnection.count : 0,
       onRowClick: (rowData: string[], rowMeta: { dataIndex: number, rowIndex: number }) => {
         this.selectApp(rowData[1]);

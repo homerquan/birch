@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
-import { TitleContainer, Breadcrumbs } from '../styled/TitleBar';
+import { withStyles } from '@material-ui/styles';
+import styles from './styles';
 
 class Title extends React.Component {
   static propTypes = {
@@ -9,22 +9,25 @@ class Title extends React.Component {
   }
 
   render() {
+
+    const { classes } = this.props;
+    
     return (
-      <TitleContainer>
-        <Breadcrumbs>
+      <div className={classes.container}>
+        <ul className={classes.breadcrumb}>
           <li>
-            <a href="/">Home</a><span className="separator">|</span>
+            <a href="/" className={classes.homeLink}>Home</a><span className={classes.separator}>|</span>
           </li>
           <li>
-            <h3>{this.props.title}</h3>
+            {this.props.title}
           </li>
-        </Breadcrumbs>
+        </ul>
         <div>
           {this.props.children}
         </div>
-      </TitleContainer>
+      </div>
     );
   }
 }
 
-export default Title;
+export default withStyles(styles)(Title);

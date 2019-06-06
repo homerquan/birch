@@ -19,6 +19,15 @@ Prod: `npm start`
 * node faker.js
 * Edit mock graphql api `http://localhost:8084/editor/`
 
+## Name Conversions
+
+* Route
+* Page
+* Components
+  * View (mix query and other sub-components)
+  * Table (only display)
+  * Widget (mix query but for pagelet preview only)
+
 ## Sample queries
 
 Edit in `http://localhost:8084/editor/`

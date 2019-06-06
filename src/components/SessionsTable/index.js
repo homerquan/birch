@@ -2,15 +2,20 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import MUIDataTable from "mui-datatables";
+import MUIDataTable from 'mui-datatables';
 import Avatar from '@material-ui/core/Avatar';
 import Chip from '@material-ui/core/Chip';
 import { ThemeProvider } from '@material-ui/styles';
 import IconButton from '@material-ui/core/IconButton';
 import Toggle from '@material-ui/core/Switch';
-import { FiCloud as OnlineIcon, FiCloudOff as OffIcon, FiMoreVertical as MoreIcon, FiEye as MonitorIcon } from 'react-icons/fi';
+import {
+  FiCloud as OnlineIcon,
+  FiCloudOff as OffIcon,
+  FiMoreVertical as MoreIcon,
+  FiEye as MonitorIcon,
+} from 'react-icons/fi';
 import { grey500, deepPurple500, deepPurple800, white } from '@material-ui/core/colors';
-import Blockies from 'react-blockies';
+import { columns } from './datatable';
 import theme from '../theme';
 import s from './style.css';
 
@@ -27,161 +32,6 @@ const styles = {
     color: white,
   },
 };
-
-const tableColumns = (addPinned, openDrawer) => ([
-  {
-    key: '_id',
-    style: {
-      width: 10,
-    },
-    render: id => (
-      <div>
-        <Blockies
-          seed={id}
-          size={10}
-          scale={3}
-          color="#c4c4c4"
-          bgColor="#fafafa"
-          spotColor="#666666"
-        />
-      </div>
-    ),
-  },
-  {
-    key: '_id',
-    label: 'From',
-    style: {
-      width: 160,
-    },
-    render: id => (
-      <div>
-        <div className={s.visitorName}>
-          Anomynous
-          <span>{id}</span>
-        </div>
-      </div>
-    ),
-  },
-  {
-    key: 'status',
-    label: 'Status',
-    style: {
-      width: 40,
-    },
-    sortable: true,
-    render: online => (
-      online === 'online' ? <OnlineIcon /> : <OffIcon />
-    ),
-  },
-  {
-    key: 'intentions',
-    label: 'Context',
-    style: {
-      width: 100,
-    },
-    render: intentions => (
-      <div className="intentionsContainer" style={{ overflowX: 'scroll' }}>
-        {intentions && intentions.length
-          ? intentions.map((intention, index, array) => (
-            <Chip
-              key={intention.name}
-              style={array.length === (index + 1) ? styles.chip : styles.chipDark}
-              labelColor={array.length === (index + 1) ? white : ''}
-            >
-              {intention.name}
-            </Chip>
-          ),
-        ) : (
-          <span>awaiting data</span>
-        )}
-      </div>
-    ),
-  },
-  {
-    key: 'actions',
-    label: 'Actions',
-    style: {
-      width: 100,
-    },
-    render: actions => (
-      <div className="actionsContainer" style={{ overflowX: 'scroll' }}>
-        {actions && actions.length ? (
-          actions.map((action, index, array) => (
-            <Chip
-              key={action.id}
-              style={array.length === (index + 1) ? styles.chip : styles.chipDark}
-              labelColor={array.length === (index + 1) ? white : ''}
-            >
-              <Avatar
-                backgroundColor={array.length === (index + 1) ? deepPurple800 : ''}
-                size={32}
-              >
-                {action.source.charAt(0)}
-              </Avatar> {action.name} { action.status === 'in-progress' && <img src="/images/loader.gif" alt="loading" /> }
-            </Chip>
-          ))
-        ) : (
-          <span>awaiting actions</span>
-        )}
-      </div>
-    ),
-  },
-  {
-    key: 'updatedAt',
-    label: 'Last Updated',
-    sortable: true,
-    render: updatedAt => (
-      <span>{moment(updatedAt).format('LLL')}</span>
-    ),
-  },
-  {
-    key: 'pinToTop',
-    label: 'Pin to Top',
-    style: {
-      width: 40,
-    },
-    render: (pinToTop, item) => (<Toggle
-      name={item._id}
-      tooltip="Pin to Top"
-      toggled={pinToTop}
-      onToggle={passedId => addPinned(passedId)}
-    />),
-  },
-  {
-    label: 'Open',
-    style: {
-      width: 30,
-    },
-    render: (name, item) => (
-      <IconButton
-        tooltip="Open"
-        onClick={() => openDrawer(item._id)}
-      >
-        <MonitorIcon color={grey500} />
-      </IconButton>
-    ),
-  },
-  {
-    key: '_id',
-    label: 'More',
-    style: {
-      width: 30,
-    },
-    render: (id) => {
-      const sessionUrl = `./session/${id}`;
-      return (
-        <div>
-          <IconButton
-            href={sessionUrl}
-            tooltip="More"
-          >
-            <MoreIcon />
-          </IconButton>
-        </div>
-      );
-    },
-  },
-]);
 
 class SessionsTable extends Component {
 
@@ -260,23 +110,22 @@ class SessionsTable extends Component {
 
     const displayData = data.slice(rowSize * (page - 1), rowSize * page);
 
+    const options = {
+      print: false,
+      download: false,
+      selectableRows: false,
+      count: items.length ? items.length : 0,
+      onRowClick: (rowData: string[], rowMeta: { dataIndex: number, rowIndex: number }) => {
+        this.selectApp(rowData[1]);
+      },
+    };
+
     return (
       <ThemeProvider theme={theme}>
         <MUIDataTable
-          height="auto"
-          selectable={false}
-          showRowHover
-          columns={tableColumns(addPinned, openDrawer)}
+          options={options}
+          columns={columns(addPinned, openDrawer)}
           data={displayData}
-          showCheckboxes={false}
-          onSortOrderChange={(key, order) => this.handleSortOrderChange(key, order, displayData)}
-          onNextPageClick={this.handleNextPageClick}
-          onPreviousPageClick={this.handlePreviousPageClick}
-          onRowSizeChange={this.handleRowSizeChange}
-          page={page}
-          rowSize={rowSize}
-          count={items.length}
-          tableHeaderColumnStyle={{ color: 'black' }}
         />
       </ThemeProvider>
     );
