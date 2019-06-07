@@ -11,6 +11,8 @@
 	display: flex;
 	justify-content: center;
 	padding: 20px;
+	overflow: auto;
+    height: calc(100vh - 200px);
 }
 
 .col {

@@ -1,10 +1,12 @@
 import React from 'react';
-import { FiExternalLink as OpenIcon } from 'react-icons/fi';
+import { FiEye as OnlineIcon, FiEyeOff as OfflineIcon, FiMonitor as MonitorIcon  } from 'react-icons/fi';
+import Tooltip from '@material-ui/core/Tooltip';
 import IconButton from '@material-ui/core/IconButton';
 import Blockies from 'react-blockies';
+import moment from 'moment';
 import Link from '../share/Link';
 
-export const columns = () => ([
+export const columns = (addPinned, openDrawer) => ([
   {
     name: '_id',
     label: ' ',
@@ -22,7 +24,51 @@ export const columns = () => ([
     },
   },
   {
+    name: '_id',
+    label: 'From',
+    options: {
+      customBodyRender: (value, tableMeta, updateValue) => (
+        <div>
+          <div>
+            <span>{value}</span>
+          </div>
+        </div>
+        ),
+    },
+  },
+  {
     name: 'status',
-    label: 'status',
+    label: 'Status',
+    options: {
+      customBodyRender: (value, tableMeta, updateValue) => (
+      		value === 'online' ? <OnlineIcon /> : <OfflineIcon />
+      	),
+    },
+  },
+  {
+    name: 'updatedAt',
+    label: 'Last Updated',
+    options: {
+      customBodyRender: (value, tableMeta, updateValue) => (
+        <span>{moment(value).fromNow()}</span>
+      ),
+    },
+  },
+  {
+    label: 'Monitor',
+    name: '_id',
+    options: {
+      filter: false,
+      customBodyRender: (value, tableMeta, updateValue) => (
+      	<Tooltip title="Monitor the session">
+      	<IconButton
+         onClick={() => openDrawer(value)}
+      >
+        <MonitorIcon/>
+        </IconButton>
+        </Tooltip>
+      ),
+    },
   },
 ]);
+

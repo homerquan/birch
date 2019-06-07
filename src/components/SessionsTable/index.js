@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import moment from 'moment';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import MUIDataTable from 'mui-datatables';
 import Avatar from '@material-ui/core/Avatar';
@@ -115,9 +114,6 @@ class SessionsTable extends Component {
       download: false,
       selectableRows: false,
       count: items.length ? items.length : 0,
-      onRowClick: (rowData: string[], rowMeta: { dataIndex: number, rowIndex: number }) => {
-        this.selectApp(rowData[1]);
-      },
     };
 
     return (

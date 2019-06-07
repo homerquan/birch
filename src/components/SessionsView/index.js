@@ -72,12 +72,6 @@ class SessionsView extends BaseComponent {
     return (
       <ThemeProvider theme={theme}>
         <div>
-          <Toolbar>    
-              <IconButton tooltip="Reload" onTouchTap={() => refetch()}>
-                <ReloadIcon />
-              </IconButton>
-          </Toolbar>
-
           {sessionConnection.edges && sessionConnection.edges.length
             ? (
               <div>

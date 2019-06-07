@@ -5,7 +5,7 @@
  * @Last Modified time: 2019-05-24 15:16:19
  */
 
-import gql from "graphql-tag";
+import gql from 'graphql-tag';
 
 export const sessionsQuery = gql`
 	query Sessions($userId: String, $appId: String) {
@@ -21,6 +21,7 @@ export const sessionsQuery = gql`
 			edges {
 				node {
 					_id
+					status
 					updatedAt
 					_app
 					_owner

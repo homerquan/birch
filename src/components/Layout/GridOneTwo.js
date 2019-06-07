@@ -19,9 +19,9 @@ import { standard } from './theme';
 
 const ContentContainer = styled.div`
   display: flex; 
-  margin: 0 20px;
-  margin-top: 20px;
-
+  padding: 20px;
+  overflow: auto;
+  height: calc(100vh - 200px);
   @media (max-width: 850px) {
     flex-direction: column;
   }
@@ -31,7 +31,6 @@ const MainContent = styled.div`
   display: flex;
   flex: 2;
   margin-right: 10px;
-
   @media (max-width: 850px) {
     margin-right: 0px;
   }

@@ -19,10 +19,10 @@
 .pageContainer {
 	display: flex;
 	flex: 1;
-	max-width: 1200px;
 	justify-content: center;
-	margin: 0 auto;
-	margin-top: 20px;
+	overflow: auto;
+    height: calc(100vh - 200px);
+	padding: 20px;
 }
 
 @media only screen and (max-width: 1199px) {
