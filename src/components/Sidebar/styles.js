@@ -42,7 +42,7 @@ const styles = {
     marginBottom: 8,
   },
   drawerPaper: {
-    width: 300,
+    width: 350,
   },
   // .bottomSection
   bottomSection: {
@@ -51,7 +51,7 @@ const styles = {
   },
   // .logoText
   logoText: {
-    fontWeight: '100',
+    fontWeight: '600',
     margin: '24px 8px 36px',
   },
   appName: {

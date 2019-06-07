@@ -8,11 +8,10 @@ import { ThemeProvider } from '@material-ui/styles';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import List from '@material-ui/core/List';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import Avatar from '@material-ui/core/Avatar';
 import Divider from '@material-ui/core/Divider';
-import { FiArrowRight as ArrowForward, FiMoreVertical as MoreVert, FiGrid as AppsIcon, FiCode as CodeIcon } from 'react-icons/fi';
+import { FiArrowRight as ArrowForward, FiMoreVertical as MoreVert, FiGrid as AppsIcon, FiPackage as AppIcon } from 'react-icons/fi';
 import { RCard, RCardHeader, RCardBody, RCardFooter } from '../share/RCard';
 import ListItemLink from '../share/ListItemLink';
 import PrimaryText from './PrimaryText';
@@ -59,7 +58,7 @@ class AppsList extends BaseComponent {
         <RCard>
           <RCardHeader>
             <div className="title-container">
-              <AppsIcon />
+              <AppsIcon className="title-icon" />
               <h2>Applications</h2>
             </div>
             <div className="button-container">
@@ -74,11 +73,9 @@ class AppsList extends BaseComponent {
               {this.transformConnectionNode(appConnection.edges).map((item, index, array) => (
                 <div key={item._id}>
                   <ListItemLink href={`/app/${item._id}/sessions`} button>
-                    <ListItemAvatar>
-                      <Avatar>
-                        <CodeIcon />
-                      </Avatar>
-                    </ListItemAvatar>
+                    <ListItemIcon>
+                      <AppIcon />
+                    </ListItemIcon>
                     <ListItemText
                       primary={<PrimaryText text={item.name} number={item._id} />}
                       secondary={item.hostname}

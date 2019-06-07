@@ -10,9 +10,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import { withStyles } from '@material-ui/styles';
 import { ThemeProvider } from '@material-ui/styles';
-import { createMuiTheme } from '@material-ui/core/styles';
 import Sticky from 'react-stickynode';
 import { connect } from 'react-redux';
 import CornerNotifications from 'react-notification-system-redux';
@@ -21,7 +20,6 @@ import IconButton from '@material-ui/core/IconButton';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
 import { FiTerminal as TerminalIcon, FiMenu as HamburgerIcon } from 'react-icons/fi';
 import theme from '../theme';
 import Loader from '../Loader';
@@ -30,7 +28,7 @@ import GlobalSearch from '../GlobalSearch';
 import Messages from './Messages';
 import Notifications from './Notifications';
 import { openConsole, closeConsole } from '../../actions/console';
-import s from './style.css';
+import styles from './styles';
 
 const notificationStyle = {
   NotificationItem: { // Override the notification item
@@ -108,6 +106,8 @@ class Header extends React.Component {
 
   render() {
     const selectedAppName = this.props.runtime && this.props.runtime.selectedApp ? this.props.runtime.selectedApp.name : '';
+    const openConsole = this.props.console.isOpen;
+    const { classes } = this.props;
 
     return (
       <ThemeProvider theme={theme}>
@@ -123,15 +123,15 @@ class Header extends React.Component {
 
           <AppBar color="default" position="static">
             <Toolbar>
-              <IconButton color="inherit" onClick={this.handleToggleButtonTouchTap}>
+              <IconButton className={classes.drawerSwitch} edge="start" color="inherit" onClick={this.handleToggleButtonTouchTap}>
                 <HamburgerIcon color="inherit" />
               </IconButton>
-              <Typography variant="h6" className={s.title}>
+              <Typography variant="h6" className={classes.title}>
                 {selectedAppName}
               </Typography>
               <GlobalSearch />
 
-              <IconButton color="inherit" tooltip="Open Console">
+              <IconButton color={openConsole ? 'primary' : 'default'} tooltip="Open Console">
                 <TerminalIcon onClick={this.toggleConsole} />
               </IconButton>
               <Messages />
@@ -166,4 +166,4 @@ const mapDispatchToProps = dispatch => ({
   closeConsole: bindActionCreators(closeConsole, dispatch),
 });
 
-export default withStyles(s)(connect(selectProps, mapDispatchToProps)(Header));
+export default withStyles(styles)(connect(selectProps, mapDispatchToProps)(Header));

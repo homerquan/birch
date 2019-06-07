@@ -1,7 +1,6 @@
 import theme from '../theme';
-import { spacing } from '@material-ui/system';
 
-const { palette, borderRadius, borderShadow } = theme;
+const { palette } = theme;
 
 const styles = {
   container: {
@@ -15,12 +14,12 @@ const styles = {
     padding: 0,
     margin: 0,
     listStyleType: 'none',
-    color: palette.text.disabled,
-    fontWeight: '400',
+    color: palette.text.primary,
+    fontWeight: '600',
   },
   homeLink: {
   	textDecoration: 'none',
-    color: palette.text.secondary,
+    color: palette.text.disabled,
   },
   separator: {
   	color: palette.text.divider,

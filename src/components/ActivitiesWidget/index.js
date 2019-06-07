@@ -49,7 +49,7 @@ class ActivitiesWidget extends Component {
         <RCard>
           <RCardHeader>
             <div className="title-container">
-              <NotificationsIcon/>
+              <NotificationsIcon className="title-icon"/>
               <h2>Activities</h2>
             </div>
             <div className="button-container">

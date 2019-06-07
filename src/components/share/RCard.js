@@ -16,18 +16,23 @@ export const RCard = styled.div`
 export const RCardHeader = styled.div`
   display: flex;
   justify-content: space-between;
-  padding: 15px 15px 0 15px;
+  padding: 12px;
   
   h2 {
     padding: 0;
     margin: 0;
     font-size: 18px;
-    font-weight: 400;
+    font-weight: 600;
     padding-left: 10px;
   }
 
   .title-container {
     display: flex;
+  }
+
+  .title-icon {
+    height: 22px;
+    width: 22px;
   }
 
   .button-container {
