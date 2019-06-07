@@ -19,7 +19,7 @@ import { openSnackbar } from 'mui-redux-alerts-next';
 import BaseComponent from '../BaseComponent';
 import { redirect } from '../../utils';
 import * as runtimeActions from '../../actions/runtime';
-
+import theme from '../theme';
 import CreateAppWizard from '../CreateAppWizard';
 import CopyCodeModal from './CopyCodeModal';
 import { appsQuery } from './graphql';
