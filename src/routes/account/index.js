@@ -8,13 +8,16 @@
  */
 
 import React from 'react';
-import Account from './Account';
+import AccountPage from '../../pages/AccountPage';
 import Layout from '../../components/Layout';
 import { isLogin } from '../../utils';
 
+const title="My account";
+const chunk="account";
+
 export default {
   path: '/account',
-  chunk: 'account',
+  chunk,
   action({ store, path }) {
     const login = isLogin(store.getState());
 
@@ -23,11 +26,11 @@ export default {
     }
 
     return {
-      title: 'My Account',
-      chunk: 'account',
+      title,
+      chunk,
       component: (
         <Layout>
-          <Account />
+          <AccountPage />
         </Layout>
       ),
     };

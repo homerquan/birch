@@ -8,61 +8,27 @@
  */
 
 import React from 'react';
-import { ThemeProvider } from '@material-ui/styles';
-import { createMuiTheme } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
-
-import theme from '../../components/theme';
-import BlankScreen from '../../components/Layout/BlankScreen';
-import LoginView from '../../components/LoginView';
-import Background from '../../../public/images/bg.svg';
 import { isLogin } from '../../utils';
+import LoginPage from '../../pages/LoginPage';
 
 const title = 'Log In';
-
-const styles = {
-  loginScreen: {
-    backgroundImage: `url(${Background})`,
-    width: '100%',
-    height: '100%',
-    position: 'fixed',
-    backgroundRepeat: 'no-repeat',
-    backgroundSize: 'cover',
-  },
-  loginPaper: {
-    minHehgit: 200,
-    minWidth: 450,
-    maxWidth: '100%',
-    position: 'fixed',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-  },
-};
+const chunk = 'login';
 
 export default {
   path: '/login',
-  chunk: 'login',
+  chunk,
   action({ store, query }) {
     const login = isLogin(store.getState());
 
     if (login) {
       return { redirect: '/profile' };
     }
-    
+
     return {
       title,
-      chunk: 'login',
+      chunk,
       component: (
-        <BlankScreen>
-          <ThemeProvider theme={theme}>
-            <div style={styles.loginScreen}>
-              <Paper style={styles.loginPaper} zDepth={2}>
-                <LoginView title={title} redirect={query.redirect} />
-              </Paper>
-            </div>
-          </ThemeProvider>
-        </BlankScreen>
+        <LoginPage redirect={query.redirect || '/'} />
       ),
     };
   },

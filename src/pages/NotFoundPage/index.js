@@ -18,7 +18,7 @@ const iconStyles = {
 };
 
 
-class NotFound extends React.Component {
+class NotFoundPage extends React.Component {
   
   static propTypes = {
     title: PropTypes.string.isRequired,
@@ -36,4 +36,4 @@ class NotFound extends React.Component {
   }
 }
 
-export default withStyles(s)(NotFound);
+export default withStyles(s)(NotFoundPage);

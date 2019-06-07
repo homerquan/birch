@@ -1,5 +1,5 @@
 import React from 'react';
-import { FiEye as OnlineIcon, FiEyeOff as OfflineIcon, FiMonitor as MonitorIcon  } from 'react-icons/fi';
+import { FiEye as OnlineIcon, FiEyeOff as OfflineIcon, FiMonitor as MonitorIcon, FiMoreVertical as MoreIcon } from 'react-icons/fi';
 import Tooltip from '@material-ui/core/Tooltip';
 import IconButton from '@material-ui/core/IconButton';
 import Blockies from 'react-blockies';
@@ -55,17 +55,37 @@ export const columns = (addPinned, openDrawer) => ([
     },
   },
   {
+    name: 'actionConnections',
+    label: 'Actions',
+    options: {
+      filter: false,
+      customBodyRender: (value, tableMeta, updateValue) => (
+        <span>awaiting data</span>
+      ),
+    },
+  },
+  {
     label: 'Monitor',
     name: '_id',
     options: {
       filter: false,
       customBodyRender: (value, tableMeta, updateValue) => (
-      	<Tooltip title="Monitor the session">
-      	<IconButton
-         onClick={() => openDrawer(value)}
-      >
-        <MonitorIcon/>
-        </IconButton>
+        <Tooltip title="Monitor the session">  
+          <MonitorIcon onClick={() => openDrawer(value)}/>
+        </Tooltip>
+      ),
+    },
+  },
+  {
+    label: 'Details',
+    name: '_id',
+    options: {
+      filter: false,
+      customBodyRender: (value, tableMeta, updateValue) => (
+        <Tooltip title="Show details">
+          <Link href="./details">
+            <MoreIcon />
+          </Link>
         </Tooltip>
       ),
     },

@@ -8,32 +8,36 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Page, Section, LayoutProvider } from 'react-page-layout';
 import { ThemeProvider } from '@material-ui/styles';
-import { createMuiTheme } from '@material-ui/core/styles';
-
-import { Tabs, Tab } from '@material-ui/core/Tabs';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
 import Paper from '@material-ui/core/Paper';
-import datatableTheme from '../../components/datatableTheme';
-
+import theme from '../../components/theme';
 import grids from '../../components/Layout/grids';
 import TitleBar from '../../components/TitleBar';
 import Account from '../../components/Account';
 import Billing from '../../components/Billing';
 
-class AccountView extends React.Component {
+class AccountPage extends React.Component {
+
+  static propTypes = {
+    tab: PropTypes.string.isRequired,
+  };
+
   constructor(props) {
     super(props);
 
     this.state = {
-      value: 'account',
+      tab: props.tab || 'account',
     };
 
     this.handleChange = this.handleChange.bind(this);
   }
 
-  handleChange(value) {
-    this.setState({ value });
+  handleChange(event, value) {
+    this.setState({ tab: value });
   }
 
   render() {
@@ -44,19 +48,18 @@ class AccountView extends React.Component {
             <TitleBar title="Manage Account" />
           </Section>
           <Section slot="main">
-            <ThemeProvider theme={createMuiTheme(datatableTheme)}>
+            <ThemeProvider theme={theme}>
               <Paper>
                 <Tabs
-                  value={this.state.value}
+                  value={this.state.tab}
                   onChange={this.handleChange}
+                  centered
                 >
-                  <Tab label="Account" value="account">
-                    <Account />
-                  </Tab>
-                  <Tab label="Billing" value="billing">
-                    <Billing />
-                  </Tab>
+                  <Tab value="account" label="Account" />
+                  <Tab value="billing" label="Billing" />
                 </Tabs>
+                {this.state.tab === 'account' && <Account />}
+                {this.state.tab === 'billing' && <Billing />}
               </Paper>
             </ThemeProvider>
           </Section>
@@ -66,4 +69,4 @@ class AccountView extends React.Component {
   }
 }
 
-export default AccountView;
+export default AccountPage;

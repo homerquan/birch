@@ -13,7 +13,7 @@ import ErrorReporter from "redbox-react";
 import deepForceUpdate from "react-deep-force-update";
 import FastClick from "fastclick";
 import queryString from "query-string";
-import { createPath } from "history/PathUtils";
+import { PathUtils } from "history";
 import App from "./components/App";
 import createFetch from "./createFetch";
 import configureStore from "./store/configureStore";
@@ -98,7 +98,7 @@ let onRenderComplete = function initialRenderComplete() {
     // Google Analytics tracking. Don't send 'pageview' event after
     // the initial rendering, as it was already sent
     if (window.ga) {
-      window.ga("send", "pageview", createPath(location));
+      window.ga("send", "pageview", PathUtils.createPath(location));
     }
   };
 };

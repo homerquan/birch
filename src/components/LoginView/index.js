@@ -4,6 +4,7 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import TextField from '@material-ui/core/TextField';
 import { ThemeProvider } from '@material-ui/styles';
 import { createMuiTheme } from '@material-ui/core/styles';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Button from '@material-ui/core/Button';
 import theme from '../theme';
@@ -19,7 +20,7 @@ class LoginView extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = { credentials: { username: '', password: '' } };
+    this.state = { credentials: { username: '', password: '' }, remember: false };
     this.onChange = this.onChange.bind(this);
     this.loginHandler = this.loginHandler.bind(this);
   }
@@ -47,34 +48,45 @@ class LoginView extends React.Component {
             <form>
               <div className={s.formGroup}>
                 <TextField
-                  hintText="Username or email"
-                  type="text"
+                  label="Username"
                   name="username"
-                  autoFocus
                   value={this.state.credentials.username}
+                  margin="normal"
+                  variant="outlined"
+                  placeholder="Username or email"
+                  autoFocus
+                  fullWidth
                   onChange={this.onChange}
                 />
               </div>
               <div className={s.formGroup}>
                 <TextField
-                  hintText="Password"
-                  type="password"
+                  label="Password"
                   name="password"
                   value={this.state.credentials.password}
+                  margin="normal"
+                  variant="outlined"
+                  placeholder="Password"
+                  fullWidth
                   onChange={this.onChange}
                 />
               </div>
               <div className={s.formGroup}>
-                <Checkbox label="Remember me" />
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={this.state.remember}
+                      value="mememberMe"
+                      color="primary"
+                    />
+                  }
+                  label="Remember me"
+                />
               </div>
               <div className={s.formGroup}>
-                <Button
-                  variant="contained"
-                  label="Login"
-                  primary
-                  type="submit"
-                  onClick={this.loginHandler}
-                />
+                <Button variant="contained" color="primary" onClick={this.loginHandler}>
+       Login
+                </Button>
               </div>
             </form>
           </div>
