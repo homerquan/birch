@@ -54,6 +54,7 @@ class AccountPage extends React.Component {
                   value={this.state.tab}
                   onChange={this.handleChange}
                   centered
+                  variant="fullWidth"
                 >
                   <Tab value="account" label="Account" />
                   <Tab value="billing" label="Billing" />
