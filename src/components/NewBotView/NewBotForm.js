@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Field, reduxForm, propTypes } from 'redux-form';
 import { Button } from 'material-ui'; 
 
-import { RCard, RCardBody } from '../styled/RCard';
+import { RCard, RCardBody } from '../share/RCard';
 import { FormGroup } from '../styled/Forms';
 
 class NewBotForm extends React.Component {

@@ -24,7 +24,7 @@ import fakeData from './fakeData.json';
 import MessageListItem from '../MessageListItem';
 import NotificationListItem from '../NotificationListItem';
 import Loader from './Loader';
-import { RCard, RCardHeader, RCardBody, RCardFooter } from '../styled/RCard';
+import { RCard, RCardHeader, RCardBody, RCardFooter } from '../share/RCard';
 import s from './style.css';
 
 const linkStyle = {

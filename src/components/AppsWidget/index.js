@@ -5,24 +5,20 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import gql from 'graphql-tag';
 import { graphql, compose } from 'react-apollo';
 import { ThemeProvider } from '@material-ui/styles';
-import { createMuiTheme } from '@material-ui/core/styles';
-import { black, deepPurple500 } from '@material-ui/core/colors';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import IconButton from '@material-ui/core/IconButton';
 import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import ListItemText from '@material-ui/core/ListItemText';
 import Avatar from '@material-ui/core/Avatar';
 import Divider from '@material-ui/core/Divider';
-import { FiArrowRight as ArrowForward, FiMoreVertical as MoreVert, FiList as AppsIcon, FiCode as CodeIcon } from 'react-icons/fi';
-import { RCard, RCardHeader, RCardBody, RCardFooter } from '../styled/RCard';
+import { FiArrowRight as ArrowForward, FiMoreVertical as MoreVert, FiGrid as AppsIcon, FiCode as CodeIcon } from 'react-icons/fi';
+import { RCard, RCardHeader, RCardBody, RCardFooter } from '../share/RCard';
 import ListItemLink from '../share/ListItemLink';
 import PrimaryText from './PrimaryText';
 import theme from '../theme';
 import Loader from './Loader';
-import s from './style.css';
+import styles from './styles.css';
 
 const appsListQuery = gql`
 query Apps($userId: String) {
@@ -63,7 +59,7 @@ class AppsList extends BaseComponent {
         <RCard>
           <RCardHeader>
             <div className="title-container">
-              <AppsIcon color={black} />
+              <AppsIcon />
               <h2>Applications</h2>
             </div>
             <div className="button-container">
@@ -95,7 +91,7 @@ class AppsList extends BaseComponent {
             </List>
           </RCardBody>
           <RCardFooter>
-            <ArrowForward color={black} />
+            <ArrowForward />
             <a className="link-text" href="/apps">View all applications</a>
           </RCardFooter>
         </RCard>
@@ -104,7 +100,7 @@ class AppsList extends BaseComponent {
   }
 }
 
-export default withStyles(s)(
+export default withStyles(styles)(
   compose(
     graphql(appsListQuery, {
       options: props => ({

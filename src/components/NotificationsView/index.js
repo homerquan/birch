@@ -19,7 +19,7 @@ import Menu from '@material-ui/core/Menu';
 import IconButton from '@material-ui/core/IconButton';
 import { FiCode as CodeIcon, FiList as AppsIcon, FiMoreVertical as MoreVert} from 'react-icons/fi';
 import MenuItem from '@material-ui/core/MenuItem';
-import { RCard, RCardHeader, RCardBody, RCardFooter } from '../styled/RCard';
+import { RCard, RCardHeader, RCardBody, RCardFooter } from '../share/RCard';
 import theme from '../theme';
 import s from './style.css';
 

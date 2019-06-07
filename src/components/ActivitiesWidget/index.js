@@ -19,7 +19,7 @@ import List from '@material-ui/core/List';
 import { ThemeProvider } from '@material-ui/styles';
 import { createMuiTheme } from '@material-ui/core/styles';
 import { FiRadio as NotificationsIcon, FiArrowRight as ArrowForward } from 'react-icons/fi';
-import { RCard, RCardHeader, RCardBody, RCardFooter } from '../styled/RCard';
+import { RCard, RCardHeader, RCardBody, RCardFooter } from '../share/RCard';
 import theme from '../theme';
 import fakeData from './fakeData.json';
 import MessageListItem from '../MessageListItem';

@@ -15,7 +15,7 @@ import ListSubheader from '@material-ui/core/ListSubheader';
 import { blue200, blue500, black } from '@material-ui/core/colors';
 import { FiArrowRight as ArrowIcon, FiWatch as EventIcon, FiMoreVertical as MoreVert, FiList as AppsIcon } from 'react-icons/fi';
 import IconButton from '@material-ui/core/IconButton';
-import { RCard, RCardHeader, RCardBody, RCardFooter } from '../styled/RCard';
+import { RCard, RCardHeader, RCardBody, RCardFooter } from '../share/RCard';
 import s from './style.css';
 
 class SessionView extends Component {

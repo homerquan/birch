@@ -3,11 +3,12 @@ import { white, grey100 } from '@material-ui/core/colors';
 import styled from 'styled-components';
 import theme from '../theme';
 
-const { palette, borderShadow } = theme;
+const { palette, shadows, shape: { borderRadius } } = theme;
 
 export const RCard = styled.div`
-  background-color: ${white};
-  box-shadow: ${borderShadow};
+  background-color: ${palette.background.paper};
+  box-shadow: ${shadows[2]};
+  border-radius: ${borderRadius}px;
   margin-bottom: 20px;
   width: 100%;
 `;
@@ -44,12 +45,12 @@ export const RCardFooter = styled.a`
   display: flex;
   align-items: center;
   padding: 15px;
-  border-top: 1px solid ${palette.borderColor};
+  border-top: 1px solid ${palette.divider};
   cursor: pointer;
   transition: 0.3s;
 
   &:hover {
-    background-color: ${grey100};
+    background-color: ${palette.grey['50']};
   }
 
   .link-text {
