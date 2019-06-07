@@ -6,9 +6,8 @@
 */
 
 import theme from '../theme';
-import { spacing } from '@material-ui/system';
 
-const { palette, borderRadius, borderShadow } = theme;
+const { palette, spacing } = theme;
 
 const fixedMenuWidth = 80;
 
@@ -37,9 +36,9 @@ const styles = {
     marginLeft: '10px',
     marginTop: '10px',
     cursor: 'pointer',
-    paddingLeft: spacing.desktopGutter,
-    marginTop: 12,
-    marginBottom: 8,
+    paddingLeft: spacing(1),
+    marginTop: spacing(1),
+    marginBottom: spacing(1),
   },
   drawerPaper: {
     width: 350,
