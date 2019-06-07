@@ -2,12 +2,11 @@ import React, { Component } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
-import {
-  Table,
-  TableBody,
-  TableRow,
-  TableRowColumn,
-} from '@material-ui/core/Table';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
 import AddCreditCardDialog from './AddCreditCardDialog';
 import InvoicesDialog from './InvoicesDialog';
 import s from './style.css';
@@ -77,12 +76,12 @@ class Billing extends Component {
           <Table className={s.table}>
             <TableBody displayRowCheckbox={false}>
               <TableRow>
-                <TableRowColumn>Current Usage</TableRowColumn>
-                <TableRowColumn>Not Available</TableRowColumn>
+                <TableCell>Current Usage</TableCell>
+                <TableCell>Not Available</TableCell>
               </TableRow>
               <TableRow>
-                <TableRowColumn>Platform Credits</TableRowColumn>
-                <TableRowColumn>$0.00</TableRowColumn>
+                <TableCell>Platform Credits</TableCell>
+                <TableCell>$0.00</TableCell>
               </TableRow>
             </TableBody>
           </Table>
