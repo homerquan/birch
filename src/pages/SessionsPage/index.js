@@ -18,11 +18,11 @@ class SessionsPage extends React.Component {
     return (
       <ThemeProvider theme={theme}>
         <LayoutProvider layouts={grids}>
-          <Page layout="grid-one-one">
+          <Page layout="grid-one-two">
             <Section slot="titleBar">
               <TitleBar title={this.props.title} />
             </Section>
-            <Section slot="main">
+            <Section slot="col-1">
               <AppView
                 userId={this.props.session.userId}
                 appId={this.props.appId}
@@ -32,6 +32,7 @@ class SessionsPage extends React.Component {
                 appId={this.props.appId}
               />
             </Section>
+            <Section slot="col-2" />
           </Page>
         </LayoutProvider>
       </ThemeProvider>

@@ -5,7 +5,7 @@
 * @Last Modified time: 2019-05-29 20:39:04
 */
 import React from 'react';
-import { FiMoreVertical as MoreIcon, FiCode as CodeIcon, FiExternalLink as OpenIcon } from 'react-icons/fi';
+import { FiMoreVertical as MoreIcon, FiCode as CodeIcon, FiExternalLink as OpenIcon, FiLink2 as LinkIcon } from 'react-icons/fi';
 import IconButton from '@material-ui/core/IconButton';
 import { genEmbedCode } from '../../utils';
 import Link from '../share/Link';
@@ -29,6 +29,20 @@ export const columns = (openCodeModal, selectApp) => ([
         return (
           <IconButton onClick={event => openCodeModal(code, event)}>
             <CodeIcon />
+          </IconButton>
+        );
+      },
+    },
+  },
+  {
+    name: '_id',
+    label: 'Standalone Mode',
+    options: {
+      customBodyRender: (value, tableMeta, updateValue) => {
+        // gen js code by id and token
+        return (
+          <IconButton>
+            <LinkIcon />
           </IconButton>
         );
       },

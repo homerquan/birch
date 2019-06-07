@@ -41,7 +41,7 @@ const styles = {
     marginBottom: spacing(1),
   },
   drawerPaper: {
-    width: 350,
+    width: 340,
   },
   // .bottomSection
   bottomSection: {

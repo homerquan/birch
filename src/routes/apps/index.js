@@ -20,7 +20,7 @@ const title = 'Properties & Apps';
 export default {
   path: '/apps',
   chunk: 'apps',
-  action({ store, path }) {
+  action({ store, path, query }) {
     const login = isLogin(store.getState());
 
     if (!login) {
@@ -32,7 +32,7 @@ export default {
       chunk: 'apps',
       component: (
         <Layout>
-          <AppsPage title={title} />
+          <AppsPage title={title} page={query.page} limit={query.limit} filter={query.filter} sort={query.sort} />
         </Layout>
       ),
     };

@@ -1,6 +1,0 @@
-{
-  "name": "ConversationMessages",
-  "version": "0.0.0",
-  "private": true,
-  "main": "./ConversationMessages.js"
-}

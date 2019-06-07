@@ -7,7 +7,6 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { graphql, compose } from 'react-apollo';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import { ThemeProvider } from '@material-ui/styles';
 import { FiRefreshCcw as ReloadIcon } from 'react-icons/fi';
@@ -15,19 +14,15 @@ import IconButton from '@material-ui/core/IconButton';
 import Toolbar from '@material-ui/core/Toolbar';
 import BaseComponent from '../BaseComponent';
 import theme from '../theme';
-import config from '../../config';
 import SessionsTable from '../SessionsTable';
 import SessionMonitor from '../SessionMonitor';
 import s from './style.css';
-import { sessionsQuery, updateConversationPinToTop } from './graphql';
 
 
 class SessionsView extends BaseComponent {
 
   static propTypes = {
     userId: PropTypes.string.isRequired,
-    data: PropTypes.object.isRequired,
-    mutate: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -61,36 +56,15 @@ class SessionsView extends BaseComponent {
   }
 
   render() {
-    const { sessionConnection, loading, refetch } = this.props.data;
-
-    if (loading) {
-      return (
-        <h1>Loading</h1>
-      );
-    }
-
     return (
       <ThemeProvider theme={theme}>
         <div>
-          {sessionConnection.edges && sessionConnection.edges.length
-            ? (
-              <div>
-                <SessionsTable
-                  items={this.transformConnectionNode(sessionConnection.edges)}
-                  openDrawer={this.openDrawer}
-                  addPinned={this.addPinned}
-                />
-              </div>
-            ) : (
-              <div>
-                <div className={s.nothing}>
-                  <div className={s.fun}>
-                    <img src="/images/nothing.png" alt="No Conversations" />
-                  </div>
-                </div>
-              </div>
-            )
-          }
+          <SessionsTable
+            userId={this.props.userId}
+            appId={this.props.appId}
+            openDrawer={this.openDrawer}
+            addPinned={this.addPinned}
+          />
 
           {this.state.drawerIsOpen &&
             <SessionMonitor
@@ -101,21 +75,10 @@ class SessionsView extends BaseComponent {
               closeDrawer={this.closeDrawer}
             />
           }
-
         </div>
       </ThemeProvider>
     );
   }
 }
 
-export default withStyles(s)(
-  compose(
-    graphql(updateConversationPinToTop),
-    graphql(sessionsQuery, {
-      options: props => ({
-        variables: { userId: props.userId, appId: props.appId },
-        pollInterval: config.pollInterval,
-      }),
-    }),
-  )(SessionsView),
-);
+export default withStyles(s)(SessionsView);

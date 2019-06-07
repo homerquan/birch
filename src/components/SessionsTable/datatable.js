@@ -2,6 +2,7 @@ import React from 'react';
 import { FiEye as OnlineIcon, FiEyeOff as OfflineIcon, FiMonitor as MonitorIcon, FiMoreVertical as MoreIcon } from 'react-icons/fi';
 import Tooltip from '@material-ui/core/Tooltip';
 import IconButton from '@material-ui/core/IconButton';
+import Toggle from '@material-ui/core/Switch';
 import Blockies from 'react-blockies';
 import moment from 'moment';
 import Link from '../share/Link';

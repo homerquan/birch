@@ -7,10 +7,11 @@
 
 import gql from 'graphql-tag';
 
+// TODO: using server side pagniation later
 export const sessionsQuery = gql`
 	query Sessions($userId: String, $appId: String) {
 		sessionConnection(
-			first: 10
+			first:500,
 			filter: { _owner: $userId, _app: $appId }
 		) {
 			count

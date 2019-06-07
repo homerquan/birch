@@ -6,9 +6,10 @@
 */
 import gql from 'graphql-tag';
 
+//TODO: using server side pagniation later
 export const appsQuery = gql`
 query Apps($userId: String) {
-  appConnection(first:5,filter:{_owner:$userId}) {
+  appConnection(first:500,filter:{_owner:$userId}) {
      count
       pageInfo {
         startCursor

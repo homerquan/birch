@@ -12,8 +12,6 @@ import { graphql, compose } from 'react-apollo';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import MUIDataTable from 'mui-datatables';
 import { ThemeProvider } from '@material-ui/styles';
-import IconButton from '@material-ui/core/IconButton';
-import Toolbar from '@material-ui/core/Toolbar';
 import { FiPlus as AddIcon, FiRefreshCcw as ReloadIcon } from 'react-icons/fi';
 import { openSnackbar } from 'mui-redux-alerts-next';
 import BaseComponent from '../BaseComponent';
@@ -34,7 +32,7 @@ class AppsView extends BaseComponent {
 
     this.state = {
       openDrawer: false,
-      selectedConversation: null,
+      selectedApp: null,
       newAppModalIsOpen: false,
       codeModalIsOpen: false,
       codeModalCode: '',
@@ -99,14 +97,6 @@ class AppsView extends BaseComponent {
     return (
       <ThemeProvider theme={theme}>
         <div>
-          <Toolbar>
-            <IconButton tooltip="Add" onClick={this.openNewAppModal}>
-              <AddIcon />
-            </IconButton>
-            <IconButton tooltip="Reload" onTouchTap={() => refetch()}>
-              <ReloadIcon />
-            </IconButton>
-          </Toolbar>
           {appConnection.edges.length && appConnection.count > 0 ? (
             <MUIDataTable
               columns={columns(this.openCodeModal,this.selectApp)}
