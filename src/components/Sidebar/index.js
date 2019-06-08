@@ -45,7 +45,7 @@ class Sidebar extends React.Component {
     this.logoutHandler = this.logoutHandler.bind(this);
   }
 
-  closeButtonTouchTapHandler = () => {
+  closeButtonClickHandler = () => {
     this.props.onClose(false);
   };
 
@@ -67,13 +67,13 @@ class Sidebar extends React.Component {
             paper: classes.drawerPaper,
           }}
           open={this.props.open}
-          onClose={this.closeButtonTouchTapHandler}
+          onClose={this.closeButtonClickHandler}
         >
           <div className={classes.leftMenu}>
             <div className={classes.logo}>
               <IconButton
                 className={classes.largeClose}
-                onTouchTap={this.closeButtonTouchTapHandler}
+                onClick={this.closeButtonClickHandler}
               >
                 <a href="/"><img src={logoImage} alt="logo" /></a>
               </IconButton>
@@ -139,7 +139,7 @@ class Sidebar extends React.Component {
           <div className={classes.rightMenu}>
             <div
               className={classes.logo}
-              onTouchTap={this.closeButtonTouchTapHandler}
+              onClick={this.closeButtonClickHandler}
             >
               <h2 className={classes.logoText}>Platform Console</h2>
             </div>

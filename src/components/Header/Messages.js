@@ -21,21 +21,6 @@ import theme from '../theme';
 import s from './Messages.css';
 import fakeData from './fakeMessages.json';
 
-const badgeStyle = {
-  top: 4,
-  right: 4,
-  width: 18,
-  height: 18,
-  fontSize: 9,
-  zIndex: 1,
-  backgroundColor: pink500,
-  color: 'white',
-};
-
-const badgeRootStyle = {
-  padding: 0,
-};
-
 const paperStyle = {
   position: 'absolute',
   zIndex: 101,
@@ -66,9 +51,6 @@ const footerText = {
   textDecoration: 'none',
 };
 
-const hiddenStyle = {
-  display: 'none',
-};
 
 class Messages extends Component {
   constructor(props) {
@@ -137,8 +119,6 @@ class Messages extends Component {
       <ThemeProvider theme={theme}>
         <Badge
           badgeContent={messages.length ? messages.length : 0}
-          badgeStyle={messages.length ? badgeStyle : hiddenStyle}
-          style={badgeRootStyle}
         >
           <IconButton
             className="messageIcon"
@@ -147,7 +127,6 @@ class Messages extends Component {
           </IconButton>
           <Paper
             onMouseLeave={this.mouseLeftMessagesContainer}
-            style={isOpen ? paperStyle : hiddenStyle}
           >
             <div className={s.header}>
               <p className={s.headerTitle}>Messages</p>
@@ -160,9 +139,6 @@ class Messages extends Component {
                   <div key={message.id}>
                     {index > 0 ? <Divider /> : ''}
                     <ListItem
-                      leftAvatar={<Avatar backgroundColor={deepPurple500} icon={<CodeIcon />} />}
-                      secondaryText={<p>{message.message}</p>}
-                      secondaryTextLines={2}
                     />
                   </div>
                 ))

@@ -15,7 +15,6 @@ import { sessionsQuery, updateConversationPinToTop } from './graphql';
 class SessionsTable extends BaseComponent {
 
   static propTypes = {
-    items: PropTypes.array.isRequired,
     userId: PropTypes.string.isRequired,
     data: PropTypes.object.isRequired,
     mutate: PropTypes.func.isRequired,
@@ -75,7 +74,7 @@ export default withStyles(styles)(compose(
     graphql(sessionsQuery, {
       options: props => ({
         variables: { userId: props.userId, appId: props.appId },
-        pollInterval: config.pollInterval,
+        //pollInterval: config.pollInterval,
       }),
     }),
   )(SessionsTable));

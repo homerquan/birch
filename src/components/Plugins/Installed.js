@@ -108,7 +108,7 @@ class Installed extends Component {
             </Select>
           </ToolbarGroup>
           <ToolbarGroup>
-            <IconButton tooltip="Reload" onTouchTap={() => refetch()}>
+            <IconButton tooltip="Reload" onClick={() => refetch()}>
               <ReloadIcon />
             </IconButton>
           </ToolbarGroup>

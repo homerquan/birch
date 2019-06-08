@@ -152,9 +152,6 @@ class Notifications extends Component {
                     <div key={message.id}>
                       {index > 0 ? <Divider /> : ''}
                       <ListItem
-                        leftAvatar={<Avatar backgroundColor={deepPurple500} icon={<CodeIcon />} />}
-                        secondaryText={<p>{message.text}</p>}
-                        secondaryTextLines={2}
                       />
                     </div>
                   ))

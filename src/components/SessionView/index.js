@@ -12,7 +12,6 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Avatar from '@material-ui/core/Avatar';
 import ListSubheader from '@material-ui/core/ListSubheader';
-import { blue200, blue500, black } from '@material-ui/core/colors';
 import { FiArrowRight as ArrowIcon, FiWatch as EventIcon, FiMoreVertical as MoreVert, FiList as AppsIcon } from 'react-icons/fi';
 import IconButton from '@material-ui/core/IconButton';
 import { RCard, RCardHeader, RCardBody, RCardFooter } from '../share/RCard';
@@ -26,7 +25,7 @@ class SessionView extends Component {
       <RCard>
         <RCardHeader>
           <div className="title-container">
-            <AppsIcon color={black} />
+            <AppsIcon />
             <h2>Session</h2>
           </div>
           <div className="button-container">
@@ -46,9 +45,9 @@ class SessionView extends Component {
               seed={conversation.id}
               size={10}
               scale={3}
-              color={blue500}
+              color="#fafafa"
               bgColor="#fafafa"
-              spotColor={blue200}
+              spotColor="#fafafa"
             />
           </div>
           <List>
@@ -84,11 +83,9 @@ class SessionView extends Component {
             <ListSubheader className={s.agentsSubHeader}>Agents</ListSubheader>
             <ListItem
               primaryText="solver v 1.3"
-              leftAvatar={<Avatar src="/images/avatar-helper.png" />}
             />
             <ListItem
               primaryText="Homer Quan"
-              leftAvatar={<Avatar src="/images/avatar-helper.png" />}
             />
           </List>
         </RCardBody>

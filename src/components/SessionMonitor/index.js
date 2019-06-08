@@ -306,8 +306,6 @@ class SessionMonitor extends BaseComponent {
                 <IconButton
                   tooltip="Enable Training"
                   onClick={this.handleEnableTrainingToggle}
-                  iconStyle={styles.smallIcon}
-                  style={styles.small}
                 >
                   <SupportIcon color={enableTraining ? greenA700 : grey900} />
                 </IconButton>
@@ -351,9 +349,7 @@ class SessionMonitor extends BaseComponent {
 
             <div style={styles.closeIconBG} />
             <IconButton
-              iconStyle={styles.closeIcon}
-              style={styles.closeIconBtn}
-              onClick={closeDrawer}
+             onClick={closeDrawer}
             >
               <CloseIcon />
             </IconButton>

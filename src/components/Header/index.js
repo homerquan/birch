@@ -71,7 +71,7 @@ class Header extends React.Component {
     };
 
     this.notificationSystem = React.createRef();
-    this.handleToggleButtonTouchTap = this.handleToggleButtonTouchTap.bind(this);
+    this.handleToggleButtonClick = this.handleToggleButtonClick.bind(this);
     this.toggleConsole = this.toggleConsole.bind(this);
   }
 
@@ -80,7 +80,7 @@ class Header extends React.Component {
     setTimeout(() => this.setState({ loading: false }), 1500); // simulates loading of data
   }
 
-  handleToggleButtonTouchTap = () => {
+  handleToggleButtonClick = () => {
     this.props.onToggleChange();
   };
 
@@ -123,7 +123,7 @@ class Header extends React.Component {
 
           <AppBar color="default" position="static">
             <Toolbar>
-              <IconButton className={classes.drawerSwitch} edge="start" color="inherit" onClick={this.handleToggleButtonTouchTap}>
+              <IconButton className={classes.drawerSwitch} edge="start" color="inherit" onClick={this.handleToggleButtonClick}>
                 <HamburgerIcon color="inherit" />
               </IconButton>
               <Typography variant="h6" className={classes.title}>
@@ -134,8 +134,8 @@ class Header extends React.Component {
               <IconButton color={openConsole ? 'primary' : 'default'} tooltip="Open Console">
                 <TerminalIcon onClick={this.toggleConsole} />
               </IconButton>
-              <Messages />
-              <Notifications userId={this.props.session.userId} />
+               {/* <Messages /> 
+                   <Notifications userId={this.props.session.userId} /> */}
             </Toolbar>
           </AppBar>
           {/* </Sticky> */}

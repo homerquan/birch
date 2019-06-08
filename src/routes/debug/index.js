@@ -9,20 +9,30 @@
 
 import React from 'react';
 import Layout from '../../components/Layout';
-import Page from '../../components/Page';
+import DebugPage from '../../pages/DebugPage';
+import { isLogin } from '../../utils';
+
+const title = 'Debug';
+const chunk = 'debug';
 
 export default {
-
   path: '/debug',
-  chunk: 'debug',
-  async action() {
-    const data = await require.ensure([], require => require('./debug.md'), 'debug');
+  chunk,
+  action({ store, path }) {
+    const login = isLogin(store.getState());
+
+    if (!login) {
+      return { redirect: `/login?redirect=${path}` };
+    }
 
     return {
-      title: data.title,
-      chunk: 'debug',
-      component: <Layout><Page {...data} /></Layout>,
+      title,
+      chunk,
+      component: (
+        <Layout>
+          <DebugPage title={title} />
+        </Layout>
+      ),
     };
   },
-
 };

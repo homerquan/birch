@@ -45,8 +45,6 @@ query Notifications($userId: String) {
 }
 `;
 
-const styles = {
-};
 
 class Notifications extends BaseComponent {
 
@@ -117,12 +115,6 @@ class Notifications extends BaseComponent {
               ? runtime[CONSTANTS.notificationsCount]
               : 0
           }
-          badgeStyle={
-            runtime[CONSTANTS.notificationsCount] > 0
-            ? styles.badgeStyle
-            : styles.hiddenStyle
-          }
-          style={styles.badgeRootStyle}
         >
           <IconButton
             className="notificationIcon"

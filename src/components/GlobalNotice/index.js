@@ -27,19 +27,6 @@ import { ignoreGlobalNotification } from '../../actions/globalNotification';
 import theme from '../theme';
 import s from './style.css';
 
-const styles = {
-  noticeIcon: {
-    width: 18,
-    height: 18,
-    color: white,
-  },
-  closeButton: {
-    width: 40,
-    height: 40,
-    padding: 6,
-  },
-};
-
 class GlobalNotice extends React.Component {
   static propTypes = {
     globalNotification: PropTypes.object,
@@ -64,9 +51,7 @@ class GlobalNotice extends React.Component {
           <span className={s.content}>{this.props.globalNotification ? this.props.globalNotification.text : ''}</span>
           <IconButton
             className={s.noticeButton}
-            iconStyle={styles.noticeIcon}
-            style={styles.closeButton}
-            onTouchTap={this.handleClose}
+            onClick={this.handleClose}
           >
             <CloseIcon />
           </IconButton>

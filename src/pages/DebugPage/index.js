@@ -1,25 +1,13 @@
-/**
- * React Starter Kit (https://www.reactstarterkit.com/)
- *
- * Copyright © 2014-present Kriasoft, LLC. All rights reserved.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE.txt file in the root directory of this source tree.
- */
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Page, Section, LayoutProvider } from 'react-page-layout';
 import { ThemeProvider } from '@material-ui/styles';
-import { createMuiTheme } from '@material-ui/core/styles';
-
-
 import theme from '../../components/theme';
 import grids from '../../components/Layout/grids';
 import TitleBar from '../../components/TitleBar';
-import ProfileView from '../../components/ProfileView';
+import DebugView from '../../components/DebugView';
 
-class Profile extends React.Component {
+class DebugPage extends React.Component {
   static propTypes = {
     title: PropTypes.string.isRequired,
     actions: PropTypes.shape({
@@ -41,7 +29,7 @@ class Profile extends React.Component {
               <TitleBar title={this.props.title} />
             </Section>
             <Section slot="main">
-              <ProfileView />
+              <DebugView />
             </Section>
           </Page>
         </LayoutProvider>
@@ -50,4 +38,4 @@ class Profile extends React.Component {
   }
 }
 
-export default Profile;
+export default DebugPage;

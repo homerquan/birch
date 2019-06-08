@@ -12,12 +12,6 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import { FiFrown as SadIcon } from 'react-icons/fi';
 import s from './style.css';
 
-const iconStyles = {
-  width: 100,
-  height: 100,
-};
-
-
 class NotFoundPage extends React.Component {
   
   static propTypes = {
@@ -27,7 +21,7 @@ class NotFoundPage extends React.Component {
   render() {
     return (
       <div className={s.center}>
-        <SadIcon style={iconStyles} />
+        <SadIcon />
         <h1>Oops...</h1>
         <p>Sorry, the page you were trying to view does not exist.</p>
         <a href="/">Go back</a>

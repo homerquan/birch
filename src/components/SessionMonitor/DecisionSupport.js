@@ -10,18 +10,6 @@ import classnames from 'classnames';
 import s from './DecisionSupport.css';
 
 const DecisionSupport = ({ isOpen, enableTraining, openTraining }) => {
-  const styles = {
-    badgeRootStyle: {
-      padding: 0,
-    },
-    badgeStyle: {
-      top: -3,
-      right: 1,
-      width: 18,
-      height: 18,
-      fontSize: 10,
-    },
-  };
 
   const containerClass = classnames(
     s.decisionSupportContainer,
@@ -42,18 +30,16 @@ const DecisionSupport = ({ isOpen, enableTraining, openTraining }) => {
         <div className={s.decisionButtons}>
           <div>
             <Button variant="contained"
-              label="Edit"
-              primary
+              color="primary"
               onClick={openTraining}
               disabled={!enableTraining}
-            />
+            >
+            Edit
+            </Button>
           </div>
           <div>
             <Badge
               badgeContent={4}
-              primary
-              style={styles.badgeRootStyle}
-              badgeStyle={styles.badgeStyle}
             >
               <Button label="Accept" />
             </Badge>
