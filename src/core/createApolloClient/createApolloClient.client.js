@@ -28,16 +28,8 @@ networkInterface.use([{
 const wsClient = new SubscriptionClient(wsUri, {
   reconnect: true,
   connectionParams: {
-    jwt: token,
+    token,
   },
-});
-
-wsClient.onDisconnected(() => {
-  // notice user in UI?
-});
-
-wsClient.onConnected(() => {
-  // notice user in UI?
 });
 
 // Extend the network interface with the WebSocket
