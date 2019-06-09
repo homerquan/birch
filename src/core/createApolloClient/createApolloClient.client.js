@@ -36,6 +36,10 @@ wsClient.onDisconnected(() => {
   // notice user in UI?
 });
 
+wsClient.onConnected(() => {
+  // notice user in UI?
+});
+
 // Extend the network interface with the WebSocket
 const networkInterfaceWithSubscriptions = addGraphQLSubscriptions(
     networkInterface,
