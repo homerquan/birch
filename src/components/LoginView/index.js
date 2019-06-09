@@ -10,7 +10,7 @@ import theme from '../theme';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as sessionActions from '../../actions/session';
-import styles from './style.css';
+import s from './style.css';
 
 class LoginView extends React.Component {
   static propTypes = {
@@ -104,6 +104,6 @@ const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(sessionActions, dispatch),
 });
 
-export default withStyles(styles)(
+export default withStyles(s)(
   connect(selectProps, mapDispatchToProps)(LoginView),
 );
