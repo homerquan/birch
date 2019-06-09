@@ -1,8 +1,8 @@
 import {
     SubscriptionClient,
-    addGraphQLSubscriptions
-} from "subscriptions-transport-ws";
-import ApolloClient, { createNetworkInterface } from "apollo-client";
+    addGraphQLSubscriptions,
+} from 'subscriptions-transport-ws';
+import ApolloClient, { createNetworkInterface } from 'apollo-client';
 import config from '../../config';
 
 const httpUri = config.clientUrl;
@@ -11,7 +11,7 @@ const token = sessionStorage.getItem(config.tokenName) || '';
 
 
 const networkInterface = createNetworkInterface({
-    uri: httpUri // Your GraphQL endpoint
+  uri: httpUri, // Your GraphQL endpoint
 });
 
 networkInterface.use([{
@@ -21,29 +21,33 @@ networkInterface.use([{
     }
     req.options.headers.authorization = token ? `Bearer ${token}` : null;
     next();
-  }
+  },
 }]);
 
 // Create WebSocket client
 const wsClient = new SubscriptionClient(wsUri, {
-    reconnect: true,
-    connectionParams: {
-       jwt: token
-    }
+  reconnect: true,
+  connectionParams: {
+    jwt: token,
+  },
+});
+
+wsClient.onDisconnected(() => {
+  // notice user in UI?
 });
 
 // Extend the network interface with the WebSocket
 const networkInterfaceWithSubscriptions = addGraphQLSubscriptions(
     networkInterface,
-    wsClient
+    wsClient,
 );
 
 const client = new ApolloClient({
-    reduxRootSelector: state => state.apollo,
-    queryDeduplication: true,
-    networkInterface: networkInterfaceWithSubscriptions
+  reduxRootSelector: state => state.apollo,
+  queryDeduplication: true,
+  networkInterface: networkInterfaceWithSubscriptions,
 });
 
 export default function createApolloClient() {
-    return client;
+  return client;
 }

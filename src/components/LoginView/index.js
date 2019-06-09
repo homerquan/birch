@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import TextField from '@material-ui/core/TextField';
 import { ThemeProvider } from '@material-ui/styles';
-import { createMuiTheme } from '@material-ui/core/styles';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Button from '@material-ui/core/Button';
@@ -11,11 +10,12 @@ import theme from '../theme';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as sessionActions from '../../actions/session';
-import s from './style.css';
+import styles from './style.css';
 
 class LoginView extends React.Component {
   static propTypes = {
     title: PropTypes.string.isRequired,
+    actions: PropTypes.object.isRequired,
   };
 
   constructor(props) {
@@ -96,18 +96,14 @@ class LoginView extends React.Component {
   }
 }
 
-function selectProps(state) {
-  return {
-    session: state.session,
-  };
-}
+const selectProps = state => ({
+  session: state.session,
+});
 
-function mapDispatchToProps(dispatch) {
-  return {
-    actions: bindActionCreators(sessionActions, dispatch),
-  };
-}
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators(sessionActions, dispatch),
+});
 
-export default withStyles(s)(
+export default withStyles(styles)(
   connect(selectProps, mapDispatchToProps)(LoginView),
 );

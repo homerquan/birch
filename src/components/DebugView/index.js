@@ -6,10 +6,14 @@
 */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { graphql, compose, withApollo } from 'react-apollo';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import Button from '@material-ui/core/Button';
 import gql from 'graphql-tag';
+import * as globalNotificationActions from '../../actions/globalNotification';
 import s from './style.css';
 
 const testSubscription = gql`
@@ -19,9 +23,18 @@ const testSubscription = gql`
 `;
 
 class DebugView extends React.Component {
-  state = {
-    test: '',
-  };
+
+  static propTypes = {
+    runtime: PropTypes.object.isRequired,
+    actions: PropTypes.object.isRequired,
+    client: PropTypes.func.isRequired,
+  }
+
+  constructor(props) {
+    super(props);
+    this.state = { test: '' };
+    this.globalNotificationTestHandler = this.globalNotificationTestHandler.bind(this);
+  }
 
   async componentDidMount() {
     const that = this;
@@ -43,20 +56,32 @@ class DebugView extends React.Component {
     this.subscription.unsubscribe();
   }
 
+  globalNotificationTestHandler(event) {
+    event.preventDefault();
+    const test = { id: 123, type: 'general', text: 'test message', link: '/' };
+    this.props.actions.addGlobalNotification(test);
+  }
+
   render() {
     return (
       <div>
         <h2>Test GraphQL subscription</h2>
         <div>{this.state.test}</div>
+        <h2>General Functions</h2>
+        <Button variant="contained" color="primary" onClick={this.globalNotificationTestHandler}>
+          Test global notification
+        </Button>
       </div>
     );
   }
 }
 
-function selectProps(state) {
-  return {
-    session: state.session,
-  };
-}
+const selectProps = state => ({
+  session: state.session,
+});
 
-export default withStyles(s)(withApollo(connect(selectProps, null)(DebugView)));
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators(globalNotificationActions, dispatch),
+});
+
+export default withStyles(s)(withApollo(connect(selectProps, mapDispatchToProps)(DebugView)));

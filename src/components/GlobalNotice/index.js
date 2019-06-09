@@ -19,10 +19,7 @@ import IconButton from '@material-ui/core/IconButton';
 import {
  FiX as CloseIcon,
 } from 'react-icons/fi';
-import { white } from '@material-ui/core/colors';
 import { ThemeProvider } from '@material-ui/styles';
-import { createMuiTheme } from '@material-ui/core/styles';
-
 import { ignoreGlobalNotification } from '../../actions/globalNotification';
 import theme from '../theme';
 import s from './style.css';
@@ -50,6 +47,7 @@ class GlobalNotice extends React.Component {
         <div className={s.globalNotice} style={this.props.globalNotification ? {} : { display: 'none' }} >
           <span className={s.content}>{this.props.globalNotification ? this.props.globalNotification.text : ''}</span>
           <IconButton
+            color="inherit"
             className={s.noticeButton}
             onClick={this.handleClose}
           >

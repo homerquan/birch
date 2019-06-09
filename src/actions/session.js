@@ -15,6 +15,7 @@ export function loginUserSuccess(token, refreshToken, userId, userRole) {
       refreshToken,
       userId,
       userRole,
+      // add profile here
     },
   };
 }
