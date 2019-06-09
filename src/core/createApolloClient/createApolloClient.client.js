@@ -5,13 +5,10 @@ import {
 import ApolloClient, { createNetworkInterface } from 'apollo-client';
 import config from '../../config';
 
-const httpUri = config.clientUrl;
-const wsUri = config.clientSubscriptionUrl;
 const token = sessionStorage.getItem(config.tokenName) || '';
 
-
 const networkInterface = createNetworkInterface({
-  uri: httpUri, // Your GraphQL endpoint
+  uri: config.clientUrl, // Your GraphQL endpoint
 });
 
 networkInterface.use([{
@@ -25,7 +22,7 @@ networkInterface.use([{
 }]);
 
 // Create WebSocket client
-const wsClient = new SubscriptionClient(wsUri, {
+const wsClient = new SubscriptionClient(config.clientSubscriptionUrl, {
   reconnect: true,
   connectionParams: {
     token,

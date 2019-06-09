@@ -2,27 +2,23 @@ import {
     SubscriptionClient,
     addGraphQLSubscriptions,
 } from 'subscriptions-transport-ws';
+import ws from 'ws';
 import ApolloClient, { createNetworkInterface } from 'apollo-client';
 import config from '../../config';
-import ws from 'ws';
 
-const httpUri = config.clientUrl;
-const wsUri = config.clientSubscriptionUrl;
 
 const networkInterface = createNetworkInterface({
-  uri: httpUri, // Your GraphQL endpoint
+  uri: config.clientUrl, // Your GraphQL endpoint
 });
 
 // Create WebSocket client
 const wsClient = new SubscriptionClient(
-    wsUri,
+  config.clientSubscriptionUrl,
   {
     reconnect: true,
-    connectionParams: {
-            // Pass any arguments you want for initialization
-    },
+    connectionParams: {},
   },
-    ws,
+  ws,
 );
 
 // Extend the network interface with the WebSocket
