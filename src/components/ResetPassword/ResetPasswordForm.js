@@ -3,8 +3,6 @@ import { Field, propTypes } from 'redux-form';
 import { Button } from '@material-ui/core/Button';
 import styled from 'styled-components';
 
-import { FormGroup } from '../styled/Forms';
-
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -16,29 +14,7 @@ const ResetPasswordForm = ({ handleSubmit, pristine, submitting, submit }) => (
     <h2>Reset Password</h2>
     <p>Enter your new password below:</p>
     <form onSubmit={handleSubmit(submit)}>
-      <FormGroup>
-        <Field
-          name="password"
-          hintText="Password"
-          type="password"
-          component={RenderTextInput}
-        />
-      </FormGroup>
-      <FormGroup>
-        <Field
-          name="confirmPassword"
-          hintText="Confirm Password"
-          type="password"
-        />
-      </FormGroup>
-      <FormGroup>
-        <Button variant="contained"
-          type="submit"
-          label="Submit"
-          primary
-          disabled={pristine || submitting}
-        />
-      </FormGroup>
+      
     </form>
   </Container>
 );

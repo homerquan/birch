@@ -25,6 +25,7 @@ import theme from '../theme';
 import Loader from '../Loader';
 import GlobalNotice from '../GlobalNotice';
 import GlobalSearch from '../GlobalSearch';
+import SubscriptionVirtual from '../SubscriptionVirtual';
 import Messages from './Messages';
 import Notifications from './Notifications';
 import { openConsole, closeConsole } from '../../actions/console';
@@ -120,7 +121,7 @@ class Header extends React.Component {
           />
           <SnackBarAlerts alerts={this.props.snackBarNotifications} />
           {/* <Sticky onStateChange={this.handleStickyChange} innerZ={100}> */}
-
+          <SubscriptionVirtual />
           <AppBar color="default" position="static">
             <Toolbar>
               <IconButton className={classes.drawerSwitch} edge="start" color="inherit" onClick={this.handleToggleButtonClick}>

@@ -12,15 +12,10 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import Button from '@material-ui/core/Button';
-import gql from 'graphql-tag';
 import * as globalNotificationActions from '../../actions/globalNotification';
 import s from './style.css';
+import { testSubscribe } from './graphql';
 
-const testSubscription = gql`
-  subscription {
-    test
-  }
-`;
 
 class DebugView extends React.Component {
 
@@ -39,7 +34,7 @@ class DebugView extends React.Component {
   async componentDidMount() {
     const that = this;
     this.subscription = this.props.client.subscribe({
-      query: testSubscription,
+      query: testSubscribe,
       variables: {},
     }).subscribe({
       next(data) {

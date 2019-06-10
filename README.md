@@ -16,7 +16,6 @@ Prod: `npm start`
 * npm i .
 * graphql-faker ./console-api-mock.grqphql -p 8084
 	* Mock reference https://github.com/APIs-guru/graphql-faker/blob/master/src/fake_definition.graphql
-* node faker.js
 * Edit mock graphql api `http://localhost:8084/editor/`
 
 ## Name Conversions
@@ -161,6 +160,10 @@ BIRCH.SIMULATE('SET_RUNTIME_VARIABLE',{
     })
 
 ```
+
+## GraphQL subscription
+
+* Using the SubscriptionVirtual component for centralized process
 
 
 ## Note
